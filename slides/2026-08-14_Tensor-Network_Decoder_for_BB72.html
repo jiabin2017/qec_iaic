@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tensor-Network Decoder for BB72</title>
+<script>
+window.MathJax = {
+  tex: {inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']]},
+  svg: {fontCache: 'global'}
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+  :root {
+    --text: #1f2937;
+    --muted: #6b7280;
+    --border: #d1d5db;
+    --soft: #f8fafc;
+    --accent: #1d4ed8;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 48px 28px 80px;
+    line-height: 1.72;
+    color: var(--text);
+    background: white;
+  }
+  h1, h2, h3 { line-height: 1.25; }
+  h1 { font-size: 2.25rem; margin-bottom: 0.4rem; }
+  h2 {
+    font-size: 1.55rem;
+    margin-top: 2.4rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 { font-size: 1.15rem; margin-top: 1.6rem; }
+  p { margin: 0.75rem 0; }
+  .subtitle { color: var(--muted); font-size: 1.05rem; margin-bottom: 2rem; }
+  .note {
+    background: var(--soft);
+    border-left: 4px solid var(--accent);
+    padding: 14px 18px;
+    margin: 1.2rem 0;
+  }
+  .flow {
+    background: #fbfbfb;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 1rem 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: var(--soft); }
+  code {
+    background: #f3f4f6;
+    padding: 0.1rem 0.25rem;
+    border-radius: 4px;
+  }
+  .summary {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-top: 2rem;
+  }
+  figure {
+    margin: 1.5rem 0 2rem;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #ffffff;
+    overflow-x: auto;
+  }
+  figcaption {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .small { font-size: 0.93rem; color: var(--muted); }
+</style>
+</head>
+
+<body>
+<h1>Tensor-Network Decoder for BB72</h1>
+<div class="subtitle">
+From the BB72 code layout to syndrome processing, logical cosets, tensor-network contraction, logical posteriors, and correction.
+</div>
+
+<div class="note">
+<b>Scope.</b> We begin with the setting: the BB72 code under code-capacity noise, with independent \(X\) errors and perfect syndrome measurements. This is the simplest setting in which the logical-coset tensor-network decoder can be understood and implemented correctly. Extensions to full Pauli noise, depolarizing noise, correlated noise, and circuit-level noise can be added later.
+</div>
+
+<h2>1. What is the decoding problem?</h2>
+
+<p>
+Suppose an unknown physical \(X\)-error pattern \(e\in\mathbb F_2^{72}\) occurs on the BB72 data qubits. The measured \(Z\)-syndrome is
+</p>
+
+\[
+s = H_Z e^T.
+\]
+
+<p>
+The decoder receives \(s\), not the true error \(e\). Its task is not necessarily to reconstruct the exact physical error pattern. Instead, it must determine which <em>logical equivalence class</em> contains the true error.
+</p>
+
+<h3>Why do we sum the probability of an entire logical coset?</h3>
+
+<p>
+Choose any one error \(e_0\) that produces the measured syndrome,
+</p>
+
+\[
+H_Ze_0^T=s.
+\]
+
+<p>
+Errors with the same syndrome can differ in two qualitatively different ways. First, they may differ by a logical operator \(\lambda L_X\). This changes their logical action. Second, they may differ by an \(X\)-stabilizer \(g\in\mathcal S_X\). Multiplying by a stabilizer does <em>not</em> change the encoded logical state, because every stabilizer acts as the identity on the code space:
+</p>
+
+\[
+g|\psi_L\rangle=|\psi_L\rangle.
+\]
+
+<p>
+Therefore, for a fixed logical label \(\lambda\), the physical errors
+</p>
+
+\[
+e_0+\lambda L_X,
+\qquad
+e_0+\lambda L_X+g_1,
+\qquad
+e_0+\lambda L_X+g_2,
+\qquad \ldots
+\]
+
+<p>
+all have the same logical effect. A decoder that applies a correction from this same equivalence class succeeds for all of them. Hence the decoder should not compare only one representative error; it should compare the <em>total probability mass</em> of all physically different errors that are logically equivalent.
+</p>
+
+<div class="note">
+<b>Important precision.</b> \(e_0+\lambda L_X+g\) has the same logical effect as \(e_0+\lambda L_X\), not necessarily as \(e_0\). It has the same effect as \(e_0\) only when \(\lambda=0\). The stabilizer \(g\) is logically invisible; the logical operator \(\lambda L_X\) is not.
+</div>
+
+<p>
+Because the physical error patterns in one logical coset are mutually exclusive noise events, their probabilities add. This gives the central quantity
+</p>
+
+\[
+\boxed{
+Z_{\lambda}(s)
+=
+\sum_{g\in\mathcal S_X}
+P\!\left(e_0+\lambda L_X+g\right).
+}
+\]
+
+<p>
+Thus \(Z_\lambda(s)\) is the probability mass of the entire logical sector \(\lambda\), restricted to the measured syndrome \(s\). The maximum-likelihood logical decoder chooses
+</p>
+
+\[
+\lambda^\star
+=
+\arg\max_{\lambda} Z_{\lambda}(s).
+\]
+
+<h2>2. The BB72 code</h2>
+
+<p>
+The standard BB72 bivariate bicycle code has parameters
+</p>
+
+\[
+[[72,12,6]],
+\]
+
+<p>
+with
+</p>
+
+\[
+\ell=m=6.
+\]
+
+<p>
+Define the two \(36\times36\) binary matrices
+</p>
+
+\[
+A=x^3+y+y^2,
+\qquad
+B=y^3+x+x^2,
+\]
+
+<p>
+where \(x\) and \(y\) are cyclic shift operators on the two periodic directions. The CSS parity-check matrices are
+</p>
+
+\[
+H_X=[A\mid B],
+\qquad
+H_Z=[B^T\mid A^T].
+\]
+
+<p>
+Both have shape
+</p>
+
+\[
+36\times72.
+\]
+
+<p>
+The 72 physical qubits are naturally divided into two sets of 36:
+</p>
+
+\[
+L_{a,b},
+\qquad
+R_{a,b},
+\qquad
+a,b\in\mathbb Z_6.
+\]
+
+<p>
+A convenient indexing convention is
+</p>
+
+\[
+i_L(a,b)=6a+b,
+\]
+
+\[
+i_R(a,b)=36+6a+b.
+\]
+
+<p>
+Every \(X\)-check and every \(Z\)-check has weight 6. Every physical qubit participates in three \(X\)-checks and three \(Z\)-checks. The two \(6\times6\) qubit arrays are periodic: the coordinate arithmetic below is always modulo 6.
+</p>
+
+<figure>
+<svg viewBox="0 0 940 440" width="100%" role="img" aria-label="BB72 physical-qubit layout and representative stabilizer supports">
+<rect x="0" y="0" width="940" height="440" fill="white"/>
+<text x="235.0" y="42" text-anchor="middle" font-size="20" font-weight="600">L qubits: 6×6 torus</text>
+<line x1="130" y1="105" x2="340" y2="105" stroke="#d1d5db" stroke-width="1"/>
+<line x1="130" y1="147" x2="340" y2="147" stroke="#d1d5db" stroke-width="1"/>
+<line x1="130" y1="189" x2="340" y2="189" stroke="#d1d5db" stroke-width="1"/>
+<line x1="130" y1="231" x2="340" y2="231" stroke="#d1d5db" stroke-width="1"/>
+<line x1="130" y1="273" x2="340" y2="273" stroke="#d1d5db" stroke-width="1"/>
+<line x1="130" y1="315" x2="340" y2="315" stroke="#d1d5db" stroke-width="1"/>
+<line x1="130" y1="105" x2="130" y2="315" stroke="#d1d5db" stroke-width="1"/>
+<line x1="172" y1="105" x2="172" y2="315" stroke="#d1d5db" stroke-width="1"/>
+<line x1="214" y1="105" x2="214" y2="315" stroke="#d1d5db" stroke-width="1"/>
+<line x1="256" y1="105" x2="256" y2="315" stroke="#d1d5db" stroke-width="1"/>
+<line x1="298" y1="105" x2="298" y2="315" stroke="#d1d5db" stroke-width="1"/>
+<line x1="340" y1="105" x2="340" y2="315" stroke="#d1d5db" stroke-width="1"/>
+<text x="130" y="87" text-anchor="middle" font-size="12" fill="#6b7280">b=0</text>
+<text x="172" y="87" text-anchor="middle" font-size="12" fill="#6b7280">b=1</text>
+<text x="214" y="87" text-anchor="middle" font-size="12" fill="#6b7280">b=2</text>
+<text x="256" y="87" text-anchor="middle" font-size="12" fill="#6b7280">b=3</text>
+<text x="298" y="87" text-anchor="middle" font-size="12" fill="#6b7280">b=4</text>
+<text x="340" y="87" text-anchor="middle" font-size="12" fill="#6b7280">b=5</text>
+<text x="102" y="109" text-anchor="middle" font-size="12" fill="#6b7280">a=0</text>
+<text x="102" y="151" text-anchor="middle" font-size="12" fill="#6b7280">a=1</text>
+<text x="102" y="193" text-anchor="middle" font-size="12" fill="#6b7280">a=2</text>
+<text x="102" y="235" text-anchor="middle" font-size="12" fill="#6b7280">a=3</text>
+<text x="102" y="277" text-anchor="middle" font-size="12" fill="#6b7280">a=4</text>
+<text x="102" y="319" text-anchor="middle" font-size="12" fill="#6b7280">a=5</text>
+<circle cx="130" cy="105" r="4.2" fill="#374151"/>
+<circle cx="172" cy="105" r="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+<circle cx="214" cy="105" r="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+<rect x="248" y="97" width="16" height="16" rx="2" fill="#f59e0b" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="298" cy="105" r="4.2" fill="#374151"/>
+<circle cx="340" cy="105" r="4.2" fill="#374151"/>
+<circle cx="130" cy="147" r="4.2" fill="#374151"/>
+<circle cx="172" cy="147" r="4.2" fill="#374151"/>
+<circle cx="214" cy="147" r="4.2" fill="#374151"/>
+<circle cx="256" cy="147" r="4.2" fill="#374151"/>
+<circle cx="298" cy="147" r="4.2" fill="#374151"/>
+<circle cx="340" cy="147" r="4.2" fill="#374151"/>
+<circle cx="130" cy="189" r="4.2" fill="#374151"/>
+<circle cx="172" cy="189" r="4.2" fill="#374151"/>
+<circle cx="214" cy="189" r="4.2" fill="#374151"/>
+<circle cx="256" cy="189" r="4.2" fill="#374151"/>
+<circle cx="298" cy="189" r="4.2" fill="#374151"/>
+<circle cx="340" cy="189" r="4.2" fill="#374151"/>
+<circle cx="130" cy="231" r="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+<circle cx="172" cy="231" r="4.2" fill="#374151"/>
+<circle cx="214" cy="231" r="4.2" fill="#374151"/>
+<circle cx="256" cy="231" r="4.2" fill="#374151"/>
+<circle cx="298" cy="231" r="4.2" fill="#374151"/>
+<circle cx="340" cy="231" r="4.2" fill="#374151"/>
+<rect x="122" y="265" width="16" height="16" rx="2" fill="#f59e0b" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="172" cy="273" r="4.2" fill="#374151"/>
+<circle cx="214" cy="273" r="4.2" fill="#374151"/>
+<circle cx="256" cy="273" r="4.2" fill="#374151"/>
+<circle cx="298" cy="273" r="4.2" fill="#374151"/>
+<circle cx="340" cy="273" r="4.2" fill="#374151"/>
+<rect x="122" y="307" width="16" height="16" rx="2" fill="#f59e0b" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="172" cy="315" r="4.2" fill="#374151"/>
+<circle cx="214" cy="315" r="4.2" fill="#374151"/>
+<circle cx="256" cy="315" r="4.2" fill="#374151"/>
+<circle cx="298" cy="315" r="4.2" fill="#374151"/>
+<circle cx="340" cy="315" r="4.2" fill="#374151"/>
+<text x="685.0" y="42" text-anchor="middle" font-size="20" font-weight="600">R qubits: 6×6 torus</text>
+<line x1="580" y1="105" x2="790" y2="105" stroke="#d1d5db" stroke-width="1"/>
+<line x1="580" y1="147" x2="790" y2="147" stroke="#d1d5db" stroke-width="1"/>
+<line x1="580" y1="189" x2="790" y2="189" stroke="#d1d5db" stroke-width="1"/>
+<line x1="580" y1="231" x2="790" y2="231" stroke="#d1d5db" stroke-width="1"/>
+<line x1="580" y1="273" x2="790" y2="273" stroke="#d1d5db" stroke-width="1"/>
+<line x1="580" y1="315" x2="790" y2="315" stroke="#d1d5db" stroke-width="1"/>
+<line x1="580" y1="105" x2="580" y2="315" stroke="#d1d5db" stroke-width="1"/>
+<line x1="622" y1="105" x2="622" y2="315" stroke="#d1d5db" stroke-width="1"/>
+<line x1="664" y1="105" x2="664" y2="315" stroke="#d1d5db" stroke-width="1"/>
+<line x1="706" y1="105" x2="706" y2="315" stroke="#d1d5db" stroke-width="1"/>
+<line x1="748" y1="105" x2="748" y2="315" stroke="#d1d5db" stroke-width="1"/>
+<line x1="790" y1="105" x2="790" y2="315" stroke="#d1d5db" stroke-width="1"/>
+<text x="580" y="87" text-anchor="middle" font-size="12" fill="#6b7280">b=0</text>
+<text x="622" y="87" text-anchor="middle" font-size="12" fill="#6b7280">b=1</text>
+<text x="664" y="87" text-anchor="middle" font-size="12" fill="#6b7280">b=2</text>
+<text x="706" y="87" text-anchor="middle" font-size="12" fill="#6b7280">b=3</text>
+<text x="748" y="87" text-anchor="middle" font-size="12" fill="#6b7280">b=4</text>
+<text x="790" y="87" text-anchor="middle" font-size="12" fill="#6b7280">b=5</text>
+<text x="552" y="109" text-anchor="middle" font-size="12" fill="#6b7280">a=0</text>
+<text x="552" y="151" text-anchor="middle" font-size="12" fill="#6b7280">a=1</text>
+<text x="552" y="193" text-anchor="middle" font-size="12" fill="#6b7280">a=2</text>
+<text x="552" y="235" text-anchor="middle" font-size="12" fill="#6b7280">a=3</text>
+<text x="552" y="277" text-anchor="middle" font-size="12" fill="#6b7280">a=4</text>
+<text x="552" y="319" text-anchor="middle" font-size="12" fill="#6b7280">a=5</text>
+<circle cx="580" cy="105" r="4.2" fill="#374151"/>
+<circle cx="622" cy="105" r="4.2" fill="#374151"/>
+<circle cx="664" cy="105" r="4.2" fill="#374151"/>
+<circle cx="706" cy="105" r="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+<rect x="740" y="97" width="16" height="16" rx="2" fill="#f59e0b" stroke="#92400e" stroke-width="1.5"/>
+<rect x="782" y="97" width="16" height="16" rx="2" fill="#f59e0b" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="580" cy="147" r="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+<circle cx="622" cy="147" r="4.2" fill="#374151"/>
+<circle cx="664" cy="147" r="4.2" fill="#374151"/>
+<circle cx="706" cy="147" r="4.2" fill="#374151"/>
+<circle cx="748" cy="147" r="4.2" fill="#374151"/>
+<circle cx="790" cy="147" r="4.2" fill="#374151"/>
+<circle cx="580" cy="189" r="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+<circle cx="622" cy="189" r="4.2" fill="#374151"/>
+<circle cx="664" cy="189" r="4.2" fill="#374151"/>
+<circle cx="706" cy="189" r="4.2" fill="#374151"/>
+<circle cx="748" cy="189" r="4.2" fill="#374151"/>
+<circle cx="790" cy="189" r="4.2" fill="#374151"/>
+<rect x="572" y="223" width="16" height="16" rx="2" fill="#f59e0b" stroke="#92400e" stroke-width="1.5"/>
+<circle cx="622" cy="231" r="4.2" fill="#374151"/>
+<circle cx="664" cy="231" r="4.2" fill="#374151"/>
+<circle cx="706" cy="231" r="4.2" fill="#374151"/>
+<circle cx="748" cy="231" r="4.2" fill="#374151"/>
+<circle cx="790" cy="231" r="4.2" fill="#374151"/>
+<circle cx="580" cy="273" r="4.2" fill="#374151"/>
+<circle cx="622" cy="273" r="4.2" fill="#374151"/>
+<circle cx="664" cy="273" r="4.2" fill="#374151"/>
+<circle cx="706" cy="273" r="4.2" fill="#374151"/>
+<circle cx="748" cy="273" r="4.2" fill="#374151"/>
+<circle cx="790" cy="273" r="4.2" fill="#374151"/>
+<circle cx="580" cy="315" r="4.2" fill="#374151"/>
+<circle cx="622" cy="315" r="4.2" fill="#374151"/>
+<circle cx="664" cy="315" r="4.2" fill="#374151"/>
+<circle cx="706" cy="315" r="4.2" fill="#374151"/>
+<circle cx="748" cy="315" r="4.2" fill="#374151"/>
+<circle cx="790" cy="315" r="4.2" fill="#374151"/>
+<circle cx="260" cy="385" r="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2.5"/>
+<text x="278" y="390" font-size="14">support of representative X-check Sˣ(0,0)</text>
+<rect x="585" y="377" width="16" height="16" rx="2" fill="#f59e0b" stroke="#92400e" stroke-width="1.5"/>
+<text x="610" y="390" font-size="14">support of representative Z-check Sᶻ(0,0)</text>
+<text x="470" y="425" text-anchor="middle" font-size="13" fill="#6b7280">All coordinates are modulo 6; opposite boundaries are identified.</text>
+</svg>
+<figcaption>
+<b>Figure 1.</b> BB72 contains two \(6\times6\) periodic arrays of physical qubits, \(L_{a,b}\) and \(R_{a,b}\). The highlighted sites show the support of one representative \(X\)-check, \(S^X_{0,0}\), and one representative \(Z\)-check, \(S^Z_{0,0}\). Translating \((a,b)\) over \(\mathbb Z_6\times\mathbb Z_6\) generates all 36 checks of each type.
+</figcaption>
+</figure>
+
+<h2>3. From a physical error to a syndrome</h2>
+
+<h3>3.1 Which qubits are connected to each stabilizer check?</h3>
+
+<p>
+With the indexing convention used in this document, the 36 \(X\)-checks are generated by translating
+</p>
+
+\[
+\boxed{
+S^X_{a,b}
+=
+X_{L_{a+3,b}}
+X_{L_{a,b+1}}
+X_{L_{a,b+2}}
+X_{R_{a,b+3}}
+X_{R_{a+1,b}}
+X_{R_{a+2,b}},
+}
+\]
+
+<p>
+and the 36 \(Z\)-checks are generated by
+</p>
+
+\[
+\boxed{
+S^Z_{a,b}
+=
+Z_{L_{a,b+3}}
+Z_{L_{a-2,b}}
+Z_{L_{a-1,b}}
+Z_{R_{a+3,b}}
+Z_{R_{a,b-2}}
+Z_{R_{a,b-1}}.
+}
+\]
+
+<p>
+All indices are understood modulo 6. Therefore these two formulas explicitly specify every stabilizer-to-qubit connection in BB72.
+</p>
+
+<p>
+For example,
+</p>
+
+\[
+S^X_{0,0}
+=
+X_{L_{3,0}}
+X_{L_{0,1}}
+X_{L_{0,2}}
+X_{R_{0,3}}
+X_{R_{1,0}}
+X_{R_{2,0}},
+\]
+
+<p>
+whereas
+</p>
+
+\[
+S^Z_{0,0}
+=
+Z_{L_{0,3}}
+Z_{L_{4,0}}
+Z_{L_{5,0}}
+Z_{R_{3,0}}
+Z_{R_{0,4}}
+Z_{R_{0,5}}.
+\]
+
+<h3>3.2 Example: one physical \(X\) error</h3>
+
+<p>
+Assume, for testing purposes, that the true physical error is an \(X\) error on a single qubit, for example \(L_{0,0}\). In binary form, \(e_{\rm true}\) is a 72-bit vector with a single 1.
+</p>
+
+<p>
+The measured syndrome is
+</p>
+
+\[
+s=H_Z e_{\rm true}^T.
+\]
+
+<p>
+Because only one entry of \(e_{\rm true}\) is nonzero, \(s\) is simply the \(L_{0,0}\) column of \(H_Z\).
+</p>
+
+<p>
+From the general \(Z\)-check formula above, \(L_{0,0}\) belongs to exactly three \(Z\)-checks:
+</p>
+
+\[
+S^Z_{0,3},
+\qquad
+S^Z_{1,0},
+\qquad
+S^Z_{2,0}.
+\]
+
+<p>
+Therefore an \(X\) error on \(L_{0,0}\) anticommutes with exactly those three \(Z\)-stabilizers and flips exactly those three syndrome bits. In the row ordering \(6a+b\), the nonzero syndrome positions are
+</p>
+
+\[
+3,\qquad 6,\qquad 12.
+\]
+
+<div class="note">
+The decoder does not know that the true error was \(X_{L_{0,0}}\). It receives only the syndrome \(s\). The example is used only to verify that the algebra and the check connectivity are consistent.
+</div>
+
+<h2>4. Find one representative error \(e_0\)</h2>
+
+<p>
+Given \(s\), the first algebraic step is to find any binary vector \(e_0\) satisfying
+</p>
+
+\[
+H_Z e_0^T=s.
+\]
+
+<p>
+This can be obtained by Gaussian elimination over \(\mathbb F_2\).
+</p>
+
+<p>
+The representative \(e_0\) does not need to be the true error and does not need to be the most likely error. It is simply one point in the affine space of all error patterns consistent with the measured syndrome.
+</p>
+
+<p>
+Every error with the same syndrome can be written relative to this starting point.
+</p>
+
+<h2>5. Why logical \(X\) operators live in \(\ker H_Z\)</h2>
+
+<p>
+An \(X\)-type binary vector \(v\) produces the \(Z\)-syndrome
+</p>
+
+\[
+H_Zv^T.
+\]
+
+<p>
+Why must a logical \(X\) produce zero syndrome? The reason is that a logical operator must map the code space back into the code space.
+</p>
+
+<h3>5.1 Code-space argument</h3>
+
+<p>
+Let \(S_a^Z\) be one \(Z\)-stabilizer. Every encoded state \(|\psi_L\rangle\) satisfies
+</p>
+
+\[
+S_a^Z|\psi_L\rangle=|\psi_L\rangle.
+\]
+
+<p>
+If \(\overline X\) is a genuine logical \(X\) operator, then the state
+</p>
+
+\[
+\overline X|\psi_L\rangle
+\]
+
+<p>
+must still lie in the code space. It must therefore also satisfy
+</p>
+
+\[
+S_a^Z\overline X|\psi_L\rangle
+=
+\overline X|\psi_L\rangle.
+\]
+
+<p>
+This is guaranteed when
+</p>
+
+\[
+S_a^Z\overline X
+=
+\overline X S_a^Z.
+\]
+
+<p>
+Indeed,
+</p>
+
+\[
+S_a^Z\overline X|\psi_L\rangle
+=
+\overline X S_a^Z|\psi_L\rangle
+=
+\overline X|\psi_L\rangle.
+\]
+
+<p>
+If \(S_a^Z\) and \(\overline X\) anticommute instead, then
+</p>
+
+\[
+S_a^Z\overline X|\psi_L\rangle
+=
+-\overline X|\psi_L\rangle,
+\]
+
+<p>
+so the stabilizer eigenvalue changes from \(+1\) to \(-1\). That is precisely a nonzero syndrome, and the state has left the code space.
+</p>
+
+<h3>5.2 Binary commutation condition</h3>
+
+<p>
+Write the support of \(S_a^Z\) as a binary row vector \(h_a\), and the support of the \(X\)-type operator as \(L\). Every position on which both vectors contain a 1 contributes one \(ZX=-XZ\) anticommutation sign. Hence
+</p>
+
+\[
+S_a^Z\overline X
+=
+(-1)^{h_aL^T}
+\overline X S_a^Z,
+\]
+
+<p>
+where \(h_aL^T\) is evaluated modulo 2. Therefore
+</p>
+
+\[
+S_a^Z\overline X
+=
+\overline X S_a^Z
+\quad\Longleftrightarrow\quad
+h_aL^T=0\pmod2.
+\]
+
+<p>
+Demanding this for every row \(h_a\) of \(H_Z\) gives
+</p>
+
+\[
+\boxed{
+H_ZL^T=0.
+}
+\]
+
+<p>
+Thus every logical \(X\) representative lies in
+</p>
+
+\[
+\boxed{
+\ker H_Z
+=
+\{v\in\mathbb F_2^{72}:H_Zv^T=0\}.
+}
+\]
+
+<h3>5.3 Why \(\ker H_Z\) is larger than the logical-\(X\) space</h3>
+
+<p>
+The kernel also contains all \(X\)-stabilizers. The CSS commutation condition
+</p>
+
+\[
+H_ZH_X^T=0
+\]
+
+<p>
+means that every row of \(H_X\) belongs to \(\ker H_Z\). These rows act trivially on the code space and therefore do not represent nontrivial logical operations.
+</p>
+
+<p>
+Consequently the true logical-\(X\) space is the quotient
+</p>
+
+\[
+\boxed{
+\ker H_Z/\operatorname{row}(H_X).
+}
+\]
+
+<p>
+For BB72,
+</p>
+
+\[
+\operatorname{rank}(H_Z)=30,
+\qquad
+\dim\ker H_Z=72-30=42,
+\]
+
+<p>
+and
+</p>
+
+\[
+\operatorname{rank}(H_X)=30.
+\]
+
+<p>
+Therefore
+</p>
+
+\[
+\dim\!\left(
+\ker H_Z/\operatorname{row}(H_X)
+\right)
+=
+42-30
+=
+12,
+\]
+
+<p>
+which is exactly the number \(k=12\) of encoded logical qubits.
+</p>
+
+<h2>6. Construct a logical-\(X\) basis</h2>
+
+<p>
+Choose 12 independent representatives of
+</p>
+
+\[
+\ker H_Z/\operatorname{row}(H_X),
+\]
+
+<p>
+and arrange them as the rows of
+</p>
+
+\[
+L_X\in\mathbb F_2^{12\times72}.
+\]
+
+<p>
+A useful feature of BB72 is that, with the cyclic-shift and qubit-index convention used in this document, one can choose a complete logical-\(X\) basis in which <b>all 12 representatives have weight 6</b>. One convenient choice is listed below. The table gives the physical qubits on which each logical operator applies \(X\); all unlisted qubits carry \(I\).
+</p>
+
+<table>
+<thead>
+<tr>
+<th>Logical operator</th>
+<th>Physical support</th>
+<th>Weight</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>\(\overline X_1\)</td><td>\(L_{0,0},L_{0,3},L_{1,0},L_{2,0},L_{4,3},L_{5,0}\)</td><td>6</td></tr>
+<tr><td>\(\overline X_2\)</td><td>\(L_{0,0},L_{0,3},L_{1,3},L_{2,3},L_{4,0},L_{5,3}\)</td><td>6</td></tr>
+<tr><td>\(\overline X_3\)</td><td>\(L_{0,0},L_{1,0},L_{1,3},L_{2,0},L_{3,0},L_{5,3}\)</td><td>6</td></tr>
+<tr><td>\(\overline X_4\)</td><td>\(L_{0,0},L_{1,0},L_{3,3},L_{4,0},L_{5,0},L_{5,3}\)</td><td>6</td></tr>
+<tr><td>\(\overline X_5\)</td><td>\(L_{0,0},L_{2,2},L_{4,4},R_{0,2},R_{2,4},R_{4,0}\)</td><td>6</td></tr>
+<tr><td>\(\overline X_6\)</td><td>\(L_{0,1},L_{0,4},L_{1,1},L_{2,1},L_{4,4},L_{5,1}\)</td><td>6</td></tr>
+<tr><td>\(\overline X_7\)</td><td>\(L_{0,1},L_{1,1},L_{1,4},L_{2,1},L_{3,1},L_{5,4}\)</td><td>6</td></tr>
+<tr><td>\(\overline X_8\)</td><td>\(L_{0,1},L_{2,3},L_{4,5},R_{0,3},R_{2,5},R_{4,1}\)</td><td>6</td></tr>
+<tr><td>\(\overline X_9\)</td><td>\(L_{0,2},L_{2,4},L_{4,0},R_{0,4},R_{2,0},R_{4,2}\)</td><td>6</td></tr>
+<tr><td>\(\overline X_{10}\)</td><td>\(L_{0,3},L_{2,5},L_{4,1},R_{0,5},R_{2,1},R_{4,3}\)</td><td>6</td></tr>
+<tr><td>\(\overline X_{11}\)</td><td>\(R_{0,0},R_{0,1},R_{0,2},R_{0,3},R_{3,1},R_{3,5}\)</td><td>6</td></tr>
+<tr><td>\(\overline X_{12}\)</td><td>\(R_{0,0},R_{0,1},R_{0,2},R_{0,5},R_{3,0},R_{3,4}\)</td><td>6</td></tr>
+</tbody>
+</table>
+
+<p>
+For example,
+</p>
+
+\[
+\overline X_1
+=
+X_{L_{0,0}}
+X_{L_{0,3}}
+X_{L_{1,0}}
+X_{L_{2,0}}
+X_{L_{4,3}}
+X_{L_{5,0}}.
+\]
+
+<p>
+This basis is chosen so that every row satisfies
+</p>
+
+\[
+H_Z\overline X_j^T=0,
+\]
+
+<p>
+and the 12 rows are independent modulo the \(X\)-stabilizer row space:
+</p>
+
+\[
+\operatorname{rank}
+\begin{pmatrix}
+H_X\\
+L_X
+\end{pmatrix}
+=
+30+12
+=
+42
+=
+\dim\ker H_Z.
+\]
+
+<div class="note">
+<b>The logical basis is not unique.</b> Multiplying any \(\overline X_j\) by an \(X\)-stabilizer changes its physical support but not its logical action. Likewise, one may choose a different set of 12 independent quotient representatives. The weight-6 basis above is one convenient choice for the present indexing convention; it is not a unique or canonical logical basis.
+</div>
+
+<p>
+If one later needs canonical pairs \((\overline X_j,\overline Z_j)\) for individually named logical qubits, the \(X\)- and \(Z\)-logical bases can be symplectically paired. For computing the \(2^{12}\) logical-coset probabilities, however, any valid independent quotient basis is sufficient.
+</p>
+
+<h2>7. Label the logical sectors by \(\lambda\)</h2>
+
+<p>
+Introduce a 12-bit logical label
+</p>
+
+\[
+\lambda=(\lambda_1,\ldots,\lambda_{12})
+\in\mathbb F_2^{12}.
+\]
+
+<p>
+The binary vector
+</p>
+
+\[
+\lambda L_X
+=
+\lambda_1\overline X_1
++\cdots+
+\lambda_{12}\overline X_{12}
+\]
+
+<p>
+specifies which logical \(X\) operators are included.
+</p>
+
+<p>
+Since there are 12 independent logical bits, there are
+</p>
+
+\[
+2^{12}=4096
+\]
+
+<p>
+logical \(X\) sectors.
+</p>
+
+<p>
+For a chosen \(\lambda\), define the sector representative
+</p>
+
+\[
+b^{(\lambda)}
+=
+e_0+\lambda L_X.
+\]
+
+<p>
+Because every row of \(L_X\) lies in \(\ker H_Z\),
+</p>
+
+\[
+H_Z b^{(\lambda)T}
+=
+H_Ze_0^T
++
+H_Z(\lambda L_X)^T
+=
+s.
+\]
+
+<p>
+Thus every \(b^{(\lambda)}\) has exactly the measured syndrome \(s\).
+</p>
+
+<h2>8. Generate all stabilizer-equivalent errors in one logical sector</h2>
+
+<p>
+The \(X\)-stabilizer group is generated by the rows of \(H_X\).
+</p>
+
+<p>
+Introduce 36 binary generator variables
+</p>
+
+\[
+u=(u_1,\ldots,u_{36})
+\in\mathbb F_2^{36}.
+\]
+
+<p>
+The vector
+</p>
+
+\[
+uH_X
+\]
+
+<p>
+represents the product of the selected \(X\)-stabilizer generators.
+</p>
+
+<p>
+Therefore every physical error in logical sector \(\lambda\) can be written as
+</p>
+
+\[
+\boxed{
+e(u,\lambda)
+=
+e_0+\lambda L_X+uH_X.
+}
+\]
+
+<p>
+Equivalently,
+</p>
+
+\[
+e(u,\lambda)
+=
+b^{(\lambda)}+uH_X.
+\]
+
+<p>
+For fixed \(\lambda\), varying \(u\) moves around inside the same logical coset. Varying \(\lambda\) moves between different logical cosets.
+</p>
+
+<h2>9. Why the 36 stabilizer variables overcount by a factor of 64</h2>
+
+<p>
+Although \(H_X\) has 36 rows, only 30 are independent:
+</p>
+
+\[
+\operatorname{rank}(H_X)=30.
+\]
+
+<p>
+Therefore the linear map
+</p>
+
+\[
+u\mapsto uH_X
+\]
+
+<p>
+has a 6-dimensional kernel:
+</p>
+
+\[
+\dim\ker(u\mapsto uH_X)
+=
+36-30=6.
+\]
+
+<p>
+Hence every actual stabilizer is represented by
+</p>
+
+\[
+2^6=64
+\]
+
+<p>
+different choices of \(u\).
+</p>
+
+<p>
+If we keep all 36 generator variables in the tensor network, the exact coset probability is therefore
+</p>
+
+\[
+\boxed{
+Z_{\lambda}(s)
+=
+\frac{1}{2^6}
+\sum_{u\in\mathbb F_2^{36}}
+P\!\left(b^{(\lambda)}+uH_X\right).
+}
+\]
+
+<p>
+The factor \(2^{-6}\) is unnecessary if one only compares different logical sectors, because it is common to all \(\lambda\). It is needed only when one wants the absolute coset probability itself.
+</p>
+
+<h2>10. Independent \(X\)-noise factorizes over qubits</h2>
+
+<p>
+Assume independent \(X\)-noise with physical error probability \(p_i\) on qubit \(i\). Then
+</p>
+
+\[
+P(e)
+=
+\prod_{i=1}^{72}P_i(e_i),
+\]
+
+<p>
+where
+</p>
+
+\[
+P_i(0)=1-p_i,
+\qquad
+P_i(1)=p_i.
+\]
+
+<p>
+For uniform noise, \(p_i=p\) for all qubits.
+</p>
+
+<p>
+The key observation is that each physical qubit participates in exactly three \(X\)-checks. If the three neighboring stabilizer variables are \(u,v,w\), then the final error bit on that qubit is
+</p>
+
+\[
+\epsilon_i
+=
+b_i^{(\lambda)}
+\oplus u\oplus v\oplus w.
+\]
+
+<p>
+The XOR appears because multiplying an \(X\) operator twice on the same qubit gives identity:
+</p>
+
+\[
+X_i^2=I.
+\]
+
+<p>
+Only the parity of the number of \(X\) factors matters.
+</p>
+
+<h2>11. The qubit probability tensor</h2>
+
+<p>
+For each physical qubit \(i\), define a rank-3 tensor
+</p>
+
+\[
+W_i^{(b_i)}(u,v,w)
+=
+P_i\!\left(
+b_i^{(\lambda)}
+\oplus u\oplus v\oplus w
+\right).
+\]
+
+<p>
+Explicitly,
+</p>
+
+\[
+W_i^{(b_i)}(u,v,w)
+=
+\begin{cases}
+1-p_i,
+&
+b_i^{(\lambda)}
+\oplus u\oplus v\oplus w=0,
+\\[1mm]
+p_i,
+&
+b_i^{(\lambda)}
+\oplus u\oplus v\oplus w=1.
+\end{cases}
+\]
+
+<p>
+Thus every qubit tensor has shape
+</p>
+
+\[
+2\times2\times2.
+\]
+
+<p>
+Its three indices correspond to the three \(X\)-stabilizer variables touching that physical qubit.
+</p>
+
+<h2>12. The stabilizer COPY tensor</h2>
+
+<p>
+Each \(X\)-stabilizer acts on six physical qubits. Its binary selection variable must therefore be passed consistently to six different qubit tensors.
+</p>
+
+<p>
+Introduce a rank-6 COPY tensor
+</p>
+
+\[
+C(\alpha_1,\ldots,\alpha_6)
+=
+\begin{cases}
+1,
+&
+\alpha_1=\alpha_2=\cdots=\alpha_6,
+\\
+0,
+&
+\text{otherwise}.
+\end{cases}
+\]
+
+<p>
+Each index is binary, so the tensor has
+</p>
+
+\[
+2^6=64
+\]
+
+<p>
+entries. Only two are nonzero:
+</p>
+
+\[
+C_{000000}=1,
+\qquad
+C_{111111}=1.
+\]
+
+<p>
+This enforces the statement that a stabilizer generator is either not selected at all, or selected as a whole. It cannot be “selected” on only some of the six qubits in its support.
+</p>
+
+<p>
+Equivalently,
+</p>
+
+\[
+C(\alpha_1,\ldots,\alpha_6)
+=
+\sum_{u=0}^{1}
+\delta_{\alpha_1,u}
+\cdots
+\delta_{\alpha_6,u}.
+\]
+
+<h2>13. The complete BB72 tensor network</h2>
+
+<p>
+For one fixed syndrome \(s\) and one fixed logical label \(\lambda\), the tensor network contains:
+</p>
+
+<table>
+<thead>
+<tr>
+<th>Tensor type</th>
+<th>Number</th>
+<th>Rank</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stabilizer COPY tensor</td>
+<td>36</td>
+<td>6</td>
+<td>Replicates one stabilizer variable to its six neighboring qubits</td>
+</tr>
+<tr>
+<td>Qubit probability tensor</td>
+<td>72</td>
+<td>3</td>
+<td>Assigns the local physical-error probability</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+The total number of incidence bonds is
+</p>
+
+\[
+36\times6
+=
+72\times3
+=
+216.
+\]
+
+<p>
+The network connectivity is determined directly by the nonzero pattern of \(H_X\):
+</p>
+
+<ul>
+<li>each row of \(H_X\) specifies the six qubit tensors connected to one COPY tensor;</li>
+<li>each column of \(H_X\) specifies the three COPY tensors connected to one qubit tensor.</li>
+</ul>
+
+<p>
+The contraction of this network performs the sum over all stabilizer configurations simultaneously.
+</p>
+
+<h2>14. What does the contraction compute?</h2>
+
+<p>
+The partition function can be written directly as the contraction of the tensors introduced in Section 13. Let \(C_c\) denote the rank-6 COPY tensor for \(X\)-check \(c\), and let \(W_i^{(b_i^{(\lambda)})}\) denote the rank-3 probability tensor for physical qubit \(i\). Then
+</p>
+
+\[
+\boxed{
+\widetilde Z_\lambda(s)
+=
+\operatorname{tTr}
+\left[
+\prod_{c=1}^{36} C_c
+\prod_{i=1}^{72}
+W_i^{(b_i^{(\lambda)})}
+\right].
+}
+\]
+
+<p>
+Here \(\operatorname{tTr}\) means that every incidence index connecting a stabilizer COPY tensor to a qubit tensor is contracted. Writing the same contraction with all indices exposed gives
+</p>
+
+\[
+\widetilde Z_\lambda(s)
+=
+\sum_{\{\alpha_{ci}\}}
+\left[
+\prod_{c=1}^{36}
+C_c\!\left(
+\{\alpha_{ci}\}_{i\in N(c)}
+\right)
+\right]
+\left[
+\prod_{i=1}^{72}
+W_i^{(b_i^{(\lambda)})}
+\!\left(
+\{\alpha_{ci}\}_{c\in N_X(i)}
+\right)
+\right].
+\]
+
+<p>
+The COPY tensor forces all six indices adjacent to check \(c\) to take one common binary value \(u_c\). Once this constraint is imposed, the general tensor-contraction expression reduces exactly to
+</p>
+
+\[
+\widetilde Z_\lambda(s)
+=
+\sum_{u\in\mathbb F_2^{36}}
+\prod_{i=1}^{72}
+P_i\!\left(
+b_i^{(\lambda)}
+\oplus
+\bigoplus_{c\in N_X(i)}u_c
+\right).
+\]
+
+<p>
+Thus the graphical tensor network and the explicit stabilizer sum are two representations of the same object. The tensor network is useful because it reorganizes the exponentially large sum into a structured sequence of local contractions.
+</p>
+
+<p>
+Because the 36 written \(X\)-stabilizer generators have six linear dependencies,
+</p>
+
+\[
+\boxed{
+Z_\lambda(s)
+=
+2^{-6}\widetilde Z_\lambda(s)
+=
+2^{-6}
+\operatorname{tTr}
+\left[
+\prod_{c=1}^{36} C_c
+\prod_{i=1}^{72}
+W_i^{(b_i^{(\lambda)})}
+\right].
+}
+\]
+
+<p>
+This is the total probability mass of all physical errors that both produce syndrome \(s\) and belong to logical sector \(\lambda\). It is the logical-coset partition function.
+</p>
+
+<h2>15. What is the probability of the syndrome itself?</h2>
+
+<p>
+The logical sectors partition all errors compatible with the syndrome. Therefore
+</p>
+
+\[
+\boxed{
+P(s)
+=
+\sum_{\lambda\in\mathbb F_2^{12}}
+Z_\lambda(s).
+}
+\]
+
+<p>
+So the phrase “probability of the syndrome” is meaningful, but it is not usually the primary object needed for decoding.
+</p>
+
+<p>
+The decoder instead needs the conditional logical posterior
+</p>
+
+\[
+\boxed{
+P(\lambda|s)
+=
+\frac{Z_\lambda(s)}
+{\sum_{\mu}Z_\mu(s)}.
+}
+\]
+
+<p>
+Since the denominator is common to all logical sectors, maximum-likelihood decoding only requires
+</p>
+
+\[
+\boxed{
+\lambda^\star
+=
+\arg\max_{\lambda} Z_\lambda(s).
+}
+\]
+
+<h2>16. Why does the decoder care about the logical sector?</h2>
+
+<p>
+The measured syndrome does not uniquely identify the physical error. Different physical errors can have the same syndrome, and many of them differ only by stabilizers.
+</p>
+
+<p>
+Suppose the true error can be written as
+</p>
+
+\[
+e_{\rm true}
+=
+e_0+\lambda_{\rm true}L_X+g,
+\qquad
+g\in\mathcal S_X.
+\]
+
+<p>
+If the decoder chooses the same logical sector,
+</p>
+
+\[
+\lambda^\star=\lambda_{\rm true},
+\]
+
+<p>
+it may apply the correction representative
+</p>
+
+\[
+c
+=
+e_0+\lambda^\star L_X.
+\]
+
+<p>
+The residual operator is then
+</p>
+
+\[
+e_{\rm true}+c
+=
+g.
+\]
+
+<p>
+Since \(g\) is a stabilizer, it acts trivially on the logical code space. The correction is therefore successful even if the decoder did not identify the exact physical error pattern.
+</p>
+
+<h3>A deliberately counterintuitive example</h3>
+
+<p>
+Suppose the true physical error is
+</p>
+
+\[
+e_{\rm true}=X_1X_2,
+\]
+
+<p>
+but the decoder applies
+</p>
+
+\[
+c=X_3X_4X_5X_6.
+\]
+
+<p>
+At the level of physical qubit locations this looks completely wrong: the decoder did not identify even one of the two qubits that actually suffered an error.
+</p>
+
+<p>
+However, suppose
+</p>
+
+\[
+S=X_1X_2X_3X_4X_5X_6
+\]
+
+<p>
+is an \(X\)-stabilizer. Then
+</p>
+
+\[
+e_{\rm true}c
+=
+X_1X_2X_3X_4X_5X_6
+=
+S.
+\]
+
+<p>
+Since \(S\) acts as identity on the code space,
+</p>
+
+\[
+S|\psi_L\rangle=|\psi_L\rangle,
+\]
+
+<p>
+the logical information is restored perfectly.
+</p>
+
+\[
+\boxed{\text{The decoding is 100% successful even though no physical error location was guessed correctly.}}
+\]
+
+<p>
+This is why stabilizer decoding is fundamentally a problem of identifying the correct <em>equivalence class</em>, not reconstructing the exact microscopic error pattern.
+</p>
+
+<p>
+By contrast, if the decoder chooses the wrong logical sector, then
+</p>
+
+\[
+e_{\rm true}+c
+=
+(\lambda_{\rm true}+\lambda^\star)L_X+g,
+\]
+
+<p>
+which contains a nontrivial logical \(X\) operator. The syndrome can be removed while the encoded information is still wrong. That is a logical decoding failure.
+</p>
+
+<h2>17. The complete decoding pipeline</h2>
+
+<div class="flow">
+\[
+e_{\rm true}
+\longrightarrow
+s=H_Ze_{\rm true}^T
+\]
+
+\[
+s
+\longrightarrow
+e_0
+\quad
+\text{such that}
+\quad
+H_Ze_0^T=s
+\]
+
+\[
+e_0
+\longrightarrow
+b^{(\lambda)}
+=
+e_0+\lambda L_X
+\]
+
+\[
+b^{(\lambda)}
+\longrightarrow
+\text{BB72 tensor network}
+\]
+
+\[
+\text{Tensor contraction}
+\longrightarrow
+Z_\lambda(s)
+\]
+
+\[
+\lambda^\star
+=
+\arg\max_\lambda Z_\lambda(s)
+\]
+
+\[
+c
+=
+e_0+\lambda^\star L_X
+\]
+
+\[
+e_{\rm true}+c
+\in
+\mathcal S_X
+\quad
+\text{if decoding succeeds.}
+\]
+</div>
+
+<h2>18. The conceptual meaning of each object</h2>
+
+<table>
+<thead>
+<tr>
+<th>Object</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\(H_Z\)</td>
+<td>Maps an \(X\)-error pattern to its measured syndrome</td>
+</tr>
+<tr>
+<td>\(e_0\)</td>
+<td>One arbitrary representative of the measured-syndrome affine space</td>
+</tr>
+<tr>
+<td>\(L_X\)</td>
+<td>Basis for the 12 independent logical-\(X\) directions</td>
+</tr>
+<tr>
+<td>\(\lambda\)</td>
+<td>Labels one of the \(2^{12}=4096\) logical sectors</td>
+</tr>
+<tr>
+<td>\(H_X\)</td>
+<td>Generates stabilizer-equivalent deformations within one logical sector</td>
+</tr>
+<tr>
+<td>\(u_c\)</td>
+<td>Binary variable specifying whether \(X\)-stabilizer generator \(c\) is selected</td>
+</tr>
+<tr>
+<td>COPY tensor</td>
+<td>Ensures the same stabilizer variable is used consistently on all six qubits in its support</td>
+</tr>
+<tr>
+<td>Qubit tensor \(W_i\)</td>
+<td>Assigns the physical-noise probability for the resulting error bit on qubit \(i\)</td>
+</tr>
+<tr>
+<td>\(Z_\lambda(s)\)</td>
+<td>Total probability of the entire logical coset compatible with syndrome \(s\)</td>
+</tr>
+<tr>
+<td>\(P(\lambda|s)\)</td>
+<td>Posterior probability that the true error belongs to logical sector \(\lambda\)</td>
+</tr>
+<tr>
+<td>\(\lambda^\star\)</td>
+<td>Maximum-likelihood logical sector</td>
+</tr>
+</tbody>
+</table>
+
+<h2>19. The key physical interpretation</h2>
+
+<div class="summary">
+<p>
+The syndrome tells us which affine space of errors is compatible with the measurement, but it does not determine the logical sector inside that affine space.
+</p>
+
+<p>
+The logical basis \(L_X\) partitions the same-syndrome error space into \(2^{12}\) logical boxes.
+</p>
+
+<p>
+Within each box, the stabilizer generators \(H_X\) generate all physically different but logically equivalent errors.
+</p>
+
+<p>
+The tensor network computes
+</p>
+
+\[
+\boxed{
+Z_\lambda(s)
+=
+\sum_{\text{all physical errors in logical box }\lambda}
+P(e).
+}
+\]
+
+<p>
+The decoder then chooses the box with the largest total probability mass.
+</p>
+
+<p>
+That is the central idea of a tensor-network logical-coset decoder for BB72.
+</p>
+</div>
+
+</body>
+</html>

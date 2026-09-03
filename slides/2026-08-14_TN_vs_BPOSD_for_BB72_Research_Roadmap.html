@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where Tensor Networks Can Contribute Beyond BP+OSD for BB72</title>
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']]
+  },
+  svg: {fontCache: 'global'}
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+  :root {
+    --text: #1f2937;
+    --muted: #6b7280;
+    --border: #d1d5db;
+    --soft: #f8fafc;
+    --accent: #1d4ed8;
+    --accent2: #7c3aed;
+    --good: #166534;
+    --warn: #92400e;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    max-width: 1020px;
+    margin: 0 auto;
+    padding: 48px 28px 84px;
+    line-height: 1.72;
+    color: var(--text);
+    background: white;
+  }
+
+  h1, h2, h3, h4 { line-height: 1.25; }
+  h1 { font-size: 2.25rem; margin-bottom: 0.35rem; }
+  h2 {
+    font-size: 1.58rem;
+    margin-top: 2.5rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 { font-size: 1.16rem; margin-top: 1.6rem; }
+  h4 { font-size: 1.02rem; margin-top: 1.3rem; }
+
+  p { margin: 0.78rem 0; }
+  ul, ol { margin-top: 0.5rem; }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: 1.7rem;
+  }
+
+  .note, .takeaway, .warning, .decision {
+    padding: 14px 18px;
+    margin: 1.15rem 0;
+    border-radius: 8px;
+  }
+
+  .note {
+    background: var(--soft);
+    border-left: 4px solid var(--accent);
+  }
+
+  .takeaway {
+    background: #f5f3ff;
+    border-left: 4px solid var(--accent2);
+  }
+
+  .warning {
+    background: #fff7ed;
+    border-left: 4px solid #ea580c;
+  }
+
+  .decision {
+    background: #f0fdf4;
+    border-left: 4px solid #16a34a;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.6rem;
+    font-size: 0.98rem;
+  }
+
+  th, td {
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th { background: var(--soft); }
+
+  .flow {
+    background: #fbfbfb;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 1rem 0;
+  }
+
+  .phase {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 1rem 0;
+  }
+
+  .small {
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+
+  .summary {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-top: 2rem;
+  }
+</style>
+</head>
+
+<body>
+
+<h1>Where Tensor Networks Can Contribute Beyond BP+OSD for BB72</h1>
+
+<div class="subtitle">
+A research roadmap for identifying when logical-coset tensor-network decoding is genuinely useful for BB72, rather than simply reproducing what BP+OSD already does well.
+</div>
+
+<div class="note">
+<b>Context.</b> The companion document, <i>Tensor-Network Decoder for BB72</i>, explains how to construct the logical-coset tensor network for BB72 and how to compute \(Z_\lambda(s)\). The present document addresses the next question: <b>if BP+OSD is already a strong decoder for BB72, what exactly should tensor networks contribute?</b>
+</div>
+
+
+<h2>1. The central research question</h2>
+
+<p>
+For BB72 under a simple code-capacity noise model, BP+OSD can already be a very strong practical decoder. Therefore the goal should not be
+</p>
+
+\[
+\boxed{
+\text{“replace BP+OSD everywhere with a global tensor-network decoder.”}
+}
+\]
+
+<p>
+A much sharper goal is
+</p>
+
+\[
+\boxed{
+\text{identify the syndromes and noise regimes where BP+OSD does not recover the most probable logical coset,}
+}
+\]
+
+<p>
+and then determine whether tensor-network coset summation can recover that missing information at acceptable cost.
+</p>
+
+<div class="takeaway">
+The tensor network should be treated first as a <b>logical-coset probability engine</b> and an <b>oracle for decoding optimality</b>, not immediately as a replacement for a fast production decoder.
+</div>
+
+
+<h2>2. What BP+OSD and TN are actually computing</h2>
+
+<h3>2.1 BP+OSD</h3>
+
+<p>
+Given a syndrome \(s\), belief propagation uses the Tanner graph and the assumed noise model to estimate qubit reliabilities or approximate marginal probabilities. OSD then uses these reliabilities to construct a finite set of syndrome-consistent candidate errors.
+</p>
+
+<p>
+Conceptually, standard BP+OSD is close to
+</p>
+
+\[
+e_{\mathrm{BP+OSD}}
+\approx
+\arg\max_{e:\,H_Ze^T=s}
+P(e),
+\]
+
+<p>
+or equivalently, under uniform independent \(X\)-noise, to selecting a highly likely / low-cost individual error representative.
+</p>
+
+<p>
+It can work extremely well, but it does not generally evaluate the full probability mass of every logical coset.
+</p>
+
+<h3>2.2 Tensor-network logical-coset decoding</h3>
+
+<p>
+For a fixed syndrome \(s\), choose one representative \(e_0\) and one logical label \(\lambda\). The logical coset is
+</p>
+
+\[
+e_0+\lambda L_X+\mathcal S_X.
+\]
+
+<p>
+The TN decoder evaluates
+</p>
+
+\[
+\boxed{
+Z_\lambda(s)
+=
+\sum_{g\in\mathcal S_X}
+P(e_0+\lambda L_X+g).
+}
+\]
+
+<p>
+The logical posterior is
+</p>
+
+\[
+P(\lambda|s)
+=
+\frac{Z_\lambda(s)}
+{\sum_\mu Z_\mu(s)},
+\]
+
+<p>
+and the optimal logical decision is
+</p>
+
+\[
+\boxed{
+\lambda_{\rm ML}
+=
+\arg\max_\lambda Z_\lambda(s).
+}
+\]
+
+<p>
+Therefore the conceptual distinction is:
+</p>
+
+\[
+\boxed{
+\text{BP+OSD: search for good physical-error candidates}
+}
+\]
+
+\[
+\boxed{
+\text{TN: sum the probability of an entire logical equivalence class.}
+}
+\]
+
+
+<h2>3. Why can these two decisions differ?</h2>
+
+<p>
+Suppose two logical sectors, \(A\) and \(B\), are compatible with the same syndrome.
+</p>
+
+<p>
+Sector \(A\) may contain one especially probable low-weight error:
+</p>
+
+\[
+P(e_A)=0.09,
+\]
+
+<p>
+while the remainder of that coset contributes only a small amount:
+</p>
+
+\[
+Z_A\simeq 0.10.
+\]
+
+<p>
+Sector \(B\) may contain no single error as probable as \(e_A\), but many moderately probable stabilizer-equivalent errors:
+</p>
+
+\[
+0.04,\quad 0.04,\quad 0.04,\quad \ldots
+\]
+
+<p>
+so that
+</p>
+
+\[
+Z_B\simeq0.12.
+\]
+
+<p>
+A decoder focused on the best individual candidate can favor sector \(A\), while degenerate maximum-likelihood decoding should select sector \(B\).
+</p>
+
+<h3>3.1 Weight enumerator viewpoint</h3>
+
+<p>
+For independent \(X\)-noise, define
+</p>
+
+\[
+A_{\lambda,w}(s)
+=
+\#\{
+e:\,
+H_Ze^T=s,\,
+e\in\lambda,\,
+w(e)=w
+\}.
+\]
+
+<p>
+Then
+</p>
+
+\[
+Z_\lambda(s;p)
+=
+\sum_w
+A_{\lambda,w}(s)
+p^w(1-p)^{72-w}.
+\]
+
+<p>
+A minimum-weight or candidate-search viewpoint emphasizes the smallest \(w\), whereas the full coset probability also depends on the multiplicity \(A_{\lambda,w}\).
+</p>
+
+<p>
+This is the useful statistical-mechanics analogy:
+</p>
+
+\[
+\boxed{
+\text{individual-error weight}
+\;\leftrightarrow\;
+\text{energy},
+}
+\]
+
+\[
+\boxed{
+\text{number of equivalent errors}
+\;\leftrightarrow\;
+\text{entropy}.
+}
+\]
+
+<p>
+The logical-coset decision depends on the combined free-energy-like quantity, not only on the minimum weight.
+</p>
+
+
+<h2>4. Where BP+OSD is likely already sufficient</h2>
+
+<p>
+Tensor networks should not be expected to provide meaningful practical gains in every regime.
+</p>
+
+<table>
+<thead>
+<tr>
+<th>Regime</th>
+<th>Expected role of BP+OSD</th>
+<th>Expected role of TN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Very low \(p\), simple isolated errors</td>
+<td>Usually strong; one low-weight pattern dominates</td>
+<td>Little additional benefit</td>
+</tr>
+<tr>
+<td>Easy syndromes with clear BP convergence</td>
+<td>Fast and usually reliable</td>
+<td>Probably unnecessary</td>
+</tr>
+<tr>
+<td>Routine real-time decoding of all shots</td>
+<td>Natural production decoder</td>
+<td>Global TN likely too expensive</td>
+</tr>
+<tr>
+<td>Very high \(p\), beyond useful decoding regime</td>
+<td>Performance degrades</td>
+<td>MLD itself may not recover much information</td>
+</tr>
+</tbody>
+</table>
+
+<div class="warning">
+A negative result is scientifically useful. If BB72 under iid code-capacity noise shows almost no gap between BP+OSD and logical-coset MLD, then the correct conclusion is that this regime is <b>not</b> the place to deploy TN.
+</div>
+
+
+<h2>5. The most promising region: hard syndromes</h2>
+
+<p>
+The first place to look is not the average syndrome but the subset for which BP or BP+OSD becomes uncertain or structurally unreliable.
+</p>
+
+<p>
+Examples include:
+</p>
+
+<ul>
+<li>BP non-convergence;</li>
+<li>oscillatory or unstable messages;</li>
+<li>short-loop / trapping-set-like structures;</li>
+<li>many low-reliability qubits clustered in one region;</li>
+<li>small likelihood gap between the best OSD candidates;</li>
+<li>multiple logical sectors with comparable posterior mass.</li>
+</ul>
+
+<p>
+For these syndromes, TN may add value because it can perform an explicit or controlled approximation to the stabilizer sum rather than relying only on local messages and a finite candidate list.
+</p>
+
+<div class="takeaway">
+The first practical hypothesis to test is:
+\[
+\boxed{
+\text{Most BB72 syndromes are easy for BP+OSD, but a small structured subset carries most of the suboptimality.}
+}
+\]
+If true, TN should be applied selectively to that subset.
+</div>
+
+
+<h2>6. The key comparison: logical-coset decision disagreement</h2>
+
+<p>
+For every sampled syndrome \(s\), run both decoders:
+</p>
+
+\[
+\lambda_{\rm BP}(s)
+\]
+
+<p>
+from BP+OSD, and
+</p>
+
+\[
+\lambda_{\rm TN}(s)
+=
+\arg\max_\lambda Z_\lambda(s)
+\]
+
+<p>
+from exact or controlled-accuracy TN contraction.
+</p>
+
+<h3>6.1 Disagreement indicator</h3>
+
+\[
+D(s)
+=
+\mathbf 1[
+\lambda_{\rm BP}(s)
+\neq
+\lambda_{\rm TN}(s)
+].
+\]
+
+<p>
+The noise-weighted disagreement frequency is
+</p>
+
+\[
+\boxed{
+f_{\rm disagree}(p)
+=
+\sum_sP(s)\,
+D(s).
+}
+\]
+
+<p>
+If this is extremely small over the relevant \(p\)-range, TN offers little additional logical information under that noise model.
+</p>
+
+
+<h2>7. Not every disagreement matters: define coset regret</h2>
+
+<p>
+Suppose BP+OSD and TN disagree, but the two leading logical sectors have probabilities
+</p>
+
+\[
+0.501
+\quad\text{and}\quad
+0.499.
+\]
+
+<p>
+This is technically a disagreement but not a meaningful one.
+</p>
+
+<p>
+Instead define the <b>coset regret</b>
+</p>
+
+\[
+\boxed{
+R(s)
+=
+P(\lambda_{\rm ML}|s)
+-
+P(\lambda_{\rm BP}|s).
+}
+\]
+
+<p>
+Large \(R(s)\) means BP+OSD selected a logical sector carrying substantially less posterior mass than the optimal one.
+</p>
+
+<p>
+For example,
+</p>
+
+\[
+P(\lambda_{\rm ML}|s)=0.80,
+\qquad
+P(\lambda_{\rm BP}|s)=0.08
+\]
+
+<p>
+gives
+</p>
+
+\[
+R(s)=0.72.
+\]
+
+<p>
+Those are the syndromes for which TN has a clear functional advantage.
+</p>
+
+
+<h2>8. Conditional decoding failure: TN gives a useful oracle</h2>
+
+<p>
+If the exact logical posterior is known, then for a fixed syndrome \(s\) the minimum achievable logical failure probability is
+</p>
+
+\[
+\boxed{
+p_{\rm fail}^{\rm ML}(s)
+=
+1-\max_\lambda P(\lambda|s).
+}
+\]
+
+<p>
+If BP+OSD selects logical sector \(\lambda_{\rm BP}\), its conditional success probability is
+</p>
+
+\[
+P(\lambda_{\rm BP}|s),
+\]
+
+<p>
+so its conditional failure probability is
+</p>
+
+\[
+\boxed{
+p_{\rm fail}^{\rm BP}(s)
+=
+1-P(\lambda_{\rm BP}|s).
+}
+\]
+
+<p>
+Therefore the logical posterior allows us to quantify exactly how much performance is being lost on each syndrome.
+</p>
+
+
+<h2>9. Sweep the physical error rate \(p\)</h2>
+
+<p>
+The TN advantage should not be assumed to be monotonic in \(p\).
+</p>
+
+<h3>9.1 Very low \(p\)</h3>
+
+<p>
+The lowest-weight physical error typically dominates:
+</p>
+
+\[
+p^w \gg M p^{w+1}
+\]
+
+<p>
+unless the multiplicity \(M\) is extremely large. BP+OSD is therefore expected to be difficult to beat in this limit.
+</p>
+
+<h3>9.2 Intermediate \(p\)</h3>
+
+<p>
+Higher-weight but highly degenerate contributions become more important:
+</p>
+
+\[
+Z_\lambda
+=
+A_{\lambda,w}p^w
++
+A_{\lambda,w+1}p^{w+1}
++\cdots.
+\]
+
+<p>
+This is the most natural region in which entropy and logical-coset summation can change the decoding decision.
+</p>
+
+<h3>9.3 High \(p\)</h3>
+
+<p>
+The posterior over logical sectors may become broadly distributed, so even exact MLD may have a large irreducible logical failure probability.
+</p>
+
+<div class="decision">
+The relevant observable is not simply “TN beats BP+OSD at some \(p\),” but the joint behavior of
+\[
+f_{\rm disagree}(p),
+\qquad
+R(s),
+\qquad
+\Delta p_L(p),
+\]
+where
+\[
+\Delta p_L(p)
+=
+p_L^{\rm BP+OSD}(p)-p_L^{\rm TN}(p).
+\]
+</div>
+
+
+<h2>10. Compare OSD candidate mass with the full coset mass</h2>
+
+<p>
+A natural objection is that OSD can generate more candidates. Therefore a fair experiment should quantify how much logical-coset probability is captured as the OSD list grows.
+</p>
+
+<p>
+For an OSD candidate budget \(B\), define the truncated logical mass
+</p>
+
+\[
+\widehat Z_\lambda^{(B)}
+=
+\sum_{\substack{
+e\in\mathcal L_{\rm OSD}^{(B)}\\
+e\in\lambda
+}}
+P(e).
+\]
+
+<p>
+Then define the coverage ratio
+</p>
+
+\[
+\boxed{
+C_\lambda^{(B)}
+=
+\frac{\widehat Z_\lambda^{(B)}}
+{Z_\lambda}.
+}
+\]
+
+<p>
+This directly answers:
+</p>
+
+<ul>
+<li>Does OSD capture most of the important probability mass?</li>
+<li>Is the coverage uniform across logical sectors?</li>
+<li>Does the correct logical sector contain substantial probability outside the OSD list?</li>
+</ul>
+
+<p>
+A particularly interesting failure mode would be:
+</p>
+
+\[
+C_{\lambda_{\rm BP}}^{(B)}
+\approx 1,
+\]
+
+<p>
+but
+</p>
+
+\[
+C_{\lambda_{\rm ML}}^{(B)}
+\ll 1.
+\]
+
+<p>
+That would show that the OSD search is systematically under-sampling the correct logical sector.
+</p>
+
+
+<h2>11. Compare approximation budgets fairly</h2>
+
+<p>
+TN is not automatically exact. Exact contraction may be too costly for BB72, in which case one introduces truncation or compressed contraction with a control parameter such as bond dimension \(\chi\).
+</p>
+
+<p>
+The scientifically clean comparison is therefore not merely
+</p>
+
+\[
+\text{OSD versus TN},
+\]
+
+<p>
+but
+</p>
+
+\[
+\boxed{
+\text{OSD candidate budget }B
+\quad\text{versus}\quad
+\text{TN contraction budget }\chi.
+}
+\]
+
+<p>
+Useful axes include:
+</p>
+
+<ul>
+<li>wall-clock time;</li>
+<li>peak memory;</li>
+<li>logical error rate;</li>
+<li>logical posterior error;</li>
+<li>total-variation distance to an exact reference where available.</li>
+</ul>
+
+<p>
+For small codes or small hard subgraphs, exact enumeration can provide the ground truth.
+</p>
+
+
+<h2>12. TN as a maximum-likelihood oracle</h2>
+
+<p>
+Even if global TN is not competitive as a real-time decoder, it can still be valuable as a research oracle.
+</p>
+
+<p>
+Suppose BP+OSD gives
+</p>
+
+\[
+p_L^{\rm BP+OSD}=10^{-4}.
+\]
+
+<p>
+Without an MLD reference we do not know whether the code itself limits performance or whether the decoder is far from optimal.
+</p>
+
+<p>
+If TN establishes
+</p>
+
+\[
+p_L^{\rm ML}\approx10^{-4},
+\]
+
+<p>
+then BP+OSD is already close to optimal.
+</p>
+
+<p>
+If instead
+</p>
+
+\[
+p_L^{\rm ML}\ll10^{-4},
+\]
+
+<p>
+then there is a decoder gap worth understanding.
+</p>
+
+<p>
+Therefore TN can help separate
+</p>
+
+\[
+\boxed{
+\text{code limitation}
+\quad\text{from}\quad
+\text{decoder limitation}.
+}
+\]
+
+
+<h2>13. Failure detection from the logical posterior</h2>
+
+<p>
+The TN posterior contains more information than a single correction.
+</p>
+
+<p>
+Define
+</p>
+
+\[
+P_{\max}(s)
+=
+\max_\lambda P(\lambda|s),
+\]
+
+<p>
+the logical entropy
+</p>
+
+\[
+H_L(s)
+=
+-\sum_\lambda
+P(\lambda|s)\log P(\lambda|s),
+\]
+
+<p>
+and the top-two posterior gap
+</p>
+
+\[
+\Delta_{\rm post}(s)
+=
+P_{(1)}(s)-P_{(2)}(s).
+\]
+
+<p>
+These quantities can be used to determine whether a syndrome is easy or intrinsically ambiguous.
+</p>
+
+<p>
+One can then compare their ability to predict BP+OSD failure against simpler diagnostics:
+</p>
+
+<ul>
+<li>BP convergence flag;</li>
+<li>minimum LLR magnitude;</li>
+<li>number of low-reliability variables;</li>
+<li>OSD best-versus-second-best candidate score gap.</li>
+</ul>
+
+<p>
+This naturally leads to a selective decoder.
+</p>
+
+
+<h2>14. The most realistic architecture: BP+OSD plus selective TN</h2>
+
+<div class="flow">
+\[
+\text{syndrome }s
+\]
+
+\[
+\downarrow
+\]
+
+\[
+\text{fast BP / BP+OSD}
+\]
+
+\[
+\begin{cases}
+\text{high confidence / easy syndrome}
+&\rightarrow \text{output immediately},\\[2mm]
+\text{low confidence / hard syndrome}
+&\rightarrow \text{invoke TN refinement}.
+\end{cases}
+\]
+
+\[
+\downarrow
+\]
+
+\[
+\text{logical-coset refinement}
+\]
+
+\[
+\downarrow
+\]
+
+\[
+\text{final correction}
+\]
+</div>
+
+<p>
+If hard syndromes are rare below threshold, the average cost can remain close to BP+OSD while the expensive TN calculation is reserved for the small subset where it can matter.
+</p>
+
+<p>
+This architecture is more plausible than applying a global TN contraction to every syndrome.
+</p>
+
+
+<h2>15. Local TN rather than global TN</h2>
+
+<p>
+A still more practical extension is to use BP to identify a difficult region of the Tanner graph and perform TN contraction only on that subgraph.
+</p>
+
+<p>
+A possible workflow is:
+</p>
+
+<ol>
+<li>Run BP and obtain qubit reliabilities / LLRs.</li>
+<li>Locate low-confidence variables, residual syndrome structure, or short-loop clusters.</li>
+<li>Extract a local Tanner subgraph around the difficult region.</li>
+<li>Convert external BP messages into boundary weights.</li>
+<li>Contract the local TN exactly or with controlled bond dimension.</li>
+<li>Use the local coset information to rerank or modify the BP+OSD decision.</li>
+</ol>
+
+<p>
+Schematically,
+</p>
+
+\[
+C_{\rm hybrid}
+\sim
+C_{\rm BP}(n)
++
+f_{\rm trigger}\,
+C_{\rm TN}(m,\chi),
+\]
+
+<p>
+where \(m\ll n\) is the size of the hard region and \(f_{\rm trigger}\) is the fraction of syndromes that activate TN.
+</p>
+
+
+<h2>16. Correlated noise: a natural TN advantage</h2>
+
+<p>
+The iid code-capacity model may not be the regime in which TN shows its strongest advantage.
+</p>
+
+<p>
+For independent noise,
+</p>
+
+\[
+P(e)
+=
+\prod_iP_i(e_i).
+\]
+
+<p>
+Correlated noise can instead be written as a factor graph:
+</p>
+
+\[
+P(e)
+\propto
+\prod_i\phi_i(e_i)
+\prod_{(i,j)}\psi_{ij}(e_i,e_j)
+\prod_{(i,j,k)}\psi_{ijk}(e_i,e_j,e_k)
+\cdots.
+\]
+
+<p>
+Such factors can be incorporated directly into the tensor network.
+</p>
+
+<p>
+Relevant physical mechanisms include:
+</p>
+
+<ul>
+<li>two-qubit gate error propagation;</li>
+<li>spatially correlated Pauli errors;</li>
+<li>shared-control or crosstalk events;</li>
+<li>measurement-data correlations;</li>
+<li>temporally correlated faults across syndrome rounds.</li>
+</ul>
+
+<div class="takeaway">
+A strong TN project should not claim that BP cannot handle correlations. Rather, the benchmark should compare <b>standard BP+OSD</b>, <b>correlation-aware BP variants</b>, and <b>TN</b> under the same correlated noise model.
+</div>
+
+
+<h2>17. A particularly clean correlated-noise experiment</h2>
+
+<p>
+Construct two noise models with the same one-qubit marginals,
+</p>
+
+\[
+P_A(e_i=1)
+=
+P_B(e_i=1)
+=
+p,
+\]
+
+<p>
+but different joint distributions,
+</p>
+
+\[
+P_A(e_i,e_j)
+\neq
+P_B(e_i,e_j).
+\]
+
+<p>
+For example:
+</p>
+
+<ul>
+<li>Model A: independent noise;</li>
+<li>Model B: pair-correlated noise with tunable correlation strength \(J\).</li>
+</ul>
+
+<p>
+Then examine whether the optimal logical sector changes with \(J\):
+</p>
+
+\[
+Z_{\lambda_1}(s;J_c)
+=
+Z_{\lambda_2}(s;J_c).
+\]
+
+<p>
+A TN that explicitly incorporates the joint factors can follow this logical-sector crossing. A decoder supplied only with the same single-qubit priors cannot distinguish the two models unless its graph/model is correspondingly upgraded.
+</p>
+
+<p>
+This experiment isolates the value of modeling the full joint distribution rather than merely improving candidate search.
+</p>
+
+
+<h2>18. TN can output a full logical posterior, not only a correction</h2>
+
+<p>
+BB72 encodes
+</p>
+
+\[
+k=12
+\]
+
+<p>
+logical qubits, so a pure \(X\)-error sector contains
+</p>
+
+\[
+2^{12}=4096
+\]
+
+<p>
+logical classes.
+</p>
+
+<p>
+Rather than returning only one correction, a logical-coset method can in principle provide
+</p>
+
+\[
+P(\lambda|s)
+\qquad
+\text{for all }\lambda.
+\]
+
+<p>
+This enables additional tasks:
+</p>
+
+<ul>
+<li>failure confidence estimation;</li>
+<li>soft information for multi-stage decoding;</li>
+<li>posterior calibration;</li>
+<li>training labels for machine-learning decoders;</li>
+<li>decoder-independent study of hard syndromes;</li>
+<li>comparison of code constructions under the same noise model.</li>
+</ul>
+
+
+<h2>19. Research plan: Phase I — establish the oracle</h2>
+
+<div class="phase">
+<h3>Goal</h3>
+<p>
+Demonstrate that the TN implementation correctly computes logical-coset probabilities.
+</p>
+
+<h3>Tasks</h3>
+<ol>
+<li>Use small CSS / small BB instances where exact enumeration is possible.</li>
+<li>Verify
+\[
+Z_\lambda^{\rm TN}(s)
+=
+Z_\lambda^{\rm exact}(s).
+\]
+</li>
+<li>Verify posterior normalization.</li>
+<li>Verify that the selected correction leaves only a stabilizer when the true logical sector is chosen.</li>
+<li>Measure exact contraction width and memory growth.</li>
+</ol>
+
+<h3>Go criterion</h3>
+<p>
+TN reproduces exact logical-coset probabilities to numerical precision.
+</p>
+</div>
+
+
+<h2>20. Phase II — measure the BP+OSD versus coset-MLD gap on BB72</h2>
+
+<div class="phase">
+<h3>Goal</h3>
+<p>
+Determine whether BB72 under iid code-capacity noise actually contains a meaningful decoder gap.
+</p>
+
+<h3>For each sampled error</h3>
+<ol>
+<li>Generate \(e_{\rm true}\).</li>
+<li>Compute syndrome \(s\).</li>
+<li>Run BP+OSD and determine \(\lambda_{\rm BP}\).</li>
+<li>Compute or approximate \(Z_\lambda(s)\).</li>
+<li>Determine \(\lambda_{\rm ML}\).</li>
+<li>Record disagreement and coset regret.</li>
+</ol>
+
+<h3>Primary observables</h3>
+
+\[
+f_{\rm disagree}(p),
+\]
+
+\[
+R(s),
+\]
+
+\[
+p_L^{\rm BP+OSD}(p),
+\]
+
+\[
+p_L^{\rm TN}(p),
+\]
+
+\[
+\Delta p_L(p).
+\]
+
+<h3>Go / No-Go</h3>
+<p>
+<b>Go:</b> a non-negligible subset of syndromes shows systematic, high-regret disagreement.</p>
+<p>
+<b>No-Go for global iid TN:</b> BP+OSD and coset-MLD agree almost everywhere in the useful \(p\)-range.</p>
+</div>
+
+
+<h2>21. Phase III — characterize the hard syndromes</h2>
+
+<div class="phase">
+<h3>Goal</h3>
+<p>
+Understand what structural features distinguish the high-regret syndromes.
+</p>
+
+<h3>Candidate features</h3>
+<ul>
+<li>BP convergence / iteration count;</li>
+<li>LLR distribution;</li>
+<li>number and geometry of low-confidence qubits;</li>
+<li>short loops in the active Tanner subgraph;</li>
+<li>residual syndrome clusters;</li>
+<li>OSD list diversity;</li>
+<li>logical posterior entropy;</li>
+<li>top-two logical posterior gap.</li>
+</ul>
+
+<h3>Desired outcome</h3>
+<p>
+A simple rule or learned classifier that identifies when TN is worth invoking.
+</p>
+</div>
+
+
+<h2>22. Phase IV — selective or local TN</h2>
+
+<div class="phase">
+<h3>Goal</h3>
+<p>
+Convert the oracle into a practical hybrid decoder.
+</p>
+
+<h3>Two variants</h3>
+
+<p>
+<b>Selective global TN:</b> invoke the full logical-coset calculation only for rare difficult syndromes.
+</p>
+
+<p>
+<b>Local TN:</b> contract only the difficult subgraph identified by BP and absorb the rest of the code into boundary messages.
+</p>
+
+<h3>Key metric</h3>
+
+\[
+\boxed{
+\text{logical-error reduction per unit of additional runtime / memory}.
+}
+\]
+
+<p>
+The target is not to beat BP+OSD in raw latency on every shot, but to recover a significant fraction of its logical failures at modest average overhead.
+</p>
+</div>
+
+
+<h2>23. Phase V — correlated and circuit-derived noise</h2>
+
+<div class="phase">
+<h3>Goal</h3>
+<p>
+Move to a regime where the ability to represent structured joint probabilities is itself part of the decoding advantage.
+</p>
+
+<h3>Progression</h3>
+<ol>
+<li>pair-correlated synthetic noise;</li>
+<li>spatially inhomogeneous correlations;</li>
+<li>combined \(X/Z/Y\) Pauli noise;</li>
+<li>phenomenological time correlations;</li>
+<li>circuit-derived detector error models.</li>
+</ol>
+
+<h3>Baselines</h3>
+<ul>
+<li>BP+OSD with independent priors;</li>
+<li>correlation-aware BP / graph-augmented BP;</li>
+<li>TN with explicit correlation factors;</li>
+<li>exact reference on small instances where possible.</li>
+</ul>
+</div>
+
+
+<h2>24. The four most important figures to produce</h2>
+
+<h3>Figure 1 — a witness syndrome</h3>
+
+<p>
+For one syndrome where BP+OSD and MLD disagree, plot
+</p>
+
+\[
+Z_\lambda(s)
+\]
+
+<p>
+for the dominant logical sectors and explain which physical-error multiplicities generate the reversal.
+</p>
+
+<h3>Figure 2 — disagreement and regret versus \(p\)</h3>
+
+<p>
+Plot
+</p>
+
+\[
+f_{\rm disagree}(p)
+\]
+
+<p>
+and the distribution of
+</p>
+
+\[
+R(s).
+\]
+
+<h3>Figure 3 — accuracy versus computational budget</h3>
+
+<p>
+Compare OSD candidate budget \(B\) with TN bond dimension / contraction budget \(\chi\), using runtime and memory as common resource axes.
+</p>
+
+<h3>Figure 4 — correlated-noise logical-sector crossing</h3>
+
+<p>
+Plot
+</p>
+
+\[
+P(\lambda|s,J)
+\]
+
+<p>
+as correlation strength \(J\) changes. Highlight the regime where the optimal logical class changes because of the joint noise structure.
+</p>
+
+
+<h2>25. What would constitute a real TN contribution?</h2>
+
+<p>
+A convincing result does not need TN to dominate BP+OSD everywhere. Any of the following would already be meaningful:
+</p>
+
+<ol>
+<li>
+<b>Oracle contribution:</b> quantify the decoder gap between BP+OSD and logical-coset MLD for BB72.
+</li>
+<li>
+<b>Mechanism contribution:</b> identify the structural origin of high-regret BP+OSD failures.
+</li>
+<li>
+<b>Hybrid-decoder contribution:</b> show that selective/local TN repairs a significant subset of failures with modest average overhead.
+</li>
+<li>
+<b>Noise-model contribution:</b> show that TN captures correlated-noise logical posteriors more accurately than independent-prior decoding.
+</li>
+<li>
+<b>Soft-information contribution:</b> provide calibrated logical posteriors and uncertainty measures that standard correction-only decoding does not naturally supply.
+</li>
+<li>
+<b>Code-design contribution:</b> use logical-coset partition functions to compare BB-like codes independently of a particular heuristic decoder.
+</li>
+</ol>
+
+
+<h2>26. What should not be the main claim?</h2>
+
+<div class="warning">
+The least promising main claim is:
+\[
+\boxed{
+\text{“A global TN decoder is faster than BP+OSD for BB72 under iid noise.”}
+}
+\]
+There is no strong reason to expect that to be true, and even if a small implementation wins on one size, it is unlikely to capture the most interesting conceptual advantage of TN.
+</div>
+
+<p>
+The more defensible claim is:
+</p>
+
+\[
+\boxed{
+\text{TN computes or approximates logical-coset probability information that candidate-based decoding does not explicitly sum,}
+}
+\]
+
+<p>
+and this information can be used where it matters: hard syndromes, decoder-gap diagnosis, selective refinement, and correlated noise.
+</p>
+
+
+<h2>27. Final research strategy</h2>
+
+<div class="summary">
+
+<p>
+The project should proceed in the following order:
+</p>
+
+\[
+\boxed{
+\text{build a correct coset-probability TN}
+}
+\]
+
+\[
+\Downarrow
+\]
+
+\[
+\boxed{
+\text{use it as an MLD oracle}
+}
+\]
+
+\[
+\Downarrow
+\]
+
+\[
+\boxed{
+\text{measure the BP+OSD gap on BB72}
+}
+\]
+
+\[
+\Downarrow
+\]
+
+\[
+\boxed{
+\text{identify high-regret hard syndromes}
+}
+\]
+
+\[
+\Downarrow
+\]
+
+\[
+\boxed{
+\text{develop selective/local TN refinement}
+}
+\]
+
+\[
+\Downarrow
+\]
+
+\[
+\boxed{
+\text{extend to correlated and circuit-derived noise}
+}
+\]
+
+<p>
+The decision point is simple:
+</p>
+
+<p>
+If iid BB72 shows almost no coset-MLD gap, do not force TN into that regime. Move to the regimes where full probability structure matters.
+</p>
+
+<p>
+If a structured hard-syndrome gap exists, then TN has a clear role: not as a universal replacement for BP+OSD, but as a targeted logical-coset inference tool.
+</p>
+
+<p>
+That is the most credible path for demonstrating a genuine tensor-network contribution to BB72 decoding.
+</p>
+
+</div>
+
+</body>
+</html>

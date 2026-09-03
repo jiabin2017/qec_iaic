@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quantum Repetition Code [[3,1,1]] with CUDA-QX</title>
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']]
+  },
+  svg: {fontCache: 'global'}
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+<style>
+  :root {
+    --ink: #1b2430;
+    --muted: #5a6472;
+    --line: #d7dde5;
+    --paper: #fffdf8;
+    --soft: #f6f1e8;
+    --panel: #fffaf0;
+    --blue: #1d4ed8;
+    --teal: #0f766e;
+    --amber: #b45309;
+    --rose: #be185d;
+    --lavender: #f4f0ff;
+    --mint: #edfdf7;
+    --shadow: 0 18px 40px rgba(40, 34, 24, 0.08);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at top right, rgba(251, 191, 36, 0.16), transparent 26%),
+      radial-gradient(circle at top left, rgba(29, 78, 216, 0.09), transparent 24%),
+      linear-gradient(180deg, #fffdf8 0%, #fffaf2 100%);
+    font-family: "Aptos", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.76;
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 38px 24px 84px;
+  }
+
+  .hero {
+    padding: 34px 32px 28px;
+    border: 1px solid rgba(183, 160, 114, 0.34);
+    border-radius: 26px;
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.96), rgba(255,247,228,0.94)),
+      linear-gradient(135deg, rgba(29,78,216,0.08), rgba(180,83,9,0.06));
+    box-shadow: var(--shadow);
+    margin-bottom: 28px;
+  }
+
+  .eyebrow {
+    display: inline-block;
+    padding: 0.28rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.84rem;
+    letter-spacing: 0.04em;
+    color: #7c2d12;
+    background: rgba(251, 191, 36, 0.16);
+    border: 1px solid rgba(180, 83, 9, 0.18);
+    margin-bottom: 12px;
+  }
+
+  h1, h2, h3 {
+    font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  h1 {
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-size: 1.68rem;
+    margin-top: 2.5rem;
+    padding-bottom: 0.42rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  h3 {
+    font-size: 1.16rem;
+    margin-top: 1.45rem;
+  }
+
+  p { margin: 0.8rem 0; }
+
+  .subtitle {
+    font-size: 1.06rem;
+    color: var(--muted);
+    max-width: 860px;
+  }
+
+  .lead {
+    margin-top: 18px;
+    padding: 16px 18px;
+    border-left: 4px solid var(--blue);
+    background: rgba(29, 78, 216, 0.06);
+    border-radius: 10px;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin: 18px 0 6px;
+  }
+
+  .card, .note, .flow, .summary, .example, .warning {
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 18px 20px;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 10px 24px rgba(40, 34, 24, 0.04);
+  }
+
+  .card h3, .note h3, .example h3 { margin-bottom: 10px; }
+
+  .note {
+    background: linear-gradient(180deg, #f8fbff 0%, #fefefe 100%);
+    border-left: 5px solid var(--blue);
+  }
+
+  .warning {
+    background: linear-gradient(180deg, #fffaf1 0%, #fff 100%);
+    border-left: 5px solid var(--amber);
+  }
+
+  .flow {
+    background: linear-gradient(180deg, var(--panel) 0%, #fff 100%);
+  }
+
+  .summary {
+    background: linear-gradient(180deg, #f8fff9 0%, #fff 100%);
+    border-left: 5px solid #15803d;
+    margin-top: 28px;
+  }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .pill {
+    padding: 0.45rem 0.8rem;
+    border-radius: 999px;
+    background: #f5f3ff;
+    color: #5b21b6;
+    border: 1px solid #ddd6fe;
+    font-size: 0.92rem;
+  }
+
+  .pipeline {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .step {
+    padding: 15px 14px;
+    border-radius: 16px;
+    background: linear-gradient(180deg, #fff, #faf6ee);
+    border: 1px solid var(--line);
+  }
+
+  .step strong {
+    display: block;
+    margin-bottom: 6px;
+    color: #7c2d12;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.5rem;
+    font-size: 0.98rem;
+    background: rgba(255,255,255,0.96);
+  }
+
+  th, td {
+    border: 1px solid var(--line);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    background: #f7f3ec;
+    font-weight: 650;
+  }
+
+  code {
+    background: #f3f4f6;
+    padding: 0.1rem 0.32rem;
+    border-radius: 5px;
+    font-size: 0.96em;
+  }
+
+  pre {
+    margin: 0;
+    padding: 16px 18px;
+    overflow-x: auto;
+    border-radius: 16px;
+    background: #111827;
+    color: #eff6ff;
+    font-size: 0.95rem;
+    line-height: 1.62;
+  }
+
+  pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    border-radius: 0;
+    font-size: inherit;
+  }
+
+  .math-block {
+    margin: 1rem 0;
+    padding: 16px 18px;
+    border-radius: 16px;
+    background: #fffdfa;
+    border: 1px solid var(--line);
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .tag.blue { background: #dbeafe; color: #1d4ed8; }
+  .tag.teal { background: #ccfbf1; color: #0f766e; }
+  .tag.rose { background: #fce7f3; color: #be185d; }
+  .tag.amber { background: #fef3c7; color: #b45309; }
+
+  .caption {
+    font-size: 0.93rem;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  .small {
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 880px) {
+    .grid-2, .pipeline {
+      grid-template-columns: 1fr;
+    }
+
+    .page {
+      padding: 24px 16px 60px;
+    }
+
+    .hero {
+      padding: 24px 20px 22px;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <section class="hero">
+      <h1>Quantum Repetition Code</h1>
+      <div class="subtitle">
+        This report uses the smallest quantum repetition code \([[3,1,1]]\) to introduce the main objects of the decoding problem:
+        the code space, stabilizers and syndrome, logical operators, the residual logical ambiguity after syndrome
+        measurement, and the quantity computed by the CUDA-QX tensor-network decoder.
+      </div>
+      <div class="lead">
+        The core picture can be summarized in one sentence:
+        <b>three physical qubits encode one logical qubit; the stabilizers test whether the three bits remain locally
+        consistent; the decoder compares the posterior probabilities of two logical classes at fixed syndrome.</b>
+      </div>
+      <div class="pill-row">
+        <span class="pill">code space</span>
+        <span class="pill">stabilizer / syndrome</span>
+        <span class="pill">logical \(\bar X,\bar Z\)</span>
+        <span class="pill">coset probability</span>
+        <span class="pill">CUDA-QX tensor network decoder</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>1. Code Space And Encoded Information</h2>
+      <p>
+        The 3-qubit quantum repetition code encodes one logical qubit into three physical qubits. Its code space is
+      </p>
+      <div class="math-block">
+        \[
+        |0_L\rangle = |000\rangle,
+        \qquad
+        |1_L\rangle = |111\rangle.
+        \]
+      </div>
+      <p>
+        The logical information is not stored on any single physical qubit. It is stored in the global pattern
+        "<b>all three bits are 0</b>" versus "<b>all three bits are 1</b>." This is the basic reason why the
+        repetition structure can tolerate a single bit-flip.
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Why \([[3,1,1]]\)</h3>
+          <p>
+            The code has three physical qubits, so \(n=3\). The code space is two-dimensional, so it encodes one
+            logical qubit, i.e. \(k=1\). As a full quantum stabilizer code, its distance is \(d=1\), because there
+            exists a nontrivial logical \(Z\) operator of weight 1.
+          </p>
+          <p class="small">
+            However, the numerical example in this report only studies the <b>\(X\)-error sector</b>; in that sector,
+            it is equivalent to a classical \([3,1,3]\) repetition code.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Why It Corrects One Bit-Flip</h3>
+          <p>
+            The discussion here concerns <b>physical \(X\) errors</b>. If only this error type is considered, then a
+            single physical bit-flip breaks local consistency; the stabilizers can detect this change, and the decoder
+            can use the remaining two bits to recover the logical information.
+          </p>
+          <p>
+            Accordingly, the focus of this report is not the full quantum error model, but the \(X\)-error decoding
+            structure of the quantum repetition code.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Stabilizers And Syndrome Map</h2>
+      <p>
+        The two natural stabilizers of the code are
+      </p>
+      <div class="math-block">
+        \[
+        S_1 = Z_1 Z_2,
+        \qquad
+        S_2 = Z_2 Z_3.
+        \]
+      </div>
+      <p>
+        They test whether qubits 1 and 2 agree, and whether qubits 2 and 3 agree. Writing a physical \(X\) error as
+        the binary vector
+      </p>
+      <div class="math-block">
+        \[
+        e = (e_1,e_2,e_3), \qquad e_i \in \{0,1\},
+        \]
+      </div>
+      <p>
+        the syndrome is
+      </p>
+      <div class="math-block">
+        \[
+        s = H e^T \pmod 2,
+        \qquad
+        H=
+        \begin{bmatrix}
+        1&1&0\\
+        0&1&1
+        \end{bmatrix}.
+        \]
+      </div>
+      <p>
+        namely
+      </p>
+      <div class="math-block">
+        \[
+        s_1 = e_1 \oplus e_2,
+        \qquad
+        s_2 = e_2 \oplus e_3.
+        \]
+      </div>
+      <div class="flow">
+        <b>Interpretation.</b> The syndrome does not identify a unique physical error. It only reports which adjacent
+        pairs have become inconsistent. The decoder must therefore combine syndrome information with a noise model in
+        order to compare the relative probabilities of different candidate errors.
+      </div>
+    </section>
+
+    <section>
+      <h2>3. Logical Operators \(\bar X\) And \(\bar Z\)</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>\(\bar X\): Logical Bit-Flip</h3>
+          <div class="math-block">
+            \[
+            \bar X = X_1 X_2 X_3
+            \]
+          </div>
+          <p>
+            It satisfies
+          </p>
+          <div class="math-block">
+            \[
+            \bar X |000\rangle = |111\rangle,
+            \qquad
+            \bar X |111\rangle = |000\rangle.
+            \]
+          </div>
+          <p>
+            Thus it implements the logical bit-flip: it maps logical 0 to logical 1, and maps logical 1 back to
+            logical 0.
+          </p>
+        </div>
+        <div class="card">
+          <h3>\(\bar Z\): Logical Readout Direction</h3>
+          <div class="math-block">
+            \[
+            \bar Z \sim Z_1 \sim Z_2 \sim Z_3 \sim Z_1 Z_2 Z_3
+            \]
+          </div>
+          <p>
+            Here "\(\sim\)" means that these operators act equivalently on the code space; all of them distinguish
+            \(|0_L\rangle\) from \(|1_L\rangle\).
+          </p>
+          <p>
+            For the purpose of this report, \(\bar X\) can be viewed as the operator that flips the logical state,
+            while \(\bar Z\) is the direction that distinguishes the logical state.
+          </p>
+        </div>
+      </div>
+
+      <div class="note">
+        <h3>Why The Decoder Tracks \(\bar Z\)-Flip</h3>
+        <p>
+          The decoding problem here concerns <b>physical \(X\) errors</b>. Physical \(X\) errors affect the sign of
+          logical \(Z\). Therefore the natural question for the decoder is:
+          <b>given a syndrome, has logical \(Z\) flipped or not?</b>
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>4. Residual Logical Ambiguity After Syndrome Measurement</h2>
+      <p>
+        There are three unknowns, \(e_1,e_2,e_3\), but only two syndrome equations. Therefore, once a syndrome is
+        fixed, the candidate error is typically not unique; instead, two candidates remain.
+      </p>
+      <p>
+        For example, when the syndrome is \([1,0]\), the equations are
+      </p>
+      <div class="math-block">
+        \[
+        e_1 \oplus e_2 = 1,
+        \qquad
+        e_2 \oplus e_3 = 0.
+        \]
+      </div>
+      <p>
+        and there are only two solutions:
+      </p>
+      <div class="math-block">
+        \[
+        e = 100
+        \qquad\text{or}\qquad
+        e = 011.
+        \]
+      </div>
+      <p>
+        These two errors produce the same syndrome, but they have different logical action. They differ by
+      </p>
+      <div class="math-block">
+        \[
+        100 \oplus 011 = 111,
+        \]
+      </div>
+      <p>
+        and \(111\) is precisely the binary representative of logical \(\bar X\). Therefore, at fixed syndrome, the
+        real distinction is:
+      </p>
+      <div class="flow">
+        <b>Does the error belong to the class without logical flip, or to the class with logical flip?</b>
+      </div>
+      <p>
+        These are exactly the two cosets that the decoder must compare.
+      </p>
+
+      <div class="note">
+        <h3>A Sector View Of The 8 Error Patterns</h3>
+        <p>
+          From the bit-flip decoding point of view, the eight error patterns can be grouped into two logical sectors:
+        </p>
+        <div class="math-block">
+          \[
+          \mathcal L_0 = \{000,\ 011,\ 101,\ 110\},
+          \qquad
+          \mathcal L_1 = \{100,\ 010,\ 001,\ 111\}.
+          \]
+        </div>
+        <p>
+          The two groups are classified by the value of
+          \[
+          e_1 \oplus e_2 \oplus e_3
+          \]
+          as follows:
+        </p>
+        <ul>
+          <li>\(\mathcal L_0\): an even number of 1s, therefore \(e_1 \oplus e_2 \oplus e_3 = 0\)</li>
+          <li>\(\mathcal L_1\): an odd number of 1s, therefore \(e_1 \oplus e_2 \oplus e_3 = 1\)</li>
+        </ul>
+        <p>
+          This does not mean that the code space contains four logical-0 states. More precisely,
+          <b>in the bit-flip decoding problem, these patterns form two logical sectors</b>:
+          one sector corresponds to no logical flip, and the other corresponds to a logical flip.
+        </p>
+        <p>
+          In this view, the action of logical \(\bar X = X_1 X_2 X_3\) appears as a one-to-one pairing between the
+          two sectors:
+        </p>
+        <div class="math-block">
+          \[
+          000 \leftrightarrow 111,\qquad
+          011 \leftrightarrow 100,\qquad
+          101 \leftrightarrow 010,\qquad
+          110 \leftrightarrow 001.
+          \]
+        </div>
+        <p>
+          Thus \(\bar X\) can be understood as the operator that maps the logical-0 sector to the logical-1 sector,
+          and maps it back. This is also why the two candidates at fixed syndrome typically differ by \(111\).
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>5. Mapping To The Python Example</h2>
+      <p>The most important definitions are:</p>
+      <pre><code>h_matrix = np.array([
+    [1, 1, 0],
+    [0, 1, 1],
+], dtype=np.uint8)
+
+logical_obs = np.array([[1, 1, 1]], dtype=np.uint8)
+noise_model = np.array([0.1, 0.1, 0.1], dtype=np.float64)
+
+syndrome_batch = np.array([
+    [0, 0],
+    [1, 0],
+    [0, 1],
+    [1, 1],
+], dtype=np.float64)</code></pre>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3><code>H</code></h3>
+          <p>
+            This is the syndrome matrix introduced above. It defines
+            \[
+            s_1=e_1\oplus e_2,\qquad s_2=e_2\oplus e_3.
+            \]
+          </p>
+        </div>
+        <div class="card">
+          <h3><code>noise_model = [0.1, 0.1, 0.1]</code></h3>
+          <p>
+            This means that each of the three physical qubits independently suffers an \(X\) error with probability
+            0.1, so
+            \[
+            P(100)=0.1\cdot 0.9\cdot 0.9=0.081,
+            \]
+            \[
+            P(011)=0.9\cdot 0.1\cdot 0.1=0.009.
+            \]
+          </p>
+        </div>
+      </div>
+
+      <div class="note">
+        <h3>Meaning Of <code>logical_obs = [1,1,1]</code></h3>
+        <p>
+          In this script, the three columns of <code>H</code> correspond to the three physical
+          \(X\)-error mechanisms \(X_1,X_2,X_3\). Therefore this row means:
+        </p>
+        <div class="math-block">
+          \[
+          \text{Each of the three physical }X\text{ errors flips the logical } \bar Z \text{ observable being tracked.}
+          \]
+        </div>
+        <p>
+          Hence the logical flip bit induced by the total error \(e=(e_1,e_2,e_3)\) is
+        </p>
+        <div class="math-block">
+          \[
+          l = e_1 \oplus e_2 \oplus e_3.
+          \]
+        </div>
+        <p>
+          An odd number of errors gives \(l=1\), while an even number of errors gives \(l=0\).
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>6. Exhaustive Table Of The 8 Error Patterns</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Error \(e\)</th>
+            <th>Probability \(P(e)\)</th>
+            <th>syndrome \(s=He^T\)</th>
+            <th>\(l=e_1\oplus e_2\oplus e_3\)</th>
+            <th>Sector</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>000</td><td>0.729</td><td>[0,0]</td><td>0</td><td><span class="tag teal">C0</span></td></tr>
+          <tr><td>001</td><td>0.081</td><td>[0,1]</td><td>1</td><td><span class="tag rose">C1</span></td></tr>
+          <tr><td>010</td><td>0.081</td><td>[1,1]</td><td>1</td><td><span class="tag rose">C1</span></td></tr>
+          <tr><td>011</td><td>0.009</td><td>[1,0]</td><td>0</td><td><span class="tag teal">C0</span></td></tr>
+          <tr><td>100</td><td>0.081</td><td>[1,0]</td><td>1</td><td><span class="tag rose">C1</span></td></tr>
+          <tr><td>101</td><td>0.009</td><td>[1,1]</td><td>0</td><td><span class="tag teal">C0</span></td></tr>
+          <tr><td>110</td><td>0.009</td><td>[0,1]</td><td>0</td><td><span class="tag teal">C0</span></td></tr>
+          <tr><td>111</td><td>0.001</td><td>[0,0]</td><td>1</td><td><span class="tag rose">C1</span></td></tr>
+        </tbody>
+      </table>
+
+      <p>
+        This table directly shows the core logic of the decoder:
+      </p>
+      <ul>
+          <li>The syndrome first reduces the candidate set to two errors.</li>
+          <li><code>logical_obs</code> then separates those candidates into <code>C0</code> and <code>C1</code>.</li>
+          <li>The decoder finally compares the total probability mass of the two classes and makes a logical decision.</li>
+        </ul>
+    </section>
+
+    <section>
+      <h2>7. Interpreting The Numerical Output</h2>
+      <div class="example">
+        <h3>syndrome = [0,0]</h3>
+        <p>
+          The only compatible errors are <code>000</code> and <code>111</code>. Their probabilities are
+        </p>
+        <div class="math-block">
+          \[
+          P(000)=0.729,\qquad P(111)=0.001.
+          \]
+        </div>
+        <p>
+          Here <code>000</code> belongs to <code>C0</code>, while <code>111</code> belongs to <code>C1</code>, so
+        </p>
+        <div class="math-block">
+          \[
+          Z_0=0.729,\qquad Z_1=0.001,
+          \]
+          \[
+          P(C_1|s)=\frac{0.001}{0.729+0.001}\approx 0.00137.
+          \]
+        </div>
+        <p>
+          This means that <b>when the syndrome shows no inconsistency, the most likely event is no error rather than a
+          simultaneous flip of all three qubits.</b>
+        </p>
+      </div>
+
+      <div class="example">
+        <h3>syndrome = [1,0]</h3>
+        <p>
+          The only compatible errors are <code>100</code> and <code>011</code>, with
+        </p>
+        <div class="math-block">
+          \[
+          P(100)=0.081,\qquad P(011)=0.009.
+          \]
+        </div>
+        <p>
+          These two errors belong to different logical classes:
+        </p>
+        <ul>
+          <li><code>100</code> has one error, so \(l=1\), and therefore lies in <code>C1</code></li>
+          <li><code>011</code> has two errors, so \(l=0\), and therefore lies in <code>C0</code></li>
+        </ul>
+        <div class="math-block">
+          \[
+          P(C_1|s)=\frac{0.081}{0.081+0.009}=0.9.
+          \]
+        </div>
+        <p>
+          This means that <b>a single-error event is more likely than a double-error event, so the posterior favors
+          the single-error class with logical flip.</b>
+        </p>
+      </div>
+
+      <div class="example">
+        <h3>syndrome = [0,1] and [1,1]</h3>
+        <p>
+          These two lines have the same numerical values as <code>[1,0]</code> because the toy model is fully
+          symmetric: all three qubits have the same error rate, so the different single-error and double-error
+          combinations are only permutations of each other.
+        </p>
+      </div>
+
+    </section>
+
+    <section>
+      <h2>8. CUDA-QX Usage In This Example</h2>
+      <p>
+        In <code>cudaq-qec</code>, the tensor-network decoder can be called in the following minimal form:
+      </p>
+      <pre><code>import numpy as np
+import cudaq_qec as qec
+
+H = np.array([[1, 1, 0],
+              [0, 1, 1]], dtype=np.uint8)
+L = np.array([[1, 1, 1]], dtype=np.uint8)
+p = [0.1, 0.1, 0.1]
+syndromes = np.array([[0, 0],
+                      [1, 0],
+                      [0, 1],
+                      [1, 1]], dtype=np.uint8)
+
+decoder = qec.get_decoder(
+    "tensor_network_decoder",
+    H,
+    logical_obs=L,
+    noise_model=p,
+    dtype="float64",
+    device="cuda",
+)
+
+result = decoder.decode_batch(syndromes)
+posterior = result.result</code></pre>
+
+      <div class="pipeline">
+        <div class="step">
+          <strong>1. Provide <code>H</code></strong>
+          Define the syndrome constraints, i.e. the connectivity between error variables and parity checks.
+        </div>
+        <div class="step">
+          <strong>2. Provide <code>logical_obs</code></strong>
+          Specify which logical observable flip should be tracked.
+        </div>
+        <div class="step">
+          <strong>3. Provide <code>noise_model</code></strong>
+          Assign a prior probability to each error mechanism.
+        </div>
+        <div class="step">
+          <strong>4. Call <code>decode()</code> / <code>decode_batch()</code></strong>
+          Return the logical-flip posterior at the given syndrome.
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>CPU And GPU Backends</h3>
+          <p>
+            The example script supports both <code>--device cpu</code> and <code>--device cuda</code>.
+            On GPU, CUDA-QX preferentially uses <code>cuTensorNet</code> / <code>cuQuantum</code>;
+            on CPU, it falls back to <code>torch</code> / <code>opt_einsum</code>.
+          </p>
+          <p>
+            This does not change the mathematical object being computed; it only changes the contraction backend and
+            the resulting performance.
+          </p>
+        </div>
+        <div class="card">
+          <h3>What <code>optimize_path()</code> Measures</h3>
+          <p>
+            The reported quantities <code>Naive scaling</code>, <code>Optimized scaling</code>, and
+            <code>Largest intermediate</code> are all properties of the contraction path.
+            They are tiny for this 3-bit toy problem, but for BB72-scale instances they directly determine whether the
+            TN decoder is practical.
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <section>
+      <h2>9. Key Takeaways</h2>
+      <div class="summary">
+        <p>
+          The code space of this repetition code is \(|000\rangle\) and \(|111\rangle\); the stabilizers only test
+          whether neighboring qubits remain consistent, so one bit of logical ambiguity typically remains after
+          syndrome measurement. The CUDA-QX tensor-network decoder then
+          <b>groups all syndrome-compatible physical errors by logical class and compares the total probability mass of
+          the resulting groups.</b>
+        </p>
+        <p>
+          The Python example displays this entire pipeline explicitly: <code>H</code> defines the syndrome map,
+          <code>logical_obs</code> defines the logical classes, <code>noise_model</code> provides the prior, and
+          <code>decode_batch()</code> returns the posterior. Although the example is small, it already contains the
+          core idea needed later for BB72, qLDPC decoding, and circuit-level DEM decoding.
+        </p>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

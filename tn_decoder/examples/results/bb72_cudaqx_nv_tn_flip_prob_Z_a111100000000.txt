@@ -1,0 +1,116 @@
+code=[[72,12,6]]
+error_type=Z
+requested_device=cuda
+actual_device=cuda
+contractor=cutensornet
+num_checks=36
+num_qubits=72
+num_logicals=12
+p=0.02
+syndrome_mode=sample
+logical_basis_type=X
+logical_basis_source=weight6-x
+logical_indices_xor=[0, 1, 2, 3]
+logical_mask_a=[1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+logical_obs_weight=6
+logical_obs_support=[6, 15, 18, 21, 27, 33]
+logical_obs_support_labels=['L_{1,0}', 'L_{2,3}', 'L_{3,0}', 'L_{3,3}', 'L_{4,3}', 'L_{5,3}']
+syndrome_weight=6
+syndrome=[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0]
+path_opt_seconds=13.009560
+decode_seconds=0.102405
+raw_mass_seconds=0.035846
+total_runtime_seconds=13.350888
+
+Interpretation:
+  The decoder is answering whether a·lambda = 0 or 1 for this syndrome.
+  Here a is logical_mask_a and lambda is the 12-bit BB72 logical sector.
+  Z0/Z1 are the two aggregated sector masses after splitting all 4096 sectors
+  into the a·lambda=0 half and the a·lambda=1 half.
+
+Path information:
+Optimizer Information:
+    Largest intermediate = 128.00 KiElements
+    Optimized cost = 6.912e+07 FLOPs
+    Path = [(np.int32(18), np.int32(49)), (np.int32(94), np.int32(103)),
+ (np.int32(3), np.int32(76)), (np.int32(25), np.int32(47)),
+ (np.int32(62), np.int32(104)), (np.int32(66), np.int32(80)),
+ (np.int32(92), np.int32(99)), (np.int32(97), np.int32(100)),
+ (np.int32(98), np.int32(99)), (np.int32(33), np.int32(49)),
+ (np.int32(60), np.int32(74)), (np.int32(94), np.int32(95)),
+ (np.int32(93), np.int32(94)), (np.int32(93), np.int32(95)),
+ (np.int32(93), np.int32(94)), (np.int32(18), np.int32(19)),
+ (np.int32(48), np.int32(80)), (np.int32(48), np.int32(90)),
+ (np.int32(5), np.int32(32)), (np.int32(29), np.int32(82)),
+ (np.int32(23), np.int32(76)), (np.int32(83), np.int32(84)),
+ (np.int32(83), np.int32(84)), (np.int32(83), np.int32(85)),
+ (np.int32(83), np.int32(84)), (np.int32(4), np.int32(16)),
+ (np.int32(17), np.int32(82)), (np.int32(40), np.int32(81)),
+ (np.int32(25), np.int32(80)), (np.int32(18), np.int32(51)),
+ (np.int32(24), np.int32(25)), (np.int32(11), np.int32(21)),
+ (np.int32(2), np.int32(48)), (np.int32(22), np.int32(33)),
+ (np.int32(46), np.int32(72)), (np.int32(52), np.int32(73)),
+ (np.int32(54), np.int32(63)), (np.int32(4), np.int32(12)),
+ (np.int32(30), np.int32(57)), (np.int32(29), np.int32(69)),
+ (np.int32(46), np.int32(67)), (np.int32(44), np.int32(60)),
+ (np.int32(62), np.int32(66)), (np.int32(58), np.int32(61)),
+ (np.int32(12), np.int32(19)), (np.int32(57), np.int32(60)),
+ (np.int32(56), np.int32(62)), (np.int32(60), np.int32(56)),
+ (np.int32(57), np.int32(58)), (np.int32(56), np.int32(58)),
+ (np.int32(56), np.int32(57)), (np.int32(14), np.int32(15)),
+ (np.int32(26), np.int32(27)), (np.int32(32), np.int32(54)),
+ (np.int32(10), np.int32(45)), (np.int32(44), np.int32(53)),
+ (np.int32(50), np.int32(51)), (np.int32(7), np.int32(14)),
+ (np.int32(20), np.int32(50)), (np.int32(25), np.int32(35)),
+ (np.int32(12), np.int32(19)), (np.int32(24), np.int32(38)),
+ (np.int32(23), np.int32(46)), (np.int32(8), np.int32(18)),
+ (np.int32(29), np.int32(32)), (np.int32(21), np.int32(24)),
+ (np.int32(40), np.int32(41)), (np.int32(36), np.int32(37)),
+ (np.int32(39), np.int32(40)), (np.int32(36), np.int32(38)),
+ (np.int32(36), np.int32(38)), (np.int32(36), np.int32(37)),
+ (np.int32(3), np.int32(8)), (np.int32(11), np.int32(15)),
+ (np.int32(22), np.int32(33)), (np.int32(17), np.int32(19)),
+ (np.int32(8), np.int32(11)), (np.int32(13), np.int32(19)),
+ (np.int32(18), np.int32(29)), (np.int32(1), np.int32(9)),
+ (np.int32(11), np.int32(28)), (np.int32(12), np.int32(24)),
+ (np.int32(21), np.int32(22)), (np.int32(23), np.int32(24)),
+ (np.int32(23), np.int32(24)), (np.int32(21), np.int32(22)),
+ (np.int32(21), np.int32(22)), (np.int32(1), np.int32(11)),
+ (np.int32(4), np.int32(10)), (np.int32(1), np.int32(6)),
+ (np.int32(1), np.int32(2)), (np.int32(3), np.int32(17)),
+ (np.int32(4), np.int32(15)), (np.int32(3), np.int32(15)),
+ (np.int32(11), np.int32(12)), (np.int32(11), np.int32(13)),
+ (np.int32(11), np.int32(12)), (np.int32(10), np.int32(11)),
+ (np.int32(3), np.int32(9)), (np.int32(4), np.int32(5)),
+ (np.int32(3), np.int32(8)), (np.int32(6), np.int32(7)),
+ (np.int32(5), np.int32(6)), (np.int32(4), np.int32(5)),
+ (np.int32(3), np.int32(4)), (np.int32(2), np.int32(3)),
+ (np.int32(1), np.int32(2)), (np.int32(0), np.int32(1))]
+    Slicing not needed.
+    Intermediate tensor mode labels = [sGt, ntCLw, FLe, CotH, KLCtHo, JKekt, znLwtC, sGJKekt, KHoznwLCt, rsL,
+ pGhkL, sGJekHoznwLCK, FersL, pGhkFersL, JHoznwCKphFrsGek, vw, eumsv, favw,
+ cvh, vBK, pvE, eumsfawv, chBKv, pEchBKv, eumsfawpEchBK, gu, zgu, dguz,
+ hdzgu, gHB, cwexd, pH, EKd, fzwxg, dmpH, gdHmp, jpEHy, js, hxsBy,
+ czahxsBy, djs, jKHBg, dmpjKBgH, hdufwxzg, efy, EKjsd, cwexEKjsd, efjpEHy,
+ mpjKBHhufwxzd, czahxsBefjpEH, ceEsmpBHhufzwxKj, FG, jFkBA, fAFG, xAr,
+ uJxrA, jkBfGFA, nJ, pqanJ, GHhnq, opI, sJzFI, rHasJzFI, rKq, kzwFq, hCenI,
+ rKkzwFq, paJGHhqn, rKkzwFpaJGHhn, ophCenI, rHasJzFophCen,
+ KkwGsoCerzFpaJHhn, ix, jCEFi, oix, cDfiJ, jkD, mCouD, xGjkD, cinB, DEciBn,
+ rDfJci, jCEFoxi, EBnrfJDci, jCFoxBnrfJDcE, mCouxGjkD, FBnrfJcEmuGkjCox,
+ fclG, flo, lEk, lm, Flm, ruEkl, BCaruEkl, cGofl, FmcGofl, BCaruEkFmcGof,
+ nJjxaFBrfcEmuGkCo, aJHoznwCKphFrsGek, amuwKczhxsBefjpEH,
+ zxjHeumsfawpEchBK, JonCFrGkxjumfEcBa, nJjxaFBrfmuGk, AnJxarmu, namA, Aa,
+ a, b]
+
+Sampled underlying error:
+  true_error_weight=2
+  true_error_support=[26, 33]
+  true_error_support_labels=['L_{4,2}', 'L_{5,3}']
+  true_logical_signature_lambda=[0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+  true_selected_parity_a_dot_lambda=1
+
+Decoder outputs:
+  raw_tn_masses: Z0=3.734698810987e+01, Z1=1.336583331031e+07
+  raw_tn_probs:  P(a·lambda=0|s)=0.000002794205, P(a·lambda=1|s)=0.999997205795
+  public_decode: P(a·lambda=0|s)=0.000002794205, P(a·lambda=1|s)=0.999997205795, converged=True
+  decision: a·lambda=1

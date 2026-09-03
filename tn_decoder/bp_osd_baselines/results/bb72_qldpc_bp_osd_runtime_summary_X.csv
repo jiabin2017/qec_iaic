@@ -1,0 +1,7 @@
+osd_method,osd_order,error_type,shots_per_point,num_p_points,total_decodes,runtime_seconds,seconds_per_decode,csv_path
+OSD_CS,0,X,5000,6,30000,12.47422549314797,0.00041580751643826566,/home/users/astar/ihpc/youjb/tn_decoder_copy/bp_osd_baselines/results/bb72_qldpc_bp_osd_order0_X.csv
+OSD_CS,2,X,5000,6,30000,6.264355186838657,0.00020881183956128856,/home/users/astar/ihpc/youjb/tn_decoder_copy/bp_osd_baselines/results/bb72_qldpc_bp_osd_order2_X.csv
+OSD_CS,4,X,5000,6,30000,6.488862244179472,0.00021629540813931575,/home/users/astar/ihpc/youjb/tn_decoder_copy/bp_osd_baselines/results/bb72_qldpc_bp_osd_order4_X.csv
+OSD_CS,6,X,5000,6,30000,6.5295034339651465,0.0002176501144655049,/home/users/astar/ihpc/youjb/tn_decoder_copy/bp_osd_baselines/results/bb72_qldpc_bp_osd_order6_X.csv
+OSD_CS,8,X,5000,6,30000,6.652794368099421,0.00022175981226998072,/home/users/astar/ihpc/youjb/tn_decoder_copy/bp_osd_baselines/results/bb72_qldpc_bp_osd_order8_X.csv
+OSD_CS,10,X,5000,6,30000,6.5632783400360495,0.0002187759446678683,/home/users/astar/ihpc/youjb/tn_decoder_copy/bp_osd_baselines/results/bb72_qldpc_bp_osd_order10_X.csv

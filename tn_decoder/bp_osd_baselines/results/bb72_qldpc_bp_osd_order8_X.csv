@@ -1,0 +1,7 @@
+code,n,k,error_type,noise_model,decoder,seed,p,shots,failures,syndrome_invalid_failures,logical_failures,logical_error_rate,logical_error_rate_stderr,mean_error_weight,mean_correction_weight,mean_residual_weight,decoder_converged_count,decoder_converged_rate,mean_decoder_iterations
+bb72,72,12,X,bit_flip,qldpc_bp_osd,20260826,0.005,5000,6,0,6,0.0012,0.0004896039215529222,0.3694,0.3762,0.0132,4994,0.9988,1.3162
+bb72,72,12,X,bit_flip,qldpc_bp_osd,20260826,0.01,5000,43,0,43,0.0086,0.0013058361306075123,0.7396,0.772,0.0804,4938,0.9876,2.5328
+bb72,72,12,X,bit_flip,qldpc_bp_osd,20260826,0.02,5000,226,0,226,0.0452,0.0029379230759160454,1.4146,1.5674,0.4404,4677,0.9354,5.9016
+bb72,72,12,X,bit_flip,qldpc_bp_osd,20260826,0.03,5000,651,0,651,0.1302,0.004759158749190869,2.1612,2.6052,1.36,4113,0.8226,11.91
+bb72,72,12,X,bit_flip,qldpc_bp_osd,20260826,0.04,5000,1351,0,1351,0.2702,0.006279999363057293,2.9042,3.8438,2.9876,3273,0.6546,19.9438
+bb72,72,12,X,bit_flip,qldpc_bp_osd,20260826,0.05,5000,2070,0,2070,0.414,0.006965687331484238,3.618,4.9712,4.7644,2542,0.5084,26.633

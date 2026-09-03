@@ -1,0 +1,39 @@
+#!/bin/bash
+#PBS -q normal
+#PBS -l select=1:ngpus=1:mpiprocs=16:ompthreads=1
+#PBS -l walltime=24:00:00
+#PBS -P 13004445
+#PBS -j oe
+#PBS -o output-bb72-decoder-cached.txt
+#PBS -N gpu-bb72-decoder-cached
+
+cd "${PBS_O_WORKDIR:-$(pwd)}" || exit 1
+
+module purge
+
+source ~/miniconda3/etc/profile.d/conda.sh
+conda activate cudaqx-qec
+
+which python
+python -c "import torch; print(torch.__version__); print(torch.cuda.is_available()); print(torch.cuda.device_count()); print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'NO GPU')"
+
+SCRIPT_DIR="$(pwd)"
+OUT_DIR="${SCRIPT_DIR}/results"
+RUN_ID="$(date +%Y%m%d_%H%M%S)"
+OUT_STEM="${OUT_DIR}/bb72_cudaqx_nv_tn_reconstruct_cached_Z_weight6-x_sample_${RUN_ID}"
+DEFAULT_PATH_CACHE="${SCRIPT_DIR}/path_cache/bb72_cudaqx_nv_tn_path_cache_Z_weight6-x_cutensornet.pkl"
+LEGACY_PATH_CACHE="${SCRIPT_DIR}/path_cache/bb72_cudaqx_nv_tn_reconstruct_cached_Z_weight6-x_sample_path_cache.pkl"
+PATH_CACHE="${PATH_CACHE:-${DEFAULT_PATH_CACHE}}"
+if [ ! -f "${PATH_CACHE}" ] && [ "${PATH_CACHE}" = "${DEFAULT_PATH_CACHE}" ] && [ -f "${LEGACY_PATH_CACHE}" ]; then
+  echo "using_legacy_path_cache=${LEGACY_PATH_CACHE}"
+  PATH_CACHE="${LEGACY_PATH_CACHE}"
+fi
+
+python bb72_cudaqx_nv_tn_flip_to_coset_reconstruct_cached.py \
+  --device cuda \
+  --error-type Z \
+  --syndrome-mode sample \
+  --p 0.02 \
+  --seed 20260827 \
+  --path-cache "${PATH_CACHE}" \
+  --output-stem "${OUT_STEM}"

@@ -1,0 +1,29 @@
+#!/bin/bash
+#PBS -q normal
+#PBS -l select=1:ngpus=4:mpiprocs=4:ompthreads=1
+#PBS -l walltime=02:00:00
+#PBS -P 13004445
+#PBS -j oe
+#PBS -o output-bb72-tn-ler-pilot-4gpu.txt
+#PBS -N bb72-tn-ler-pilot
+
+cd "${PBS_O_WORKDIR:-$(pwd)}" || exit 1
+TN_DECODER_ROOT="$(cd .. && pwd)"
+
+source ~/miniconda3/etc/profile.d/conda.sh
+conda activate cudaqx-qec || exit 1
+
+which python
+python -c "import sys; print(sys.executable)"
+python -c "import torch; print(torch.__version__); print(torch.cuda.is_available()); print(torch.cuda.device_count()); print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'NO GPU')"
+
+export OMP_NUM_THREADS=1
+export NUM_WORKERS=4
+export SHOTS_PER_WORKER=2
+export P_VALUE=0.02
+export BASE_SEED=20260901
+export ERROR_TYPE=Z
+export DEVICE=cuda
+export PATH_CACHE="${PATH_CACHE:-${TN_DECODER_ROOT}/tn_reconstruct/path_cache/bb72_cudaqx_nv_tn_path_cache_Z_weight6-x_cutensornet.pkl}"
+
+bash run_pilot_4gpu.sh

@@ -1,0 +1,8 @@
+/home/users/astar/ihpc/youjb/miniconda3/envs/cudaqx-qec/bin/python
+2.10.0+cu128
+True
+1
+NVIDIA A100-SXM4-40GB
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+wrote_txt=/home/users/astar/ihpc/youjb/tn_decoder_copy/examples/results/bb72_cudaqx_nv_tn_flip_prob_Z_a111100000000.txt

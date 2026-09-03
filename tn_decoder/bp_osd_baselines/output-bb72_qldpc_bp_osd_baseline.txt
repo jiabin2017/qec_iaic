@@ -1,0 +1,30 @@
+/home/users/astar/ihpc/youjb/miniconda3/envs/cudaqx-qec/bin/python
+2.10.0+cu128
+True
+1
+NVIDIA A100-SXM4-40GB
+osd_order=0: runtime_seconds=10.197864, csv=/home/users/astar/ihpc/youjb/tn_decoder_copy/bp_osd_baselines/results/bb72_cudaqx_nv_qldpc_bp_osd_order0_X.csv
+  device_report: decoder_reported_device=<not exposed>, inferred_execution_device=gpu:0 (NVIDIA A100-SXM4-40GB) [inferred default], CUDA_VISIBLE_DEVICES=GPU-13270257-5a3a-c9e2-471a-8e4ba01d7c96, visible_gpus=0:NVIDIA A100-SXM4-40GB
+osd_order=2: runtime_seconds=9.920012, csv=/home/users/astar/ihpc/youjb/tn_decoder_copy/bp_osd_baselines/results/bb72_cudaqx_nv_qldpc_bp_osd_order2_X.csv
+  device_report: decoder_reported_device=<not exposed>, inferred_execution_device=gpu:0 (NVIDIA A100-SXM4-40GB) [inferred default], CUDA_VISIBLE_DEVICES=GPU-13270257-5a3a-c9e2-471a-8e4ba01d7c96, visible_gpus=0:NVIDIA A100-SXM4-40GB
+osd_order=4: runtime_seconds=9.947954, csv=/home/users/astar/ihpc/youjb/tn_decoder_copy/bp_osd_baselines/results/bb72_cudaqx_nv_qldpc_bp_osd_order4_X.csv
+  device_report: decoder_reported_device=<not exposed>, inferred_execution_device=gpu:0 (NVIDIA A100-SXM4-40GB) [inferred default], CUDA_VISIBLE_DEVICES=GPU-13270257-5a3a-c9e2-471a-8e4ba01d7c96, visible_gpus=0:NVIDIA A100-SXM4-40GB
+osd_order=6: runtime_seconds=10.033863, csv=/home/users/astar/ihpc/youjb/tn_decoder_copy/bp_osd_baselines/results/bb72_cudaqx_nv_qldpc_bp_osd_order6_X.csv
+  device_report: decoder_reported_device=<not exposed>, inferred_execution_device=gpu:0 (NVIDIA A100-SXM4-40GB) [inferred default], CUDA_VISIBLE_DEVICES=GPU-13270257-5a3a-c9e2-471a-8e4ba01d7c96, visible_gpus=0:NVIDIA A100-SXM4-40GB
+osd_order=8: runtime_seconds=9.922652, csv=/home/users/astar/ihpc/youjb/tn_decoder_copy/bp_osd_baselines/results/bb72_cudaqx_nv_qldpc_bp_osd_order8_X.csv
+  device_report: decoder_reported_device=<not exposed>, inferred_execution_device=gpu:0 (NVIDIA A100-SXM4-40GB) [inferred default], CUDA_VISIBLE_DEVICES=GPU-13270257-5a3a-c9e2-471a-8e4ba01d7c96, visible_gpus=0:NVIDIA A100-SXM4-40GB
+osd_order=10: runtime_seconds=10.129991, csv=/home/users/astar/ihpc/youjb/tn_decoder_copy/bp_osd_baselines/results/bb72_cudaqx_nv_qldpc_bp_osd_order10_X.csv
+  device_report: decoder_reported_device=<not exposed>, inferred_execution_device=gpu:0 (NVIDIA A100-SXM4-40GB) [inferred default], CUDA_VISIBLE_DEVICES=GPU-13270257-5a3a-c9e2-471a-8e4ba01d7c96, visible_gpus=0:NVIDIA A100-SXM4-40GB
+completed CUDA-QX BB72 nv-qldpc-decoder baseline
+code=[[72,12,6]]
+error_type=X
+shots_per_point=5000
+p_grid=[0.005, 0.01, 0.02, 0.03, 0.04, 0.05]
+osd_orders=[0, 2, 4, 6, 8, 10]
+csv=/home/users/astar/ihpc/youjb/tn_decoder_copy/bp_osd_baselines/results/bb72_cudaqx_nv_qldpc_bp_osd_order0_X.csv
+csv=/home/users/astar/ihpc/youjb/tn_decoder_copy/bp_osd_baselines/results/bb72_cudaqx_nv_qldpc_bp_osd_order2_X.csv
+csv=/home/users/astar/ihpc/youjb/tn_decoder_copy/bp_osd_baselines/results/bb72_cudaqx_nv_qldpc_bp_osd_order4_X.csv
+csv=/home/users/astar/ihpc/youjb/tn_decoder_copy/bp_osd_baselines/results/bb72_cudaqx_nv_qldpc_bp_osd_order6_X.csv
+csv=/home/users/astar/ihpc/youjb/tn_decoder_copy/bp_osd_baselines/results/bb72_cudaqx_nv_qldpc_bp_osd_order8_X.csv
+csv=/home/users/astar/ihpc/youjb/tn_decoder_copy/bp_osd_baselines/results/bb72_cudaqx_nv_qldpc_bp_osd_order10_X.csv
+runtime_summary_csv=/home/users/astar/ihpc/youjb/tn_decoder_copy/bp_osd_baselines/results/bb72_cudaqx_nv_qldpc_bp_osd_runtime_summary_X.csv

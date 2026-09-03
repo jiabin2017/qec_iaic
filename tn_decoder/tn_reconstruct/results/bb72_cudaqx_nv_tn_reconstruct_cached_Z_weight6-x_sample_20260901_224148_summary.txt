@@ -1,0 +1,73 @@
+code=[[72,12,6]]
+error_type=Z
+requested_device=cuda
+actual_device=cuda
+contractor=cutensornet
+num_checks=36
+num_qubits=72
+num_logicals=12
+num_sectors=4096
+p=0.02
+syndrome_mode=sample
+logical_basis_type=X
+logical_basis_source=weight6-x
+syndrome_weight=6
+syndrome=[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0]
+syndrome_labels=['S_{1,2}', 'S_{2,3}', 'S_{4,0}', 'S_{4,1}', 'S_{5,1}', 'S_{5,2}']
+num_nontrivial_flip_queries=4095
+explicit_path_opt_count=0
+cached_path_hit_count=4095
+cache_miss_count=0
+cache_invalid_rebuild_count=0
+lazy_path_capture_count=0
+implicit_zero_mask_queries=1
+total_path_opt_seconds=0.000000
+total_decode_seconds=132.097888
+total_query_seconds=132.108255
+walsh_hadamard_seconds=0.008374
+total_runtime_seconds=191.797164
+path_cache_enabled=True
+path_cache_file=/home/users/astar/ihpc/youjb/tn_decoder_copy/tn_reconstruct/path_cache/bb72_cudaqx_nv_tn_path_cache_Z_weight6-x_cutensornet.pkl
+path_cache_load_state=loaded
+path_cache_load_message=loaded 4095 cached paths from /home/users/astar/ihpc/youjb/tn_decoder_copy/tn_reconstruct/path_cache/bb72_cudaqx_nv_tn_path_cache_Z_weight6-x_cutensornet.pkl
+path_cache_entries_loaded=4095
+path_cache_entries_final=4095
+path_cache_entries_written_this_run=0
+path_cache_checkpoint_writes=0
+flip_probs_csv=/home/users/astar/ihpc/youjb/tn_decoder_copy/tn_reconstruct/results/bb72_cudaqx_nv_tn_reconstruct_cached_Z_weight6-x_sample_20260901_224148_flip_probs.csv
+coset_probs_csv=/home/users/astar/ihpc/youjb/tn_decoder_copy/tn_reconstruct/results/bb72_cudaqx_nv_tn_reconstruct_cached_Z_weight6-x_sample_20260901_224148_coset_probs.csv
+
+Interpretation:
+  For each nonzero parity mask a in F_2^12, the script queries
+  P(a·lambda = 1 | syndrome) with the CUDA-QX tensor-network decoder.
+  It then reconstructs the full 4096-sector posterior P(lambda | syndrome)
+  by inverse Walsh-Hadamard transform.
+  This cached variant stores one optimized contraction path per nonzero mask
+  in a single total cache file, so later runs can skip most path optimization.
+
+Top sectors:
+  rank=   1  sector_index=  14  sector_bits=011100000000  posterior=9.999961507434e-01
+  rank=   2  sector_index=3840  sector_bits=000000001111  posterior=3.473657421472e-07
+  rank=   3  sector_index=2560  sector_bits=000000000101  posterior=3.473657421435e-07
+  rank=   4  sector_index=  64  sector_bits=000000100000  posterior=1.738997941633e-07
+  rank=   5  sector_index=3115  sector_bits=110101000011  posterior=1.738997941380e-07
+  rank=   6  sector_index=   0  sector_bits=000000000000  posterior=1.738997039648e-07
+  rank=   7  sector_index= 528  sector_bits=000010000100  posterior=1.738278174402e-07
+  rank=   8  sector_index=3665  sector_bits=100010100111  posterior=1.738275166048e-07
+  rank=   9  sector_index=3679  sector_bits=111110100111  posterior=1.738275165585e-07
+  rank=  10  sector_index= 297  sector_bits=100101001000  posterior=1.736108046358e-07
+  rank=  11  sector_index= 325  sector_bits=101000101000  posterior=1.736108046226e-07
+  rank=  12  sector_index= 837  sector_bits=101000101100  posterior=1.736108045774e-07
+  rank=  13  sector_index= 553  sector_bits=100101000100  posterior=1.736108045625e-07
+  rank=  14  sector_index= 738  sector_bits=010001110100  posterior=1.736107745410e-07
+  rank=  15  sector_index= 242  sector_bits=010011110000  posterior=1.736107744730e-07
+  rank=  16  sector_index= 994  sector_bits=010001111100  posterior=1.735385570911e-07
+
+Sampled underlying error:
+  true_error_weight=2
+  true_error_support=[26, 33]
+  true_error_support_labels=['L_{4,2}', 'L_{5,3}']
+  true_logical_signature_lambda=[0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0]
+  true_sector_index=14
+  true_sector_probability=9.999961507434e-01
+  true_sector_rank=1
