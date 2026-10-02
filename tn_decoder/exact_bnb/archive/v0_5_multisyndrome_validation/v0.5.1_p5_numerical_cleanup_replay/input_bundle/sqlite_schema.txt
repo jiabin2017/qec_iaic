@@ -1,0 +1,48 @@
+-- .schema equivalent, exported read-only from sqlite_master.sql.
+-- All seven schemas (including implicit-index metadata) compare identical.
+-- Checked: C:\tsbyttn\projects\qldpc\tn_decoder\exact_bnb\v0_5_multisyndrome_validation\validation_partA_natural\results.sqlite
+-- Checked: C:\tsbyttn\projects\qldpc\tn_decoder\exact_bnb\v0_5_multisyndrome_validation\validation_partB_stress_p0.005\results.sqlite
+-- Checked: C:\tsbyttn\projects\qldpc\tn_decoder\exact_bnb\v0_5_multisyndrome_validation\validation_partB_stress_p0.01\results.sqlite
+-- Checked: C:\tsbyttn\projects\qldpc\tn_decoder\exact_bnb\v0_5_multisyndrome_validation\validation_partB_stress_p0.02\results.sqlite
+-- Checked: C:\tsbyttn\projects\qldpc\tn_decoder\exact_bnb\v0_5_multisyndrome_validation\validation_partB_stress_p0.03\results.sqlite
+-- Checked: C:\tsbyttn\projects\qldpc\tn_decoder\exact_bnb\v0_5_multisyndrome_validation\validation_partB_stress_p0.04\results.sqlite
+-- Checked: C:\tsbyttn\projects\qldpc\tn_decoder\exact_bnb\v0_5_multisyndrome_validation\validation_partB_stress_p0.05\results.sqlite
+-- b9 identity = stageA-b9-identity
+-- b12 full = stageA-b12-identity
+-- Implicit PRIMARY KEY indexes have NULL SQL and are recreated by the table DDL.
+
+CREATE TABLE layout_meta (
+            layout_tag TEXT PRIMARY KEY,
+            block_size INTEGER NOT NULL,
+            logical_order TEXT NOT NULL,
+            profile_path TEXT NOT NULL,
+            scan_easy_seconds REAL,
+            scan_hard_seconds REAL,
+            scan_mean_seconds REAL
+        );
+
+CREATE TABLE shots (
+            layout_tag TEXT NOT NULL,
+            dataset_name TEXT NOT NULL,
+            shot_id INTEGER NOT NULL,
+            p REAL NOT NULL,
+            error_weight INTEGER NOT NULL,
+            syndrome_weight INTEGER NOT NULL,
+            wall_seconds REAL NOT NULL,
+            oracle_seconds REAL NOT NULL,
+            oracle_calls INTEGER NOT NULL,
+            expanded_internal_nodes INTEGER NOT NULL,
+            leaves_evaluated INTEGER NOT NULL,
+            pruned_leaves INTEGER NOT NULL,
+            best_probability REAL NOT NULL,
+            best_lambda TEXT NOT NULL,
+            true_lambda TEXT NOT NULL,
+            logical_success INTEGER NOT NULL,
+            root_mass REAL NOT NULL,
+            clipped_negative_entries INTEGER NOT NULL,
+            most_negative_raw_mass REAL NOT NULL,
+            max_local_guard_abs REAL NOT NULL,
+            topology_call_counts TEXT NOT NULL,
+            created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (layout_tag, dataset_name, shot_id)
+        );

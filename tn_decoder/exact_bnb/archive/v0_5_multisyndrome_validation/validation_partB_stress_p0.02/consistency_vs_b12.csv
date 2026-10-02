@@ -1,0 +1,6 @@
+layout_tag,overlap_shots,same_lambda,same_lambda_fraction,prob_close_1e-10,prob_close_fraction
+stageA-b10-identity,5000,4969,0.9938,5000,1.0
+stageA-b6-identity,5000,4963,0.9926,5000,1.0
+stageA-b9-identity,5000,4962,0.9924,5000,1.0
+stageB-b9-random-1,5000,4959,0.9918,5000,1.0
+stageB-b9-reverse,5000,4950,0.99,5000,1.0

@@ -267,3 +267,180 @@ def make_cache_entry(
 def restore_cached_path(decoder: object, entry: dict[str, Any]) -> None:
     decoder.path_single = entry["path_single"]
     decoder.slicing_single = entry.get("slicing_single")
+
+
+def raw_coset_masses_from_decoder(
+    decoder: object,
+    syndrome: np.ndarray,
+    optimize_arg: str | None,
+) -> tuple[float, float]:
+    syndrome_list = [float(x) for x in syndrome]
+    decoder.flip_syndromes(syndrome_list)
+
+    if decoder.path_single is None:
+        decoder.optimize_path(optimize=optimize_arg)
+
+    contraction = decoder.contractor_config.contractor(
+        decoder.full_tn.get_equation(output_inds=(decoder.logical_obs_inds[0],)),
+        decoder.full_tn.arrays,
+        optimize=decoder.path_single,
+        slicing=decoder.slicing_single,
+        device_id=decoder.contractor_config.device_id,
+    )
+    z0, z1 = np.asarray(contraction, dtype=np.float64).reshape(2)
+    return float(z0), float(z1)
+
+
+def normalize_raw_coset_masses(
+    z0: float,
+    z1: float,
+    *,
+    relative_negative_tol: float = 1e-9,
+    absolute_negative_tol: float = 1e-12,
+) -> dict[str, Any]:
+    raw = np.asarray([z0, z1], dtype=np.float64)
+    if not np.all(np.isfinite(raw)):
+        raise RuntimeError(f"Raw TN masses are not finite: z0={z0}, z1={z1}")
+
+    scale = float(np.max(np.abs(raw)))
+    if scale == 0.0:
+        raise RuntimeError("Raw TN masses are both zero")
+
+    clipped = raw.copy()
+    negative = np.maximum(-clipped, 0.0)
+    max_negative = float(np.max(negative))
+    relative_negative = max_negative / scale
+    clipped_count = int(np.count_nonzero(negative > 0.0))
+
+    if clipped_count:
+        allowed = (
+            max_negative <= absolute_negative_tol
+            or relative_negative <= relative_negative_tol
+        )
+        if not allowed:
+            raise RuntimeError(
+                "Raw TN masses contain a negative value larger than the configured "
+                f"tolerance: z0={z0}, z1={z1}, max_negative={max_negative}, "
+                f"relative_negative={relative_negative}"
+            )
+        clipped = np.maximum(clipped, 0.0)
+
+    total = float(np.sum(clipped))
+    if not np.isfinite(total) or total <= 0.0:
+        raise RuntimeError(
+            f"Raw TN masses have non-positive total after clipping: z0={z0}, z1={z1}"
+        )
+
+    p0 = float(clipped[0] / total)
+    p1 = float(clipped[1] / total)
+    return {
+        "p0": p0,
+        "p1": p1,
+        "z0": float(raw[0]),
+        "z1": float(raw[1]),
+        "z0_clipped": float(clipped[0]),
+        "z1_clipped": float(clipped[1]),
+        "clipped_mass_count": clipped_count,
+        "max_negative_mass": max_negative,
+        "relative_negative_mass": relative_negative,
+    }
+
+
+def query_flip_probability_with_fallback(
+    decoder: object,
+    syndrome: np.ndarray,
+    optimize_arg: str | None,
+    *,
+    public_probability_tol: float = 1e-12,
+    raw_relative_negative_tol: float = 1e-9,
+    raw_absolute_negative_tol: float = 1e-12,
+) -> dict[str, Any]:
+    public_decode_seconds = 0.0
+    raw_fallback_seconds = 0.0
+    public_p1: float | None = None
+    public_converged: bool | None = None
+    public_exception: str | None = None
+    fallback_reason: str | None = None
+
+    public_start = time.perf_counter()
+    try:
+        public_result = decoder.decode([float(x) for x in syndrome])
+        public_decode_seconds = time.perf_counter() - public_start
+        public_p1 = float(np.asarray(public_result.result, dtype=np.float64).reshape(-1)[0])
+        converged_value = getattr(public_result, "converged", None)
+        public_converged = None if converged_value is None else bool(converged_value)
+    except Exception as exc:
+        public_decode_seconds = time.perf_counter() - public_start
+        public_exception = repr(exc)
+        fallback_reason = "public_exception"
+
+    public_valid = False
+    if public_exception is None:
+        if public_converged is False:
+            fallback_reason = "public_not_converged"
+        elif public_p1 is None or not np.isfinite(public_p1):
+            fallback_reason = "public_probability_not_finite"
+        elif public_p1 < -public_probability_tol or public_p1 > 1.0 + public_probability_tol:
+            fallback_reason = "public_probability_out_of_range"
+        else:
+            public_valid = True
+
+    if public_valid and public_p1 is not None:
+        p1 = float(np.clip(public_p1, 0.0, 1.0))
+        return {
+            "p1": p1,
+            "p0": 1.0 - p1,
+            "source": "public",
+            "public_valid": True,
+            "public_converged": public_converged,
+            "public_p1": public_p1,
+            "public_exception": public_exception,
+            "fallback_reason": "",
+            "raw_used": False,
+            "raw_z0": None,
+            "raw_z1": None,
+            "raw_z0_clipped": None,
+            "raw_z1_clipped": None,
+            "raw_p0": None,
+            "raw_p1": None,
+            "raw_clipped_mass_count": 0,
+            "raw_max_negative_mass": 0.0,
+            "raw_relative_negative_mass": 0.0,
+            "public_decode_seconds": public_decode_seconds,
+            "raw_fallback_seconds": raw_fallback_seconds,
+            "query_decode_seconds": public_decode_seconds,
+        }
+
+    raw_start = time.perf_counter()
+    raw_z0, raw_z1 = raw_coset_masses_from_decoder(decoder, syndrome, optimize_arg)
+    raw_info = normalize_raw_coset_masses(
+        raw_z0,
+        raw_z1,
+        relative_negative_tol=raw_relative_negative_tol,
+        absolute_negative_tol=raw_absolute_negative_tol,
+    )
+    raw_fallback_seconds = time.perf_counter() - raw_start
+
+    return {
+        "p1": raw_info["p1"],
+        "p0": raw_info["p0"],
+        "source": "raw_fallback",
+        "public_valid": False,
+        "public_converged": public_converged,
+        "public_p1": public_p1,
+        "public_exception": public_exception,
+        "fallback_reason": fallback_reason or "public_invalid",
+        "raw_used": True,
+        "raw_z0": raw_info["z0"],
+        "raw_z1": raw_info["z1"],
+        "raw_z0_clipped": raw_info["z0_clipped"],
+        "raw_z1_clipped": raw_info["z1_clipped"],
+        "raw_p0": raw_info["p0"],
+        "raw_p1": raw_info["p1"],
+        "raw_clipped_mass_count": raw_info["clipped_mass_count"],
+        "raw_max_negative_mass": raw_info["max_negative_mass"],
+        "raw_relative_negative_mass": raw_info["relative_negative_mass"],
+        "public_decode_seconds": public_decode_seconds,
+        "raw_fallback_seconds": raw_fallback_seconds,
+        "query_decode_seconds": public_decode_seconds + raw_fallback_seconds,
+    }

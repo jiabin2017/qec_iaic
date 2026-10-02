@@ -1,0 +1,233 @@
+[
+  {
+    "local_run_dir": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural",
+    "local_database": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\results.sqlite",
+    "remote_scan_dir": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan",
+    "run_manifest": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\run_manifest.json",
+    "dataset_manifest": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\dataset_manifest.json",
+    "datasets": [
+      {
+        "dataset_name": "natural_p0p005",
+        "dataset_type": "natural",
+        "p": 0.005,
+        "shots": 5000,
+        "source_npz": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\natural_p0p005.npz"
+      },
+      {
+        "dataset_name": "natural_p0p01",
+        "dataset_type": "natural",
+        "p": 0.01,
+        "shots": 5000,
+        "source_npz": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\natural_p0p01.npz"
+      },
+      {
+        "dataset_name": "natural_p0p02",
+        "dataset_type": "natural",
+        "p": 0.02,
+        "shots": 5000,
+        "source_npz": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\natural_p0p02.npz"
+      },
+      {
+        "dataset_name": "natural_p0p03",
+        "dataset_type": "natural",
+        "p": 0.03,
+        "shots": 5000,
+        "source_npz": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\natural_p0p03.npz"
+      },
+      {
+        "dataset_name": "natural_p0p04",
+        "dataset_type": "natural",
+        "p": 0.04,
+        "shots": 5000,
+        "source_npz": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\natural_p0p04.npz"
+      },
+      {
+        "dataset_name": "natural_p0p05",
+        "dataset_type": "natural",
+        "p": 0.05,
+        "shots": 5000,
+        "source_npz": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\natural_p0p05.npz"
+      }
+    ],
+    "paired_rows": 30000,
+    "case_count": 103,
+    "requested_optional_fields_present": [
+      "topology_call_counts"
+    ],
+    "requested_optional_fields_absent": [
+      "neg_scale",
+      "local_guard",
+      "max_negative_mass",
+      "negative_mass_count",
+      "expanded_nodes"
+    ]
+  },
+  {
+    "local_run_dir": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.005",
+    "local_database": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.005\\results.sqlite",
+    "remote_scan_dir": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan",
+    "run_manifest": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.005\\run_manifest.json",
+    "dataset_manifest": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.005\\datasets\\dataset_manifest.json",
+    "datasets": [
+      {
+        "dataset_name": "stress_w2-3-4-5_p0p005",
+        "dataset_type": "stress",
+        "p": 0.005,
+        "shots": 5000,
+        "source_npz": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.005\\datasets\\stress_w2-3-4-5_p0p005.npz"
+      }
+    ],
+    "paired_rows": 5000,
+    "case_count": 182,
+    "requested_optional_fields_present": [
+      "topology_call_counts"
+    ],
+    "requested_optional_fields_absent": [
+      "neg_scale",
+      "local_guard",
+      "max_negative_mass",
+      "negative_mass_count",
+      "expanded_nodes"
+    ]
+  },
+  {
+    "local_run_dir": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.01",
+    "local_database": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.01\\results.sqlite",
+    "remote_scan_dir": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan",
+    "run_manifest": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.01\\run_manifest.json",
+    "dataset_manifest": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.01\\datasets\\dataset_manifest.json",
+    "datasets": [
+      {
+        "dataset_name": "stress_w2-3-4-5_p0p01",
+        "dataset_type": "stress",
+        "p": 0.01,
+        "shots": 5000,
+        "source_npz": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.01\\datasets\\stress_w2-3-4-5_p0p01.npz"
+      }
+    ],
+    "paired_rows": 5000,
+    "case_count": 64,
+    "requested_optional_fields_present": [
+      "topology_call_counts"
+    ],
+    "requested_optional_fields_absent": [
+      "neg_scale",
+      "local_guard",
+      "max_negative_mass",
+      "negative_mass_count",
+      "expanded_nodes"
+    ]
+  },
+  {
+    "local_run_dir": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.02",
+    "local_database": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.02\\results.sqlite",
+    "remote_scan_dir": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan",
+    "run_manifest": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.02\\run_manifest.json",
+    "dataset_manifest": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.02\\datasets\\dataset_manifest.json",
+    "datasets": [
+      {
+        "dataset_name": "stress_w2-3-4-5_p0p02",
+        "dataset_type": "stress",
+        "p": 0.02,
+        "shots": 5000,
+        "source_npz": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.02\\datasets\\stress_w2-3-4-5_p0p02.npz"
+      }
+    ],
+    "paired_rows": 5000,
+    "case_count": 38,
+    "requested_optional_fields_present": [
+      "topology_call_counts"
+    ],
+    "requested_optional_fields_absent": [
+      "neg_scale",
+      "local_guard",
+      "max_negative_mass",
+      "negative_mass_count",
+      "expanded_nodes"
+    ]
+  },
+  {
+    "local_run_dir": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.03",
+    "local_database": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.03\\results.sqlite",
+    "remote_scan_dir": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan",
+    "run_manifest": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.03\\run_manifest.json",
+    "dataset_manifest": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.03\\datasets\\dataset_manifest.json",
+    "datasets": [
+      {
+        "dataset_name": "stress_w2-3-4-5_p0p03",
+        "dataset_type": "stress",
+        "p": 0.03,
+        "shots": 5000,
+        "source_npz": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.03\\datasets\\stress_w2-3-4-5_p0p03.npz"
+      }
+    ],
+    "paired_rows": 5000,
+    "case_count": 37,
+    "requested_optional_fields_present": [
+      "topology_call_counts"
+    ],
+    "requested_optional_fields_absent": [
+      "neg_scale",
+      "local_guard",
+      "max_negative_mass",
+      "negative_mass_count",
+      "expanded_nodes"
+    ]
+  },
+  {
+    "local_run_dir": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.04",
+    "local_database": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.04\\results.sqlite",
+    "remote_scan_dir": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan",
+    "run_manifest": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.04\\run_manifest.json",
+    "dataset_manifest": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.04\\datasets\\dataset_manifest.json",
+    "datasets": [
+      {
+        "dataset_name": "stress_w2-3-4-5_p0p04",
+        "dataset_type": "stress",
+        "p": 0.04,
+        "shots": 5000,
+        "source_npz": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.04\\datasets\\stress_w2-3-4-5_p0p04.npz"
+      }
+    ],
+    "paired_rows": 5000,
+    "case_count": 34,
+    "requested_optional_fields_present": [
+      "topology_call_counts"
+    ],
+    "requested_optional_fields_absent": [
+      "neg_scale",
+      "local_guard",
+      "max_negative_mass",
+      "negative_mass_count",
+      "expanded_nodes"
+    ]
+  },
+  {
+    "local_run_dir": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.05",
+    "local_database": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.05\\results.sqlite",
+    "remote_scan_dir": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan",
+    "run_manifest": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.05\\run_manifest.json",
+    "dataset_manifest": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.05\\datasets\\dataset_manifest.json",
+    "datasets": [
+      {
+        "dataset_name": "stress_w2-3-4-5_p0p05",
+        "dataset_type": "stress",
+        "p": 0.05,
+        "shots": 5000,
+        "source_npz": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.05\\datasets\\stress_w2-3-4-5_p0p05.npz"
+      }
+    ],
+    "paired_rows": 5000,
+    "case_count": 32,
+    "requested_optional_fields_present": [
+      "topology_call_counts"
+    ],
+    "requested_optional_fields_absent": [
+      "neg_scale",
+      "local_guard",
+      "max_negative_mass",
+      "negative_mass_count",
+      "expanded_nodes"
+    ]
+  }
+]

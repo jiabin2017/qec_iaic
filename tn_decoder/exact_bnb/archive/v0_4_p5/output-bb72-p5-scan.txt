@@ -1,0 +1,687 @@
+===== ENVIRONMENT =====
+Fri Sep 18 07:16:42 +08 2026
+x1000c0s2b0n1
+/home/users/astar/ihpc/youjb/miniconda3/envs/cudaqx-qec/bin/python
+Python: /home/users/astar/ihpc/youjb/miniconda3/envs/cudaqx-qec/bin/python
+Torch: 2.10.0+cu128
+CUDA available: True
+GPU count: 1
+GPU: NVIDIA A100-SXM4-40GB
+===== START P5 SCAN =====
+Fri Sep 18 07:17:05 +08 2026
+
+################################################################################
+P5 EVALUATE stageA-b1-identity
+block_size = 1
+logical_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0,), (1,), (2,), (3,), (4,), (5,), (6,), (7,), (8,), (9,), (10,), (11,)]
+################################################################################
+GPU cleanup: {'free_bytes': 41930588160, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+========================================================================
+TUNING open_logicals = (0,)
+========================================================================
+trial 1/6 seed=12000 median=0.207990s opt_cost=1.41903e+11 largest=1.34218e+08 slices=2 path_search=18.248s
+trial 2/6 seed=12001 median=0.101840s opt_cost=1.41903e+11 largest=1.34218e+08 slices=2 path_search=16.781s
+trial 3/6 seed=12002 median=0.107877s opt_cost=1.41903e+11 largest=1.34218e+08 slices=2 path_search=18.255s
+trial 4/6 seed=12003 median=0.194061s opt_cost=2.80684e+11 largest=5.36871e+08 slices=2 path_search=18.212s
+trial 5/6 seed=12004 median=0.103541s opt_cost=1.41844e+11 largest=1.34218e+08 slices=2 path_search=18.489s
+trial 6/6 seed=12005 median=0.102461s opt_cost=1.41844e+11 largest=1.34218e+08 slices=2 path_search=18.469s
+BEST (0,) median= 0.10184030153322965 s opt_cost= 141903156938.0 slices= 2 seed= 12001
+
+========================================================================
+TUNING open_logicals = (1,)
+========================================================================
+trial 1/6 seed=13000 median=2.170241s opt_cost=2.61373e+11 largest=1.07374e+09 slices=8 path_search=10.962s
+trial 2/6 seed=13001 median=2.108221s opt_cost=2.61347e+11 largest=1.07374e+09 slices=8 path_search=10.538s
+trial 3/6 seed=13002 median=2.123778s opt_cost=2.61203e+11 largest=1.07374e+09 slices=8 path_search=11.458s
+trial 4/6 seed=13003 median=2.115264s opt_cost=2.61297e+11 largest=1.07374e+09 slices=8 path_search=10.403s
+trial 5/6 seed=13004 median=2.478472s opt_cost=2.61222e+11 largest=1.07374e+09 slices=8 path_search=9.521s
+trial 6/6 seed=13005 median=1.517998s opt_cost=2.61239e+11 largest=1.07374e+09 slices=8 path_search=12.929s
+BEST (1,) median= 1.5179979230160825 s opt_cost= 261239341406.0 slices= 8 seed= 13005
+
+========================================================================
+TUNING open_logicals = (2,)
+========================================================================
+trial 1/6 seed=14000 median=6.048039s opt_cost=3.48014e+11 largest=5.36871e+08 slices=32 path_search=14.267s
+trial 2/6 seed=14001 median=1.278345s opt_cost=2.51452e+11 largest=5.36871e+08 slices=32 path_search=13.638s
+trial 3/6 seed=14002 median=6.059127s opt_cost=3.46867e+11 largest=5.36871e+08 slices=32 path_search=14.938s
+trial 4/6 seed=14003 median=0.465327s opt_cost=2.13943e+11 largest=5.36871e+08 slices=32 path_search=13.227s
+trial 5/6 seed=14004 median=3.414176s opt_cost=4.20269e+11 largest=1.07374e+09 slices=32 path_search=14.220s
+trial 6/6 seed=14005 median=0.549676s opt_cost=2.19765e+11 largest=5.36871e+08 slices=32 path_search=11.187s
+BEST (2,) median= 0.46532673499314114 s opt_cost= 213943123326.0 slices= 32 seed= 14003
+
+========================================================================
+TUNING open_logicals = (3,)
+========================================================================
+trial 1/6 seed=15000 median=10.012441s opt_cost=3.8641e+11 largest=1.07374e+09 slices=32 path_search=19.712s
+trial 2/6 seed=15001 median=0.648066s opt_cost=6.399e+11 largest=5.36871e+08 slices=32 path_search=15.299s
+trial 3/6 seed=15002 median=3.701113s opt_cost=5.56992e+11 largest=1.07374e+09 slices=32 path_search=15.209s
+trial 4/6 seed=15003 median=2.732164s opt_cost=4.59926e+11 largest=1.07374e+09 slices=32 path_search=17.414s
+trial 5/6 seed=15004 median=0.258854s opt_cost=2.87881e+11 largest=3.35544e+07 slices=64 path_search=19.970s
+trial 6/6 seed=15005 median=1.809760s opt_cost=5.26402e+11 largest=1.07374e+09 slices=32 path_search=16.258s
+BEST (3,) median= 0.25885372050106525 s opt_cost= 287880913790.0 slices= 64 seed= 15004
+
+========================================================================
+TUNING open_logicals = (4,)
+========================================================================
+trial 1/6 seed=16000 median=0.221682s opt_cost=1.42443e+11 largest=1.67772e+07 slices=16 path_search=11.736s
+trial 2/6 seed=16001 median=0.154223s opt_cost=1.43771e+11 largest=3.35544e+07 slices=16 path_search=11.502s
+trial 3/6 seed=16002 median=0.155785s opt_cost=1.43837e+11 largest=3.35544e+07 slices=16 path_search=11.827s
+trial 4/6 seed=16003 median=0.200794s opt_cost=1.42389e+11 largest=1.67772e+07 slices=16 path_search=11.935s
+trial 5/6 seed=16004 median=0.159646s opt_cost=1.42237e+11 largest=1.67772e+07 slices=16 path_search=9.939s
+trial 6/6 seed=16005 median=0.176707s opt_cost=1.4237e+11 largest=1.67772e+07 slices=16 path_search=11.287s
+BEST (4,) median= 0.1542234430089593 s opt_cost= 143770999038.0 slices= 16 seed= 16001
+
+========================================================================
+TUNING open_logicals = (5,)
+========================================================================
+trial 1/6 seed=17000 median=0.147891s opt_cost=2.86097e+11 largest=1.07374e+09 slices=1 path_search=10.153s
+trial 2/6 seed=17001 median=0.151358s opt_cost=2.86097e+11 largest=1.07374e+09 slices=1 path_search=10.154s
+trial 3/6 seed=17002 median=0.152679s opt_cost=2.86097e+11 largest=1.07374e+09 slices=1 path_search=10.168s
+trial 4/6 seed=17003 median=0.152650s opt_cost=2.86097e+11 largest=1.07374e+09 slices=1 path_search=10.172s
+trial 5/6 seed=17004 median=0.155832s opt_cost=2.86097e+11 largest=1.07374e+09 slices=1 path_search=10.143s
+trial 6/6 seed=17005 median=0.157517s opt_cost=2.86097e+11 largest=1.07374e+09 slices=1 path_search=10.153s
+BEST (5,) median= 0.14789084997028112 s opt_cost= 286097318052.0 slices= 1 seed= 17000
+
+========================================================================
+TUNING open_logicals = (6,)
+========================================================================
+trial 1/6 seed=18000 median=0.567694s opt_cost=2.09677e+11 largest=1.07374e+09 slices=16 path_search=12.511s
+trial 2/6 seed=18001 median=0.513587s opt_cost=2.10314e+11 largest=1.07374e+09 slices=16 path_search=13.528s
+trial 3/6 seed=18002 median=0.540119s opt_cost=2.10509e+11 largest=1.07374e+09 slices=16 path_search=13.339s
+trial 4/6 seed=18003 median=0.531461s opt_cost=2.10072e+11 largest=1.07374e+09 slices=16 path_search=11.707s
+trial 5/6 seed=18004 median=0.555923s opt_cost=2.10998e+11 largest=1.07374e+09 slices=16 path_search=13.930s
+trial 6/6 seed=18005 median=0.549942s opt_cost=2.10527e+11 largest=1.07374e+09 slices=16 path_search=12.243s
+BEST (6,) median= 0.5135872809914872 s opt_cost= 210313887038.0 slices= 16 seed= 18001
+
+========================================================================
+TUNING open_logicals = (7,)
+========================================================================
+trial 1/6 seed=19000 median=0.985898s opt_cost=6.64299e+11 largest=2.68435e+08 slices=64 path_search=21.239s
+trial 2/6 seed=19001 median=5.919196s opt_cost=1.44839e+12 largest=1.07374e+09 slices=128 path_search=19.576s
+trial 3/6 seed=19002 median=6.506239s opt_cost=1.18018e+12 largest=5.36871e+08 slices=128 path_search=19.785s
+trial 4/6 seed=19003 median=1.422471s opt_cost=1.68219e+11 largest=5.36871e+08 slices=32 path_search=16.093s
+trial 5/6 seed=19004 median=1.051423s opt_cost=3.46661e+11 largest=1.07374e+09 slices=32 path_search=18.721s
+trial 6/6 seed=19005 median=8.074137s opt_cost=1.45144e+12 largest=1.07374e+09 slices=128 path_search=16.127s
+BEST (7,) median= 0.9858984070597216 s opt_cost= 664299290622.0 slices= 64 seed= 19000
+
+========================================================================
+TUNING open_logicals = (8,)
+========================================================================
+trial 1/6 seed=20000 median=2.990837s opt_cost=5.96699e+11 largest=1.07374e+09 slices=32 path_search=13.223s
+trial 2/6 seed=20001 median=2.906725s opt_cost=5.98685e+11 largest=1.07374e+09 slices=32 path_search=13.226s
+trial 3/6 seed=20002 median=3.002472s opt_cost=6.00268e+11 largest=1.07374e+09 slices=32 path_search=13.579s
+trial 4/6 seed=20003 median=2.950675s opt_cost=6.01133e+11 largest=1.07374e+09 slices=32 path_search=12.542s
+trial 5/6 seed=20004 median=2.988687s opt_cost=6.00947e+11 largest=1.07374e+09 slices=32 path_search=12.773s
+trial 6/6 seed=20005 median=2.958686s opt_cost=5.98194e+11 largest=1.07374e+09 slices=32 path_search=13.890s
+BEST (8,) median= 2.9067245380138047 s opt_cost= 598685499518.0 slices= 32 seed= 20001
+
+========================================================================
+TUNING open_logicals = (9,)
+========================================================================
+trial 1/6 seed=21000 median=1.989810s opt_cost=2.80974e+11 largest=1.07374e+09 slices=16 path_search=16.016s
+trial 2/6 seed=21001 median=1.082269s opt_cost=2.70668e+11 largest=1.07374e+09 slices=16 path_search=16.972s
+trial 3/6 seed=21002 median=1.215489s opt_cost=2.66849e+11 largest=5.36871e+08 slices=16 path_search=15.236s
+trial 4/6 seed=21003 median=1.855647s opt_cost=2.70649e+11 largest=1.07374e+09 slices=16 path_search=15.900s
+trial 5/6 seed=21004 median=1.650648s opt_cost=2.79879e+11 largest=1.07374e+09 slices=16 path_search=13.655s
+trial 6/6 seed=21005 median=1.173058s opt_cost=2.78878e+11 largest=1.07374e+09 slices=16 path_search=14.604s
+BEST (9,) median= 1.0822694710223004 s opt_cost= 270667563166.0 slices= 16 seed= 21001
+
+========================================================================
+TUNING open_logicals = (10,)
+========================================================================
+trial 1/6 seed=22000 median=0.637779s opt_cost=2.09412e+11 largest=1.07374e+09 slices=8 path_search=13.657s
+trial 2/6 seed=22001 median=0.521728s opt_cost=2.1029e+11 largest=1.07374e+09 slices=8 path_search=12.011s
+trial 3/6 seed=22002 median=0.539347s opt_cost=2.09922e+11 largest=1.07374e+09 slices=8 path_search=12.739s
+trial 4/6 seed=22003 median=0.509028s opt_cost=2.09906e+11 largest=1.07374e+09 slices=8 path_search=10.571s
+trial 5/6 seed=22004 median=0.535984s opt_cost=2.09316e+11 largest=1.07374e+09 slices=8 path_search=12.777s
+trial 6/6 seed=22005 median=0.504216s opt_cost=2.10001e+11 largest=1.07374e+09 slices=8 path_search=12.873s
+BEST (10,) median= 0.5042157219722867 s opt_cost= 210000612174.0 slices= 8 seed= 22005
+
+========================================================================
+TUNING open_logicals = (11,)
+========================================================================
+trial 1/6 seed=23000 median=3.773405s opt_cost=7.74503e+11 largest=1.07374e+09 slices=64 path_search=14.853s
+trial 2/6 seed=23001 median=3.665274s opt_cost=7.74336e+11 largest=1.07374e+09 slices=64 path_search=14.792s
+trial 3/6 seed=23002 median=1.726123s opt_cost=3.92884e+11 largest=5.36871e+08 slices=64 path_search=18.276s
+trial 4/6 seed=23003 median=3.845503s opt_cost=5.62036e+11 largest=5.36871e+08 slices=64 path_search=14.976s
+trial 5/6 seed=23004 median=1.948260s opt_cost=3.88851e+11 largest=5.36871e+08 slices=64 path_search=17.940s
+trial 6/6 seed=23005 median=3.663000s opt_cost=7.7426e+11 largest=1.07374e+09 slices=64 path_search=16.315s
+BEST (11,) median= 1.726123466505669 s opt_cost= 392883694590.0 slices= 64 seed= 23002
+GPU cleanup: {'free_bytes': 20634009600, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+RESULT stageA-b1-identity easy= 10.862378308549523 hard= 30.897605734993704 mean= 20.879992021771614 oracle_calls= (12, 33)
+GPU cleanup: {'free_bytes': 41825730560, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+
+################################################################################
+P5 EVALUATE stageA-b2-identity
+block_size = 2
+logical_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1), (2, 3), (4, 5), (6, 7), (8, 9), (10, 11)]
+################################################################################
+GPU cleanup: {'free_bytes': 41825730560, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+========================================================================
+TUNING open_logicals = (0, 1)
+========================================================================
+trial 1/6 seed=22000 median=0.895923s opt_cost=2.61283e+11 largest=2.68435e+08 slices=32 path_search=17.494s
+trial 2/6 seed=22001 median=1.017954s opt_cost=2.4295e+11 largest=2.68435e+08 slices=32 path_search=16.789s
+trial 3/6 seed=22002 median=0.729327s opt_cost=2.10013e+11 largest=2.68435e+08 slices=32 path_search=18.904s
+trial 4/6 seed=22003 median=0.585636s opt_cost=2.08975e+11 largest=2.68435e+08 slices=32 path_search=18.452s
+trial 5/6 seed=22004 median=0.664665s opt_cost=2.08149e+11 largest=2.68435e+08 slices=32 path_search=18.597s
+trial 6/6 seed=22005 median=0.979753s opt_cost=2.09568e+11 largest=2.68435e+08 slices=32 path_search=17.332s
+BEST (0, 1) median= 0.5856357750017196 s opt_cost= 208975218460.0 slices= 32 seed= 22003
+
+========================================================================
+TUNING open_logicals = (2, 3)
+========================================================================
+trial 1/6 seed=23000 median=3.520642s opt_cost=5.88643e+11 largest=1.07374e+09 slices=32 path_search=19.440s
+trial 2/6 seed=23001 median=3.925941s opt_cost=5.8893e+11 largest=1.07374e+09 slices=32 path_search=18.147s
+trial 3/6 seed=23002 median=3.774160s opt_cost=5.91574e+11 largest=1.07374e+09 slices=32 path_search=19.873s
+trial 4/6 seed=23003 median=3.183766s opt_cost=5.90202e+11 largest=1.07374e+09 slices=32 path_search=17.819s
+trial 5/6 seed=23004 median=2.858801s opt_cost=5.86256e+11 largest=1.07374e+09 slices=32 path_search=19.474s
+trial 6/6 seed=23005 median=3.774470s opt_cost=5.90341e+11 largest=1.07374e+09 slices=32 path_search=18.939s
+BEST (2, 3) median= 2.8588006539503112 s opt_cost= 586256439996.0 slices= 32 seed= 23004
+
+========================================================================
+TUNING open_logicals = (4, 5)
+========================================================================
+trial 1/6 seed=24000 median=0.798057s opt_cost=2.07882e+11 largest=2.68435e+08 slices=32 path_search=14.806s
+trial 2/6 seed=24001 median=0.728933s opt_cost=2.76808e+11 largest=2.68435e+08 slices=32 path_search=12.644s
+trial 3/6 seed=24002 median=0.734001s opt_cost=2.76781e+11 largest=2.68435e+08 slices=32 path_search=13.452s
+trial 4/6 seed=24003 median=0.910100s opt_cost=2.76653e+11 largest=2.68435e+08 slices=32 path_search=13.241s
+trial 5/6 seed=24004 median=0.695219s opt_cost=2.0805e+11 largest=2.68435e+08 slices=32 path_search=13.504s
+trial 6/6 seed=24005 median=1.201848s opt_cost=2.76791e+11 largest=2.68435e+08 slices=32 path_search=12.854s
+BEST (4, 5) median= 0.6952190595329739 s opt_cost= 208050042716.0 slices= 32 seed= 24004
+
+========================================================================
+TUNING open_logicals = (6, 7)
+========================================================================
+trial 1/6 seed=25000 median=0.861715s opt_cost=2.2027e+11 largest=2.68435e+08 slices=32 path_search=12.114s
+trial 2/6 seed=25001 median=0.826972s opt_cost=3.52146e+11 largest=2.68435e+08 slices=32 path_search=11.055s
+trial 3/6 seed=25002 median=1.861280s opt_cost=3.93788e+11 largest=5.36871e+08 slices=32 path_search=10.844s
+trial 4/6 seed=25003 median=1.137571s opt_cost=4.26926e+11 largest=5.36871e+08 slices=32 path_search=10.080s
+trial 5/6 seed=25004 median=1.022708s opt_cost=3.85297e+11 largest=5.36871e+08 slices=32 path_search=11.690s
+trial 6/6 seed=25005 median=0.998558s opt_cost=3.15709e+11 largest=5.36871e+08 slices=32 path_search=11.121s
+BEST (6, 7) median= 0.8269724450074136 s opt_cost= 352146330940.0 slices= 32 seed= 25001
+
+========================================================================
+TUNING open_logicals = (8, 9)
+========================================================================
+trial 1/6 seed=26000 median=1.016079s opt_cost=2.42862e+11 largest=5.36871e+08 slices=16 path_search=12.046s
+trial 2/6 seed=26001 median=1.239012s opt_cost=2.76864e+11 largest=1.07374e+09 slices=16 path_search=12.775s
+trial 3/6 seed=26002 median=0.530206s opt_cost=2.08296e+11 largest=5.36871e+08 slices=16 path_search=13.800s
+trial 4/6 seed=26003 median=1.209181s opt_cost=2.76877e+11 largest=1.07374e+09 slices=16 path_search=12.972s
+trial 5/6 seed=26004 median=1.045254s opt_cost=2.4253e+11 largest=5.36871e+08 slices=16 path_search=11.801s
+trial 6/6 seed=26005 median=1.219050s opt_cost=2.76658e+11 largest=1.07374e+09 slices=16 path_search=10.637s
+BEST (8, 9) median= 0.5302062900154851 s opt_cost= 208296317340.0 slices= 16 seed= 26002
+
+========================================================================
+TUNING open_logicals = (10, 11)
+========================================================================
+trial 1/6 seed=27000 median=0.112991s opt_cost=1.39994e+11 largest=1.34218e+08 slices=2 path_search=8.898s
+trial 2/6 seed=27001 median=0.122740s opt_cost=1.39994e+11 largest=1.34218e+08 slices=2 path_search=8.959s
+trial 3/6 seed=27002 median=0.136873s opt_cost=2.7932e+11 largest=5.36871e+08 slices=2 path_search=8.285s
+trial 4/6 seed=27003 median=0.117376s opt_cost=1.39994e+11 largest=1.34218e+08 slices=2 path_search=8.984s
+trial 5/6 seed=27004 median=0.100172s opt_cost=1.39994e+11 largest=1.34218e+08 slices=2 path_search=8.987s
+trial 6/6 seed=27005 median=0.111023s opt_cost=1.39994e+11 largest=1.34218e+08 slices=2 path_search=8.982s
+BEST (10, 11) median= 0.10017160442657769 s opt_cost= 139993689652.0 slices= 2 seed= 27004
+GPU cleanup: {'free_bytes': 20619329536, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+RESULT stageA-b2-identity easy= 5.501975815976039 hard= 15.367933737928979 mean= 10.434954776952509 oracle_calls= (6, 16)
+GPU cleanup: {'free_bytes': 41832022016, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+
+################################################################################
+P5 EVALUATE stageA-b3-identity
+block_size = 3
+logical_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2), (3, 4, 5), (6, 7, 8), (9, 10, 11)]
+################################################################################
+GPU cleanup: {'free_bytes': 41832022016, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+========================================================================
+TUNING open_logicals = (0, 1, 2)
+========================================================================
+trial 1/6 seed=32000 median=2.440523s opt_cost=3.51398e+11 largest=5.36871e+08 slices=32 path_search=14.421s
+trial 2/6 seed=32001 median=2.760330s opt_cost=3.88826e+11 largest=5.36871e+08 slices=32 path_search=17.498s
+trial 3/6 seed=32002 median=2.669439s opt_cost=3.16961e+11 largest=5.36871e+08 slices=32 path_search=16.079s
+trial 4/6 seed=32003 median=3.112077s opt_cost=3.30037e+11 largest=5.36871e+08 slices=32 path_search=19.095s
+trial 5/6 seed=32004 median=2.596675s opt_cost=3.19947e+11 largest=5.36871e+08 slices=32 path_search=15.744s
+trial 6/6 seed=32005 median=2.197237s opt_cost=3.15318e+11 largest=5.36871e+08 slices=32 path_search=15.664s
+BEST (0, 1, 2) median= 2.1972368999850005 s opt_cost= 315317614584.0 slices= 32 seed= 32005
+
+========================================================================
+TUNING open_logicals = (3, 4, 5)
+========================================================================
+trial 1/6 seed=33000 median=2.798918s opt_cost=3.8033e+11 largest=5.36871e+08 slices=32 path_search=14.306s
+trial 2/6 seed=33001 median=1.842393s opt_cost=3.81132e+11 largest=5.36871e+08 slices=32 path_search=11.000s
+trial 3/6 seed=33002 median=0.811534s opt_cost=2.10112e+11 largest=2.68435e+08 slices=32 path_search=14.796s
+trial 4/6 seed=33003 median=2.449509s opt_cost=3.83036e+11 largest=5.36871e+08 slices=32 path_search=13.495s
+trial 5/6 seed=33004 median=0.881852s opt_cost=2.13281e+11 largest=2.68435e+08 slices=32 path_search=14.108s
+trial 6/6 seed=33005 median=0.851747s opt_cost=2.09583e+11 largest=2.68435e+08 slices=32 path_search=15.172s
+BEST (3, 4, 5) median= 0.8115337824565358 s opt_cost= 210111884152.0 slices= 32 seed= 33002
+
+========================================================================
+TUNING open_logicals = (6, 7, 8)
+========================================================================
+trial 1/6 seed=34000 median=2.129413s opt_cost=4.14156e+11 largest=1.07374e+09 slices=16 path_search=10.155s
+trial 2/6 seed=34001 median=1.398066s opt_cost=4.13758e+11 largest=1.07374e+09 slices=16 path_search=9.319s
+trial 3/6 seed=34002 median=0.854312s opt_cost=2.09542e+11 largest=5.36871e+08 slices=16 path_search=9.956s
+trial 4/6 seed=34003 median=0.993609s opt_cost=3.13354e+11 largest=1.07374e+09 slices=16 path_search=8.866s
+trial 5/6 seed=34004 median=1.416479s opt_cost=4.13708e+11 largest=1.07374e+09 slices=16 path_search=9.305s
+trial 6/6 seed=34005 median=0.596353s opt_cost=2.09366e+11 largest=5.36871e+08 slices=16 path_search=12.051s
+BEST (6, 7, 8) median= 0.5963525344850495 s opt_cost= 209365739256.0 slices= 16 seed= 34005
+
+========================================================================
+TUNING open_logicals = (9, 10, 11)
+========================================================================
+trial 1/6 seed=35000 median=27.306215s opt_cost=1.71239e+12 largest=1.07374e+09 slices=128 path_search=12.885s
+trial 2/6 seed=35001 median=56.807273s opt_cost=1.75544e+12 largest=5.36871e+08 slices=256 path_search=20.837s
+trial 3/6 seed=35002 median=0.103021s opt_cost=1.40469e+11 largest=2.68435e+08 slices=1 path_search=60.171s
+trial 4/6 seed=35003 median=8.623420s opt_cost=1.22316e+12 largest=5.36871e+08 slices=128 path_search=18.802s
+trial 5/6 seed=35004 median=2.136394s opt_cost=4.93941e+11 largest=1.34218e+08 slices=128 path_search=17.765s
+trial 6/6 seed=35005 median=21.903994s opt_cost=1.75838e+12 largest=5.36871e+08 slices=256 path_search=17.993s
+BEST (9, 10, 11) median= 0.10302077006781474 s opt_cost= 140468968936.0 slices= 1 seed= 35002
+GPU cleanup: {'free_bytes': 20625620992, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+RESULT stageA-b3-identity easy= 3.8187399845337495 hard= 6.634265821019653 mean= 5.226502902776701 oracle_calls= (4, 10)
+GPU cleanup: {'free_bytes': 41832022016, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+
+################################################################################
+P5 EVALUATE stageA-b4-identity
+block_size = 4
+logical_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3), (4, 5, 6, 7), (8, 9, 10, 11)]
+################################################################################
+GPU cleanup: {'free_bytes': 41832022016, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+========================================================================
+TUNING open_logicals = (0, 1, 2, 3)
+========================================================================
+trial 1/6 seed=42000 median=7.916737s opt_cost=3.46654e+11 largest=1.07374e+09 slices=64 path_search=21.739s
+trial 2/6 seed=42001 median=7.878690s opt_cost=1.52633e+12 largest=1.07374e+09 slices=128 path_search=28.962s
+trial 3/6 seed=42002 median=12.323131s opt_cost=6.11426e+11 largest=1.07374e+09 slices=32 path_search=21.917s
+trial 4/6 seed=42003 median=3.622065s opt_cost=4.42525e+11 largest=1.07374e+09 slices=32 path_search=21.655s
+trial 5/6 seed=42004 median=3.004636s opt_cost=4.55726e+11 largest=1.07374e+09 slices=32 path_search=22.914s
+trial 6/6 seed=42005 median=2.233257s opt_cost=3.89541e+11 largest=5.36871e+08 slices=32 path_search=21.869s
+BEST (0, 1, 2, 3) median= 2.23325718898559 s opt_cost= 389540922736.0 slices= 32 seed= 42005
+
+========================================================================
+TUNING open_logicals = (4, 5, 6, 7)
+========================================================================
+trial 1/6 seed=43000 median=0.216766s opt_cost=2.84064e+11 largest=3.35544e+07 slices=32 path_search=25.600s
+trial 2/6 seed=43001 median=0.836357s opt_cost=4.24309e+11 largest=1.07374e+09 slices=32 path_search=23.442s
+trial 3/6 seed=43002 median=0.242032s opt_cost=2.84615e+11 largest=3.35544e+07 slices=32 path_search=23.017s
+trial 4/6 seed=43003 median=0.879901s opt_cost=4.23765e+11 largest=1.07374e+09 slices=32 path_search=24.554s
+trial 5/6 seed=43004 median=0.222453s opt_cost=1.42546e+11 largest=3.35544e+07 slices=32 path_search=24.080s
+trial 6/6 seed=43005 median=0.466006s opt_cost=2.17761e+11 largest=5.36871e+08 slices=32 path_search=24.003s
+BEST (4, 5, 6, 7) median= 0.2167658880352974 s opt_cost= 284064019568.0 slices= 32 seed= 43000
+
+========================================================================
+TUNING open_logicals = (8, 9, 10, 11)
+========================================================================
+trial 1/6 seed=44000 median=2.247608s opt_cost=6.59862e+11 largest=5.36871e+08 slices=32 path_search=16.614s
+trial 2/6 seed=44001 median=1.824320s opt_cost=6.2448e+11 largest=5.36871e+08 slices=32 path_search=14.357s
+trial 3/6 seed=44002 median=1.761728s opt_cost=6.25364e+11 largest=5.36871e+08 slices=32 path_search=14.559s
+trial 4/6 seed=44003 median=2.290669s opt_cost=6.25313e+11 largest=5.36871e+08 slices=32 path_search=15.279s
+trial 5/6 seed=44004 median=2.310012s opt_cost=3.83368e+11 largest=1.07374e+09 slices=32 path_search=15.947s
+trial 6/6 seed=44005 median=0.232957s opt_cost=1.4362e+11 largest=1.67772e+07 slices=32 path_search=15.095s
+BEST (8, 9, 10, 11) median= 0.23295689898077399 s opt_cost= 143619518832.0 slices= 32 seed= 44005
+GPU cleanup: {'free_bytes': 20625620992, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+RESULT stageA-b4-identity easy= 2.6015406595543027 hard= 3.3870332170045003 mean= 2.9942869382794015 oracle_calls= (3, 7)
+GPU cleanup: {'free_bytes': 20625620992, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+
+################################################################################
+P5 EVALUATE stageA-b6-identity
+block_size = 6
+logical_order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5), (6, 7, 8, 9, 10, 11)]
+################################################################################
+GPU cleanup: {'free_bytes': 20625620992, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+========================================================================
+TUNING open_logicals = (0, 1, 2, 3, 4, 5)
+========================================================================
+trial 1/6 seed=52000 median=0.634813s opt_cost=2.9054e+11 largest=1.34218e+08 slices=32 path_search=12.917s
+trial 2/6 seed=52001 median=1.899283s opt_cost=3.82817e+11 largest=1.07374e+09 slices=32 path_search=12.352s
+trial 3/6 seed=52002 median=1.635282s opt_cost=3.49494e+11 largest=5.36871e+08 slices=32 path_search=14.895s
+trial 4/6 seed=52003 median=0.846071s opt_cost=3.83925e+11 largest=5.36871e+08 slices=32 path_search=16.367s
+trial 5/6 seed=52004 median=1.680277s opt_cost=2.48174e+11 largest=2.68435e+08 slices=32 path_search=14.179s
+trial 6/6 seed=52005 median=1.349868s opt_cost=1.67835e+11 largest=5.36871e+08 slices=32 path_search=19.472s
+BEST (0, 1, 2, 3, 4, 5) median= 0.6348132075509056 s opt_cost= 290539907840.0 slices= 32 seed= 52000
+
+========================================================================
+TUNING open_logicals = (6, 7, 8, 9, 10, 11)
+========================================================================
+trial 1/6 seed=53000 median=1.010038s opt_cost=1.65619e+11 largest=5.36871e+08 slices=32 path_search=19.806s
+trial 2/6 seed=53001 median=0.781453s opt_cost=3.26614e+11 largest=5.36871e+08 slices=32 path_search=20.391s
+trial 3/6 seed=53002 median=1.115863s opt_cost=1.65633e+11 largest=5.36871e+08 slices=32 path_search=18.815s
+trial 4/6 seed=53003 median=0.737479s opt_cost=3.2336e+11 largest=5.36871e+08 slices=32 path_search=20.267s
+trial 5/6 seed=53004 median=0.478218s opt_cost=2.13973e+11 largest=5.36871e+08 slices=32 path_search=20.358s
+trial 6/6 seed=53005 median=1.074871s opt_cost=1.64259e+11 largest=5.36871e+08 slices=32 path_search=18.209s
+BEST (6, 7, 8, 9, 10, 11) median= 0.47821817244403064 s opt_cost= 213973390336.0 slices= 32 seed= 53004
+GPU cleanup: {'free_bytes': 20625620992, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+RESULT stageA-b6-identity easy= 1.0694197654956952 hard= 1.973436546511948 mean= 1.5214281560038216 oracle_calls= (2, 4)
+GPU cleanup: {'free_bytes': 20625620992, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+
+STAGE A BEST block_size = 6 mean = 1.5214281560038216
+
+################################################################################
+P5 EVALUATE stageB-b6-reverse
+block_size = 6
+logical_order = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+topologies = [(11, 10, 9, 8, 7, 6), (5, 4, 3, 2, 1, 0)]
+################################################################################
+GPU cleanup: {'free_bytes': 20625620992, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+========================================================================
+TUNING open_logicals = (11, 10, 9, 8, 7, 6)
+========================================================================
+trial 1/6 seed=62000 median=0.164066s opt_cost=1.40757e+11 largest=8.38861e+06 slices=32 path_search=19.802s
+trial 2/6 seed=62001 median=0.171782s opt_cost=1.43149e+11 largest=1.67772e+07 slices=32 path_search=19.573s
+trial 3/6 seed=62002 median=1.253752s opt_cost=3.23819e+11 largest=5.36871e+08 slices=32 path_search=20.946s
+trial 4/6 seed=62003 median=1.743172s opt_cost=2.27221e+11 largest=5.36871e+08 slices=32 path_search=20.730s
+trial 5/6 seed=62004 median=1.080850s opt_cost=1.64168e+11 largest=5.36871e+08 slices=32 path_search=21.417s
+trial 6/6 seed=62005 median=1.027558s opt_cost=1.65438e+11 largest=5.36871e+08 slices=32 path_search=21.655s
+BEST (11, 10, 9, 8, 7, 6) median= 0.1640658790129237 s opt_cost= 140756655488.0 slices= 32 seed= 62000
+
+========================================================================
+TUNING open_logicals = (5, 4, 3, 2, 1, 0)
+========================================================================
+trial 1/6 seed=63000 median=1.616484s opt_cost=3.47685e+11 largest=5.36871e+08 slices=32 path_search=13.097s
+trial 2/6 seed=63001 median=3.239480s opt_cost=6.57646e+11 largest=1.07374e+09 slices=32 path_search=12.969s
+trial 3/6 seed=63002 median=0.766495s opt_cost=3.15981e+11 largest=5.36871e+08 slices=32 path_search=15.065s
+trial 4/6 seed=63003 median=0.898867s opt_cost=3.81822e+11 largest=5.36871e+08 slices=32 path_search=11.125s
+trial 5/6 seed=63004 median=1.522461s opt_cost=3.46401e+11 largest=5.36871e+08 slices=32 path_search=12.809s
+trial 6/6 seed=63005 median=0.851415s opt_cost=4.19297e+11 largest=1.07374e+09 slices=32 path_search=13.149s
+BEST (5, 4, 3, 2, 1, 0) median= 0.7664947339799255 s opt_cost= 315981120640.0 slices= 32 seed= 63002
+GPU cleanup: {'free_bytes': 20625620992, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+RESULT stageB-b6-reverse easy= 0.8776103059644811 hard= 2.361249008041341 mean= 1.619429657002911 oracle_calls= (2, 4)
+GPU cleanup: {'free_bytes': 20625620992, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+
+################################################################################
+P5 EVALUATE stageB-b6-weight-asc
+block_size = 6
+logical_order = [3, 10, 11, 7, 0, 9, 8, 1, 2, 5, 4, 6]
+topologies = [(3, 10, 11, 7, 0, 9), (8, 1, 2, 5, 4, 6)]
+################################################################################
+GPU cleanup: {'free_bytes': 20625620992, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+========================================================================
+TUNING open_logicals = (3, 10, 11, 7, 0, 9)
+========================================================================
+trial 1/6 seed=72000 median=0.525363s opt_cost=1.60108e+11 largest=1.07374e+09 slices=16 path_search=12.725s
+trial 2/6 seed=72001 median=0.451509s opt_cost=1.60652e+11 largest=1.07374e+09 slices=16 path_search=14.354s
+trial 3/6 seed=72002 median=0.460606s opt_cost=1.61363e+11 largest=1.07374e+09 slices=16 path_search=11.463s
+trial 4/6 seed=72003 median=0.448835s opt_cost=1.6122e+11 largest=1.07374e+09 slices=16 path_search=13.496s
+trial 5/6 seed=72004 median=0.633047s opt_cost=1.62273e+11 largest=1.07374e+09 slices=16 path_search=13.301s
+trial 6/6 seed=72005 median=0.456730s opt_cost=1.61148e+11 largest=1.07374e+09 slices=16 path_search=14.131s
+BEST (3, 10, 11, 7, 0, 9) median= 0.4488346700090915 s opt_cost= 161219970624.0 slices= 16 seed= 72003
+
+========================================================================
+TUNING open_logicals = (8, 1, 2, 5, 4, 6)
+========================================================================
+trial 1/6 seed=73000 median=1.799524s opt_cost=5.19369e+11 largest=2.68435e+08 slices=128 path_search=13.428s
+trial 2/6 seed=73001 median=3.019119s opt_cost=5.86594e+11 largest=5.36871e+08 slices=128 path_search=14.081s
+trial 3/6 seed=73002 median=4.624516s opt_cost=6.57306e+11 largest=5.36871e+08 slices=128 path_search=18.632s
+trial 4/6 seed=73003 median=3.715348s opt_cost=5.19505e+11 largest=5.36871e+08 slices=64 path_search=10.307s
+trial 5/6 seed=73004 median=2.399456s opt_cost=5.18892e+11 largest=2.68435e+08 slices=128 path_search=12.499s
+trial 6/6 seed=73005 median=4.473979s opt_cost=5.69231e+11 largest=1.07374e+09 slices=64 path_search=12.347s
+BEST (8, 1, 2, 5, 4, 6) median= 1.799524147529155 s opt_cost= 519369040704.0 slices= 128 seed= 73000
+GPU cleanup: {'free_bytes': 20625620992, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+RESULT stageB-b6-weight-asc easy= 2.2119650010135956 hard= 5.740073882509023 mean= 3.9760194417613093 oracle_calls= (2, 4)
+GPU cleanup: {'free_bytes': 20625620992, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+
+################################################################################
+P5 EVALUATE stageB-b6-weight-desc
+block_size = 6
+logical_order = [4, 6, 1, 2, 5, 8, 0, 9, 7, 3, 10, 11]
+topologies = [(4, 6, 1, 2, 5, 8), (0, 9, 7, 3, 10, 11)]
+################################################################################
+GPU cleanup: {'free_bytes': 20625620992, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+========================================================================
+TUNING open_logicals = (4, 6, 1, 2, 5, 8)
+========================================================================
+trial 1/6 seed=82000 median=1.887936s opt_cost=5.17711e+11 largest=1.07374e+09 slices=32 path_search=12.476s
+trial 2/6 seed=82001 median=8.966914s opt_cost=1.1365e+12 largest=1.07374e+09 slices=128 path_search=11.338s
+trial 3/6 seed=82002 median=3.067556s opt_cost=4.74805e+11 largest=1.07374e+09 slices=32 path_search=12.721s
+trial 4/6 seed=82003 median=7.821219s opt_cost=1.17379e+12 largest=1.07374e+09 slices=128 path_search=12.251s
+trial 5/6 seed=82004 median=2.696509s opt_cost=5.20486e+11 largest=2.68435e+08 slices=128 path_search=11.513s
+trial 6/6 seed=82005 median=2.062017s opt_cost=5.87885e+11 largest=5.36871e+08 slices=64 path_search=12.165s
+BEST (4, 6, 1, 2, 5, 8) median= 1.8879362100269645 s opt_cost= 517710940608.0 slices= 32 seed= 82000
+
+========================================================================
+TUNING open_logicals = (0, 9, 7, 3, 10, 11)
+========================================================================
+trial 1/6 seed=83000 median=0.461811s opt_cost=1.60235e+11 largest=1.07374e+09 slices=16 path_search=14.820s
+trial 2/6 seed=83001 median=0.135517s opt_cost=1.40578e+11 largest=1.67772e+07 slices=16 path_search=13.807s
+trial 3/6 seed=83002 median=0.471441s opt_cost=1.60223e+11 largest=1.07374e+09 slices=16 path_search=15.260s
+trial 4/6 seed=83003 median=0.481851s opt_cost=1.60975e+11 largest=1.07374e+09 slices=16 path_search=13.640s
+trial 5/6 seed=83004 median=0.454270s opt_cost=1.61279e+11 largest=1.07374e+09 slices=16 path_search=14.562s
+trial 6/6 seed=83005 median=0.460972s opt_cost=1.61135e+11 largest=1.07374e+09 slices=16 path_search=13.801s
+BEST (0, 9, 7, 3, 10, 11) median= 0.13551713549531996 s opt_cost= 140577614208.0 slices= 16 seed= 83001
+GPU cleanup: {'free_bytes': 20625620992, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+RESULT stageB-b6-weight-desc easy= 2.19185709557496 hard= 2.2677416455117054 mean= 2.2297993705433328 oracle_calls= (2, 4)
+GPU cleanup: {'free_bytes': 41836216320, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+
+################################################################################
+P5 EVALUATE stageB-b6-overlap-max
+block_size = 6
+logical_order = [4, 1, 6, 5, 2, 8, 0, 10, 9, 7, 11, 3]
+topologies = [(4, 1, 6, 5, 2, 8), (0, 10, 9, 7, 11, 3)]
+################################################################################
+GPU cleanup: {'free_bytes': 41836216320, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+========================================================================
+TUNING open_logicals = (4, 1, 6, 5, 2, 8)
+========================================================================
+trial 1/6 seed=92000 median=5.432357s opt_cost=5.51314e+11 largest=5.36871e+08 slices=64 path_search=10.540s
+trial 2/6 seed=92001 median=2.074487s opt_cost=5.87967e+11 largest=1.07374e+09 slices=32 path_search=10.661s
+trial 3/6 seed=92002 median=2.393655s opt_cost=5.92879e+11 largest=1.07374e+09 slices=32 path_search=10.608s
+trial 4/6 seed=92003 median=1.396860s opt_cost=4.86617e+11 largest=5.36871e+08 slices=64 path_search=12.594s
+trial 5/6 seed=92004 median=1.646230s opt_cost=3.86653e+11 largest=2.68435e+08 slices=128 path_search=13.914s
+trial 6/6 seed=92005 median=5.888272s opt_cost=6.63825e+11 largest=2.68435e+08 slices=128 path_search=12.868s
+BEST (4, 1, 6, 5, 2, 8) median= 1.3968600030639209 s opt_cost= 486616967488.0 slices= 64 seed= 92003
+
+========================================================================
+TUNING open_logicals = (0, 10, 9, 7, 11, 3)
+========================================================================
+trial 1/6 seed=93000 median=0.449486s opt_cost=1.61379e+11 largest=1.07374e+09 slices=16 path_search=15.281s
+trial 2/6 seed=93001 median=0.495284s opt_cost=1.60295e+11 largest=1.07374e+09 slices=16 path_search=15.355s
+trial 3/6 seed=93002 median=0.475995s opt_cost=1.59091e+11 largest=1.07374e+09 slices=16 path_search=15.942s
+trial 4/6 seed=93003 median=0.471014s opt_cost=1.60368e+11 largest=1.07374e+09 slices=16 path_search=16.116s
+trial 5/6 seed=93004 median=0.453652s opt_cost=1.59049e+11 largest=1.07374e+09 slices=16 path_search=15.951s
+trial 6/6 seed=93005 median=0.462898s opt_cost=1.60379e+11 largest=1.07374e+09 slices=16 path_search=13.230s
+BEST (0, 10, 9, 7, 11, 3) median= 0.44948634353931993 s opt_cost= 161378775040.0 slices= 16 seed= 93000
+GPU cleanup: {'free_bytes': 20629815296, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+RESULT stageB-b6-overlap-max easy= 1.8202391700469889 hard= 2.6942757015349343 mean= 2.2572574357909616 oracle_calls= (2, 4)
+GPU cleanup: {'free_bytes': 20629815296, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+
+################################################################################
+P5 EVALUATE stageB-b6-overlap-min
+block_size = 6
+logical_order = [4, 3, 10, 11, 8, 7, 6, 0, 9, 2, 1, 5]
+topologies = [(4, 3, 10, 11, 8, 7), (6, 0, 9, 2, 1, 5)]
+################################################################################
+GPU cleanup: {'free_bytes': 20629815296, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+========================================================================
+TUNING open_logicals = (4, 3, 10, 11, 8, 7)
+========================================================================
+trial 1/6 seed=102000 median=2.688843s opt_cost=6.24887e+11 largest=5.36871e+08 slices=64 path_search=19.787s
+trial 2/6 seed=102001 median=0.962526s opt_cost=3.19276e+11 largest=1.07374e+09 slices=32 path_search=19.591s
+trial 3/6 seed=102002 median=3.668292s opt_cost=4.33366e+11 largest=1.07374e+09 slices=32 path_search=16.385s
+trial 4/6 seed=102003 median=11.765803s opt_cost=1.11102e+12 largest=5.36871e+08 slices=128 path_search=18.012s
+trial 5/6 seed=102004 median=4.333850s opt_cost=7.48082e+11 largest=1.07374e+09 slices=64 path_search=23.567s
+trial 6/6 seed=102005 median=2.599122s opt_cost=2.13774e+11 largest=1.34218e+08 slices=128 path_search=20.310s
+BEST (4, 3, 10, 11, 8, 7) median= 0.9625255275168456 s opt_cost= 319276102976.0 slices= 32 seed= 102001
+
+========================================================================
+TUNING open_logicals = (6, 0, 9, 2, 1, 5)
+========================================================================
+trial 1/6 seed=103000 median=0.894494s opt_cost=2.0913e+11 largest=2.68435e+08 slices=32 path_search=16.481s
+trial 2/6 seed=103001 median=2.376445s opt_cost=5.94414e+11 largest=1.07374e+09 slices=32 path_search=17.315s
+trial 3/6 seed=103002 median=3.820709s opt_cost=7.29047e+11 largest=1.07374e+09 slices=32 path_search=15.163s
+trial 4/6 seed=103003 median=0.914142s opt_cost=2.15281e+11 largest=2.68435e+08 slices=32 path_search=15.950s
+trial 5/6 seed=103004 median=0.841485s opt_cost=2.11125e+11 largest=2.68435e+08 slices=32 path_search=15.063s
+trial 6/6 seed=103005 median=0.888562s opt_cost=5.7993e+11 largest=2.68435e+08 slices=32 path_search=18.478s
+BEST (6, 0, 9, 2, 1, 5) median= 0.8414848864777014 s opt_cost= 211124764352.0 slices= 32 seed= 103004
+GPU cleanup: {'free_bytes': 20629815296, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+RESULT stageB-b6-overlap-min easy= 1.780225797498133 hard= 3.418110004044138 mean= 2.5991679007711355 oracle_calls= (2, 4)
+GPU cleanup: {'free_bytes': 20629815296, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+
+################################################################################
+P5 EVALUATE stageB-b6-random-0
+block_size = 6
+logical_order = [7, 0, 5, 9, 4, 11, 3, 8, 6, 2, 1, 10]
+topologies = [(7, 0, 5, 9, 4, 11), (3, 8, 6, 2, 1, 10)]
+################################################################################
+GPU cleanup: {'free_bytes': 20629815296, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+========================================================================
+TUNING open_logicals = (7, 0, 5, 9, 4, 11)
+========================================================================
+trial 1/6 seed=112000 median=0.522345s opt_cost=2.09469e+11 largest=5.36871e+08 slices=16 path_search=14.977s
+trial 2/6 seed=112001 median=0.564992s opt_cost=2.08281e+11 largest=5.36871e+08 slices=16 path_search=15.614s
+trial 3/6 seed=112002 median=0.599677s opt_cost=2.08516e+11 largest=5.36871e+08 slices=16 path_search=14.535s
+trial 4/6 seed=112003 median=0.526853s opt_cost=2.09798e+11 largest=5.36871e+08 slices=16 path_search=14.755s
+trial 5/6 seed=112004 median=0.608015s opt_cost=2.08561e+11 largest=5.36871e+08 slices=16 path_search=14.513s
+trial 6/6 seed=112005 median=0.497755s opt_cost=2.09513e+11 largest=5.36871e+08 slices=16 path_search=15.202s
+BEST (7, 0, 5, 9, 4, 11) median= 0.49775465950369835 s opt_cost= 209513488928.0 slices= 16 seed= 112005
+
+========================================================================
+TUNING open_logicals = (3, 8, 6, 2, 1, 10)
+========================================================================
+trial 1/6 seed=113000 median=7.074089s opt_cost=1.04352e+12 largest=1.07374e+09 slices=64 path_search=23.281s
+trial 2/6 seed=113001 median=14.163834s opt_cost=9.69042e+11 largest=1.07374e+09 slices=64 path_search=20.225s
+trial 3/6 seed=113002 median=8.154826s opt_cost=7.93002e+11 largest=1.07374e+09 slices=64 path_search=20.956s
+trial 4/6 seed=113003 median=5.403305s opt_cost=6.93428e+11 largest=1.07374e+09 slices=32 path_search=21.040s
+trial 5/6 seed=113004 median=29.315865s opt_cost=8.31424e+11 largest=1.07374e+09 slices=64 path_search=25.499s
+trial 6/6 seed=113005 median=12.728234s opt_cost=9.67518e+11 largest=1.07374e+09 slices=64 path_search=20.353s
+BEST (3, 8, 6, 2, 1, 10) median= 5.403305443527643 s opt_cost= 693427843648.0 slices= 32 seed= 113003
+GPU cleanup: {'free_bytes': 20629815296, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+RESULT stageB-b6-random-0 easy= 5.8227493449812755 hard= 16.493878121487796 mean= 11.158313733234536 oracle_calls= (2, 4)
+GPU cleanup: {'free_bytes': 41836216320, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+
+################################################################################
+P5 EVALUATE stageB-b6-random-1
+block_size = 6
+logical_order = [0, 5, 11, 3, 2, 6, 1, 9, 7, 10, 4, 8]
+topologies = [(0, 5, 11, 3, 2, 6), (1, 9, 7, 10, 4, 8)]
+################################################################################
+GPU cleanup: {'free_bytes': 41836216320, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+========================================================================
+TUNING open_logicals = (0, 5, 11, 3, 2, 6)
+========================================================================
+trial 1/6 seed=122000 median=1.396709s opt_cost=1.67403e+11 largest=5.36871e+08 slices=32 path_search=21.098s
+trial 2/6 seed=122001 median=2.751882s opt_cost=3.37573e+11 largest=1.07374e+09 slices=32 path_search=17.283s
+trial 3/6 seed=122002 median=2.753721s opt_cost=1.90851e+11 largest=5.36871e+08 slices=32 path_search=20.142s
+trial 4/6 seed=122003 median=5.181730s opt_cost=2.60692e+11 largest=2.68435e+08 slices=32 path_search=21.507s
+trial 5/6 seed=122004 median=1.411972s opt_cost=3.0486e+11 largest=5.36871e+08 slices=32 path_search=20.322s
+trial 6/6 seed=122005 median=1.523803s opt_cost=1.67438e+11 largest=5.36871e+08 slices=32 path_search=20.267s
+BEST (0, 5, 11, 3, 2, 6) median= 1.3967092299717478 s opt_cost= 167402621376.0 slices= 32 seed= 122000
+
+========================================================================
+TUNING open_logicals = (1, 9, 7, 10, 4, 8)
+========================================================================
+trial 1/6 seed=123000 median=0.158139s opt_cost=2.81735e+11 largest=5.36871e+08 slices=1 path_search=7.005s
+trial 2/6 seed=123001 median=0.163385s opt_cost=2.81735e+11 largest=5.36871e+08 slices=1 path_search=7.003s
+trial 3/6 seed=123002 median=0.154351s opt_cost=2.81735e+11 largest=5.36871e+08 slices=1 path_search=7.015s
+trial 4/6 seed=123003 median=0.164667s opt_cost=2.81735e+11 largest=5.36871e+08 slices=1 path_search=7.003s
+trial 5/6 seed=123004 median=0.161518s opt_cost=2.81735e+11 largest=5.36871e+08 slices=1 path_search=6.997s
+trial 6/6 seed=123005 median=0.155757s opt_cost=2.81735e+11 largest=5.36871e+08 slices=1 path_search=6.994s
+BEST (1, 9, 7, 10, 4, 8) median= 0.15435075346613303 s opt_cost= 281734823544.0 slices= 1 seed= 123002
+GPU cleanup: {'free_bytes': 20629815296, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+RESULT stageB-b6-random-1 easy= 1.502822055015713 hard= 1.7877223659888841 mean= 1.6452722105022985 oracle_calls= (2, 4)
+GPU cleanup: {'free_bytes': 20629815296, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+========================================================================
+TUNING open_logicals = (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+========================================================================
+trial 1/6 seed=912000 median=6.992444s opt_cost=1.24795e+12 largest=1.07374e+09 slices=64 path_search=16.776s
+trial 2/6 seed=912001 median=12.810210s opt_cost=1.29467e+12 largest=5.36871e+08 slices=128 path_search=19.213s
+trial 3/6 seed=912002 median=15.077320s opt_cost=1.3504e+12 largest=1.07374e+09 slices=128 path_search=17.300s
+trial 4/6 seed=912003 median=6.383482s opt_cost=1.2608e+12 largest=5.36871e+08 slices=128 path_search=18.529s
+trial 5/6 seed=912004 median=26.524104s opt_cost=1.5846e+12 largest=1.07374e+09 slices=128 path_search=20.941s
+trial 6/6 seed=912005 median=6.787212s opt_cost=1.3355e+12 largest=1.07374e+09 slices=64 path_search=17.403s
+BEST (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11) median= 6.383481556957122 s opt_cost= 1260802729472.0 slices= 128 seed= 912003
+GPU cleanup: {'free_bytes': 20629815296, 'total_bytes': 42406903808, 'cupy_pool_used_bytes': 0, 'cupy_pool_total_bytes': 0}
+
+================================================================================
+P5 BEST CONFIG
+{
+  "block_size": 6,
+  "logical_order": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "profile_path": "p5_scan/paths_b6_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+  "easy_median_seconds": 1.0694197654956952,
+  "hard_median_seconds": 1.973436546511948,
+  "mean_easy_hard_seconds": 1.5214281560038216
+}
+results = p5_scan/p5_scan_results.json
+================================================================================
+===== FINISHED =====
+Fri Sep 18 08:52:13 +08 2026
+exit status = 0

@@ -1,0 +1,143 @@
+===== ENVIRONMENT =====
+Thu Sep 24 12:01:07 +08 2026
+x1000c2s1b0n1
+/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/v0.5.1_p5_numerical_cleanup_replay
+/home/users/astar/ihpc/youjb/miniconda3/envs/cudaqx-qec/bin/python
+/home/users/astar/ihpc/youjb/miniconda3/envs/cudaqx-qec/bin/python
+2.10.0+cu128
+True
+1
+NVIDIA A100-SXM4-40GB
+===== PATH CHECK =====
+total 33K
+-rw-rw-r--. 1 youjb youjb 2.5K Sep 24 07:58 canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+-rw-rw-r--. 1 youjb youjb 5.7K Sep 24 07:58 canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+===== START BB72 P5 NUMERICAL CLEANUP REPLAY =====
+Thu Sep 24 12:01:30 +08 2026
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+=== decoder p=0.005 ===
+[10/490] new=10 p=0.005 stress_w2-3-4-5_p0p005__shot_000159 class=AGREE_REPLAY gap=0.000e+00 calls=2 elapsed=0.6 min
+[20/490] new=20 p=0.005 stress_w2-3-4-5_p0p005__shot_000370 class=NEAR_TIE_COMMON_FULL gap=1.188e-14 calls=3 elapsed=1.1 min
+[30/490] new=30 p=0.005 stress_w2-3-4-5_p0p005__shot_000823 class=AGREE_REPLAY gap=0.000e+00 calls=2 elapsed=1.6 min
+[40/490] new=40 p=0.005 stress_w2-3-4-5_p0p005__shot_001047 class=REF_PREFIX_EXPLORED__TAIL_NUMERICAL_DISAGREEMENT gap=1.281e-10 calls=3 elapsed=2.0 min
+[50/490] new=50 p=0.005 stress_w2-3-4-5_p0p005__shot_001226 class=NEAR_TIE_COMMON_FULL gap=2.165e-15 calls=2 elapsed=2.5 min
+[60/490] new=60 p=0.005 stress_w2-3-4-5_p0p005__shot_001555 class=AGREE_REPLAY gap=0.000e+00 calls=2 elapsed=3.0 min
+[70/490] new=70 p=0.005 stress_w2-3-4-5_p0p005__shot_001882 class=NEAR_TIE_COMMON_FULL gap=4.402e-14 calls=3 elapsed=3.5 min
+[80/490] new=80 p=0.005 stress_w2-3-4-5_p0p005__shot_002070 class=NEAR_TIE_COMMON_FULL gap=5.433e-12 calls=5 elapsed=3.9 min
+[90/490] new=90 p=0.005 stress_w2-3-4-5_p0p005__shot_002439 class=AGREE_REPLAY gap=0.000e+00 calls=2 elapsed=4.4 min
+[100/490] new=100 p=0.005 stress_w2-3-4-5_p0p005__shot_002759 class=AGREE_REPLAY gap=0.000e+00 calls=2 elapsed=4.9 min
+[110/490] new=110 p=0.005 stress_w2-3-4-5_p0p005__shot_003110 class=NEAR_TIE_COMMON_FULL gap=4.344e-14 calls=5 elapsed=5.3 min
+[120/490] new=120 p=0.005 stress_w2-3-4-5_p0p005__shot_003285 class=NEAR_TIE_COMMON_FULL gap=1.333e-12 calls=3 elapsed=5.8 min
+[130/490] new=130 p=0.005 stress_w2-3-4-5_p0p005__shot_003523 class=AGREE_REPLAY gap=0.000e+00 calls=2 elapsed=6.3 min
+[140/490] new=140 p=0.005 stress_w2-3-4-5_p0p005__shot_003763 class=NEAR_TIE_COMMON_FULL gap=2.231e-11 calls=3 elapsed=6.7 min
+[150/490] new=150 p=0.005 stress_w2-3-4-5_p0p005__shot_004027 class=REF_PREFIX_EXPLORED__TAIL_NUMERICAL_DISAGREEMENT gap=1.062e-10 calls=6 elapsed=7.2 min
+[160/490] new=160 p=0.005 stress_w2-3-4-5_p0p005__shot_004313 class=NEAR_TIE_COMMON_FULL gap=3.331e-16 calls=3 elapsed=7.7 min
+[170/490] new=170 p=0.005 stress_w2-3-4-5_p0p005__shot_004525 class=NEAR_TIE_COMMON_FULL gap=1.266e-13 calls=3 elapsed=8.2 min
+[180/490] new=180 p=0.005 stress_w2-3-4-5_p0p005__shot_004907 class=NEAR_TIE_COMMON_FULL gap=1.083e-13 calls=6 elapsed=8.6 min
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+=== decoder p=0.01 ===
+[190/490] new=190 p=0.01 stress_w2-3-4-5_p0p01__shot_000286 class=NEAR_TIE_COMMON_FULL gap=1.105e-14 calls=3 elapsed=9.1 min
+[200/490] new=200 p=0.01 stress_w2-3-4-5_p0p01__shot_000743 class=NEAR_TIE_COMMON_FULL gap=9.770e-15 calls=3 elapsed=9.6 min
+[210/490] new=210 p=0.01 stress_w2-3-4-5_p0p01__shot_001711 class=NEAR_TIE_COMMON_FULL gap=1.388e-16 calls=4 elapsed=10.0 min
+[220/490] new=220 p=0.01 stress_w2-3-4-5_p0p01__shot_002291 class=NEAR_TIE_COMMON_FULL gap=3.886e-16 calls=3 elapsed=10.5 min
+[230/490] new=230 p=0.01 stress_w2-3-4-5_p0p01__shot_003285 class=NEAR_TIE_COMMON_FULL gap=5.744e-13 calls=3 elapsed=11.0 min
+[240/490] new=240 p=0.01 stress_w2-3-4-5_p0p01__shot_004022 class=NEAR_TIE_COMMON_FULL gap=2.170e-14 calls=3 elapsed=11.5 min
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+=== decoder p=0.02 ===
+[250/490] new=250 p=0.02 natural_p0p02__shot_000902 class=NEAR_TIE_COMMON_FULL gap=2.387e-15 calls=4 elapsed=12.0 min
+[260/490] new=260 p=0.02 natural_p0p02__shot_004462 class=NEAR_TIE_COMMON_FULL gap=1.721e-15 calls=3 elapsed=12.4 min
+[270/490] new=270 p=0.02 stress_w2-3-4-5_p0p02__shot_001301 class=NEAR_TIE_COMMON_FULL gap=8.327e-16 calls=3 elapsed=12.9 min
+[280/490] new=280 p=0.02 stress_w2-3-4-5_p0p02__shot_001983 class=NEAR_TIE_COMMON_FULL gap=2.442e-15 calls=3 elapsed=13.4 min
+[290/490] new=290 p=0.02 stress_w2-3-4-5_p0p02__shot_003758 class=NEAR_TIE_COMMON_FULL gap=3.952e-14 calls=3 elapsed=13.9 min
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+=== decoder p=0.03 ===
+[300/490] new=300 p=0.03 natural_p0p03__shot_000065 class=NEAR_TIE_COMMON_FULL gap=1.760e-14 calls=3 elapsed=14.4 min
+[310/490] new=310 p=0.03 natural_p0p03__shot_002544 class=NEAR_TIE_COMMON_FULL gap=1.604e-14 calls=3 elapsed=14.8 min
+[320/490] new=320 p=0.03 stress_w2-3-4-5_p0p03__shot_000006 class=NEAR_TIE_COMMON_FULL gap=5.329e-15 calls=3 elapsed=15.3 min
+[330/490] new=330 p=0.03 stress_w2-3-4-5_p0p03__shot_001106 class=NEAR_TIE_COMMON_FULL gap=3.331e-15 calls=3 elapsed=15.8 min
+[340/490] new=340 p=0.03 stress_w2-3-4-5_p0p03__shot_002791 class=NEAR_TIE_COMMON_FULL gap=5.551e-17 calls=3 elapsed=16.3 min
+[350/490] new=350 p=0.03 stress_w2-3-4-5_p0p03__shot_004313 class=NEAR_TIE_COMMON_FULL gap=4.441e-16 calls=3 elapsed=16.8 min
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+=== decoder p=0.04 ===
+[360/490] new=360 p=0.04 natural_p0p04__shot_000664 class=NEAR_TIE_COMMON_FULL gap=2.220e-16 calls=3 elapsed=17.3 min
+[370/490] new=370 p=0.04 natural_p0p04__shot_001932 class=NEAR_TIE_COMMON_FULL gap=7.772e-16 calls=3 elapsed=17.7 min
+[380/490] new=380 p=0.04 natural_p0p04__shot_003191 class=NEAR_TIE_COMMON_FULL gap=8.160e-15 calls=3 elapsed=18.2 min
+[390/490] new=390 p=0.04 natural_p0p04__shot_004036 class=NEAR_TIE_COMMON_FULL gap=2.220e-16 calls=3 elapsed=18.7 min
+[400/490] new=400 p=0.04 stress_w2-3-4-5_p0p04__shot_000871 class=NEAR_TIE_COMMON_FULL gap=8.882e-16 calls=3 elapsed=19.2 min
+[410/490] new=410 p=0.04 stress_w2-3-4-5_p0p04__shot_002018 class=NEAR_TIE_COMMON_FULL gap=8.327e-17 calls=5 elapsed=19.7 min
+[420/490] new=420 p=0.04 stress_w2-3-4-5_p0p04__shot_003594 class=NEAR_TIE_COMMON_FULL gap=1.110e-16 calls=5 elapsed=20.1 min
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+=== decoder p=0.05 ===
+[430/490] new=430 p=0.05 natural_p0p05__shot_000690 class=NEAR_TIE_COMMON_FULL gap=5.551e-17 calls=3 elapsed=20.6 min
+[440/490] new=440 p=0.05 natural_p0p05__shot_001535 class=NEAR_TIE_COMMON_FULL gap=6.661e-16 calls=5 elapsed=21.1 min
+[450/490] new=450 p=0.05 natural_p0p05__shot_003208 class=NEAR_TIE_COMMON_FULL gap=3.053e-16 calls=4 elapsed=21.6 min
+[460/490] new=460 p=0.05 stress_w2-3-4-5_p0p05__shot_000269 class=NEAR_TIE_COMMON_FULL gap=6.661e-16 calls=3 elapsed=22.1 min
+[470/490] new=470 p=0.05 stress_w2-3-4-5_p0p05__shot_001626 class=NEAR_TIE_COMMON_FULL gap=4.441e-16 calls=3 elapsed=22.6 min
+[480/490] new=480 p=0.05 stress_w2-3-4-5_p0p05__shot_003033 class=NEAR_TIE_COMMON_FULL gap=6.106e-16 calls=3 elapsed=23.0 min
+[490/490] new=490 p=0.05 stress_w2-3-4-5_p0p05__shot_004799 class=NEAR_TIE_COMMON_FULL gap=3.220e-15 calls=4 elapsed=23.5 min
+
+Replay complete/resumed.
+{
+  "by_classification": [
+    {
+      "classification": "NEAR_TIE_COMMON_FULL",
+      "count": 369,
+      "max_gap_ref_vs_replay_b9_prob": 9.11978825790527e-11,
+      "max_root_marginal_delta_norm": 4.742133684447672e-09,
+      "max_tail_delta_norm": 4.057318817696346e-10,
+      "reference_stressed_count": 0
+    },
+    {
+      "classification": "AGREE_REPLAY",
+      "count": 116,
+      "max_gap_ref_vs_replay_b9_prob": 0.0,
+      "max_root_marginal_delta_norm": 1.0966588583781593e-08,
+      "max_tail_delta_norm": 5.930634524908983e-09,
+      "reference_stressed_count": 25
+    },
+    {
+      "classification": "REF_PREFIX_EXPLORED__TAIL_NUMERICAL_DISAGREEMENT",
+      "count": 2,
+      "max_gap_ref_vs_replay_b9_prob": 1.2807127580671818e-10,
+      "max_root_marginal_delta_norm": 2.644584751958958e-10,
+      "max_tail_delta_norm": 4.946336929837225e-10,
+      "reference_stressed_count": 0
+    },
+    {
+      "classification": "FULL_REFERENCE_STRESSED__REF_PREFIX_EXPLORED__TAIL_NUMERICAL_DISAGREEMENT",
+      "count": 2,
+      "max_gap_ref_vs_replay_b9_prob": 8.324217981581228e-10,
+      "max_root_marginal_delta_norm": 6.206976036537771e-08,
+      "max_tail_delta_norm": 1.0255212749059744e-09,
+      "reference_stressed_count": 2
+    },
+    {
+      "classification": "FULL_REFERENCE_STRESSED__NEAR_TIE_COMMON_FULL",
+      "count": 1,
+      "max_gap_ref_vs_replay_b9_prob": 1.020128426176825e-12,
+      "max_root_marginal_delta_norm": 2.5902656376284874e-08,
+      "max_tail_delta_norm": 9.329113729458952e-12,
+      "reference_stressed_count": 1
+    }
+  ],
+  "reference_prefix_pruned_cases": 0,
+  "significant_common_reference_gap_gt_1e-10": 4,
+  "total_replayed": 490
+}
+results: /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_numerical_cleanup_replay/replay_results.csv
+summary: /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_numerical_cleanup_replay/replay_summary.json
+===== FINISHED =====
+Thu Sep 24 12:25:32 +08 2026
+exit status = 0

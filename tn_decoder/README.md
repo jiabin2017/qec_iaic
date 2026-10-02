@@ -36,10 +36,18 @@ this folder/
     submit_tn_decoder.txt
     results/
 
-  ler_sweep/
+  ler_sweep_A100/
     bb72_tn_ler_sweep_worker.py
     merge_bb72_tn_ler_sweep.py
     run_ler_sweep_64gpu.sh
+    submit_ler_sweep_64gpu.txt
+    results/
+
+  ler_sweep_H100/
+    bb72_tn_ler_sweep_worker.py
+    merge_bb72_tn_ler_sweep.py
+    run_ler_sweep_64gpu.sh
+    run_container_python.sh
     submit_ler_sweep_64gpu.txt
     results/
 ```
@@ -66,10 +74,17 @@ cd /path/to/this-folder/ler_pilot
 qsub submit_tn_decoder.txt
 ```
 
-Run the 64-GPU LER sweep:
+Run the 64-GPU A100 LER sweep:
 
 ```bash
-cd /path/to/this-folder/ler_sweep
+cd /path/to/this-folder/ler_sweep_A100
+qsub submit_ler_sweep_64gpu.txt
+```
+
+Run the 64-GPU H100 LER sweep:
+
+```bash
+cd /path/to/this-folder/ler_sweep_H100
 qsub submit_ler_sweep_64gpu.txt
 ```
 

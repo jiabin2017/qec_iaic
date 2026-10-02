@@ -1,0 +1,19 @@
+{
+  "base_seed": 20260919,
+  "format_version": 1,
+  "k": 12,
+  "n": 72,
+  "natural_shots_per_p": 0,
+  "num_checks": 36,
+  "p_values": [
+    0.02
+  ],
+  "stress_p": 0.02,
+  "stress_shots": 5000,
+  "stress_weights": [
+    2,
+    3,
+    4,
+    5
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "by_classification": [
+    {
+      "classification": "NEAR_TIE_COMMON_FULL",
+      "count": 369,
+      "max_gap_ref_vs_replay_b9_prob": 9.11978825790527e-11,
+      "max_root_marginal_delta_norm": 4.742133684447672e-09,
+      "max_tail_delta_norm": 4.057318817696346e-10,
+      "reference_stressed_count": 0
+    },
+    {
+      "classification": "AGREE_REPLAY",
+      "count": 116,
+      "max_gap_ref_vs_replay_b9_prob": 0.0,
+      "max_root_marginal_delta_norm": 1.0966588583781593e-08,
+      "max_tail_delta_norm": 5.930634524908983e-09,
+      "reference_stressed_count": 25
+    },
+    {
+      "classification": "REF_PREFIX_EXPLORED__TAIL_NUMERICAL_DISAGREEMENT",
+      "count": 2,
+      "max_gap_ref_vs_replay_b9_prob": 1.2807127580671818e-10,
+      "max_root_marginal_delta_norm": 2.644584751958958e-10,
+      "max_tail_delta_norm": 4.946336929837225e-10,
+      "reference_stressed_count": 0
+    },
+    {
+      "classification": "FULL_REFERENCE_STRESSED__REF_PREFIX_EXPLORED__TAIL_NUMERICAL_DISAGREEMENT",
+      "count": 2,
+      "max_gap_ref_vs_replay_b9_prob": 8.324217981581228e-10,
+      "max_root_marginal_delta_norm": 6.206976036537771e-08,
+      "max_tail_delta_norm": 1.0255212749059744e-09,
+      "reference_stressed_count": 2
+    },
+    {
+      "classification": "FULL_REFERENCE_STRESSED__NEAR_TIE_COMMON_FULL",
+      "count": 1,
+      "max_gap_ref_vs_replay_b9_prob": 1.020128426176825e-12,
+      "max_root_marginal_delta_norm": 2.5902656376284874e-08,
+      "max_tail_delta_norm": 9.329113729458952e-12,
+      "reference_stressed_count": 1
+    }
+  ],
+  "reference_prefix_pruned_cases": 0,
+  "significant_common_reference_gap_gt_1e-10": 4,
+  "total_replayed": 490
+}

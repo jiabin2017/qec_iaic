@@ -1,0 +1,37 @@
+#!/bin/bash
+#PBS -q normal
+#PBS -l select=1:ngpus=1:ncpus=4:mem=16gb
+#PBS -l walltime=01:00:00
+#PBS -P 13004445
+#PBS -j oe
+#PBS -o output-bb72-v0.5-final-production.txt
+#PBS -N bb72-v05-prod
+
+cd "${PBS_O_WORKDIR:-$(pwd)}" || exit 1
+
+source ~/miniconda3/etc/profile.d/conda.sh
+conda activate cudaqx-qec || exit 1
+
+echo "===== ENVIRONMENT ====="
+date
+hostname
+pwd
+which python
+python -c "import sys; print(sys.executable)"
+python -c "import torch; print(torch.__version__); print(torch.cuda.is_available()); print(torch.cuda.device_count()); print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'NO GPU')"
+
+echo "===== START BB72 v0.5 FINAL PRODUCTION ====="
+date
+
+python run_bb72_easy_hard.py \
+  --warmup 1 \
+  --repeats 5 \
+  --output-dir production_smoke_results
+
+status=$?
+
+echo "===== FINISHED ====="
+date
+echo "exit status = ${status}"
+
+exit ${status}

@@ -1,0 +1,1646 @@
+/home/users/astar/ihpc/youjb/miniconda3/envs/cudaqx-qec/bin/python
+/home/users/astar/ihpc/youjb/miniconda3/envs/cudaqx-qec/bin/python
+2.10.0+cu128
+True
+1
+NVIDIA A100-SXM4-40GB
+Mon Sep 21 23:51:37 +08 2026
+========================================
+START STRESS p=0.005
+Mon Sep 21 23:51:37 +08 2026
+BB72 multi-syndrome validation
+n = 72 k = 12
+layouts = 6 ['stageA-b9-identity', 'stageA-b10-identity', 'stageA-b6-identity', 'stageA-b12-identity', 'stageB-b9-random-1', 'stageB-b9-reverse']
+datasets = [('natural_p0p005', 0), ('stress_w2-3-4-5_p0p005', 5000)]
+database = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.005/results.sqlite
+resume behavior: existing (layout,dataset,shot_id) rows are skipped
+
+========================================================================================
+LAYOUT 1/6: stageA-b9-identity
+block_size = 9 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (9, 10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  p=0.005: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 2/6: stageA-b10-identity
+block_size = 10 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), (10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b10_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  p=0.005: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 3/6: stageA-b6-identity
+block_size = 6 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5), (6, 7, 8, 9, 10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b6_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  p=0.005: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 4/6: stageA-b12-identity
+block_size = 12 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  p=0.005: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 5/6: stageB-b9-random-1
+block_size = 9 order = [0, 5, 11, 3, 2, 6, 1, 9, 7, 10, 4, 8]
+topologies = [(0, 5, 11, 3, 2, 6, 1, 9, 7), (10, 4, 8)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-5-11-3-2-6-1-9-7-10-4-8.pkl
+  p=0.005: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 6/6: stageB-b9-reverse
+block_size = 9 order = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+topologies = [(11, 10, 9, 8, 7, 6, 5, 4, 3), (2, 1, 0)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_11-10-9-8-7-6-5-4-3-2-1-0.pkl
+  p=0.005: all datasets already complete; skip decoder creation
+
+ALL REQUESTED LAYOUTS/DATASETS COMPLETE
+results = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.005/results.sqlite
+summary = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.005/summary.csv
+consistency = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.005/consistency_vs_b12.csv
+FINISHED STRESS p=0.005
+Mon Sep 21 23:52:06 +08 2026
+========================================
+START STRESS p=0.01
+Mon Sep 21 23:52:06 +08 2026
+BB72 multi-syndrome validation
+n = 72 k = 12
+layouts = 6 ['stageA-b9-identity', 'stageA-b10-identity', 'stageA-b6-identity', 'stageA-b12-identity', 'stageB-b9-random-1', 'stageB-b9-reverse']
+datasets = [('natural_p0p01', 0), ('stress_w2-3-4-5_p0p01', 5000)]
+database = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.01/results.sqlite
+resume behavior: existing (layout,dataset,shot_id) rows are skipped
+
+========================================================================================
+LAYOUT 1/6: stageA-b9-identity
+block_size = 9 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (9, 10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  p=0.01: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 2/6: stageA-b10-identity
+block_size = 10 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), (10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b10_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  p=0.01: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 3/6: stageA-b6-identity
+block_size = 6 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5), (6, 7, 8, 9, 10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b6_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  p=0.01: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 4/6: stageA-b12-identity
+block_size = 12 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  p=0.01: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 5/6: stageB-b9-random-1
+block_size = 9 order = [0, 5, 11, 3, 2, 6, 1, 9, 7, 10, 4, 8]
+topologies = [(0, 5, 11, 3, 2, 6, 1, 9, 7), (10, 4, 8)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-5-11-3-2-6-1-9-7-10-4-8.pkl
+  p=0.01: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 6/6: stageB-b9-reverse
+block_size = 9 order = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+topologies = [(11, 10, 9, 8, 7, 6, 5, 4, 3), (2, 1, 0)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_11-10-9-8-7-6-5-4-3-2-1-0.pkl
+  p=0.01: all datasets already complete; skip decoder creation
+
+ALL REQUESTED LAYOUTS/DATASETS COMPLETE
+results = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.01/results.sqlite
+summary = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.01/summary.csv
+consistency = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.01/consistency_vs_b12.csv
+FINISHED STRESS p=0.01
+Mon Sep 21 23:52:13 +08 2026
+========================================
+START STRESS p=0.02
+Mon Sep 21 23:52:13 +08 2026
+BB72 multi-syndrome validation
+n = 72 k = 12
+layouts = 6 ['stageA-b9-identity', 'stageA-b10-identity', 'stageA-b6-identity', 'stageA-b12-identity', 'stageB-b9-random-1', 'stageB-b9-reverse']
+datasets = [('natural_p0p02', 0), ('stress_w2-3-4-5_p0p02', 5000)]
+database = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.02/results.sqlite
+resume behavior: existing (layout,dataset,shot_id) rows are skipped
+
+========================================================================================
+LAYOUT 1/6: stageA-b9-identity
+block_size = 9 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (9, 10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  p=0.02: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 2/6: stageA-b10-identity
+block_size = 10 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), (10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b10_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  p=0.02: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 3/6: stageA-b6-identity
+block_size = 6 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5), (6, 7, 8, 9, 10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b6_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  p=0.02: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 4/6: stageA-b12-identity
+block_size = 12 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  p=0.02: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 5/6: stageB-b9-random-1
+block_size = 9 order = [0, 5, 11, 3, 2, 6, 1, 9, 7, 10, 4, 8]
+topologies = [(0, 5, 11, 3, 2, 6, 1, 9, 7), (10, 4, 8)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-5-11-3-2-6-1-9-7-10-4-8.pkl
+  p=0.02: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 6/6: stageB-b9-reverse
+block_size = 9 order = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+topologies = [(11, 10, 9, 8, 7, 6, 5, 4, 3), (2, 1, 0)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_11-10-9-8-7-6-5-4-3-2-1-0.pkl
+  p=0.02: all datasets already complete; skip decoder creation
+
+ALL REQUESTED LAYOUTS/DATASETS COMPLETE
+results = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.02/results.sqlite
+summary = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.02/summary.csv
+consistency = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.02/consistency_vs_b12.csv
+FINISHED STRESS p=0.02
+Mon Sep 21 23:52:21 +08 2026
+========================================
+START STRESS p=0.03
+Mon Sep 21 23:52:21 +08 2026
+BB72 multi-syndrome validation
+n = 72 k = 12
+layouts = 6 ['stageA-b9-identity', 'stageA-b10-identity', 'stageA-b6-identity', 'stageA-b12-identity', 'stageB-b9-random-1', 'stageB-b9-reverse']
+datasets = [('natural_p0p03', 0), ('stress_w2-3-4-5_p0p03', 5000)]
+database = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.03/results.sqlite
+resume behavior: existing (layout,dataset,shot_id) rows are skipped
+
+========================================================================================
+LAYOUT 1/6: stageA-b9-identity
+block_size = 9 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (9, 10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  p=0.03: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 2/6: stageA-b10-identity
+block_size = 10 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), (10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b10_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  p=0.03: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 3/6: stageA-b6-identity
+block_size = 6 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5), (6, 7, 8, 9, 10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b6_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  p=0.03: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 4/6: stageA-b12-identity
+block_size = 12 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  p=0.03: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 5/6: stageB-b9-random-1
+block_size = 9 order = [0, 5, 11, 3, 2, 6, 1, 9, 7, 10, 4, 8]
+topologies = [(0, 5, 11, 3, 2, 6, 1, 9, 7), (10, 4, 8)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-5-11-3-2-6-1-9-7-10-4-8.pkl
+  p=0.03: all datasets already complete; skip decoder creation
+
+========================================================================================
+LAYOUT 6/6: stageB-b9-reverse
+block_size = 9 order = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+topologies = [(11, 10, 9, 8, 7, 6, 5, 4, 3), (2, 1, 0)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_11-10-9-8-7-6-5-4-3-2-1-0.pkl
+  preparing decoder for p=0.03
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+  warm-up = 7.905s (not recorded)
+  natural_p0p03: complete 0/0; skip
+  stress_w2-3-4-5_p0p03: resume at 3727/5000
+     3750/5000  last=2.6532s  recent_mean=2.6502s  calls=  2 leaves=  1  group_elapsed=1.0m ETA~55.2m
+     3800/5000  last=2.6531s  recent_mean=2.7351s  calls=  2 leaves=  1  group_elapsed=3.3m ETA~54.7m
+     3850/5000  last=2.6525s  recent_mean=2.7630s  calls=  2 leaves=  1  group_elapsed=5.7m ETA~53.0m
+     3900/5000  last=2.6531s  recent_mean=2.7485s  calls=  2 leaves=  1  group_elapsed=7.9m ETA~50.4m
+     3950/5000  last=2.6521s  recent_mean=2.7585s  calls=  2 leaves=  1  group_elapsed=10.2m ETA~48.3m
+     4000/5000  last=2.6518s  recent_mean=2.7512s  calls=  2 leaves=  1  group_elapsed=12.5m ETA~45.9m
+     4050/5000  last=2.6533s  recent_mean=2.7813s  calls=  2 leaves=  1  group_elapsed=14.9m ETA~44.0m
+     4100/5000  last=2.6531s  recent_mean=2.7965s  calls=  2 leaves=  1  group_elapsed=17.3m ETA~41.9m
+     4150/5000  last=2.6523s  recent_mean=2.7814s  calls=  2 leaves=  1  group_elapsed=19.5m ETA~39.4m
+     4200/5000  last=2.6533s  recent_mean=2.8037s  calls=  2 leaves=  1  group_elapsed=21.8m ETA~37.4m
+     4250/5000  last=2.6526s  recent_mean=2.7434s  calls=  2 leaves=  1  group_elapsed=24.1m ETA~34.3m
+     4300/5000  last=2.6525s  recent_mean=2.7358s  calls=  2 leaves=  1  group_elapsed=26.4m ETA~31.9m
+     4350/5000  last=2.6524s  recent_mean=2.7584s  calls=  2 leaves=  1  group_elapsed=28.7m ETA~29.9m
+     4400/5000  last=2.6521s  recent_mean=2.7433s  calls=  2 leaves=  1  group_elapsed=31.0m ETA~27.4m
+     4450/5000  last=2.6523s  recent_mean=2.7433s  calls=  2 leaves=  1  group_elapsed=33.2m ETA~25.1m
+     4500/5000  last=2.6526s  recent_mean=2.7433s  calls=  2 leaves=  1  group_elapsed=35.5m ETA~22.9m
+     4550/5000  last=2.6533s  recent_mean=2.7358s  calls=  2 leaves=  1  group_elapsed=37.8m ETA~20.5m
+     4600/5000  last=4.1623s  recent_mean=2.7434s  calls=  3 leaves=  2  group_elapsed=40.1m ETA~18.3m
+     4650/5000  last=2.6523s  recent_mean=2.7433s  calls=  2 leaves=  1  group_elapsed=42.4m ETA~16.0m
+     4700/5000  last=2.6525s  recent_mean=2.7357s  calls=  2 leaves=  1  group_elapsed=44.6m ETA~13.7m
+     4750/5000  last=2.6525s  recent_mean=2.7508s  calls=  2 leaves=  1  group_elapsed=47.0m ETA~11.5m
+     4800/5000  last=4.1626s  recent_mean=2.7432s  calls=  3 leaves=  2  group_elapsed=49.3m ETA~9.1m
+     4850/5000  last=2.6520s  recent_mean=2.7513s  calls=  2 leaves=  1  group_elapsed=51.6m ETA~6.9m
+     4900/5000  last=2.6530s  recent_mean=2.7513s  calls=  2 leaves=  1  group_elapsed=53.8m ETA~4.6m
+     4950/5000  last=2.6530s  recent_mean=2.7362s  calls=  2 leaves=  1  group_elapsed=56.1m ETA~2.3m
+     5000/5000  last=2.6535s  recent_mean=2.7286s  calls=  2 leaves=  1  group_elapsed=58.4m ETA~0.0s
+
+ALL REQUESTED LAYOUTS/DATASETS COMPLETE
+results = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.03/results.sqlite
+summary = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.03/summary.csv
+consistency = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.03/consistency_vs_b12.csv
+FINISHED STRESS p=0.03
+Tue Sep 22 00:51:05 +08 2026
+========================================
+START STRESS p=0.04
+Tue Sep 22 00:51:05 +08 2026
+BB72 multi-syndrome validation
+n = 72 k = 12
+layouts = 6 ['stageA-b9-identity', 'stageA-b10-identity', 'stageA-b6-identity', 'stageA-b12-identity', 'stageB-b9-random-1', 'stageB-b9-reverse']
+datasets = [('natural_p0p04', 0), ('stress_w2-3-4-5_p0p04', 5000)]
+database = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.04/results.sqlite
+resume behavior: existing (layout,dataset,shot_id) rows are skipped
+
+========================================================================================
+LAYOUT 1/6: stageA-b9-identity
+block_size = 9 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (9, 10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  preparing decoder for p=0.04
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+  warm-up = 4.471s (not recorded)
+  natural_p0p04: complete 0/0; skip
+  stress_w2-3-4-5_p0p04: resume at 0/5000
+       50/5000  last=0.2069s  recent_mean=0.2107s  calls=  2 leaves=  1  group_elapsed=10.5s ETA~17.4m
+      100/5000  last=0.2069s  recent_mean=0.2097s  calls=  2 leaves=  1  group_elapsed=21.0s ETA~17.1m
+      150/5000  last=0.2069s  recent_mean=0.2088s  calls=  2 leaves=  1  group_elapsed=31.3s ETA~16.9m
+      200/5000  last=0.2069s  recent_mean=0.2088s  calls=  2 leaves=  1  group_elapsed=41.8s ETA~16.7m
+      250/5000  last=0.2069s  recent_mean=0.2092s  calls=  2 leaves=  1  group_elapsed=52.4s ETA~16.6m
+      300/5000  last=0.2069s  recent_mean=0.2120s  calls=  2 leaves=  1  group_elapsed=1.1m ETA~16.6m
+      350/5000  last=0.2071s  recent_mean=0.2133s  calls=  2 leaves=  1  group_elapsed=1.2m ETA~16.5m
+      400/5000  last=0.2068s  recent_mean=0.2165s  calls=  2 leaves=  1  group_elapsed=1.4m ETA~16.6m
+      450/5000  last=0.2069s  recent_mean=0.2165s  calls=  2 leaves=  1  group_elapsed=1.6m ETA~16.4m
+      500/5000  last=0.2068s  recent_mean=0.2147s  calls=  2 leaves=  1  group_elapsed=1.8m ETA~16.1m
+      550/5000  last=0.2068s  recent_mean=0.2156s  calls=  2 leaves=  1  group_elapsed=2.0m ETA~16.0m
+      600/5000  last=0.2068s  recent_mean=0.2152s  calls=  2 leaves=  1  group_elapsed=2.1m ETA~15.8m
+      650/5000  last=0.2068s  recent_mean=0.2152s  calls=  2 leaves=  1  group_elapsed=2.3m ETA~15.6m
+      700/5000  last=0.2068s  recent_mean=0.2156s  calls=  2 leaves=  1  group_elapsed=2.5m ETA~15.5m
+      750/5000  last=0.2076s  recent_mean=0.2143s  calls=  2 leaves=  1  group_elapsed=2.7m ETA~15.2m
+      800/5000  last=0.2068s  recent_mean=0.2124s  calls=  2 leaves=  1  group_elapsed=2.8m ETA~14.9m
+      850/5000  last=0.2070s  recent_mean=0.2119s  calls=  2 leaves=  1  group_elapsed=3.0m ETA~14.7m
+      900/5000  last=0.2069s  recent_mean=0.2124s  calls=  2 leaves=  1  group_elapsed=3.2m ETA~14.5m
+      950/5000  last=0.2068s  recent_mean=0.2124s  calls=  2 leaves=  1  group_elapsed=3.4m ETA~14.3m
+     1000/5000  last=0.2068s  recent_mean=0.2124s  calls=  2 leaves=  1  group_elapsed=3.6m ETA~14.2m
+     1050/5000  last=0.2069s  recent_mean=0.2124s  calls=  2 leaves=  1  group_elapsed=3.7m ETA~14.0m
+     1100/5000  last=0.2068s  recent_mean=0.2115s  calls=  2 leaves=  1  group_elapsed=3.9m ETA~13.7m
+     1150/5000  last=0.2068s  recent_mean=0.2119s  calls=  2 leaves=  1  group_elapsed=4.1m ETA~13.6m
+     1200/5000  last=0.2068s  recent_mean=0.2124s  calls=  2 leaves=  1  group_elapsed=4.3m ETA~13.5m
+     1250/5000  last=0.2070s  recent_mean=0.2124s  calls=  2 leaves=  1  group_elapsed=4.4m ETA~13.3m
+     1300/5000  last=0.2068s  recent_mean=0.2110s  calls=  2 leaves=  1  group_elapsed=4.6m ETA~13.0m
+     1350/5000  last=0.2068s  recent_mean=0.2101s  calls=  2 leaves=  1  group_elapsed=4.8m ETA~12.8m
+     1400/5000  last=0.2068s  recent_mean=0.2092s  calls=  2 leaves=  1  group_elapsed=5.0m ETA~12.6m
+     1450/5000  last=0.2069s  recent_mean=0.2106s  calls=  2 leaves=  1  group_elapsed=5.1m ETA~12.5m
+     1500/5000  last=0.2068s  recent_mean=0.2106s  calls=  2 leaves=  1  group_elapsed=5.3m ETA~12.3m
+     1550/5000  last=0.2068s  recent_mean=0.2115s  calls=  2 leaves=  1  group_elapsed=5.5m ETA~12.2m
+     1600/5000  last=0.2074s  recent_mean=0.2110s  calls=  2 leaves=  1  group_elapsed=5.7m ETA~12.0m
+     1650/5000  last=0.2069s  recent_mean=0.2101s  calls=  2 leaves=  1  group_elapsed=5.8m ETA~11.7m
+     1700/5000  last=0.2986s  recent_mean=0.2119s  calls=  3 leaves=  2  group_elapsed=6.0m ETA~11.7m
+     1750/5000  last=0.2068s  recent_mean=0.2124s  calls=  2 leaves=  1  group_elapsed=6.2m ETA~11.5m
+     1800/5000  last=0.2070s  recent_mean=0.2138s  calls=  2 leaves=  1  group_elapsed=6.4m ETA~11.4m
+     1850/5000  last=0.2068s  recent_mean=0.2124s  calls=  2 leaves=  1  group_elapsed=6.6m ETA~11.2m
+     1900/5000  last=0.2069s  recent_mean=0.2152s  calls=  2 leaves=  1  group_elapsed=6.7m ETA~11.1m
+     1950/5000  last=0.2069s  recent_mean=0.2142s  calls=  2 leaves=  1  group_elapsed=6.9m ETA~10.9m
+     2000/5000  last=0.2072s  recent_mean=0.2133s  calls=  2 leaves=  1  group_elapsed=7.1m ETA~10.7m
+     2050/5000  last=0.2068s  recent_mean=0.2156s  calls=  2 leaves=  1  group_elapsed=7.3m ETA~10.6m
+     2100/5000  last=0.2068s  recent_mean=0.2152s  calls=  2 leaves=  1  group_elapsed=7.5m ETA~10.4m
+     2150/5000  last=0.2069s  recent_mean=0.2165s  calls=  2 leaves=  1  group_elapsed=7.6m ETA~10.3m
+     2200/5000  last=0.2069s  recent_mean=0.2156s  calls=  2 leaves=  1  group_elapsed=7.8m ETA~10.1m
+     2250/5000  last=0.2068s  recent_mean=0.2133s  calls=  2 leaves=  1  group_elapsed=8.0m ETA~9.8m
+     2300/5000  last=0.2076s  recent_mean=0.2106s  calls=  2 leaves=  1  group_elapsed=8.2m ETA~9.5m
+     2350/5000  last=0.2068s  recent_mean=0.2092s  calls=  2 leaves=  1  group_elapsed=8.3m ETA~9.2m
+     2400/5000  last=0.2069s  recent_mean=0.2097s  calls=  2 leaves=  1  group_elapsed=8.5m ETA~9.1m
+     2450/5000  last=0.2068s  recent_mean=0.2101s  calls=  2 leaves=  1  group_elapsed=8.7m ETA~8.9m
+     2500/5000  last=0.2068s  recent_mean=0.2106s  calls=  2 leaves=  1  group_elapsed=8.9m ETA~8.8m
+     2550/5000  last=0.2069s  recent_mean=0.2101s  calls=  2 leaves=  1  group_elapsed=9.0m ETA~8.6m
+     2600/5000  last=0.2071s  recent_mean=0.2106s  calls=  2 leaves=  1  group_elapsed=9.2m ETA~8.4m
+     2650/5000  last=0.2069s  recent_mean=0.2110s  calls=  2 leaves=  1  group_elapsed=9.4m ETA~8.3m
+     2700/5000  last=0.2985s  recent_mean=0.2106s  calls=  3 leaves=  2  group_elapsed=9.6m ETA~8.1m
+     2750/5000  last=0.2068s  recent_mean=0.2106s  calls=  2 leaves=  1  group_elapsed=9.7m ETA~7.9m
+     2800/5000  last=0.2985s  recent_mean=0.2115s  calls=  3 leaves=  2  group_elapsed=9.9m ETA~7.8m
+     2850/5000  last=0.2069s  recent_mean=0.2119s  calls=  2 leaves=  1  group_elapsed=10.1m ETA~7.6m
+     2900/5000  last=0.2069s  recent_mean=0.2120s  calls=  2 leaves=  1  group_elapsed=10.3m ETA~7.4m
+     2950/5000  last=0.2074s  recent_mean=0.2156s  calls=  2 leaves=  1  group_elapsed=10.5m ETA~7.4m
+     3000/5000  last=0.2068s  recent_mean=0.2156s  calls=  2 leaves=  1  group_elapsed=10.6m ETA~7.2m
+     3050/5000  last=0.2071s  recent_mean=0.2161s  calls=  2 leaves=  1  group_elapsed=10.8m ETA~7.0m
+     3100/5000  last=0.2985s  recent_mean=0.2165s  calls=  3 leaves=  2  group_elapsed=11.0m ETA~6.9m
+     3150/5000  last=0.2072s  recent_mean=0.2143s  calls=  2 leaves=  1  group_elapsed=11.2m ETA~6.6m
+     3200/5000  last=0.2069s  recent_mean=0.2134s  calls=  2 leaves=  1  group_elapsed=11.3m ETA~6.4m
+     3250/5000  last=0.2068s  recent_mean=0.2147s  calls=  2 leaves=  1  group_elapsed=11.5m ETA~6.3m
+     3300/5000  last=0.2069s  recent_mean=0.2138s  calls=  2 leaves=  1  group_elapsed=11.7m ETA~6.1m
+     3350/5000  last=0.2068s  recent_mean=0.2142s  calls=  2 leaves=  1  group_elapsed=11.9m ETA~5.9m
+     3400/5000  last=0.2069s  recent_mean=0.2138s  calls=  2 leaves=  1  group_elapsed=12.1m ETA~5.7m
+     3450/5000  last=0.2069s  recent_mean=0.2120s  calls=  2 leaves=  1  group_elapsed=12.2m ETA~5.5m
+     3500/5000  last=0.2986s  recent_mean=0.2138s  calls=  3 leaves=  1  group_elapsed=12.4m ETA~5.3m
+     3550/5000  last=0.2069s  recent_mean=0.2124s  calls=  2 leaves=  1  group_elapsed=12.6m ETA~5.1m
+     3600/5000  last=0.2069s  recent_mean=0.2138s  calls=  2 leaves=  1  group_elapsed=12.8m ETA~5.0m
+     3650/5000  last=0.2069s  recent_mean=0.2138s  calls=  2 leaves=  1  group_elapsed=13.0m ETA~4.8m
+     3700/5000  last=0.2068s  recent_mean=0.2115s  calls=  2 leaves=  1  group_elapsed=13.1m ETA~4.6m
+     3750/5000  last=0.2071s  recent_mean=0.2124s  calls=  2 leaves=  1  group_elapsed=13.3m ETA~4.4m
+     3800/5000  last=0.2069s  recent_mean=0.2142s  calls=  2 leaves=  1  group_elapsed=13.5m ETA~4.3m
+     3850/5000  last=0.2072s  recent_mean=0.2170s  calls=  2 leaves=  1  group_elapsed=13.7m ETA~4.2m
+     3900/5000  last=0.2068s  recent_mean=0.2188s  calls=  2 leaves=  1  group_elapsed=13.9m ETA~4.0m
+     3950/5000  last=0.2068s  recent_mean=0.2184s  calls=  2 leaves=  1  group_elapsed=14.0m ETA~3.8m
+     4000/5000  last=0.2068s  recent_mean=0.2152s  calls=  2 leaves=  1  group_elapsed=14.2m ETA~3.6m
+     4050/5000  last=0.2068s  recent_mean=0.2165s  calls=  2 leaves=  1  group_elapsed=14.4m ETA~3.4m
+     4100/5000  last=0.2068s  recent_mean=0.2165s  calls=  2 leaves=  1  group_elapsed=14.6m ETA~3.2m
+     4150/5000  last=0.2069s  recent_mean=0.2156s  calls=  2 leaves=  1  group_elapsed=14.8m ETA~3.1m
+     4200/5000  last=0.2068s  recent_mean=0.2188s  calls=  2 leaves=  1  group_elapsed=14.9m ETA~2.9m
+     4250/5000  last=0.2068s  recent_mean=0.2138s  calls=  2 leaves=  1  group_elapsed=15.1m ETA~2.7m
+     4300/5000  last=0.2069s  recent_mean=0.2120s  calls=  2 leaves=  1  group_elapsed=15.3m ETA~2.5m
+     4350/5000  last=0.2069s  recent_mean=0.2142s  calls=  2 leaves=  1  group_elapsed=15.5m ETA~2.3m
+     4400/5000  last=0.2068s  recent_mean=0.2129s  calls=  2 leaves=  1  group_elapsed=15.6m ETA~2.1m
+     4450/5000  last=0.2068s  recent_mean=0.2124s  calls=  2 leaves=  1  group_elapsed=15.8m ETA~1.9m
+     4500/5000  last=0.2068s  recent_mean=0.2129s  calls=  2 leaves=  1  group_elapsed=16.0m ETA~1.8m
+     4550/5000  last=0.2069s  recent_mean=0.2115s  calls=  2 leaves=  1  group_elapsed=16.2m ETA~1.6m
+     4600/5000  last=0.2985s  recent_mean=0.2120s  calls=  3 leaves=  2  group_elapsed=16.4m ETA~1.4m
+     4650/5000  last=0.2068s  recent_mean=0.2129s  calls=  2 leaves=  1  group_elapsed=16.5m ETA~1.2m
+     4700/5000  last=0.2069s  recent_mean=0.2124s  calls=  2 leaves=  1  group_elapsed=16.7m ETA~1.1m
+     4750/5000  last=0.2069s  recent_mean=0.2129s  calls=  2 leaves=  1  group_elapsed=16.9m ETA~53.2s
+     4800/5000  last=0.3902s  recent_mean=0.2119s  calls=  4 leaves=  3  group_elapsed=17.1m ETA~42.4s
+     4850/5000  last=0.2068s  recent_mean=0.2119s  calls=  2 leaves=  1  group_elapsed=17.2m ETA~31.8s
+     4900/5000  last=0.2068s  recent_mean=0.2124s  calls=  2 leaves=  1  group_elapsed=17.4m ETA~21.2s
+     4950/5000  last=0.2069s  recent_mean=0.2138s  calls=  2 leaves=  1  group_elapsed=17.6m ETA~10.7s
+     5000/5000  last=0.2068s  recent_mean=0.2152s  calls=  2 leaves=  1  group_elapsed=17.8m ETA~0.0s
+
+========================================================================================
+LAYOUT 2/6: stageA-b10-identity
+block_size = 10 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), (10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b10_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  preparing decoder for p=0.04
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+  warm-up = 0.320s (not recorded)
+  natural_p0p04: complete 0/0; skip
+  stress_w2-3-4-5_p0p04: resume at 0/5000
+       50/5000  last=0.2396s  recent_mean=0.2434s  calls=  2 leaves=  1  group_elapsed=12.2s ETA~20.1m
+      100/5000  last=0.2397s  recent_mean=0.2425s  calls=  2 leaves=  1  group_elapsed=24.3s ETA~19.8m
+      150/5000  last=0.2395s  recent_mean=0.2415s  calls=  2 leaves=  1  group_elapsed=36.3s ETA~19.5m
+      200/5000  last=0.2396s  recent_mean=0.2416s  calls=  2 leaves=  1  group_elapsed=48.4s ETA~19.3m
+      250/5000  last=0.2396s  recent_mean=0.2421s  calls=  2 leaves=  1  group_elapsed=1.0m ETA~19.2m
+      300/5000  last=0.2395s  recent_mean=0.2445s  calls=  2 leaves=  1  group_elapsed=1.2m ETA~19.2m
+      350/5000  last=0.2396s  recent_mean=0.2455s  calls=  2 leaves=  1  group_elapsed=1.4m ETA~19.0m
+      400/5000  last=0.2395s  recent_mean=0.2489s  calls=  2 leaves=  1  group_elapsed=1.6m ETA~19.1m
+      450/5000  last=0.2395s  recent_mean=0.2494s  calls=  2 leaves=  1  group_elapsed=1.8m ETA~18.9m
+      500/5000  last=0.2396s  recent_mean=0.2470s  calls=  2 leaves=  1  group_elapsed=2.0m ETA~18.5m
+      550/5000  last=0.2396s  recent_mean=0.2484s  calls=  2 leaves=  1  group_elapsed=2.3m ETA~18.4m
+      600/5000  last=0.2395s  recent_mean=0.2480s  calls=  2 leaves=  1  group_elapsed=2.5m ETA~18.2m
+      650/5000  last=0.2407s  recent_mean=0.2475s  calls=  2 leaves=  1  group_elapsed=2.7m ETA~17.9m
+      700/5000  last=0.2403s  recent_mean=0.2490s  calls=  2 leaves=  1  group_elapsed=2.9m ETA~17.8m
+      750/5000  last=0.2396s  recent_mean=0.2470s  calls=  2 leaves=  1  group_elapsed=3.1m ETA~17.5m
+      800/5000  last=0.2395s  recent_mean=0.2446s  calls=  2 leaves=  1  group_elapsed=3.3m ETA~17.1m
+      850/5000  last=0.2395s  recent_mean=0.2441s  calls=  2 leaves=  1  group_elapsed=3.5m ETA~16.9m
+      900/5000  last=0.2397s  recent_mean=0.2445s  calls=  2 leaves=  1  group_elapsed=3.7m ETA~16.7m
+      950/5000  last=0.2394s  recent_mean=0.2455s  calls=  2 leaves=  1  group_elapsed=3.9m ETA~16.6m
+     1000/5000  last=0.2396s  recent_mean=0.2450s  calls=  2 leaves=  1  group_elapsed=4.1m ETA~16.3m
+     1050/5000  last=0.2395s  recent_mean=0.2445s  calls=  2 leaves=  1  group_elapsed=4.3m ETA~16.1m
+     1100/5000  last=0.2396s  recent_mean=0.2440s  calls=  2 leaves=  1  group_elapsed=4.5m ETA~15.9m
+     1150/5000  last=0.2396s  recent_mean=0.2435s  calls=  2 leaves=  1  group_elapsed=4.7m ETA~15.6m
+     1200/5000  last=0.2396s  recent_mean=0.2450s  calls=  2 leaves=  1  group_elapsed=4.9m ETA~15.5m
+     1250/5000  last=0.2395s  recent_mean=0.2456s  calls=  2 leaves=  1  group_elapsed=5.1m ETA~15.3m
+     1300/5000  last=0.2396s  recent_mean=0.2436s  calls=  2 leaves=  1  group_elapsed=5.3m ETA~15.0m
+     1350/5000  last=0.2395s  recent_mean=0.2431s  calls=  2 leaves=  1  group_elapsed=5.5m ETA~14.8m
+     1400/5000  last=0.2396s  recent_mean=0.2416s  calls=  2 leaves=  1  group_elapsed=5.7m ETA~14.5m
+     1450/5000  last=0.2395s  recent_mean=0.2421s  calls=  2 leaves=  1  group_elapsed=5.9m ETA~14.3m
+     1500/5000  last=0.2395s  recent_mean=0.2426s  calls=  2 leaves=  1  group_elapsed=6.1m ETA~14.2m
+     1550/5000  last=0.2396s  recent_mean=0.2430s  calls=  2 leaves=  1  group_elapsed=6.3m ETA~14.0m
+     1600/5000  last=0.2395s  recent_mean=0.2431s  calls=  2 leaves=  1  group_elapsed=6.5m ETA~13.8m
+     1650/5000  last=0.2396s  recent_mean=0.2430s  calls=  2 leaves=  1  group_elapsed=6.7m ETA~13.6m
+     1700/5000  last=0.3377s  recent_mean=0.2441s  calls=  3 leaves=  2  group_elapsed=6.9m ETA~13.4m
+     1750/5000  last=0.2395s  recent_mean=0.2446s  calls=  2 leaves=  1  group_elapsed=7.1m ETA~13.2m
+     1800/5000  last=0.2396s  recent_mean=0.2460s  calls=  2 leaves=  1  group_elapsed=7.4m ETA~13.1m
+     1850/5000  last=0.2396s  recent_mean=0.2446s  calls=  2 leaves=  1  group_elapsed=7.6m ETA~12.8m
+     1900/5000  last=0.2398s  recent_mean=0.2465s  calls=  2 leaves=  1  group_elapsed=7.8m ETA~12.7m
+     1950/5000  last=0.2396s  recent_mean=0.2455s  calls=  2 leaves=  1  group_elapsed=8.0m ETA~12.5m
+     2000/5000  last=0.2396s  recent_mean=0.2441s  calls=  2 leaves=  1  group_elapsed=8.2m ETA~12.2m
+     2050/5000  last=0.2400s  recent_mean=0.2465s  calls=  2 leaves=  1  group_elapsed=8.4m ETA~12.1m
+     2100/5000  last=0.2396s  recent_mean=0.2455s  calls=  2 leaves=  1  group_elapsed=8.6m ETA~11.9m
+     2150/5000  last=0.2395s  recent_mean=0.2470s  calls=  2 leaves=  1  group_elapsed=8.8m ETA~11.7m
+     2200/5000  last=0.2396s  recent_mean=0.2465s  calls=  2 leaves=  1  group_elapsed=9.0m ETA~11.5m
+     2250/5000  last=0.2396s  recent_mean=0.2441s  calls=  2 leaves=  1  group_elapsed=9.2m ETA~11.2m
+     2300/5000  last=0.2396s  recent_mean=0.2431s  calls=  2 leaves=  1  group_elapsed=9.4m ETA~10.9m
+     2350/5000  last=0.2395s  recent_mean=0.2421s  calls=  2 leaves=  1  group_elapsed=9.6m ETA~10.7m
+     2400/5000  last=0.2395s  recent_mean=0.2425s  calls=  2 leaves=  1  group_elapsed=9.8m ETA~10.5m
+     2450/5000  last=0.2395s  recent_mean=0.2431s  calls=  2 leaves=  1  group_elapsed=10.0m ETA~10.3m
+     2500/5000  last=0.2405s  recent_mean=0.2440s  calls=  2 leaves=  1  group_elapsed=10.2m ETA~10.2m
+     2550/5000  last=0.2396s  recent_mean=0.2435s  calls=  2 leaves=  1  group_elapsed=10.4m ETA~9.9m
+     2600/5000  last=0.2396s  recent_mean=0.2440s  calls=  2 leaves=  1  group_elapsed=10.6m ETA~9.8m
+     2650/5000  last=0.2396s  recent_mean=0.2445s  calls=  2 leaves=  1  group_elapsed=10.8m ETA~9.6m
+     2700/5000  last=0.2398s  recent_mean=0.2421s  calls=  2 leaves=  1  group_elapsed=11.0m ETA~9.3m
+     2750/5000  last=0.2408s  recent_mean=0.2421s  calls=  2 leaves=  1  group_elapsed=11.2m ETA~9.1m
+     2800/5000  last=0.3377s  recent_mean=0.2431s  calls=  3 leaves=  2  group_elapsed=11.4m ETA~8.9m
+     2850/5000  last=0.2395s  recent_mean=0.2426s  calls=  2 leaves=  1  group_elapsed=11.6m ETA~8.7m
+     2900/5000  last=0.2397s  recent_mean=0.2431s  calls=  2 leaves=  1  group_elapsed=11.8m ETA~8.5m
+     2950/5000  last=0.2405s  recent_mean=0.2470s  calls=  2 leaves=  1  group_elapsed=12.0m ETA~8.4m
+     3000/5000  last=0.2400s  recent_mean=0.2460s  calls=  2 leaves=  1  group_elapsed=12.2m ETA~8.2m
+     3050/5000  last=0.2395s  recent_mean=0.2474s  calls=  2 leaves=  1  group_elapsed=12.5m ETA~8.0m
+     3100/5000  last=0.2396s  recent_mean=0.2485s  calls=  2 leaves=  1  group_elapsed=12.7m ETA~7.9m
+     3150/5000  last=0.2396s  recent_mean=0.2460s  calls=  2 leaves=  1  group_elapsed=12.9m ETA~7.6m
+     3200/5000  last=0.2400s  recent_mean=0.2461s  calls=  2 leaves=  1  group_elapsed=13.1m ETA~7.4m
+     3250/5000  last=0.2396s  recent_mean=0.2465s  calls=  2 leaves=  1  group_elapsed=13.3m ETA~7.2m
+     3300/5000  last=0.2396s  recent_mean=0.2455s  calls=  2 leaves=  1  group_elapsed=13.5m ETA~7.0m
+     3350/5000  last=0.2396s  recent_mean=0.2451s  calls=  2 leaves=  1  group_elapsed=13.7m ETA~6.7m
+     3400/5000  last=0.2407s  recent_mean=0.2445s  calls=  2 leaves=  1  group_elapsed=13.9m ETA~6.5m
+     3450/5000  last=0.2397s  recent_mean=0.2431s  calls=  2 leaves=  1  group_elapsed=14.1m ETA~6.3m
+     3500/5000  last=0.2396s  recent_mean=0.2445s  calls=  2 leaves=  1  group_elapsed=14.3m ETA~6.1m
+     3550/5000  last=0.2397s  recent_mean=0.2435s  calls=  2 leaves=  1  group_elapsed=14.5m ETA~5.9m
+     3600/5000  last=0.2403s  recent_mean=0.2450s  calls=  2 leaves=  1  group_elapsed=14.7m ETA~5.7m
+     3650/5000  last=0.2396s  recent_mean=0.2456s  calls=  2 leaves=  1  group_elapsed=14.9m ETA~5.5m
+     3700/5000  last=0.2397s  recent_mean=0.2436s  calls=  2 leaves=  1  group_elapsed=15.1m ETA~5.3m
+     3750/5000  last=0.2396s  recent_mean=0.2441s  calls=  2 leaves=  1  group_elapsed=15.3m ETA~5.1m
+     3800/5000  last=0.2395s  recent_mean=0.2441s  calls=  2 leaves=  1  group_elapsed=15.5m ETA~4.9m
+     3850/5000  last=0.2408s  recent_mean=0.2461s  calls=  2 leaves=  1  group_elapsed=15.7m ETA~4.7m
+     3900/5000  last=0.2395s  recent_mean=0.2480s  calls=  2 leaves=  1  group_elapsed=15.9m ETA~4.5m
+     3950/5000  last=0.2395s  recent_mean=0.2485s  calls=  2 leaves=  1  group_elapsed=16.1m ETA~4.3m
+     4000/5000  last=0.2395s  recent_mean=0.2475s  calls=  2 leaves=  1  group_elapsed=16.3m ETA~4.1m
+     4050/5000  last=0.2395s  recent_mean=0.2474s  calls=  2 leaves=  1  group_elapsed=16.5m ETA~3.9m
+     4100/5000  last=0.2396s  recent_mean=0.2474s  calls=  2 leaves=  1  group_elapsed=16.8m ETA~3.7m
+     4150/5000  last=0.2395s  recent_mean=0.2464s  calls=  2 leaves=  1  group_elapsed=17.0m ETA~3.5m
+     4200/5000  last=0.2396s  recent_mean=0.2480s  calls=  2 leaves=  1  group_elapsed=17.2m ETA~3.3m
+     4250/5000  last=0.2396s  recent_mean=0.2450s  calls=  2 leaves=  1  group_elapsed=17.4m ETA~3.1m
+     4300/5000  last=0.2396s  recent_mean=0.2436s  calls=  2 leaves=  1  group_elapsed=17.6m ETA~2.8m
+     4350/5000  last=0.2395s  recent_mean=0.2455s  calls=  2 leaves=  1  group_elapsed=17.8m ETA~2.7m
+     4400/5000  last=0.2395s  recent_mean=0.2446s  calls=  2 leaves=  1  group_elapsed=18.0m ETA~2.4m
+     4450/5000  last=0.2399s  recent_mean=0.2441s  calls=  2 leaves=  1  group_elapsed=18.2m ETA~2.2m
+     4500/5000  last=0.2395s  recent_mean=0.2450s  calls=  2 leaves=  1  group_elapsed=18.4m ETA~2.0m
+     4550/5000  last=0.2395s  recent_mean=0.2436s  calls=  2 leaves=  1  group_elapsed=18.6m ETA~1.8m
+     4600/5000  last=0.3375s  recent_mean=0.2445s  calls=  3 leaves=  2  group_elapsed=18.8m ETA~1.6m
+     4650/5000  last=0.2395s  recent_mean=0.2450s  calls=  2 leaves=  1  group_elapsed=19.0m ETA~1.4m
+     4700/5000  last=0.2396s  recent_mean=0.2440s  calls=  2 leaves=  1  group_elapsed=19.2m ETA~1.2m
+     4750/5000  last=0.2395s  recent_mean=0.2440s  calls=  2 leaves=  1  group_elapsed=19.4m ETA~1.0m
+     4800/5000  last=0.3376s  recent_mean=0.2426s  calls=  3 leaves=  2  group_elapsed=19.6m ETA~48.5s
+     4850/5000  last=0.2395s  recent_mean=0.2430s  calls=  2 leaves=  1  group_elapsed=19.8m ETA~36.5s
+     4900/5000  last=0.2396s  recent_mean=0.2436s  calls=  2 leaves=  1  group_elapsed=20.0m ETA~24.4s
+     4950/5000  last=0.2395s  recent_mean=0.2445s  calls=  2 leaves=  1  group_elapsed=20.2m ETA~12.2s
+     5000/5000  last=0.2395s  recent_mean=0.2464s  calls=  2 leaves=  1  group_elapsed=20.4m ETA~0.0s
+
+========================================================================================
+LAYOUT 3/6: stageA-b6-identity
+block_size = 6 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5), (6, 7, 8, 9, 10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b6_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  preparing decoder for p=0.04
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+  warm-up = 0.824s (not recorded)
+  natural_p0p04: complete 0/0; skip
+  stress_w2-3-4-5_p0p04: resume at 0/5000
+       50/5000  last=0.7518s  recent_mean=0.7681s  calls=  2 leaves=  1  group_elapsed=38.4s ETA~1.06h
+      100/5000  last=0.7518s  recent_mean=0.7614s  calls=  2 leaves=  1  group_elapsed=1.3m ETA~1.04h
+      150/5000  last=0.7521s  recent_mean=0.7600s  calls=  2 leaves=  1  group_elapsed=1.9m ETA~1.02h
+      200/5000  last=0.8871s  recent_mean=0.7600s  calls=  3 leaves=  2  group_elapsed=2.5m ETA~1.01h
+      250/5000  last=0.7520s  recent_mean=0.7587s  calls=  2 leaves=  1  group_elapsed=3.2m ETA~1.00h
+      300/5000  last=0.7520s  recent_mean=0.7621s  calls=  2 leaves=  1  group_elapsed=3.8m ETA~59.7m
+      350/5000  last=0.7524s  recent_mean=0.7628s  calls=  2 leaves=  1  group_elapsed=4.4m ETA~59.1m
+      400/5000  last=0.7520s  recent_mean=0.7676s  calls=  2 leaves=  1  group_elapsed=5.1m ETA~58.8m
+      450/5000  last=0.7519s  recent_mean=0.7676s  calls=  2 leaves=  1  group_elapsed=5.7m ETA~58.2m
+      500/5000  last=0.7519s  recent_mean=0.7655s  calls=  2 leaves=  1  group_elapsed=6.4m ETA~57.4m
+      550/5000  last=0.7519s  recent_mean=0.7675s  calls=  2 leaves=  1  group_elapsed=7.0m ETA~56.9m
+      600/5000  last=0.7525s  recent_mean=0.7696s  calls=  2 leaves=  1  group_elapsed=7.7m ETA~56.4m
+      650/5000  last=0.7520s  recent_mean=0.7703s  calls=  2 leaves=  1  group_elapsed=8.3m ETA~55.8m
+      700/5000  last=0.7520s  recent_mean=0.7743s  calls=  2 leaves=  1  group_elapsed=8.9m ETA~55.5m
+      750/5000  last=0.7520s  recent_mean=0.7737s  calls=  2 leaves=  1  group_elapsed=9.6m ETA~54.8m
+      800/5000  last=0.7520s  recent_mean=0.7730s  calls=  2 leaves=  1  group_elapsed=10.2m ETA~54.1m
+      850/5000  last=0.7521s  recent_mean=0.7735s  calls=  2 leaves=  1  group_elapsed=10.9m ETA~53.5m
+      900/5000  last=0.7520s  recent_mean=0.7715s  calls=  2 leaves=  1  group_elapsed=11.5m ETA~52.7m
+      950/5000  last=0.7520s  recent_mean=0.7715s  calls=  2 leaves=  1  group_elapsed=12.2m ETA~52.1m
+     1000/5000  last=0.8873s  recent_mean=0.7661s  calls=  3 leaves=  2  group_elapsed=12.8m ETA~51.1m
+     1050/5000  last=0.7521s  recent_mean=0.7650s  calls=  2 leaves=  1  group_elapsed=13.4m ETA~50.4m
+     1100/5000  last=0.7520s  recent_mean=0.7622s  calls=  2 leaves=  1  group_elapsed=14.1m ETA~49.5m
+     1150/5000  last=0.7520s  recent_mean=0.7602s  calls=  2 leaves=  1  group_elapsed=14.7m ETA~48.8m
+     1200/5000  last=0.7521s  recent_mean=0.7622s  calls=  2 leaves=  1  group_elapsed=15.3m ETA~48.3m
+     1250/5000  last=0.7520s  recent_mean=0.7615s  calls=  2 leaves=  1  group_elapsed=16.0m ETA~47.6m
+     1300/5000  last=0.7520s  recent_mean=0.7608s  calls=  2 leaves=  1  group_elapsed=16.6m ETA~46.9m
+     1350/5000  last=0.7517s  recent_mean=0.7601s  calls=  2 leaves=  1  group_elapsed=17.2m ETA~46.2m
+     1400/5000  last=0.7518s  recent_mean=0.7567s  calls=  2 leaves=  1  group_elapsed=17.9m ETA~45.4m
+     1450/5000  last=0.7518s  recent_mean=0.7607s  calls=  2 leaves=  1  group_elapsed=18.5m ETA~45.0m
+     1500/5000  last=0.7520s  recent_mean=0.7614s  calls=  2 leaves=  1  group_elapsed=19.1m ETA~44.4m
+     1550/5000  last=0.7519s  recent_mean=0.7634s  calls=  2 leaves=  1  group_elapsed=19.8m ETA~43.9m
+     1600/5000  last=0.7520s  recent_mean=0.7628s  calls=  2 leaves=  1  group_elapsed=20.4m ETA~43.2m
+     1650/5000  last=0.7519s  recent_mean=0.7594s  calls=  2 leaves=  1  group_elapsed=21.0m ETA~42.4m
+     1700/5000  last=0.8871s  recent_mean=0.7639s  calls=  3 leaves=  2  group_elapsed=21.7m ETA~42.0m
+     1750/5000  last=0.7523s  recent_mean=0.7666s  calls=  2 leaves=  1  group_elapsed=22.3m ETA~41.5m
+     1800/5000  last=0.7519s  recent_mean=0.7679s  calls=  2 leaves=  1  group_elapsed=23.0m ETA~41.0m
+     1850/5000  last=0.7520s  recent_mean=0.7673s  calls=  2 leaves=  1  group_elapsed=23.6m ETA~40.3m
+     1900/5000  last=0.7519s  recent_mean=0.7716s  calls=  2 leaves=  1  group_elapsed=24.3m ETA~39.9m
+     1950/5000  last=0.7518s  recent_mean=0.7682s  calls=  2 leaves=  1  group_elapsed=24.9m ETA~39.1m
+     2000/5000  last=0.7519s  recent_mean=0.7675s  calls=  2 leaves=  1  group_elapsed=25.5m ETA~38.4m
+     2050/5000  last=0.7519s  recent_mean=0.7689s  calls=  2 leaves=  1  group_elapsed=26.2m ETA~37.8m
+     2100/5000  last=0.7521s  recent_mean=0.7655s  calls=  2 leaves=  1  group_elapsed=26.8m ETA~37.0m
+     2150/5000  last=0.7525s  recent_mean=0.7675s  calls=  2 leaves=  1  group_elapsed=27.4m ETA~36.5m
+     2200/5000  last=0.8872s  recent_mean=0.7702s  calls=  3 leaves=  1  group_elapsed=28.1m ETA~35.9m
+     2250/5000  last=0.7519s  recent_mean=0.7682s  calls=  2 leaves=  1  group_elapsed=28.7m ETA~35.2m
+     2300/5000  last=0.7519s  recent_mean=0.7634s  calls=  2 leaves=  1  group_elapsed=29.4m ETA~34.4m
+     2350/5000  last=0.7519s  recent_mean=0.7607s  calls=  2 leaves=  1  group_elapsed=30.0m ETA~33.6m
+     2400/5000  last=0.7518s  recent_mean=0.7601s  calls=  2 leaves=  1  group_elapsed=30.6m ETA~32.9m
+     2450/5000  last=0.7524s  recent_mean=0.7614s  calls=  2 leaves=  1  group_elapsed=31.3m ETA~32.4m
+     2500/5000  last=0.7523s  recent_mean=0.7621s  calls=  2 leaves=  1  group_elapsed=31.9m ETA~31.8m
+     2550/5000  last=0.7518s  recent_mean=0.7634s  calls=  2 leaves=  1  group_elapsed=32.5m ETA~31.2m
+     2600/5000  last=0.8871s  recent_mean=0.7625s  calls=  3 leaves=  1  group_elapsed=33.2m ETA~30.5m
+     2650/5000  last=0.7518s  recent_mean=0.7625s  calls=  2 leaves=  1  group_elapsed=33.8m ETA~29.9m
+     2700/5000  last=0.8872s  recent_mean=0.7666s  calls=  3 leaves=  2  group_elapsed=34.4m ETA~29.4m
+     2750/5000  last=0.7519s  recent_mean=0.7686s  calls=  2 leaves=  1  group_elapsed=35.1m ETA~28.8m
+     2800/5000  last=0.7525s  recent_mean=0.7708s  calls=  2 leaves=  1  group_elapsed=35.7m ETA~28.3m
+     2850/5000  last=0.7518s  recent_mean=0.7702s  calls=  2 leaves=  1  group_elapsed=36.4m ETA~27.6m
+     2900/5000  last=0.7523s  recent_mean=0.7661s  calls=  2 leaves=  1  group_elapsed=37.0m ETA~26.8m
+     2950/5000  last=0.7519s  recent_mean=0.7661s  calls=  2 leaves=  1  group_elapsed=37.6m ETA~26.2m
+     3000/5000  last=0.7519s  recent_mean=0.7688s  calls=  2 leaves=  1  group_elapsed=38.3m ETA~25.6m
+     3050/5000  last=0.7521s  recent_mean=0.7695s  calls=  2 leaves=  1  group_elapsed=38.9m ETA~25.0m
+     3100/5000  last=0.8870s  recent_mean=0.7742s  calls=  3 leaves=  2  group_elapsed=39.6m ETA~24.5m
+     3150/5000  last=0.7519s  recent_mean=0.7729s  calls=  2 leaves=  1  group_elapsed=40.2m ETA~23.8m
+     3200/5000  last=0.7519s  recent_mean=0.7682s  calls=  2 leaves=  1  group_elapsed=40.9m ETA~23.0m
+     3250/5000  last=0.7519s  recent_mean=0.7702s  calls=  2 leaves=  1  group_elapsed=41.5m ETA~22.5m
+     3300/5000  last=0.7522s  recent_mean=0.7668s  calls=  2 leaves=  1  group_elapsed=42.1m ETA~21.7m
+     3350/5000  last=0.7520s  recent_mean=0.7675s  calls=  2 leaves=  1  group_elapsed=42.8m ETA~21.1m
+     3400/5000  last=0.7518s  recent_mean=0.7661s  calls=  2 leaves=  1  group_elapsed=43.4m ETA~20.4m
+     3450/5000  last=0.7519s  recent_mean=0.7646s  calls=  2 leaves=  1  group_elapsed=44.1m ETA~19.8m
+     3500/5000  last=0.8875s  recent_mean=0.7666s  calls=  3 leaves=  1  group_elapsed=44.7m ETA~19.2m
+     3550/5000  last=0.7520s  recent_mean=0.7659s  calls=  2 leaves=  1  group_elapsed=45.3m ETA~18.5m
+     3600/5000  last=0.7519s  recent_mean=0.7673s  calls=  2 leaves=  1  group_elapsed=46.0m ETA~17.9m
+     3650/5000  last=0.7520s  recent_mean=0.7675s  calls=  2 leaves=  1  group_elapsed=46.6m ETA~17.3m
+     3700/5000  last=0.7519s  recent_mean=0.7621s  calls=  2 leaves=  1  group_elapsed=47.2m ETA~16.5m
+     3750/5000  last=0.7517s  recent_mean=0.7607s  calls=  2 leaves=  1  group_elapsed=47.9m ETA~15.8m
+     3800/5000  last=0.7519s  recent_mean=0.7634s  calls=  2 leaves=  1  group_elapsed=48.5m ETA~15.3m
+     3850/5000  last=0.7519s  recent_mean=0.7668s  calls=  2 leaves=  1  group_elapsed=49.2m ETA~14.7m
+     3900/5000  last=0.7519s  recent_mean=0.7709s  calls=  2 leaves=  1  group_elapsed=49.8m ETA~14.1m
+     3950/5000  last=0.7523s  recent_mean=0.7715s  calls=  2 leaves=  1  group_elapsed=50.4m ETA~13.5m
+     4000/5000  last=0.7518s  recent_mean=0.7681s  calls=  2 leaves=  1  group_elapsed=51.1m ETA~12.8m
+     4050/5000  last=0.7520s  recent_mean=0.7722s  calls=  2 leaves=  1  group_elapsed=51.7m ETA~12.2m
+     4100/5000  last=0.7518s  recent_mean=0.7736s  calls=  2 leaves=  1  group_elapsed=52.4m ETA~11.6m
+     4150/5000  last=0.7520s  recent_mean=0.7722s  calls=  2 leaves=  1  group_elapsed=53.0m ETA~10.9m
+     4200/5000  last=0.8870s  recent_mean=0.7783s  calls=  3 leaves=  1  group_elapsed=53.7m ETA~10.4m
+     4250/5000  last=0.7519s  recent_mean=0.7695s  calls=  2 leaves=  1  group_elapsed=54.3m ETA~9.6m
+     4300/5000  last=0.7519s  recent_mean=0.7682s  calls=  2 leaves=  1  group_elapsed=55.0m ETA~9.0m
+     4350/5000  last=0.7519s  recent_mean=0.7727s  calls=  2 leaves=  1  group_elapsed=55.6m ETA~8.4m
+     4400/5000  last=0.7520s  recent_mean=0.7693s  calls=  2 leaves=  1  group_elapsed=56.2m ETA~7.7m
+     4450/5000  last=0.7520s  recent_mean=0.7687s  calls=  2 leaves=  1  group_elapsed=56.9m ETA~7.0m
+     4500/5000  last=0.7520s  recent_mean=0.7673s  calls=  2 leaves=  1  group_elapsed=57.5m ETA~6.4m
+     4550/5000  last=0.7520s  recent_mean=0.7642s  calls=  2 leaves=  1  group_elapsed=58.1m ETA~5.7m
+     4600/5000  last=0.8871s  recent_mean=0.7676s  calls=  3 leaves=  2  group_elapsed=58.8m ETA~5.1m
+     4650/5000  last=0.7521s  recent_mean=0.7682s  calls=  2 leaves=  1  group_elapsed=59.4m ETA~4.5m
+     4700/5000  last=0.7519s  recent_mean=0.7669s  calls=  2 leaves=  1  group_elapsed=1.00h ETA~3.8m
+     4750/5000  last=0.7523s  recent_mean=0.7675s  calls=  2 leaves=  1  group_elapsed=1.01h ETA~3.2m
+     4800/5000  last=1.0223s  recent_mean=0.7628s  calls=  4 leaves=  4  group_elapsed=1.02h ETA~2.5m
+     4850/5000  last=0.7519s  recent_mean=0.7635s  calls=  2 leaves=  1  group_elapsed=1.03h ETA~1.9m
+     4900/5000  last=0.7518s  recent_mean=0.7662s  calls=  2 leaves=  1  group_elapsed=1.04h ETA~1.3m
+     4950/5000  last=0.7519s  recent_mean=0.7682s  calls=  2 leaves=  1  group_elapsed=1.05h ETA~38.4s
+     5000/5000  last=0.7519s  recent_mean=0.7689s  calls=  2 leaves=  1  group_elapsed=1.07h ETA~0.0s
+
+========================================================================================
+LAYOUT 4/6: stageA-b12-identity
+block_size = 12 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  preparing decoder for p=0.04
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+  warm-up = 2.606s (not recorded)
+  natural_p0p04: complete 0/0; skip
+  stress_w2-3-4-5_p0p04: resume at 0/5000
+       50/5000  last=2.5525s  recent_mean=2.5535s  calls=  1 leaves=  1  group_elapsed=2.1m ETA~3.51h
+      100/5000  last=2.5527s  recent_mean=2.5532s  calls=  1 leaves=  1  group_elapsed=4.3m ETA~3.48h
+      150/5000  last=2.5529s  recent_mean=2.5531s  calls=  1 leaves=  1  group_elapsed=6.4m ETA~3.44h
+      200/5000  last=2.5525s  recent_mean=2.5531s  calls=  1 leaves=  1  group_elapsed=8.5m ETA~3.40h
+      250/5000  last=2.5529s  recent_mean=2.5530s  calls=  1 leaves=  1  group_elapsed=10.6m ETA~3.37h
+      300/5000  last=2.5526s  recent_mean=2.5534s  calls=  1 leaves=  1  group_elapsed=12.8m ETA~3.33h
+      350/5000  last=2.5527s  recent_mean=2.5533s  calls=  1 leaves=  1  group_elapsed=14.9m ETA~3.30h
+      400/5000  last=2.5526s  recent_mean=2.5532s  calls=  1 leaves=  1  group_elapsed=17.0m ETA~3.26h
+      450/5000  last=2.5525s  recent_mean=2.5532s  calls=  1 leaves=  1  group_elapsed=19.2m ETA~3.23h
+      500/5000  last=2.5524s  recent_mean=2.5527s  calls=  1 leaves=  1  group_elapsed=21.3m ETA~3.19h
+      550/5000  last=2.5526s  recent_mean=2.5533s  calls=  1 leaves=  1  group_elapsed=23.4m ETA~3.16h
+      600/5000  last=2.5527s  recent_mean=2.5533s  calls=  1 leaves=  1  group_elapsed=25.5m ETA~3.12h
+      650/5000  last=2.5525s  recent_mean=2.5533s  calls=  1 leaves=  1  group_elapsed=27.7m ETA~3.09h
+      700/5000  last=2.5524s  recent_mean=2.5533s  calls=  1 leaves=  1  group_elapsed=29.8m ETA~3.05h
+      750/5000  last=2.5525s  recent_mean=2.5527s  calls=  1 leaves=  1  group_elapsed=31.9m ETA~3.01h
+      800/5000  last=2.5523s  recent_mean=2.5527s  calls=  1 leaves=  1  group_elapsed=34.0m ETA~2.98h
+      850/5000  last=2.5524s  recent_mean=2.5532s  calls=  1 leaves=  1  group_elapsed=36.2m ETA~2.94h
+      900/5000  last=2.5524s  recent_mean=2.5533s  calls=  1 leaves=  1  group_elapsed=38.3m ETA~2.91h
+      950/5000  last=2.5526s  recent_mean=2.5533s  calls=  1 leaves=  1  group_elapsed=40.4m ETA~2.87h
+     1000/5000  last=2.5524s  recent_mean=2.5533s  calls=  1 leaves=  1  group_elapsed=42.6m ETA~2.84h
+     1050/5000  last=2.5530s  recent_mean=2.5528s  calls=  1 leaves=  1  group_elapsed=44.7m ETA~2.80h
+     1100/5000  last=2.6475s  recent_mean=2.5533s  calls=  1 leaves=  1  group_elapsed=46.8m ETA~2.77h
+     1150/5000  last=2.5526s  recent_mean=2.5534s  calls=  1 leaves=  1  group_elapsed=48.9m ETA~2.73h
+     1200/5000  last=2.5528s  recent_mean=2.5534s  calls=  1 leaves=  1  group_elapsed=51.1m ETA~2.70h
+     1250/5000  last=2.5530s  recent_mean=2.5534s  calls=  1 leaves=  1  group_elapsed=53.2m ETA~2.66h
+     1300/5000  last=2.5530s  recent_mean=2.5530s  calls=  1 leaves=  1  group_elapsed=55.3m ETA~2.62h
+     1350/5000  last=2.5530s  recent_mean=2.5530s  calls=  1 leaves=  1  group_elapsed=57.5m ETA~2.59h
+     1400/5000  last=2.5531s  recent_mean=2.5535s  calls=  1 leaves=  1  group_elapsed=59.6m ETA~2.55h
+     1450/5000  last=2.5530s  recent_mean=2.5536s  calls=  1 leaves=  1  group_elapsed=1.03h ETA~2.52h
+     1500/5000  last=2.5531s  recent_mean=2.5537s  calls=  1 leaves=  1  group_elapsed=1.06h ETA~2.48h
+     1550/5000  last=2.5527s  recent_mean=2.5536s  calls=  1 leaves=  1  group_elapsed=1.10h ETA~2.45h
+     1600/5000  last=2.5528s  recent_mean=2.5531s  calls=  1 leaves=  1  group_elapsed=1.13h ETA~2.41h
+     1650/5000  last=2.5528s  recent_mean=2.5530s  calls=  1 leaves=  1  group_elapsed=1.17h ETA~2.38h
+     1700/5000  last=2.5533s  recent_mean=2.5530s  calls=  1 leaves=  1  group_elapsed=1.21h ETA~2.34h
+     1750/5000  last=2.5561s  recent_mean=2.5536s  calls=  1 leaves=  1  group_elapsed=1.24h ETA~2.31h
+     1800/5000  last=2.5561s  recent_mean=2.5536s  calls=  1 leaves=  1  group_elapsed=1.28h ETA~2.27h
+     1850/5000  last=2.5560s  recent_mean=2.5536s  calls=  1 leaves=  1  group_elapsed=1.31h ETA~2.23h
+     1900/5000  last=2.5530s  recent_mean=2.5536s  calls=  1 leaves=  1  group_elapsed=1.35h ETA~2.20h
+     1950/5000  last=2.5527s  recent_mean=2.5531s  calls=  1 leaves=  1  group_elapsed=1.38h ETA~2.16h
+     2000/5000  last=2.5528s  recent_mean=2.5531s  calls=  1 leaves=  1  group_elapsed=1.42h ETA~2.13h
+     2050/5000  last=2.5532s  recent_mean=2.5537s  calls=  1 leaves=  1  group_elapsed=1.45h ETA~2.09h
+     2100/5000  last=2.5529s  recent_mean=2.5538s  calls=  1 leaves=  1  group_elapsed=1.49h ETA~2.06h
+     2150/5000  last=2.5559s  recent_mean=2.5538s  calls=  1 leaves=  1  group_elapsed=1.53h ETA~2.02h
+     2200/5000  last=2.5531s  recent_mean=2.5539s  calls=  1 leaves=  1  group_elapsed=1.56h ETA~1.99h
+     2250/5000  last=2.5529s  recent_mean=2.5535s  calls=  1 leaves=  1  group_elapsed=1.60h ETA~1.95h
+     2300/5000  last=2.5555s  recent_mean=2.5534s  calls=  1 leaves=  1  group_elapsed=1.63h ETA~1.92h
+     2350/5000  last=2.5526s  recent_mean=2.5538s  calls=  1 leaves=  1  group_elapsed=1.67h ETA~1.88h
+     2400/5000  last=2.5527s  recent_mean=2.5537s  calls=  1 leaves=  1  group_elapsed=1.70h ETA~1.84h
+     2450/5000  last=2.5525s  recent_mean=2.5536s  calls=  1 leaves=  1  group_elapsed=1.74h ETA~1.81h
+     2500/5000  last=2.5526s  recent_mean=2.5536s  calls=  1 leaves=  1  group_elapsed=1.77h ETA~1.77h
+     2550/5000  last=2.5525s  recent_mean=2.5530s  calls=  1 leaves=  1  group_elapsed=1.81h ETA~1.74h
+     2600/5000  last=2.5524s  recent_mean=2.5530s  calls=  1 leaves=  1  group_elapsed=1.84h ETA~1.70h
+     2650/5000  last=2.5527s  recent_mean=2.5529s  calls=  1 leaves=  1  group_elapsed=1.88h ETA~1.67h
+     2700/5000  last=2.5528s  recent_mean=2.5534s  calls=  1 leaves=  1  group_elapsed=1.92h ETA~1.63h
+     2750/5000  last=2.5526s  recent_mean=2.5534s  calls=  1 leaves=  1  group_elapsed=1.95h ETA~1.60h
+     2800/5000  last=2.5531s  recent_mean=2.5534s  calls=  1 leaves=  1  group_elapsed=1.99h ETA~1.56h
+     2850/5000  last=2.5526s  recent_mean=2.5536s  calls=  1 leaves=  1  group_elapsed=2.02h ETA~1.53h
+     2900/5000  last=2.5527s  recent_mean=2.5531s  calls=  1 leaves=  1  group_elapsed=2.06h ETA~1.49h
+     2950/5000  last=2.5531s  recent_mean=2.5537s  calls=  1 leaves=  1  group_elapsed=2.09h ETA~1.45h
+     3000/5000  last=2.5532s  recent_mean=2.5536s  calls=  1 leaves=  1  group_elapsed=2.13h ETA~1.42h
+     3050/5000  last=2.5525s  recent_mean=2.5536s  calls=  1 leaves=  1  group_elapsed=2.16h ETA~1.38h
+     3100/5000  last=2.5528s  recent_mean=2.5535s  calls=  1 leaves=  1  group_elapsed=2.20h ETA~1.35h
+     3150/5000  last=2.5529s  recent_mean=2.5530s  calls=  1 leaves=  1  group_elapsed=2.23h ETA~1.31h
+     3200/5000  last=2.5526s  recent_mean=2.5530s  calls=  1 leaves=  1  group_elapsed=2.27h ETA~1.28h
+     3250/5000  last=2.5526s  recent_mean=2.5535s  calls=  1 leaves=  1  group_elapsed=2.31h ETA~1.24h
+     3300/5000  last=2.5531s  recent_mean=2.5535s  calls=  1 leaves=  1  group_elapsed=2.34h ETA~1.21h
+     3350/5000  last=2.5528s  recent_mean=2.5535s  calls=  1 leaves=  1  group_elapsed=2.38h ETA~1.17h
+     3400/5000  last=2.5532s  recent_mean=2.5534s  calls=  1 leaves=  1  group_elapsed=2.41h ETA~1.13h
+     3450/5000  last=2.5527s  recent_mean=2.5530s  calls=  1 leaves=  1  group_elapsed=2.45h ETA~1.10h
+     3500/5000  last=2.5532s  recent_mean=2.5534s  calls=  1 leaves=  1  group_elapsed=2.48h ETA~1.06h
+     3550/5000  last=2.5531s  recent_mean=2.5534s  calls=  1 leaves=  1  group_elapsed=2.52h ETA~1.03h
+     3600/5000  last=2.5530s  recent_mean=2.5535s  calls=  1 leaves=  1  group_elapsed=2.55h ETA~59.6m
+     3650/5000  last=2.5527s  recent_mean=2.5536s  calls=  1 leaves=  1  group_elapsed=2.59h ETA~57.5m
+     3700/5000  last=2.5557s  recent_mean=2.5530s  calls=  1 leaves=  1  group_elapsed=2.62h ETA~55.3m
+     3750/5000  last=2.5530s  recent_mean=2.5530s  calls=  1 leaves=  1  group_elapsed=2.66h ETA~53.2m
+     3800/5000  last=2.5561s  recent_mean=2.5535s  calls=  1 leaves=  1  group_elapsed=2.70h ETA~51.1m
+     3850/5000  last=2.5530s  recent_mean=2.5535s  calls=  1 leaves=  1  group_elapsed=2.73h ETA~48.9m
+     3900/5000  last=2.5528s  recent_mean=2.5536s  calls=  1 leaves=  1  group_elapsed=2.77h ETA~46.8m
+     3950/5000  last=2.5526s  recent_mean=2.5536s  calls=  1 leaves=  1  group_elapsed=2.80h ETA~44.7m
+     4000/5000  last=2.5527s  recent_mean=2.5530s  calls=  1 leaves=  1  group_elapsed=2.84h ETA~42.6m
+     4050/5000  last=2.5525s  recent_mean=2.5531s  calls=  1 leaves=  1  group_elapsed=2.87h ETA~40.4m
+     4100/5000  last=2.5532s  recent_mean=2.5535s  calls=  1 leaves=  1  group_elapsed=2.91h ETA~38.3m
+     4150/5000  last=2.5525s  recent_mean=2.5536s  calls=  1 leaves=  1  group_elapsed=2.94h ETA~36.2m
+     4200/5000  last=2.5528s  recent_mean=2.5536s  calls=  1 leaves=  1  group_elapsed=2.98h ETA~34.0m
+     4250/5000  last=2.5529s  recent_mean=2.5536s  calls=  1 leaves=  1  group_elapsed=3.01h ETA~31.9m
+     4300/5000  last=2.5529s  recent_mean=2.5531s  calls=  1 leaves=  1  group_elapsed=3.05h ETA~29.8m
+     4350/5000  last=2.5529s  recent_mean=2.5530s  calls=  1 leaves=  1  group_elapsed=3.09h ETA~27.7m
+     4400/5000  last=2.5527s  recent_mean=2.5534s  calls=  1 leaves=  1  group_elapsed=3.12h ETA~25.5m
+     4450/5000  last=2.5534s  recent_mean=2.5535s  calls=  1 leaves=  1  group_elapsed=3.16h ETA~23.4m
+     4500/5000  last=2.5528s  recent_mean=2.5535s  calls=  1 leaves=  1  group_elapsed=3.19h ETA~21.3m
+     4550/5000  last=2.5527s  recent_mean=2.5535s  calls=  1 leaves=  1  group_elapsed=3.23h ETA~19.2m
+     4600/5000  last=2.5559s  recent_mean=2.5531s  calls=  1 leaves=  1  group_elapsed=3.26h ETA~17.0m
+     4650/5000  last=2.5525s  recent_mean=2.5531s  calls=  1 leaves=  1  group_elapsed=3.30h ETA~14.9m
+     4700/5000  last=2.5523s  recent_mean=2.5530s  calls=  1 leaves=  1  group_elapsed=3.33h ETA~12.8m
+     4750/5000  last=2.5527s  recent_mean=2.5535s  calls=  1 leaves=  1  group_elapsed=3.37h ETA~10.6m
+     4800/5000  last=2.5527s  recent_mean=2.5534s  calls=  1 leaves=  2  group_elapsed=3.41h ETA~8.5m
+     4850/5000  last=2.5529s  recent_mean=2.5533s  calls=  1 leaves=  1  group_elapsed=3.44h ETA~6.4m
+     4900/5000  last=2.5522s  recent_mean=2.5533s  calls=  1 leaves=  1  group_elapsed=3.48h ETA~4.3m
+     4950/5000  last=2.5523s  recent_mean=2.5527s  calls=  1 leaves=  1  group_elapsed=3.51h ETA~2.1m
+     5000/5000  last=2.5529s  recent_mean=2.5533s  calls=  1 leaves=  1  group_elapsed=3.55h ETA~0.0s
+
+========================================================================================
+LAYOUT 5/6: stageB-b9-random-1
+block_size = 9 order = [0, 5, 11, 3, 2, 6, 1, 9, 7, 10, 4, 8]
+topologies = [(0, 5, 11, 3, 2, 6, 1, 9, 7), (10, 4, 8)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-5-11-3-2-6-1-9-7-10-4-8.pkl
+  preparing decoder for p=0.04
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+  warm-up = 1.528s (not recorded)
+  natural_p0p04: complete 0/0; skip
+  stress_w2-3-4-5_p0p04: resume at 0/5000
+       50/5000  last=1.4520s  recent_mean=1.4639s  calls=  2 leaves=  1  group_elapsed=1.2m ETA~2.01h
+      100/5000  last=1.4523s  recent_mean=1.4638s  calls=  2 leaves=  1  group_elapsed=2.4m ETA~1.99h
+      150/5000  last=1.4519s  recent_mean=1.4599s  calls=  2 leaves=  1  group_elapsed=3.7m ETA~1.97h
+      200/5000  last=1.4518s  recent_mean=1.4609s  calls=  2 leaves=  1  group_elapsed=4.9m ETA~1.95h
+      250/5000  last=1.4523s  recent_mean=1.4666s  calls=  2 leaves=  1  group_elapsed=6.1m ETA~1.94h
+      300/5000  last=1.4517s  recent_mean=1.4812s  calls=  2 leaves=  1  group_elapsed=7.4m ETA~1.93h
+      350/5000  last=1.4522s  recent_mean=1.4900s  calls=  2 leaves=  1  group_elapsed=8.6m ETA~1.92h
+      400/5000  last=1.4520s  recent_mean=1.5133s  calls=  2 leaves=  1  group_elapsed=9.9m ETA~1.93h
+      450/5000  last=1.4522s  recent_mean=1.5133s  calls=  2 leaves=  1  group_elapsed=11.2m ETA~1.91h
+      500/5000  last=1.4521s  recent_mean=1.4988s  calls=  2 leaves=  1  group_elapsed=12.4m ETA~1.87h
+      550/5000  last=1.4525s  recent_mean=1.5046s  calls=  2 leaves=  1  group_elapsed=13.6m ETA~1.86h
+      600/5000  last=1.4530s  recent_mean=1.4988s  calls=  2 leaves=  1  group_elapsed=14.9m ETA~1.83h
+      650/5000  last=1.4514s  recent_mean=1.5017s  calls=  2 leaves=  1  group_elapsed=16.2m ETA~1.81h
+      700/5000  last=1.4519s  recent_mean=1.5134s  calls=  2 leaves=  1  group_elapsed=17.4m ETA~1.81h
+      750/5000  last=1.4529s  recent_mean=1.5018s  calls=  2 leaves=  1  group_elapsed=18.6m ETA~1.77h
+      800/5000  last=1.4519s  recent_mean=1.4906s  calls=  2 leaves=  1  group_elapsed=19.9m ETA~1.74h
+      850/5000  last=1.4524s  recent_mean=1.4847s  calls=  2 leaves=  1  group_elapsed=21.1m ETA~1.71h
+      900/5000  last=1.4519s  recent_mean=1.4847s  calls=  2 leaves=  1  group_elapsed=22.4m ETA~1.69h
+      950/5000  last=1.4528s  recent_mean=1.4847s  calls=  2 leaves=  1  group_elapsed=23.6m ETA~1.67h
+     1000/5000  last=1.4522s  recent_mean=1.4843s  calls=  2 leaves=  1  group_elapsed=24.8m ETA~1.65h
+     1050/5000  last=1.4517s  recent_mean=1.4843s  calls=  2 leaves=  1  group_elapsed=26.1m ETA~1.63h
+     1100/5000  last=1.4524s  recent_mean=1.4784s  calls=  2 leaves=  1  group_elapsed=27.3m ETA~1.60h
+     1150/5000  last=1.4519s  recent_mean=1.4813s  calls=  2 leaves=  1  group_elapsed=28.5m ETA~1.58h
+     1200/5000  last=1.4520s  recent_mean=1.4842s  calls=  2 leaves=  1  group_elapsed=29.8m ETA~1.57h
+     1250/5000  last=1.4518s  recent_mean=1.4842s  calls=  2 leaves=  1  group_elapsed=31.0m ETA~1.55h
+     1300/5000  last=1.4521s  recent_mean=1.4784s  calls=  2 leaves=  1  group_elapsed=32.2m ETA~1.52h
+     1350/5000  last=1.4522s  recent_mean=1.4755s  calls=  2 leaves=  1  group_elapsed=33.5m ETA~1.50h
+     1400/5000  last=1.4512s  recent_mean=1.4667s  calls=  2 leaves=  1  group_elapsed=34.7m ETA~1.47h
+     1450/5000  last=1.4526s  recent_mean=1.4755s  calls=  2 leaves=  1  group_elapsed=35.9m ETA~1.45h
+     1500/5000  last=1.4523s  recent_mean=1.4726s  calls=  2 leaves=  1  group_elapsed=37.1m ETA~1.43h
+     1550/5000  last=1.4525s  recent_mean=1.4784s  calls=  2 leaves=  1  group_elapsed=38.4m ETA~1.42h
+     1600/5000  last=1.4521s  recent_mean=1.4784s  calls=  2 leaves=  1  group_elapsed=39.6m ETA~1.40h
+     1650/5000  last=1.4516s  recent_mean=1.4730s  calls=  2 leaves=  1  group_elapsed=40.8m ETA~1.37h
+     1700/5000  last=2.0354s  recent_mean=1.4818s  calls=  3 leaves=  1  group_elapsed=42.1m ETA~1.36h
+     1750/5000  last=1.4520s  recent_mean=1.4789s  calls=  2 leaves=  1  group_elapsed=43.3m ETA~1.34h
+     1800/5000  last=1.4518s  recent_mean=1.4876s  calls=  2 leaves=  1  group_elapsed=44.6m ETA~1.32h
+     1850/5000  last=1.4524s  recent_mean=1.4784s  calls=  2 leaves=  1  group_elapsed=45.8m ETA~1.29h
+     1900/5000  last=1.4523s  recent_mean=1.4960s  calls=  2 leaves=  1  group_elapsed=47.1m ETA~1.29h
+     1950/5000  last=1.4522s  recent_mean=1.4930s  calls=  2 leaves=  1  group_elapsed=48.3m ETA~1.26h
+     2000/5000  last=1.4521s  recent_mean=1.4842s  calls=  2 leaves=  1  group_elapsed=49.5m ETA~1.24h
+     2050/5000  last=1.4518s  recent_mean=1.4988s  calls=  2 leaves=  1  group_elapsed=50.8m ETA~1.23h
+     2100/5000  last=1.4522s  recent_mean=1.4987s  calls=  2 leaves=  1  group_elapsed=52.1m ETA~1.21h
+     2150/5000  last=1.4519s  recent_mean=1.5074s  calls=  2 leaves=  1  group_elapsed=53.3m ETA~1.19h
+     2200/5000  last=1.4513s  recent_mean=1.5045s  calls=  2 leaves=  1  group_elapsed=54.5m ETA~1.17h
+     2250/5000  last=1.4514s  recent_mean=1.4899s  calls=  2 leaves=  1  group_elapsed=55.7m ETA~1.14h
+     2300/5000  last=1.4513s  recent_mean=1.4724s  calls=  2 leaves=  1  group_elapsed=57.0m ETA~1.10h
+     2350/5000  last=1.4523s  recent_mean=1.4665s  calls=  2 leaves=  1  group_elapsed=58.2m ETA~1.08h
+     2400/5000  last=1.4518s  recent_mean=1.4723s  calls=  2 leaves=  1  group_elapsed=59.4m ETA~1.06h
+     2450/5000  last=1.4521s  recent_mean=1.4782s  calls=  2 leaves=  1  group_elapsed=1.01h ETA~1.05h
+     2500/5000  last=1.4523s  recent_mean=1.4816s  calls=  2 leaves=  1  group_elapsed=1.03h ETA~1.03h
+     2550/5000  last=1.4514s  recent_mean=1.4787s  calls=  2 leaves=  1  group_elapsed=1.05h ETA~1.01h
+     2600/5000  last=2.0358s  recent_mean=1.4816s  calls=  3 leaves=  1  group_elapsed=1.07h ETA~59.3m
+     2650/5000  last=1.4516s  recent_mean=1.4817s  calls=  2 leaves=  1  group_elapsed=1.09h ETA~58.0m
+     2700/5000  last=1.4518s  recent_mean=1.4783s  calls=  2 leaves=  1  group_elapsed=1.11h ETA~56.7m
+     2750/5000  last=1.4517s  recent_mean=1.4783s  calls=  2 leaves=  1  group_elapsed=1.13h ETA~55.4m
+     2800/5000  last=2.0359s  recent_mean=1.4813s  calls=  3 leaves=  1  group_elapsed=1.16h ETA~54.3m
+     2850/5000  last=1.4523s  recent_mean=1.4842s  calls=  2 leaves=  1  group_elapsed=1.18h ETA~53.2m
+     2900/5000  last=1.4522s  recent_mean=1.4784s  calls=  2 leaves=  1  group_elapsed=1.20h ETA~51.7m
+     2950/5000  last=1.4521s  recent_mean=1.4988s  calls=  2 leaves=  1  group_elapsed=1.22h ETA~51.2m
+     3000/5000  last=1.4516s  recent_mean=1.5046s  calls=  2 leaves=  1  group_elapsed=1.24h ETA~50.2m
+     3050/5000  last=1.4522s  recent_mean=1.5075s  calls=  2 leaves=  1  group_elapsed=1.26h ETA~49.0m
+     3100/5000  last=1.4530s  recent_mean=1.5134s  calls=  2 leaves=  1  group_elapsed=1.28h ETA~47.9m
+     3150/5000  last=1.4526s  recent_mean=1.5017s  calls=  2 leaves=  1  group_elapsed=1.30h ETA~46.3m
+     3200/5000  last=1.4519s  recent_mean=1.4901s  calls=  2 leaves=  1  group_elapsed=1.32h ETA~44.7m
+     3250/5000  last=1.4527s  recent_mean=1.4959s  calls=  2 leaves=  1  group_elapsed=1.34h ETA~43.6m
+     3300/5000  last=1.4522s  recent_mean=1.4901s  calls=  2 leaves=  1  group_elapsed=1.36h ETA~42.2m
+     3350/5000  last=1.4520s  recent_mean=1.4959s  calls=  2 leaves=  1  group_elapsed=1.38h ETA~41.1m
+     3400/5000  last=1.4525s  recent_mean=1.4934s  calls=  2 leaves=  1  group_elapsed=1.40h ETA~39.8m
+     3450/5000  last=1.4527s  recent_mean=1.4847s  calls=  2 leaves=  1  group_elapsed=1.43h ETA~38.4m
+     3500/5000  last=2.0353s  recent_mean=1.5051s  calls=  3 leaves=  1  group_elapsed=1.45h ETA~37.6m
+     3550/5000  last=1.4520s  recent_mean=1.4964s  calls=  2 leaves=  1  group_elapsed=1.47h ETA~36.2m
+     3600/5000  last=1.4524s  recent_mean=1.5046s  calls=  2 leaves=  1  group_elapsed=1.49h ETA~35.1m
+     3650/5000  last=1.4518s  recent_mean=1.5017s  calls=  2 leaves=  1  group_elapsed=1.51h ETA~33.8m
+     3700/5000  last=1.4521s  recent_mean=1.4784s  calls=  2 leaves=  1  group_elapsed=1.53h ETA~32.0m
+     3750/5000  last=1.4518s  recent_mean=1.4813s  calls=  2 leaves=  1  group_elapsed=1.55h ETA~30.9m
+     3800/5000  last=1.4521s  recent_mean=1.4900s  calls=  2 leaves=  1  group_elapsed=1.57h ETA~29.8m
+     3850/5000  last=1.4518s  recent_mean=1.5105s  calls=  2 leaves=  1  group_elapsed=1.59h ETA~29.0m
+     3900/5000  last=1.4517s  recent_mean=1.5221s  calls=  2 leaves=  1  group_elapsed=1.61h ETA~27.9m
+     3950/5000  last=1.4524s  recent_mean=1.5192s  calls=  2 leaves=  1  group_elapsed=1.63h ETA~26.6m
+     4000/5000  last=1.4521s  recent_mean=1.5046s  calls=  2 leaves=  1  group_elapsed=1.65h ETA~25.1m
+     4050/5000  last=1.4522s  recent_mean=1.5105s  calls=  2 leaves=  1  group_elapsed=1.68h ETA~23.9m
+     4100/5000  last=1.4524s  recent_mean=1.5192s  calls=  2 leaves=  1  group_elapsed=1.70h ETA~22.8m
+     4150/5000  last=1.4518s  recent_mean=1.5134s  calls=  2 leaves=  1  group_elapsed=1.72h ETA~21.4m
+     4200/5000  last=1.4521s  recent_mean=1.5285s  calls=  2 leaves=  1  group_elapsed=1.74h ETA~20.4m
+     4250/5000  last=1.4517s  recent_mean=1.4993s  calls=  2 leaves=  1  group_elapsed=1.76h ETA~18.7m
+     4300/5000  last=1.4527s  recent_mean=1.4877s  calls=  2 leaves=  1  group_elapsed=1.78h ETA~17.4m
+     4350/5000  last=1.4531s  recent_mean=1.4994s  calls=  2 leaves=  1  group_elapsed=1.80h ETA~16.2m
+     4400/5000  last=1.4517s  recent_mean=1.4930s  calls=  2 leaves=  1  group_elapsed=1.82h ETA~14.9m
+     4450/5000  last=1.4515s  recent_mean=1.4930s  calls=  2 leaves=  1  group_elapsed=1.84h ETA~13.7m
+     4500/5000  last=1.4520s  recent_mean=1.4901s  calls=  2 leaves=  1  group_elapsed=1.86h ETA~12.4m
+     4550/5000  last=1.4519s  recent_mean=1.4813s  calls=  2 leaves=  1  group_elapsed=1.88h ETA~11.1m
+     4600/5000  last=2.0363s  recent_mean=1.4813s  calls=  3 leaves=  2  group_elapsed=1.90h ETA~9.9m
+     4650/5000  last=1.4520s  recent_mean=1.4841s  calls=  2 leaves=  1  group_elapsed=1.93h ETA~8.7m
+     4700/5000  last=1.4524s  recent_mean=1.4842s  calls=  2 leaves=  1  group_elapsed=1.95h ETA~7.4m
+     4750/5000  last=1.4521s  recent_mean=1.4871s  calls=  2 leaves=  1  group_elapsed=1.97h ETA~6.2m
+     4800/5000  last=2.0351s  recent_mean=1.4813s  calls=  3 leaves=  2  group_elapsed=1.99h ETA~4.9m
+     4850/5000  last=1.4521s  recent_mean=1.4813s  calls=  2 leaves=  1  group_elapsed=2.01h ETA~3.7m
+     4900/5000  last=1.4522s  recent_mean=1.4813s  calls=  2 leaves=  1  group_elapsed=2.03h ETA~2.5m
+     4950/5000  last=1.4528s  recent_mean=1.4843s  calls=  2 leaves=  1  group_elapsed=2.05h ETA~1.2m
+     5000/5000  last=1.4525s  recent_mean=1.4959s  calls=  2 leaves=  1  group_elapsed=2.07h ETA~0.0s
+
+========================================================================================
+LAYOUT 6/6: stageB-b9-reverse
+block_size = 9 order = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+topologies = [(11, 10, 9, 8, 7, 6, 5, 4, 3), (2, 1, 0)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_11-10-9-8-7-6-5-4-3-2-1-0.pkl
+  preparing decoder for p=0.04
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+  warm-up = 3.107s (not recorded)
+  natural_p0p04: complete 0/0; skip
+  stress_w2-3-4-5_p0p04: resume at 0/5000
+       50/5000  last=2.6563s  recent_mean=2.7167s  calls=  2 leaves=  1  group_elapsed=2.3m ETA~3.74h
+      100/5000  last=2.6561s  recent_mean=2.7015s  calls=  2 leaves=  1  group_elapsed=4.5m ETA~3.68h
+      150/5000  last=2.6562s  recent_mean=2.6964s  calls=  2 leaves=  1  group_elapsed=6.7m ETA~3.63h
+      200/5000  last=2.6564s  recent_mean=2.6939s  calls=  2 leaves=  1  group_elapsed=9.0m ETA~3.59h
+      250/5000  last=2.6564s  recent_mean=2.7015s  calls=  2 leaves=  1  group_elapsed=11.3m ETA~3.56h
+      300/5000  last=2.6564s  recent_mean=2.7319s  calls=  2 leaves=  1  group_elapsed=13.6m ETA~3.57h
+      350/5000  last=2.6557s  recent_mean=2.7319s  calls=  2 leaves=  1  group_elapsed=15.8m ETA~3.53h
+      400/5000  last=2.6561s  recent_mean=2.7772s  calls=  2 leaves=  1  group_elapsed=18.2m ETA~3.55h
+      450/5000  last=2.6561s  recent_mean=2.7696s  calls=  2 leaves=  1  group_elapsed=20.5m ETA~3.50h
+      500/5000  last=2.6577s  recent_mean=2.7393s  calls=  2 leaves=  1  group_elapsed=22.7m ETA~3.42h
+      550/5000  last=2.6564s  recent_mean=2.7621s  calls=  2 leaves=  1  group_elapsed=25.1m ETA~3.41h
+      600/5000  last=2.6562s  recent_mean=2.7320s  calls=  2 leaves=  1  group_elapsed=27.3m ETA~3.34h
+      650/5000  last=2.6559s  recent_mean=2.7396s  calls=  2 leaves=  1  group_elapsed=29.6m ETA~3.31h
+      700/5000  last=2.6563s  recent_mean=2.7547s  calls=  2 leaves=  1  group_elapsed=31.9m ETA~3.29h
+      750/5000  last=2.6565s  recent_mean=2.7320s  calls=  2 leaves=  1  group_elapsed=34.2m ETA~3.23h
+      800/5000  last=2.6560s  recent_mean=2.7325s  calls=  2 leaves=  1  group_elapsed=36.5m ETA~3.19h
+      850/5000  last=2.6564s  recent_mean=2.7325s  calls=  2 leaves=  1  group_elapsed=38.7m ETA~3.15h
+      900/5000  last=2.6560s  recent_mean=2.7475s  calls=  2 leaves=  1  group_elapsed=41.1m ETA~3.13h
+      950/5000  last=2.6557s  recent_mean=2.7474s  calls=  2 leaves=  1  group_elapsed=43.3m ETA~3.09h
+     1000/5000  last=2.6569s  recent_mean=2.7319s  calls=  2 leaves=  1  group_elapsed=45.6m ETA~3.04h
+     1050/5000  last=2.6564s  recent_mean=2.7546s  calls=  2 leaves=  1  group_elapsed=47.9m ETA~3.02h
+     1100/5000  last=2.6564s  recent_mean=2.7320s  calls=  2 leaves=  1  group_elapsed=50.2m ETA~2.96h
+     1150/5000  last=2.6554s  recent_mean=2.7396s  calls=  2 leaves=  1  group_elapsed=52.5m ETA~2.93h
+     1200/5000  last=2.6555s  recent_mean=2.7623s  calls=  2 leaves=  1  group_elapsed=54.8m ETA~2.92h
+     1250/5000  last=2.6566s  recent_mean=2.7320s  calls=  2 leaves=  1  group_elapsed=57.0m ETA~2.85h
+     1300/5000  last=2.6561s  recent_mean=2.7244s  calls=  2 leaves=  1  group_elapsed=59.3m ETA~2.80h
+     1350/5000  last=2.6555s  recent_mean=2.7168s  calls=  2 leaves=  1  group_elapsed=1.03h ETA~2.75h
+     1400/5000  last=2.6565s  recent_mean=2.6940s  calls=  2 leaves=  1  group_elapsed=1.06h ETA~2.69h
+     1450/5000  last=2.6565s  recent_mean=2.7015s  calls=  2 leaves=  1  group_elapsed=1.10h ETA~2.66h
+     1500/5000  last=2.6555s  recent_mean=2.6939s  calls=  2 leaves=  1  group_elapsed=1.14h ETA~2.62h
+     1550/5000  last=2.6563s  recent_mean=2.7014s  calls=  2 leaves=  1  group_elapsed=1.18h ETA~2.59h
+     1600/5000  last=2.6559s  recent_mean=2.7014s  calls=  2 leaves=  1  group_elapsed=1.21h ETA~2.55h
+     1650/5000  last=2.6559s  recent_mean=2.7014s  calls=  2 leaves=  1  group_elapsed=1.25h ETA~2.51h
+     1700/5000  last=4.1688s  recent_mean=2.7473s  calls=  3 leaves=  1  group_elapsed=1.29h ETA~2.52h
+     1750/5000  last=2.6565s  recent_mean=2.7550s  calls=  2 leaves=  1  group_elapsed=1.33h ETA~2.49h
+     1800/5000  last=2.6566s  recent_mean=2.7777s  calls=  2 leaves=  1  group_elapsed=1.37h ETA~2.47h
+     1850/5000  last=2.6557s  recent_mean=2.7551s  calls=  2 leaves=  1  group_elapsed=1.40h ETA~2.41h
+     1900/5000  last=2.6563s  recent_mean=2.7698s  calls=  2 leaves=  1  group_elapsed=1.44h ETA~2.39h
+     1950/5000  last=2.6571s  recent_mean=2.7547s  calls=  2 leaves=  1  group_elapsed=1.48h ETA~2.33h
+     2000/5000  last=2.6567s  recent_mean=2.7320s  calls=  2 leaves=  1  group_elapsed=1.52h ETA~2.28h
+     2050/5000  last=2.6555s  recent_mean=2.7547s  calls=  2 leaves=  1  group_elapsed=1.56h ETA~2.26h
+     2100/5000  last=2.6562s  recent_mean=2.7320s  calls=  2 leaves=  1  group_elapsed=1.60h ETA~2.20h
+     2150/5000  last=2.6572s  recent_mean=2.7471s  calls=  2 leaves=  1  group_elapsed=1.63h ETA~2.17h
+     2200/5000  last=2.6566s  recent_mean=2.7395s  calls=  2 leaves=  1  group_elapsed=1.67h ETA~2.13h
+     2250/5000  last=2.6565s  recent_mean=2.7169s  calls=  2 leaves=  1  group_elapsed=1.71h ETA~2.08h
+     2300/5000  last=2.6559s  recent_mean=2.6941s  calls=  2 leaves=  1  group_elapsed=1.75h ETA~2.02h
+     2350/5000  last=2.6567s  recent_mean=2.6864s  calls=  2 leaves=  1  group_elapsed=1.78h ETA~1.98h
+     2400/5000  last=2.6563s  recent_mean=2.7015s  calls=  2 leaves=  1  group_elapsed=1.82h ETA~1.95h
+     2450/5000  last=2.6556s  recent_mean=2.7166s  calls=  2 leaves=  1  group_elapsed=1.86h ETA~1.92h
+     2500/5000  last=2.6554s  recent_mean=2.7317s  calls=  2 leaves=  1  group_elapsed=1.90h ETA~1.90h
+     2550/5000  last=2.6559s  recent_mean=2.7321s  calls=  2 leaves=  1  group_elapsed=1.94h ETA~1.86h
+     2600/5000  last=4.1683s  recent_mean=2.7396s  calls=  3 leaves=  1  group_elapsed=1.97h ETA~1.83h
+     2650/5000  last=2.6559s  recent_mean=2.7396s  calls=  2 leaves=  1  group_elapsed=2.01h ETA~1.79h
+     2700/5000  last=2.6557s  recent_mean=2.7245s  calls=  2 leaves=  1  group_elapsed=2.05h ETA~1.74h
+     2750/5000  last=2.6567s  recent_mean=2.7241s  calls=  2 leaves=  1  group_elapsed=2.09h ETA~1.70h
+     2800/5000  last=2.6556s  recent_mean=2.7166s  calls=  2 leaves=  1  group_elapsed=2.12h ETA~1.66h
+     2850/5000  last=2.6555s  recent_mean=2.7090s  calls=  2 leaves=  1  group_elapsed=2.16h ETA~1.62h
+     2900/5000  last=2.6562s  recent_mean=2.7243s  calls=  2 leaves=  1  group_elapsed=2.20h ETA~1.59h
+     2950/5000  last=2.6566s  recent_mean=2.7698s  calls=  2 leaves=  1  group_elapsed=2.24h ETA~1.58h
+     3000/5000  last=2.6568s  recent_mean=2.7925s  calls=  2 leaves=  1  group_elapsed=2.28h ETA~1.55h
+     3050/5000  last=2.6565s  recent_mean=2.8152s  calls=  2 leaves=  1  group_elapsed=2.32h ETA~1.52h
+     3100/5000  last=2.6567s  recent_mean=2.8077s  calls=  2 leaves=  1  group_elapsed=2.36h ETA~1.48h
+     3150/5000  last=2.6560s  recent_mean=2.7924s  calls=  2 leaves=  1  group_elapsed=2.40h ETA~1.43h
+     3200/5000  last=2.6563s  recent_mean=2.7772s  calls=  2 leaves=  1  group_elapsed=2.43h ETA~1.39h
+     3250/5000  last=2.6567s  recent_mean=2.7923s  calls=  2 leaves=  1  group_elapsed=2.47h ETA~1.36h
+     3300/5000  last=2.6559s  recent_mean=2.7922s  calls=  2 leaves=  1  group_elapsed=2.51h ETA~1.32h
+     3350/5000  last=2.7543s  recent_mean=2.7775s  calls=  2 leaves=  1  group_elapsed=2.55h ETA~1.27h
+     3400/5000  last=2.6563s  recent_mean=2.7624s  calls=  2 leaves=  1  group_elapsed=2.59h ETA~1.23h
+     3450/5000  last=2.6561s  recent_mean=2.7397s  calls=  2 leaves=  1  group_elapsed=2.63h ETA~1.18h
+     3500/5000  last=4.1677s  recent_mean=2.7699s  calls=  3 leaves=  1  group_elapsed=2.67h ETA~1.15h
+     3550/5000  last=2.6554s  recent_mean=2.7392s  calls=  2 leaves=  1  group_elapsed=2.70h ETA~1.10h
+     3600/5000  last=2.6552s  recent_mean=2.7543s  calls=  2 leaves=  1  group_elapsed=2.74h ETA~1.07h
+     3650/5000  last=2.6557s  recent_mean=2.7467s  calls=  2 leaves=  1  group_elapsed=2.78h ETA~1.03h
+     3700/5000  last=2.6560s  recent_mean=2.7090s  calls=  2 leaves=  1  group_elapsed=2.82h ETA~58.7m
+     3750/5000  last=2.6559s  recent_mean=2.7241s  calls=  2 leaves=  1  group_elapsed=2.85h ETA~56.8m
+     3800/5000  last=2.6558s  recent_mean=2.7316s  calls=  2 leaves=  1  group_elapsed=2.89h ETA~54.6m
+     3850/5000  last=2.6565s  recent_mean=2.7544s  calls=  2 leaves=  1  group_elapsed=2.93h ETA~52.8m
+     3900/5000  last=2.6566s  recent_mean=2.7544s  calls=  2 leaves=  1  group_elapsed=2.97h ETA~50.5m
+     3950/5000  last=2.6552s  recent_mean=2.7620s  calls=  2 leaves=  1  group_elapsed=3.01h ETA~48.3m
+     4000/5000  last=2.6563s  recent_mean=2.7544s  calls=  2 leaves=  1  group_elapsed=3.05h ETA~45.9m
+     4050/5000  last=2.6573s  recent_mean=2.7847s  calls=  2 leaves=  1  group_elapsed=3.09h ETA~44.1m
+     4100/5000  last=2.6554s  recent_mean=2.7999s  calls=  2 leaves=  1  group_elapsed=3.12h ETA~42.0m
+     4150/5000  last=2.6561s  recent_mean=2.7848s  calls=  2 leaves=  1  group_elapsed=3.16h ETA~39.5m
+     4200/5000  last=2.6563s  recent_mean=2.8074s  calls=  2 leaves=  1  group_elapsed=3.20h ETA~37.4m
+     4250/5000  last=2.6569s  recent_mean=2.7473s  calls=  2 leaves=  1  group_elapsed=3.24h ETA~34.3m
+     4300/5000  last=2.6566s  recent_mean=2.7397s  calls=  2 leaves=  1  group_elapsed=3.28h ETA~32.0m
+     4350/5000  last=2.6555s  recent_mean=2.7622s  calls=  2 leaves=  1  group_elapsed=3.32h ETA~29.9m
+     4400/5000  last=2.6561s  recent_mean=2.7471s  calls=  2 leaves=  1  group_elapsed=3.35h ETA~27.5m
+     4450/5000  last=2.6561s  recent_mean=2.7466s  calls=  2 leaves=  1  group_elapsed=3.39h ETA~25.2m
+     4500/5000  last=2.6559s  recent_mean=2.7466s  calls=  2 leaves=  1  group_elapsed=3.43h ETA~22.9m
+     4550/5000  last=2.6551s  recent_mean=2.7390s  calls=  2 leaves=  1  group_elapsed=3.47h ETA~20.5m
+     4600/5000  last=4.1677s  recent_mean=2.7466s  calls=  3 leaves=  2  group_elapsed=3.51h ETA~18.3m
+     4650/5000  last=2.6564s  recent_mean=2.7466s  calls=  2 leaves=  1  group_elapsed=3.54h ETA~16.0m
+     4700/5000  last=2.6556s  recent_mean=2.7391s  calls=  2 leaves=  1  group_elapsed=3.58h ETA~13.7m
+     4750/5000  last=2.6563s  recent_mean=2.7543s  calls=  2 leaves=  1  group_elapsed=3.62h ETA~11.5m
+     4800/5000  last=4.1678s  recent_mean=2.7468s  calls=  3 leaves=  2  group_elapsed=3.66h ETA~9.2m
+     4850/5000  last=2.6553s  recent_mean=2.7543s  calls=  2 leaves=  1  group_elapsed=3.70h ETA~6.9m
+     4900/5000  last=2.6558s  recent_mean=2.7544s  calls=  2 leaves=  1  group_elapsed=3.73h ETA~4.6m
+     4950/5000  last=2.6565s  recent_mean=2.7393s  calls=  2 leaves=  1  group_elapsed=3.77h ETA~2.3m
+     5000/5000  last=2.6559s  recent_mean=2.7318s  calls=  2 leaves=  1  group_elapsed=3.81h ETA~0.0s
+
+ALL REQUESTED LAYOUTS/DATASETS COMPLETE
+results = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.04/results.sqlite
+summary = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.04/summary.csv
+consistency = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.04/consistency_vs_b12.csv
+FINISHED STRESS p=0.04
+Tue Sep 22 11:59:47 +08 2026
+========================================
+START STRESS p=0.05
+Tue Sep 22 11:59:47 +08 2026
+BB72 multi-syndrome validation
+n = 72 k = 12
+layouts = 6 ['stageA-b9-identity', 'stageA-b10-identity', 'stageA-b6-identity', 'stageA-b12-identity', 'stageB-b9-random-1', 'stageB-b9-reverse']
+datasets = [('natural_p0p05', 0), ('stress_w2-3-4-5_p0p05', 5000)]
+database = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.05/results.sqlite
+resume behavior: existing (layout,dataset,shot_id) rows are skipped
+
+========================================================================================
+LAYOUT 1/6: stageA-b9-identity
+block_size = 9 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (9, 10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  preparing decoder for p=0.05
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+  warm-up = 5.262s (not recorded)
+  natural_p0p05: complete 0/0; skip
+  stress_w2-3-4-5_p0p05: resume at 0/5000
+       50/5000  last=0.2073s  recent_mean=0.2111s  calls=  2 leaves=  1  group_elapsed=10.6s ETA~17.4m
+      100/5000  last=0.2069s  recent_mean=0.2101s  calls=  2 leaves=  1  group_elapsed=21.0s ETA~17.2m
+      150/5000  last=0.2072s  recent_mean=0.2092s  calls=  2 leaves=  1  group_elapsed=31.4s ETA~16.9m
+      200/5000  last=0.2076s  recent_mean=0.2092s  calls=  2 leaves=  1  group_elapsed=41.9s ETA~16.7m
+      250/5000  last=0.2070s  recent_mean=0.2096s  calls=  2 leaves=  1  group_elapsed=52.5s ETA~16.6m
+      300/5000  last=0.2073s  recent_mean=0.2124s  calls=  2 leaves=  1  group_elapsed=1.1m ETA~16.6m
+      350/5000  last=0.2073s  recent_mean=0.2138s  calls=  2 leaves=  1  group_elapsed=1.2m ETA~16.6m
+      400/5000  last=0.2074s  recent_mean=0.2171s  calls=  2 leaves=  1  group_elapsed=1.4m ETA~16.6m
+      450/5000  last=0.2076s  recent_mean=0.2171s  calls=  2 leaves=  1  group_elapsed=1.6m ETA~16.5m
+      500/5000  last=0.2078s  recent_mean=0.2152s  calls=  2 leaves=  1  group_elapsed=1.8m ETA~16.1m
+      550/5000  last=0.2070s  recent_mean=0.2162s  calls=  2 leaves=  1  group_elapsed=2.0m ETA~16.0m
+      600/5000  last=0.2072s  recent_mean=0.2157s  calls=  2 leaves=  1  group_elapsed=2.1m ETA~15.8m
+      650/5000  last=0.2072s  recent_mean=0.2156s  calls=  2 leaves=  1  group_elapsed=2.3m ETA~15.6m
+      700/5000  last=0.2072s  recent_mean=0.2160s  calls=  2 leaves=  1  group_elapsed=2.5m ETA~15.5m
+      750/5000  last=0.2070s  recent_mean=0.2146s  calls=  2 leaves=  1  group_elapsed=2.7m ETA~15.2m
+      800/5000  last=0.2070s  recent_mean=0.2127s  calls=  2 leaves=  1  group_elapsed=2.9m ETA~14.9m
+      850/5000  last=0.2073s  recent_mean=0.2123s  calls=  2 leaves=  1  group_elapsed=3.0m ETA~14.7m
+      900/5000  last=0.2075s  recent_mean=0.2128s  calls=  2 leaves=  1  group_elapsed=3.2m ETA~14.5m
+      950/5000  last=0.2078s  recent_mean=0.2128s  calls=  2 leaves=  1  group_elapsed=3.4m ETA~14.4m
+     1000/5000  last=0.2071s  recent_mean=0.2129s  calls=  2 leaves=  1  group_elapsed=3.6m ETA~14.2m
+     1050/5000  last=0.2074s  recent_mean=0.2129s  calls=  2 leaves=  1  group_elapsed=3.7m ETA~14.0m
+     1100/5000  last=0.2078s  recent_mean=0.2120s  calls=  2 leaves=  1  group_elapsed=3.9m ETA~13.8m
+     1150/5000  last=0.2077s  recent_mean=0.2125s  calls=  2 leaves=  1  group_elapsed=4.1m ETA~13.6m
+     1200/5000  last=0.2072s  recent_mean=0.2129s  calls=  2 leaves=  1  group_elapsed=4.3m ETA~13.5m
+     1250/5000  last=0.2077s  recent_mean=0.2129s  calls=  2 leaves=  1  group_elapsed=4.4m ETA~13.3m
+     1300/5000  last=0.2074s  recent_mean=0.2115s  calls=  2 leaves=  1  group_elapsed=4.6m ETA~13.0m
+     1350/5000  last=0.2078s  recent_mean=0.2106s  calls=  2 leaves=  1  group_elapsed=4.8m ETA~12.8m
+     1400/5000  last=0.2071s  recent_mean=0.2097s  calls=  2 leaves=  1  group_elapsed=5.0m ETA~12.6m
+     1450/5000  last=0.2074s  recent_mean=0.2111s  calls=  2 leaves=  1  group_elapsed=5.2m ETA~12.5m
+     1500/5000  last=0.2072s  recent_mean=0.2111s  calls=  2 leaves=  1  group_elapsed=5.3m ETA~12.3m
+     1550/5000  last=0.2078s  recent_mean=0.2120s  calls=  2 leaves=  1  group_elapsed=5.5m ETA~12.2m
+     1600/5000  last=0.2070s  recent_mean=0.2115s  calls=  2 leaves=  1  group_elapsed=5.7m ETA~12.0m
+     1650/5000  last=0.2076s  recent_mean=0.2106s  calls=  2 leaves=  1  group_elapsed=5.9m ETA~11.8m
+     1700/5000  last=0.2990s  recent_mean=0.2125s  calls=  3 leaves=  2  group_elapsed=6.0m ETA~11.7m
+     1750/5000  last=0.2072s  recent_mean=0.2129s  calls=  2 leaves=  1  group_elapsed=6.2m ETA~11.5m
+     1800/5000  last=0.2071s  recent_mean=0.2142s  calls=  2 leaves=  1  group_elapsed=6.4m ETA~11.4m
+     1850/5000  last=0.2072s  recent_mean=0.2129s  calls=  2 leaves=  1  group_elapsed=6.6m ETA~11.2m
+     1900/5000  last=0.2070s  recent_mean=0.2156s  calls=  2 leaves=  1  group_elapsed=6.8m ETA~11.1m
+     1950/5000  last=0.2078s  recent_mean=0.2146s  calls=  2 leaves=  1  group_elapsed=6.9m ETA~10.9m
+     2000/5000  last=0.2071s  recent_mean=0.2137s  calls=  2 leaves=  1  group_elapsed=7.1m ETA~10.7m
+     2050/5000  last=0.2072s  recent_mean=0.2159s  calls=  2 leaves=  1  group_elapsed=7.3m ETA~10.6m
+     2100/5000  last=0.2071s  recent_mean=0.2155s  calls=  2 leaves=  1  group_elapsed=7.5m ETA~10.4m
+     2150/5000  last=0.2073s  recent_mean=0.2170s  calls=  2 leaves=  1  group_elapsed=7.7m ETA~10.3m
+     2200/5000  last=0.2077s  recent_mean=0.2161s  calls=  2 leaves=  1  group_elapsed=7.8m ETA~10.1m
+     2250/5000  last=0.2075s  recent_mean=0.2139s  calls=  2 leaves=  1  group_elapsed=8.0m ETA~9.8m
+     2300/5000  last=0.2075s  recent_mean=0.2111s  calls=  2 leaves=  1  group_elapsed=8.2m ETA~9.5m
+     2350/5000  last=0.2078s  recent_mean=0.2097s  calls=  2 leaves=  1  group_elapsed=8.4m ETA~9.3m
+     2400/5000  last=0.2077s  recent_mean=0.2102s  calls=  2 leaves=  1  group_elapsed=8.5m ETA~9.1m
+     2450/5000  last=0.2073s  recent_mean=0.2106s  calls=  2 leaves=  1  group_elapsed=8.7m ETA~9.0m
+     2500/5000  last=0.2074s  recent_mean=0.2111s  calls=  2 leaves=  1  group_elapsed=8.9m ETA~8.8m
+     2550/5000  last=0.2072s  recent_mean=0.2107s  calls=  2 leaves=  1  group_elapsed=9.1m ETA~8.6m
+     2600/5000  last=0.2073s  recent_mean=0.2111s  calls=  2 leaves=  1  group_elapsed=9.2m ETA~8.4m
+     2650/5000  last=0.2077s  recent_mean=0.2116s  calls=  2 leaves=  1  group_elapsed=9.4m ETA~8.3m
+     2700/5000  last=0.2997s  recent_mean=0.2112s  calls=  3 leaves=  2  group_elapsed=9.6m ETA~8.1m
+     2750/5000  last=0.2075s  recent_mean=0.2111s  calls=  2 leaves=  1  group_elapsed=9.8m ETA~7.9m
+     2800/5000  last=0.2996s  recent_mean=0.2121s  calls=  3 leaves=  2  group_elapsed=9.9m ETA~7.8m
+     2850/5000  last=0.2073s  recent_mean=0.2126s  calls=  2 leaves=  1  group_elapsed=10.1m ETA~7.6m
+     2900/5000  last=0.2075s  recent_mean=0.2125s  calls=  2 leaves=  1  group_elapsed=10.3m ETA~7.4m
+     2950/5000  last=0.2070s  recent_mean=0.2161s  calls=  2 leaves=  1  group_elapsed=10.5m ETA~7.4m
+     3000/5000  last=0.2072s  recent_mean=0.2161s  calls=  2 leaves=  1  group_elapsed=10.7m ETA~7.2m
+     3050/5000  last=0.2074s  recent_mean=0.2165s  calls=  2 leaves=  1  group_elapsed=10.8m ETA~7.0m
+     3100/5000  last=0.2989s  recent_mean=0.2170s  calls=  3 leaves=  2  group_elapsed=11.0m ETA~6.9m
+     3150/5000  last=0.2070s  recent_mean=0.2147s  calls=  2 leaves=  1  group_elapsed=11.2m ETA~6.6m
+     3200/5000  last=0.2072s  recent_mean=0.2137s  calls=  2 leaves=  1  group_elapsed=11.4m ETA~6.4m
+     3250/5000  last=0.2070s  recent_mean=0.2151s  calls=  2 leaves=  1  group_elapsed=11.6m ETA~6.3m
+     3300/5000  last=0.2073s  recent_mean=0.2141s  calls=  2 leaves=  1  group_elapsed=11.7m ETA~6.1m
+     3350/5000  last=0.2075s  recent_mean=0.2146s  calls=  2 leaves=  1  group_elapsed=11.9m ETA~5.9m
+     3400/5000  last=0.2075s  recent_mean=0.2142s  calls=  2 leaves=  1  group_elapsed=12.1m ETA~5.7m
+     3450/5000  last=0.2070s  recent_mean=0.2124s  calls=  2 leaves=  1  group_elapsed=12.3m ETA~5.5m
+     3500/5000  last=0.2994s  recent_mean=0.2142s  calls=  3 leaves=  1  group_elapsed=12.4m ETA~5.4m
+     3550/5000  last=0.2074s  recent_mean=0.2128s  calls=  2 leaves=  1  group_elapsed=12.6m ETA~5.1m
+     3600/5000  last=0.2072s  recent_mean=0.2141s  calls=  2 leaves=  1  group_elapsed=12.8m ETA~5.0m
+     3650/5000  last=0.2072s  recent_mean=0.2141s  calls=  2 leaves=  1  group_elapsed=13.0m ETA~4.8m
+     3700/5000  last=0.2074s  recent_mean=0.2118s  calls=  2 leaves=  1  group_elapsed=13.2m ETA~4.6m
+     3750/5000  last=0.2070s  recent_mean=0.2127s  calls=  2 leaves=  1  group_elapsed=13.3m ETA~4.4m
+     3800/5000  last=0.2070s  recent_mean=0.2145s  calls=  2 leaves=  1  group_elapsed=13.5m ETA~4.3m
+     3850/5000  last=0.2070s  recent_mean=0.2173s  calls=  2 leaves=  1  group_elapsed=13.7m ETA~4.2m
+     3900/5000  last=0.2072s  recent_mean=0.2191s  calls=  2 leaves=  1  group_elapsed=13.9m ETA~4.0m
+     3950/5000  last=0.2070s  recent_mean=0.2187s  calls=  2 leaves=  1  group_elapsed=14.1m ETA~3.8m
+     4000/5000  last=0.2074s  recent_mean=0.2155s  calls=  2 leaves=  1  group_elapsed=14.2m ETA~3.6m
+     4050/5000  last=0.2072s  recent_mean=0.2168s  calls=  2 leaves=  1  group_elapsed=14.4m ETA~3.4m
+     4100/5000  last=0.2073s  recent_mean=0.2168s  calls=  2 leaves=  1  group_elapsed=14.6m ETA~3.3m
+     4150/5000  last=0.2070s  recent_mean=0.2159s  calls=  2 leaves=  1  group_elapsed=14.8m ETA~3.1m
+     4200/5000  last=0.2070s  recent_mean=0.2191s  calls=  2 leaves=  1  group_elapsed=15.0m ETA~2.9m
+     4250/5000  last=0.2073s  recent_mean=0.2141s  calls=  2 leaves=  1  group_elapsed=15.1m ETA~2.7m
+     4300/5000  last=0.2077s  recent_mean=0.2123s  calls=  2 leaves=  1  group_elapsed=15.3m ETA~2.5m
+     4350/5000  last=0.2078s  recent_mean=0.2146s  calls=  2 leaves=  1  group_elapsed=15.5m ETA~2.3m
+     4400/5000  last=0.2073s  recent_mean=0.2132s  calls=  2 leaves=  1  group_elapsed=15.7m ETA~2.1m
+     4450/5000  last=0.2074s  recent_mean=0.2128s  calls=  2 leaves=  1  group_elapsed=15.9m ETA~2.0m
+     4500/5000  last=0.2074s  recent_mean=0.2133s  calls=  2 leaves=  1  group_elapsed=16.0m ETA~1.8m
+     4550/5000  last=0.2071s  recent_mean=0.2119s  calls=  2 leaves=  1  group_elapsed=16.2m ETA~1.6m
+     4600/5000  last=0.2994s  recent_mean=0.2124s  calls=  3 leaves=  2  group_elapsed=16.4m ETA~1.4m
+     4650/5000  last=0.2072s  recent_mean=0.2133s  calls=  2 leaves=  1  group_elapsed=16.6m ETA~1.2m
+     4700/5000  last=0.2076s  recent_mean=0.2129s  calls=  2 leaves=  1  group_elapsed=16.7m ETA~1.1m
+     4750/5000  last=0.2070s  recent_mean=0.2133s  calls=  2 leaves=  1  group_elapsed=16.9m ETA~53.3s
+     4800/5000  last=0.3914s  recent_mean=0.2124s  calls=  4 leaves=  3  group_elapsed=17.1m ETA~42.5s
+     4850/5000  last=0.2073s  recent_mean=0.2124s  calls=  2 leaves=  1  group_elapsed=17.3m ETA~31.9s
+     4900/5000  last=0.2072s  recent_mean=0.2129s  calls=  2 leaves=  1  group_elapsed=17.4m ETA~21.3s
+     4950/5000  last=0.2075s  recent_mean=0.2142s  calls=  2 leaves=  1  group_elapsed=17.6m ETA~10.7s
+     5000/5000  last=0.2074s  recent_mean=0.2156s  calls=  2 leaves=  1  group_elapsed=17.8m ETA~0.0s
+
+========================================================================================
+LAYOUT 2/6: stageA-b10-identity
+block_size = 10 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8, 9), (10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b10_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  preparing decoder for p=0.05
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+  warm-up = 0.334s (not recorded)
+  natural_p0p05: complete 0/0; skip
+  stress_w2-3-4-5_p0p05: resume at 0/5000
+       50/5000  last=0.2401s  recent_mean=0.2444s  calls=  2 leaves=  1  group_elapsed=12.2s ETA~20.2m
+      100/5000  last=0.2405s  recent_mean=0.2433s  calls=  2 leaves=  1  group_elapsed=24.4s ETA~19.9m
+      150/5000  last=0.2410s  recent_mean=0.2424s  calls=  2 leaves=  1  group_elapsed=36.4s ETA~19.6m
+      200/5000  last=0.2403s  recent_mean=0.2423s  calls=  2 leaves=  1  group_elapsed=48.5s ETA~19.4m
+      250/5000  last=0.2405s  recent_mean=0.2428s  calls=  2 leaves=  1  group_elapsed=1.0m ETA~19.2m
+      300/5000  last=0.2399s  recent_mean=0.2453s  calls=  2 leaves=  1  group_elapsed=1.2m ETA~19.2m
+      350/5000  last=0.2399s  recent_mean=0.2461s  calls=  2 leaves=  1  group_elapsed=1.4m ETA~19.1m
+      400/5000  last=0.2401s  recent_mean=0.2496s  calls=  2 leaves=  1  group_elapsed=1.6m ETA~19.1m
+      450/5000  last=0.2399s  recent_mean=0.2495s  calls=  2 leaves=  1  group_elapsed=1.8m ETA~18.9m
+      500/5000  last=0.2402s  recent_mean=0.2475s  calls=  2 leaves=  1  group_elapsed=2.0m ETA~18.6m
+      550/5000  last=0.2401s  recent_mean=0.2490s  calls=  2 leaves=  1  group_elapsed=2.3m ETA~18.5m
+      600/5000  last=0.2399s  recent_mean=0.2484s  calls=  2 leaves=  1  group_elapsed=2.5m ETA~18.2m
+      650/5000  last=0.2398s  recent_mean=0.2485s  calls=  2 leaves=  1  group_elapsed=2.7m ETA~18.0m
+      700/5000  last=0.2399s  recent_mean=0.2495s  calls=  2 leaves=  1  group_elapsed=2.9m ETA~17.9m
+      750/5000  last=0.2408s  recent_mean=0.2475s  calls=  2 leaves=  1  group_elapsed=3.1m ETA~17.5m
+      800/5000  last=0.2398s  recent_mean=0.2451s  calls=  2 leaves=  1  group_elapsed=3.3m ETA~17.2m
+      850/5000  last=0.2402s  recent_mean=0.2446s  calls=  2 leaves=  1  group_elapsed=3.5m ETA~16.9m
+      900/5000  last=0.2407s  recent_mean=0.2451s  calls=  2 leaves=  1  group_elapsed=3.7m ETA~16.8m
+      950/5000  last=0.2401s  recent_mean=0.2456s  calls=  2 leaves=  1  group_elapsed=3.9m ETA~16.6m
+     1000/5000  last=0.2409s  recent_mean=0.2456s  calls=  2 leaves=  1  group_elapsed=4.1m ETA~16.4m
+     1050/5000  last=0.2399s  recent_mean=0.2451s  calls=  2 leaves=  1  group_elapsed=4.3m ETA~16.1m
+     1100/5000  last=0.2407s  recent_mean=0.2446s  calls=  2 leaves=  1  group_elapsed=4.5m ETA~15.9m
+     1150/5000  last=0.2405s  recent_mean=0.2447s  calls=  2 leaves=  1  group_elapsed=4.7m ETA~15.7m
+     1200/5000  last=0.2404s  recent_mean=0.2458s  calls=  2 leaves=  1  group_elapsed=4.9m ETA~15.6m
+     1250/5000  last=0.2402s  recent_mean=0.2464s  calls=  2 leaves=  1  group_elapsed=5.1m ETA~15.4m
+     1300/5000  last=0.2407s  recent_mean=0.2445s  calls=  2 leaves=  1  group_elapsed=5.3m ETA~15.1m
+     1350/5000  last=0.2409s  recent_mean=0.2440s  calls=  2 leaves=  1  group_elapsed=5.5m ETA~14.8m
+     1400/5000  last=0.2408s  recent_mean=0.2425s  calls=  2 leaves=  1  group_elapsed=5.7m ETA~14.6m
+     1450/5000  last=0.2403s  recent_mean=0.2430s  calls=  2 leaves=  1  group_elapsed=5.9m ETA~14.4m
+     1500/5000  last=0.2406s  recent_mean=0.2435s  calls=  2 leaves=  1  group_elapsed=6.1m ETA~14.2m
+     1550/5000  last=0.2406s  recent_mean=0.2440s  calls=  2 leaves=  1  group_elapsed=6.3m ETA~14.0m
+     1600/5000  last=0.2408s  recent_mean=0.2440s  calls=  2 leaves=  1  group_elapsed=6.6m ETA~13.8m
+     1650/5000  last=0.2405s  recent_mean=0.2441s  calls=  2 leaves=  1  group_elapsed=6.8m ETA~13.6m
+     1700/5000  last=0.3392s  recent_mean=0.2451s  calls=  3 leaves=  2  group_elapsed=7.0m ETA~13.5m
+     1750/5000  last=0.2403s  recent_mean=0.2456s  calls=  2 leaves=  1  group_elapsed=7.2m ETA~13.3m
+     1800/5000  last=0.2401s  recent_mean=0.2470s  calls=  2 leaves=  1  group_elapsed=7.4m ETA~13.2m
+     1850/5000  last=0.2403s  recent_mean=0.2454s  calls=  2 leaves=  1  group_elapsed=7.6m ETA~12.9m
+     1900/5000  last=0.2403s  recent_mean=0.2474s  calls=  2 leaves=  1  group_elapsed=7.8m ETA~12.8m
+     1950/5000  last=0.2407s  recent_mean=0.2464s  calls=  2 leaves=  1  group_elapsed=8.0m ETA~12.5m
+     2000/5000  last=0.2410s  recent_mean=0.2450s  calls=  2 leaves=  1  group_elapsed=8.2m ETA~12.2m
+     2050/5000  last=0.2408s  recent_mean=0.2474s  calls=  2 leaves=  1  group_elapsed=8.4m ETA~12.2m
+     2100/5000  last=0.2410s  recent_mean=0.2464s  calls=  2 leaves=  1  group_elapsed=8.6m ETA~11.9m
+     2150/5000  last=0.2399s  recent_mean=0.2479s  calls=  2 leaves=  1  group_elapsed=8.8m ETA~11.8m
+     2200/5000  last=0.2403s  recent_mean=0.2474s  calls=  2 leaves=  1  group_elapsed=9.0m ETA~11.5m
+     2250/5000  last=0.2400s  recent_mean=0.2450s  calls=  2 leaves=  1  group_elapsed=9.2m ETA~11.2m
+     2300/5000  last=0.2408s  recent_mean=0.2440s  calls=  2 leaves=  1  group_elapsed=9.4m ETA~11.0m
+     2350/5000  last=0.2411s  recent_mean=0.2430s  calls=  2 leaves=  1  group_elapsed=9.6m ETA~10.7m
+     2400/5000  last=0.2405s  recent_mean=0.2435s  calls=  2 leaves=  1  group_elapsed=9.8m ETA~10.6m
+     2450/5000  last=0.2408s  recent_mean=0.2440s  calls=  2 leaves=  1  group_elapsed=10.0m ETA~10.4m
+     2500/5000  last=0.2401s  recent_mean=0.2450s  calls=  2 leaves=  1  group_elapsed=10.2m ETA~10.2m
+     2550/5000  last=0.2401s  recent_mean=0.2443s  calls=  2 leaves=  1  group_elapsed=10.4m ETA~10.0m
+     2600/5000  last=0.2402s  recent_mean=0.2448s  calls=  2 leaves=  1  group_elapsed=10.6m ETA~9.8m
+     2650/5000  last=0.2404s  recent_mean=0.2452s  calls=  2 leaves=  1  group_elapsed=10.8m ETA~9.6m
+     2700/5000  last=0.2401s  recent_mean=0.2427s  calls=  2 leaves=  1  group_elapsed=11.1m ETA~9.3m
+     2750/5000  last=0.2400s  recent_mean=0.2428s  calls=  2 leaves=  1  group_elapsed=11.3m ETA~9.1m
+     2800/5000  last=0.3383s  recent_mean=0.2437s  calls=  3 leaves=  2  group_elapsed=11.5m ETA~8.9m
+     2850/5000  last=0.2400s  recent_mean=0.2432s  calls=  2 leaves=  1  group_elapsed=11.7m ETA~8.7m
+     2900/5000  last=0.2408s  recent_mean=0.2437s  calls=  2 leaves=  1  group_elapsed=11.9m ETA~8.5m
+     2950/5000  last=0.2400s  recent_mean=0.2475s  calls=  2 leaves=  1  group_elapsed=12.1m ETA~8.5m
+     3000/5000  last=0.2398s  recent_mean=0.2466s  calls=  2 leaves=  1  group_elapsed=12.3m ETA~8.2m
+     3050/5000  last=0.2404s  recent_mean=0.2480s  calls=  2 leaves=  1  group_elapsed=12.5m ETA~8.1m
+     3100/5000  last=0.2406s  recent_mean=0.2491s  calls=  2 leaves=  1  group_elapsed=12.7m ETA~7.9m
+     3150/5000  last=0.2410s  recent_mean=0.2468s  calls=  2 leaves=  1  group_elapsed=12.9m ETA~7.6m
+     3200/5000  last=0.2405s  recent_mean=0.2469s  calls=  2 leaves=  1  group_elapsed=13.1m ETA~7.4m
+     3250/5000  last=0.2402s  recent_mean=0.2474s  calls=  2 leaves=  1  group_elapsed=13.3m ETA~7.2m
+     3300/5000  last=0.2403s  recent_mean=0.2464s  calls=  2 leaves=  1  group_elapsed=13.5m ETA~7.0m
+     3350/5000  last=0.2408s  recent_mean=0.2459s  calls=  2 leaves=  1  group_elapsed=13.7m ETA~6.8m
+     3400/5000  last=0.2409s  recent_mean=0.2454s  calls=  2 leaves=  1  group_elapsed=13.9m ETA~6.5m
+     3450/5000  last=0.2411s  recent_mean=0.2439s  calls=  2 leaves=  1  group_elapsed=14.1m ETA~6.3m
+     3500/5000  last=0.2401s  recent_mean=0.2453s  calls=  2 leaves=  1  group_elapsed=14.3m ETA~6.1m
+     3550/5000  last=0.2402s  recent_mean=0.2441s  calls=  2 leaves=  1  group_elapsed=14.5m ETA~5.9m
+     3600/5000  last=0.2399s  recent_mean=0.2455s  calls=  2 leaves=  1  group_elapsed=14.7m ETA~5.7m
+     3650/5000  last=0.2399s  recent_mean=0.2460s  calls=  2 leaves=  1  group_elapsed=14.9m ETA~5.5m
+     3700/5000  last=0.2402s  recent_mean=0.2442s  calls=  2 leaves=  1  group_elapsed=15.1m ETA~5.3m
+     3750/5000  last=0.2405s  recent_mean=0.2447s  calls=  2 leaves=  1  group_elapsed=15.4m ETA~5.1m
+     3800/5000  last=0.2401s  recent_mean=0.2448s  calls=  2 leaves=  1  group_elapsed=15.6m ETA~4.9m
+     3850/5000  last=0.2409s  recent_mean=0.2468s  calls=  2 leaves=  1  group_elapsed=15.8m ETA~4.7m
+     3900/5000  last=0.2400s  recent_mean=0.2487s  calls=  2 leaves=  1  group_elapsed=16.0m ETA~4.6m
+     3950/5000  last=0.2399s  recent_mean=0.2493s  calls=  2 leaves=  1  group_elapsed=16.2m ETA~4.4m
+     4000/5000  last=0.2401s  recent_mean=0.2483s  calls=  2 leaves=  1  group_elapsed=16.4m ETA~4.1m
+     4050/5000  last=0.2409s  recent_mean=0.2483s  calls=  2 leaves=  1  group_elapsed=16.6m ETA~3.9m
+     4100/5000  last=0.2403s  recent_mean=0.2483s  calls=  2 leaves=  1  group_elapsed=16.8m ETA~3.7m
+     4150/5000  last=0.2407s  recent_mean=0.2473s  calls=  2 leaves=  1  group_elapsed=17.0m ETA~3.5m
+     4200/5000  last=0.2400s  recent_mean=0.2488s  calls=  2 leaves=  1  group_elapsed=17.2m ETA~3.3m
+     4250/5000  last=0.2409s  recent_mean=0.2457s  calls=  2 leaves=  1  group_elapsed=17.4m ETA~3.1m
+     4300/5000  last=0.2409s  recent_mean=0.2442s  calls=  2 leaves=  1  group_elapsed=17.6m ETA~2.8m
+     4350/5000  last=0.2400s  recent_mean=0.2462s  calls=  2 leaves=  1  group_elapsed=17.8m ETA~2.7m
+     4400/5000  last=0.2409s  recent_mean=0.2452s  calls=  2 leaves=  1  group_elapsed=18.0m ETA~2.5m
+     4450/5000  last=0.2398s  recent_mean=0.2449s  calls=  2 leaves=  1  group_elapsed=18.2m ETA~2.2m
+     4500/5000  last=0.2405s  recent_mean=0.2458s  calls=  2 leaves=  1  group_elapsed=18.4m ETA~2.0m
+     4550/5000  last=0.2398s  recent_mean=0.2443s  calls=  2 leaves=  1  group_elapsed=18.6m ETA~1.8m
+     4600/5000  last=0.3383s  recent_mean=0.2451s  calls=  3 leaves=  2  group_elapsed=18.9m ETA~1.6m
+     4650/5000  last=0.2410s  recent_mean=0.2455s  calls=  2 leaves=  1  group_elapsed=19.1m ETA~1.4m
+     4700/5000  last=0.2407s  recent_mean=0.2446s  calls=  2 leaves=  1  group_elapsed=19.3m ETA~1.2m
+     4750/5000  last=0.2410s  recent_mean=0.2446s  calls=  2 leaves=  1  group_elapsed=19.5m ETA~1.0m
+     4800/5000  last=0.3379s  recent_mean=0.2432s  calls=  3 leaves=  2  group_elapsed=19.7m ETA~48.6s
+     4850/5000  last=0.2399s  recent_mean=0.2436s  calls=  2 leaves=  1  group_elapsed=19.9m ETA~36.5s
+     4900/5000  last=0.2410s  recent_mean=0.2440s  calls=  2 leaves=  1  group_elapsed=20.1m ETA~24.4s
+     4950/5000  last=0.2411s  recent_mean=0.2447s  calls=  2 leaves=  1  group_elapsed=20.3m ETA~12.2s
+     5000/5000  last=0.2402s  recent_mean=0.2468s  calls=  2 leaves=  1  group_elapsed=20.5m ETA~0.0s
+
+========================================================================================
+LAYOUT 3/6: stageA-b6-identity
+block_size = 6 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5), (6, 7, 8, 9, 10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b6_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  preparing decoder for p=0.05
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+  warm-up = 0.824s (not recorded)
+  natural_p0p05: complete 0/0; skip
+  stress_w2-3-4-5_p0p05: resume at 0/5000
+       50/5000  last=0.7525s  recent_mean=0.7691s  calls=  2 leaves=  1  group_elapsed=38.5s ETA~1.06h
+      100/5000  last=0.7529s  recent_mean=0.7624s  calls=  2 leaves=  1  group_elapsed=1.3m ETA~1.04h
+      150/5000  last=0.7526s  recent_mean=0.7611s  calls=  2 leaves=  1  group_elapsed=1.9m ETA~1.03h
+      200/5000  last=0.8885s  recent_mean=0.7610s  calls=  3 leaves=  2  group_elapsed=2.5m ETA~1.01h
+      250/5000  last=0.7527s  recent_mean=0.7597s  calls=  2 leaves=  1  group_elapsed=3.2m ETA~1.00h
+      300/5000  last=0.7527s  recent_mean=0.7630s  calls=  2 leaves=  1  group_elapsed=3.8m ETA~59.8m
+      350/5000  last=0.7527s  recent_mean=0.7636s  calls=  2 leaves=  1  group_elapsed=4.4m ETA~59.2m
+      400/5000  last=0.7527s  recent_mean=0.7684s  calls=  2 leaves=  1  group_elapsed=5.1m ETA~58.9m
+      450/5000  last=0.7531s  recent_mean=0.7684s  calls=  2 leaves=  1  group_elapsed=5.7m ETA~58.3m
+      500/5000  last=0.7530s  recent_mean=0.7664s  calls=  2 leaves=  1  group_elapsed=6.4m ETA~57.5m
+      550/5000  last=0.7530s  recent_mean=0.7685s  calls=  2 leaves=  1  group_elapsed=7.0m ETA~57.0m
+      600/5000  last=0.7533s  recent_mean=0.7706s  calls=  2 leaves=  1  group_elapsed=7.7m ETA~56.5m
+      650/5000  last=0.7528s  recent_mean=0.7713s  calls=  2 leaves=  1  group_elapsed=8.3m ETA~55.9m
+      700/5000  last=0.7527s  recent_mean=0.7753s  calls=  2 leaves=  1  group_elapsed=9.0m ETA~55.6m
+      750/5000  last=0.7527s  recent_mean=0.7746s  calls=  2 leaves=  1  group_elapsed=9.6m ETA~54.9m
+      800/5000  last=0.7527s  recent_mean=0.7738s  calls=  2 leaves=  1  group_elapsed=10.2m ETA~54.2m
+      850/5000  last=0.7527s  recent_mean=0.7742s  calls=  2 leaves=  1  group_elapsed=10.9m ETA~53.6m
+      900/5000  last=0.7529s  recent_mean=0.7722s  calls=  2 leaves=  1  group_elapsed=11.5m ETA~52.8m
+      950/5000  last=0.7527s  recent_mean=0.7722s  calls=  2 leaves=  1  group_elapsed=12.2m ETA~52.1m
+     1000/5000  last=0.8884s  recent_mean=0.7668s  calls=  3 leaves=  2  group_elapsed=12.8m ETA~51.1m
+     1050/5000  last=0.7531s  recent_mean=0.7657s  calls=  2 leaves=  1  group_elapsed=13.4m ETA~50.4m
+     1100/5000  last=0.7528s  recent_mean=0.7630s  calls=  2 leaves=  1  group_elapsed=14.1m ETA~49.6m
+     1150/5000  last=0.7531s  recent_mean=0.7610s  calls=  2 leaves=  1  group_elapsed=14.7m ETA~48.8m
+     1200/5000  last=0.7530s  recent_mean=0.7631s  calls=  2 leaves=  1  group_elapsed=15.4m ETA~48.3m
+     1250/5000  last=0.7532s  recent_mean=0.7624s  calls=  2 leaves=  1  group_elapsed=16.0m ETA~47.7m
+     1300/5000  last=0.7532s  recent_mean=0.7618s  calls=  2 leaves=  1  group_elapsed=16.6m ETA~47.0m
+     1350/5000  last=0.7532s  recent_mean=0.7612s  calls=  2 leaves=  1  group_elapsed=17.2m ETA~46.3m
+     1400/5000  last=0.7530s  recent_mean=0.7578s  calls=  2 leaves=  1  group_elapsed=17.9m ETA~45.5m
+     1450/5000  last=0.7526s  recent_mean=0.7619s  calls=  2 leaves=  1  group_elapsed=18.5m ETA~45.1m
+     1500/5000  last=0.7532s  recent_mean=0.7625s  calls=  2 leaves=  1  group_elapsed=19.2m ETA~44.5m
+     1550/5000  last=0.7526s  recent_mean=0.7645s  calls=  2 leaves=  1  group_elapsed=19.8m ETA~44.0m
+     1600/5000  last=0.7528s  recent_mean=0.7638s  calls=  2 leaves=  1  group_elapsed=20.4m ETA~43.3m
+     1650/5000  last=0.7538s  recent_mean=0.7604s  calls=  2 leaves=  1  group_elapsed=21.1m ETA~42.5m
+     1700/5000  last=0.8888s  recent_mean=0.7649s  calls=  3 leaves=  2  group_elapsed=21.7m ETA~42.1m
+     1750/5000  last=0.7531s  recent_mean=0.7676s  calls=  2 leaves=  1  group_elapsed=22.4m ETA~41.6m
+     1800/5000  last=0.7530s  recent_mean=0.7690s  calls=  2 leaves=  1  group_elapsed=23.0m ETA~41.0m
+     1850/5000  last=0.7532s  recent_mean=0.7682s  calls=  2 leaves=  1  group_elapsed=23.6m ETA~40.3m
+     1900/5000  last=0.7527s  recent_mean=0.7725s  calls=  2 leaves=  1  group_elapsed=24.3m ETA~39.9m
+     1950/5000  last=0.7527s  recent_mean=0.7690s  calls=  2 leaves=  1  group_elapsed=24.9m ETA~39.1m
+     2000/5000  last=0.7527s  recent_mean=0.7683s  calls=  2 leaves=  1  group_elapsed=25.6m ETA~38.4m
+     2050/5000  last=0.7528s  recent_mean=0.7697s  calls=  2 leaves=  1  group_elapsed=26.2m ETA~37.8m
+     2100/5000  last=0.7528s  recent_mean=0.7663s  calls=  2 leaves=  1  group_elapsed=26.8m ETA~37.0m
+     2150/5000  last=0.7528s  recent_mean=0.7684s  calls=  2 leaves=  1  group_elapsed=27.5m ETA~36.5m
+     2200/5000  last=0.8890s  recent_mean=0.7711s  calls=  3 leaves=  1  group_elapsed=28.1m ETA~36.0m
+     2250/5000  last=0.7532s  recent_mean=0.7691s  calls=  2 leaves=  1  group_elapsed=28.8m ETA~35.3m
+     2300/5000  last=0.7533s  recent_mean=0.7644s  calls=  2 leaves=  1  group_elapsed=29.4m ETA~34.4m
+     2350/5000  last=0.7527s  recent_mean=0.7617s  calls=  2 leaves=  1  group_elapsed=30.0m ETA~33.6m
+     2400/5000  last=0.7529s  recent_mean=0.7611s  calls=  2 leaves=  1  group_elapsed=30.7m ETA~33.0m
+     2450/5000  last=0.7531s  recent_mean=0.7625s  calls=  2 leaves=  1  group_elapsed=31.3m ETA~32.4m
+     2500/5000  last=0.7533s  recent_mean=0.7632s  calls=  2 leaves=  1  group_elapsed=31.9m ETA~31.8m
+     2550/5000  last=0.7527s  recent_mean=0.7646s  calls=  2 leaves=  1  group_elapsed=32.6m ETA~31.2m
+     2600/5000  last=0.8882s  recent_mean=0.7636s  calls=  3 leaves=  1  group_elapsed=33.2m ETA~30.5m
+     2650/5000  last=0.7527s  recent_mean=0.7635s  calls=  2 leaves=  1  group_elapsed=33.8m ETA~29.9m
+     2700/5000  last=0.8884s  recent_mean=0.7675s  calls=  3 leaves=  2  group_elapsed=34.5m ETA~29.4m
+     2750/5000  last=0.7531s  recent_mean=0.7695s  calls=  2 leaves=  1  group_elapsed=35.1m ETA~28.9m
+     2800/5000  last=0.7529s  recent_mean=0.7717s  calls=  2 leaves=  1  group_elapsed=35.8m ETA~28.3m
+     2850/5000  last=0.7526s  recent_mean=0.7711s  calls=  2 leaves=  1  group_elapsed=36.4m ETA~27.6m
+     2900/5000  last=0.7531s  recent_mean=0.7670s  calls=  2 leaves=  1  group_elapsed=37.1m ETA~26.8m
+     2950/5000  last=0.7532s  recent_mean=0.7670s  calls=  2 leaves=  1  group_elapsed=37.7m ETA~26.2m
+     3000/5000  last=0.7532s  recent_mean=0.7698s  calls=  2 leaves=  1  group_elapsed=38.3m ETA~25.7m
+     3050/5000  last=0.7532s  recent_mean=0.7706s  calls=  2 leaves=  1  group_elapsed=39.0m ETA~25.0m
+     3100/5000  last=0.8891s  recent_mean=0.7755s  calls=  3 leaves=  2  group_elapsed=39.6m ETA~24.6m
+     3150/5000  last=0.7533s  recent_mean=0.7742s  calls=  2 leaves=  1  group_elapsed=40.3m ETA~23.9m
+     3200/5000  last=0.7527s  recent_mean=0.7694s  calls=  2 leaves=  1  group_elapsed=40.9m ETA~23.1m
+     3250/5000  last=0.7532s  recent_mean=0.7714s  calls=  2 leaves=  1  group_elapsed=41.6m ETA~22.5m
+     3300/5000  last=0.7531s  recent_mean=0.7680s  calls=  2 leaves=  1  group_elapsed=42.2m ETA~21.8m
+     3350/5000  last=0.7526s  recent_mean=0.7685s  calls=  2 leaves=  1  group_elapsed=42.8m ETA~21.1m
+     3400/5000  last=0.7526s  recent_mean=0.7671s  calls=  2 leaves=  1  group_elapsed=43.5m ETA~20.5m
+     3450/5000  last=0.7529s  recent_mean=0.7654s  calls=  2 leaves=  1  group_elapsed=44.1m ETA~19.8m
+     3500/5000  last=0.8890s  recent_mean=0.7675s  calls=  3 leaves=  1  group_elapsed=44.8m ETA~19.2m
+     3550/5000  last=0.7528s  recent_mean=0.7669s  calls=  2 leaves=  1  group_elapsed=45.4m ETA~18.5m
+     3600/5000  last=0.7527s  recent_mean=0.7683s  calls=  2 leaves=  1  group_elapsed=46.0m ETA~17.9m
+     3650/5000  last=0.7527s  recent_mean=0.7685s  calls=  2 leaves=  1  group_elapsed=46.7m ETA~17.3m
+     3700/5000  last=0.7531s  recent_mean=0.7630s  calls=  2 leaves=  1  group_elapsed=47.3m ETA~16.5m
+     3750/5000  last=0.7532s  recent_mean=0.7617s  calls=  2 leaves=  1  group_elapsed=47.9m ETA~15.9m
+     3800/5000  last=0.7528s  recent_mean=0.7644s  calls=  2 leaves=  1  group_elapsed=48.6m ETA~15.3m
+     3850/5000  last=0.7527s  recent_mean=0.7678s  calls=  2 leaves=  1  group_elapsed=49.2m ETA~14.7m
+     3900/5000  last=0.7527s  recent_mean=0.7718s  calls=  2 leaves=  1  group_elapsed=49.9m ETA~14.1m
+     3950/5000  last=0.7528s  recent_mean=0.7724s  calls=  2 leaves=  1  group_elapsed=50.5m ETA~13.5m
+     4000/5000  last=0.7531s  recent_mean=0.7691s  calls=  2 leaves=  1  group_elapsed=51.1m ETA~12.8m
+     4050/5000  last=0.7526s  recent_mean=0.7732s  calls=  2 leaves=  1  group_elapsed=51.8m ETA~12.2m
+     4100/5000  last=0.7526s  recent_mean=0.7746s  calls=  2 leaves=  1  group_elapsed=52.5m ETA~11.6m
+     4150/5000  last=0.7526s  recent_mean=0.7732s  calls=  2 leaves=  1  group_elapsed=53.1m ETA~11.0m
+     4200/5000  last=0.8883s  recent_mean=0.7792s  calls=  3 leaves=  1  group_elapsed=53.7m ETA~10.4m
+     4250/5000  last=0.7528s  recent_mean=0.7703s  calls=  2 leaves=  1  group_elapsed=54.4m ETA~9.6m
+     4300/5000  last=0.7527s  recent_mean=0.7695s  calls=  2 leaves=  1  group_elapsed=55.0m ETA~9.0m
+     4350/5000  last=0.7526s  recent_mean=0.7735s  calls=  2 leaves=  1  group_elapsed=55.7m ETA~8.4m
+     4400/5000  last=0.7527s  recent_mean=0.7701s  calls=  2 leaves=  1  group_elapsed=56.3m ETA~7.7m
+     4450/5000  last=0.7527s  recent_mean=0.7695s  calls=  2 leaves=  1  group_elapsed=56.9m ETA~7.1m
+     4500/5000  last=0.7530s  recent_mean=0.7676s  calls=  2 leaves=  1  group_elapsed=57.6m ETA~6.4m
+     4550/5000  last=0.7532s  recent_mean=0.7650s  calls=  2 leaves=  1  group_elapsed=58.2m ETA~5.7m
+     4600/5000  last=0.8883s  recent_mean=0.7685s  calls=  3 leaves=  2  group_elapsed=58.9m ETA~5.1m
+     4650/5000  last=0.7532s  recent_mean=0.7693s  calls=  2 leaves=  1  group_elapsed=59.5m ETA~4.5m
+     4700/5000  last=0.7527s  recent_mean=0.7679s  calls=  2 leaves=  1  group_elapsed=1.00h ETA~3.8m
+     4750/5000  last=0.7527s  recent_mean=0.7685s  calls=  2 leaves=  1  group_elapsed=1.01h ETA~3.2m
+     4800/5000  last=1.0239s  recent_mean=0.7637s  calls=  4 leaves=  4  group_elapsed=1.02h ETA~2.5m
+     4850/5000  last=0.7528s  recent_mean=0.7643s  calls=  2 leaves=  1  group_elapsed=1.03h ETA~1.9m
+     4900/5000  last=0.7531s  recent_mean=0.7670s  calls=  2 leaves=  1  group_elapsed=1.05h ETA~1.3m
+     4950/5000  last=0.7532s  recent_mean=0.7691s  calls=  2 leaves=  1  group_elapsed=1.06h ETA~38.5s
+     5000/5000  last=0.7532s  recent_mean=0.7698s  calls=  2 leaves=  1  group_elapsed=1.07h ETA~0.0s
+
+========================================================================================
+LAYOUT 4/6: stageA-b12-identity
+block_size = 12 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+  preparing decoder for p=0.05
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+  warm-up = 2.597s (not recorded)
+  natural_p0p05: complete 0/0; skip
+  stress_w2-3-4-5_p0p05: resume at 0/5000
+       50/5000  last=2.5582s  recent_mean=2.5575s  calls=  1 leaves=  1  group_elapsed=2.1m ETA~3.52h
+      100/5000  last=2.5579s  recent_mean=2.5579s  calls=  1 leaves=  1  group_elapsed=4.3m ETA~3.48h
+      150/5000  last=2.5585s  recent_mean=2.5580s  calls=  1 leaves=  1  group_elapsed=6.4m ETA~3.45h
+      200/5000  last=2.5581s  recent_mean=2.5581s  calls=  1 leaves=  1  group_elapsed=8.5m ETA~3.41h
+      250/5000  last=2.5580s  recent_mean=2.5583s  calls=  1 leaves=  1  group_elapsed=10.7m ETA~3.38h
+      300/5000  last=2.5580s  recent_mean=2.5587s  calls=  1 leaves=  1  group_elapsed=12.8m ETA~3.34h
+      350/5000  last=2.5579s  recent_mean=2.5586s  calls=  1 leaves=  1  group_elapsed=14.9m ETA~3.30h
+      400/5000  last=2.5583s  recent_mean=2.5586s  calls=  1 leaves=  1  group_elapsed=17.1m ETA~3.27h
+      450/5000  last=2.5582s  recent_mean=2.5585s  calls=  1 leaves=  1  group_elapsed=19.2m ETA~3.23h
+      500/5000  last=2.5579s  recent_mean=2.5581s  calls=  1 leaves=  1  group_elapsed=21.3m ETA~3.20h
+      550/5000  last=2.5580s  recent_mean=2.5587s  calls=  1 leaves=  1  group_elapsed=23.5m ETA~3.16h
+      600/5000  last=2.5589s  recent_mean=2.5587s  calls=  1 leaves=  1  group_elapsed=25.6m ETA~3.13h
+      650/5000  last=2.5582s  recent_mean=2.5587s  calls=  1 leaves=  1  group_elapsed=27.7m ETA~3.09h
+      700/5000  last=2.5578s  recent_mean=2.5587s  calls=  1 leaves=  1  group_elapsed=29.9m ETA~3.06h
+      750/5000  last=2.5580s  recent_mean=2.5578s  calls=  1 leaves=  1  group_elapsed=32.0m ETA~3.02h
+      800/5000  last=2.5578s  recent_mean=2.5577s  calls=  1 leaves=  1  group_elapsed=34.1m ETA~2.98h
+      850/5000  last=2.5583s  recent_mean=2.5582s  calls=  1 leaves=  1  group_elapsed=36.3m ETA~2.95h
+      900/5000  last=2.5581s  recent_mean=2.5582s  calls=  1 leaves=  1  group_elapsed=38.4m ETA~2.91h
+      950/5000  last=2.5579s  recent_mean=2.5586s  calls=  1 leaves=  1  group_elapsed=40.5m ETA~2.88h
+     1000/5000  last=2.5587s  recent_mean=2.5588s  calls=  1 leaves=  1  group_elapsed=42.6m ETA~2.84h
+     1050/5000  last=2.5582s  recent_mean=2.5582s  calls=  1 leaves=  1  group_elapsed=44.8m ETA~2.81h
+     1100/5000  last=2.6562s  recent_mean=2.5587s  calls=  1 leaves=  1  group_elapsed=46.9m ETA~2.77h
+     1150/5000  last=2.5581s  recent_mean=2.5588s  calls=  1 leaves=  1  group_elapsed=49.0m ETA~2.74h
+     1200/5000  last=2.5578s  recent_mean=2.5588s  calls=  1 leaves=  1  group_elapsed=51.2m ETA~2.70h
+     1250/5000  last=2.5583s  recent_mean=2.5587s  calls=  1 leaves=  1  group_elapsed=53.3m ETA~2.67h
+     1300/5000  last=2.5580s  recent_mean=2.5583s  calls=  1 leaves=  1  group_elapsed=55.4m ETA~2.63h
+     1350/5000  last=2.5583s  recent_mean=2.5582s  calls=  1 leaves=  1  group_elapsed=57.6m ETA~2.59h
+     1400/5000  last=2.5583s  recent_mean=2.5588s  calls=  1 leaves=  1  group_elapsed=59.7m ETA~2.56h
+     1450/5000  last=2.5587s  recent_mean=2.5589s  calls=  1 leaves=  1  group_elapsed=1.03h ETA~2.52h
+     1500/5000  last=2.5586s  recent_mean=2.5589s  calls=  1 leaves=  1  group_elapsed=1.07h ETA~2.49h
+     1550/5000  last=2.5548s  recent_mean=2.5587s  calls=  1 leaves=  1  group_elapsed=1.10h ETA~2.45h
+     1600/5000  last=2.5548s  recent_mean=2.5574s  calls=  1 leaves=  1  group_elapsed=1.14h ETA~2.42h
+     1650/5000  last=2.5551s  recent_mean=2.5565s  calls=  1 leaves=  1  group_elapsed=1.17h ETA~2.38h
+     1700/5000  last=2.5551s  recent_mean=2.5557s  calls=  1 leaves=  1  group_elapsed=1.21h ETA~2.34h
+     1750/5000  last=2.5545s  recent_mean=2.5557s  calls=  1 leaves=  1  group_elapsed=1.24h ETA~2.31h
+     1800/5000  last=2.5549s  recent_mean=2.5558s  calls=  1 leaves=  1  group_elapsed=1.28h ETA~2.27h
+     1850/5000  last=2.5550s  recent_mean=2.5559s  calls=  1 leaves=  1  group_elapsed=1.31h ETA~2.24h
+     1900/5000  last=2.5549s  recent_mean=2.5558s  calls=  1 leaves=  1  group_elapsed=1.35h ETA~2.20h
+     1950/5000  last=2.5546s  recent_mean=2.5553s  calls=  1 leaves=  1  group_elapsed=1.39h ETA~2.16h
+     2000/5000  last=2.5549s  recent_mean=2.5552s  calls=  1 leaves=  1  group_elapsed=1.42h ETA~2.13h
+     2050/5000  last=2.5566s  recent_mean=2.5556s  calls=  1 leaves=  1  group_elapsed=1.46h ETA~2.09h
+     2100/5000  last=2.5564s  recent_mean=2.5557s  calls=  1 leaves=  1  group_elapsed=1.49h ETA~2.06h
+     2150/5000  last=2.5553s  recent_mean=2.5558s  calls=  1 leaves=  1  group_elapsed=1.53h ETA~2.02h
+     2200/5000  last=2.5552s  recent_mean=2.5559s  calls=  1 leaves=  1  group_elapsed=1.56h ETA~1.99h
+     2250/5000  last=2.5545s  recent_mean=2.5554s  calls=  1 leaves=  1  group_elapsed=1.60h ETA~1.95h
+     2300/5000  last=2.5558s  recent_mean=2.5553s  calls=  1 leaves=  1  group_elapsed=1.63h ETA~1.92h
+     2350/5000  last=2.5551s  recent_mean=2.5557s  calls=  1 leaves=  1  group_elapsed=1.67h ETA~1.88h
+     2400/5000  last=2.5545s  recent_mean=2.5556s  calls=  1 leaves=  1  group_elapsed=1.71h ETA~1.85h
+     2450/5000  last=2.5551s  recent_mean=2.5556s  calls=  1 leaves=  1  group_elapsed=1.74h ETA~1.81h
+     2500/5000  last=2.5551s  recent_mean=2.5555s  calls=  1 leaves=  1  group_elapsed=1.78h ETA~1.77h
+     2550/5000  last=2.5547s  recent_mean=2.5551s  calls=  1 leaves=  1  group_elapsed=1.81h ETA~1.74h
+     2600/5000  last=2.5575s  recent_mean=2.5551s  calls=  1 leaves=  1  group_elapsed=1.85h ETA~1.70h
+     2650/5000  last=2.5559s  recent_mean=2.5551s  calls=  1 leaves=  1  group_elapsed=1.88h ETA~1.67h
+     2700/5000  last=2.5548s  recent_mean=2.5556s  calls=  1 leaves=  1  group_elapsed=1.92h ETA~1.63h
+     2750/5000  last=2.5549s  recent_mean=2.5556s  calls=  1 leaves=  1  group_elapsed=1.95h ETA~1.60h
+     2800/5000  last=2.5552s  recent_mean=2.5557s  calls=  1 leaves=  1  group_elapsed=1.99h ETA~1.56h
+     2850/5000  last=2.5565s  recent_mean=2.5558s  calls=  1 leaves=  1  group_elapsed=2.02h ETA~1.53h
+     2900/5000  last=2.5547s  recent_mean=2.5554s  calls=  1 leaves=  1  group_elapsed=2.06h ETA~1.49h
+     2950/5000  last=2.5583s  recent_mean=2.5560s  calls=  1 leaves=  1  group_elapsed=2.10h ETA~1.46h
+     3000/5000  last=2.5546s  recent_mean=2.5561s  calls=  1 leaves=  1  group_elapsed=2.13h ETA~1.42h
+     3050/5000  last=2.5575s  recent_mean=2.5558s  calls=  1 leaves=  1  group_elapsed=2.17h ETA~1.38h
+     3100/5000  last=2.5545s  recent_mean=2.5558s  calls=  1 leaves=  1  group_elapsed=2.20h ETA~1.35h
+     3150/5000  last=2.5549s  recent_mean=2.5553s  calls=  1 leaves=  1  group_elapsed=2.24h ETA~1.31h
+     3200/5000  last=2.5549s  recent_mean=2.5552s  calls=  1 leaves=  1  group_elapsed=2.27h ETA~1.28h
+     3250/5000  last=2.5547s  recent_mean=2.5558s  calls=  1 leaves=  1  group_elapsed=2.31h ETA~1.24h
+     3300/5000  last=2.5547s  recent_mean=2.5559s  calls=  1 leaves=  1  group_elapsed=2.34h ETA~1.21h
+     3350/5000  last=2.5553s  recent_mean=2.5558s  calls=  1 leaves=  1  group_elapsed=2.38h ETA~1.17h
+     3400/5000  last=2.5546s  recent_mean=2.5558s  calls=  1 leaves=  1  group_elapsed=2.42h ETA~1.14h
+     3450/5000  last=2.5553s  recent_mean=2.5553s  calls=  1 leaves=  1  group_elapsed=2.45h ETA~1.10h
+     3500/5000  last=2.5581s  recent_mean=2.5558s  calls=  1 leaves=  1  group_elapsed=2.49h ETA~1.06h
+     3550/5000  last=2.5546s  recent_mean=2.5557s  calls=  1 leaves=  1  group_elapsed=2.52h ETA~1.03h
+     3600/5000  last=2.5553s  recent_mean=2.5557s  calls=  1 leaves=  1  group_elapsed=2.56h ETA~59.6m
+     3650/5000  last=2.5582s  recent_mean=2.5557s  calls=  1 leaves=  1  group_elapsed=2.59h ETA~57.5m
+     3700/5000  last=2.5550s  recent_mean=2.5555s  calls=  1 leaves=  1  group_elapsed=2.63h ETA~55.4m
+     3750/5000  last=2.5545s  recent_mean=2.5554s  calls=  1 leaves=  1  group_elapsed=2.66h ETA~53.2m
+     3800/5000  last=2.5549s  recent_mean=2.5559s  calls=  1 leaves=  1  group_elapsed=2.70h ETA~51.1m
+     3850/5000  last=2.5551s  recent_mean=2.5559s  calls=  1 leaves=  1  group_elapsed=2.73h ETA~49.0m
+     3900/5000  last=2.5582s  recent_mean=2.5560s  calls=  1 leaves=  1  group_elapsed=2.77h ETA~46.9m
+     3950/5000  last=2.5581s  recent_mean=2.5563s  calls=  1 leaves=  1  group_elapsed=2.81h ETA~44.7m
+     4000/5000  last=2.5545s  recent_mean=2.5560s  calls=  1 leaves=  1  group_elapsed=2.84h ETA~42.6m
+     4050/5000  last=2.5542s  recent_mean=2.5559s  calls=  1 leaves=  1  group_elapsed=2.88h ETA~40.5m
+     4100/5000  last=2.5578s  recent_mean=2.5563s  calls=  1 leaves=  1  group_elapsed=2.91h ETA~38.3m
+     4150/5000  last=2.5585s  recent_mean=2.5565s  calls=  1 leaves=  1  group_elapsed=2.95h ETA~36.2m
+     4200/5000  last=2.5577s  recent_mean=2.5570s  calls=  1 leaves=  1  group_elapsed=2.98h ETA~34.1m
+     4250/5000  last=2.5578s  recent_mean=2.5578s  calls=  1 leaves=  1  group_elapsed=3.02h ETA~32.0m
+     4300/5000  last=2.5581s  recent_mean=2.5578s  calls=  1 leaves=  1  group_elapsed=3.05h ETA~29.8m
+     4350/5000  last=2.5583s  recent_mean=2.5580s  calls=  1 leaves=  1  group_elapsed=3.09h ETA~27.7m
+     4400/5000  last=2.5578s  recent_mean=2.5585s  calls=  1 leaves=  1  group_elapsed=3.13h ETA~25.6m
+     4450/5000  last=2.5581s  recent_mean=2.5584s  calls=  1 leaves=  1  group_elapsed=3.16h ETA~23.5m
+     4500/5000  last=2.5582s  recent_mean=2.5585s  calls=  1 leaves=  1  group_elapsed=3.20h ETA~21.3m
+     4550/5000  last=2.5580s  recent_mean=2.5585s  calls=  1 leaves=  1  group_elapsed=3.23h ETA~19.2m
+     4600/5000  last=2.5581s  recent_mean=2.5580s  calls=  1 leaves=  1  group_elapsed=3.27h ETA~17.1m
+     4650/5000  last=2.5579s  recent_mean=2.5580s  calls=  1 leaves=  1  group_elapsed=3.30h ETA~14.9m
+     4700/5000  last=2.5580s  recent_mean=2.5580s  calls=  1 leaves=  1  group_elapsed=3.34h ETA~12.8m
+     4750/5000  last=2.5581s  recent_mean=2.5586s  calls=  1 leaves=  1  group_elapsed=3.37h ETA~10.7m
+     4800/5000  last=2.5578s  recent_mean=2.5586s  calls=  1 leaves=  2  group_elapsed=3.41h ETA~8.5m
+     4850/5000  last=2.5582s  recent_mean=2.5586s  calls=  1 leaves=  1  group_elapsed=3.45h ETA~6.4m
+     4900/5000  last=2.5575s  recent_mean=2.5587s  calls=  1 leaves=  1  group_elapsed=3.48h ETA~4.3m
+     4950/5000  last=2.5580s  recent_mean=2.5581s  calls=  1 leaves=  1  group_elapsed=3.52h ETA~2.1m
+     5000/5000  last=2.5583s  recent_mean=2.5586s  calls=  1 leaves=  1  group_elapsed=3.55h ETA~0.0s
+
+========================================================================================
+LAYOUT 5/6: stageB-b9-random-1
+block_size = 9 order = [0, 5, 11, 3, 2, 6, 1, 9, 7, 10, 4, 8]
+topologies = [(0, 5, 11, 3, 2, 6, 1, 9, 7), (10, 4, 8)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-5-11-3-2-6-1-9-7-10-4-8.pkl
+  preparing decoder for p=0.05
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+  warm-up = 1.542s (not recorded)
+  natural_p0p05: complete 0/0; skip
+  stress_w2-3-4-5_p0p05: resume at 0/5000
+       50/5000  last=1.4537s  recent_mean=1.4658s  calls=  2 leaves=  1  group_elapsed=1.2m ETA~2.02h
+      100/5000  last=1.4536s  recent_mean=1.4657s  calls=  2 leaves=  1  group_elapsed=2.4m ETA~1.99h
+      150/5000  last=1.4540s  recent_mean=1.4616s  calls=  2 leaves=  1  group_elapsed=3.7m ETA~1.97h
+      200/5000  last=1.4542s  recent_mean=1.4625s  calls=  2 leaves=  1  group_elapsed=4.9m ETA~1.95h
+      250/5000  last=1.4528s  recent_mean=1.4683s  calls=  2 leaves=  1  group_elapsed=6.1m ETA~1.94h
+      300/5000  last=1.4537s  recent_mean=1.4829s  calls=  2 leaves=  1  group_elapsed=7.4m ETA~1.94h
+      350/5000  last=1.4535s  recent_mean=1.4918s  calls=  2 leaves=  1  group_elapsed=8.6m ETA~1.93h
+      400/5000  last=1.4539s  recent_mean=1.5152s  calls=  2 leaves=  1  group_elapsed=9.9m ETA~1.94h
+      450/5000  last=1.4539s  recent_mean=1.5152s  calls=  2 leaves=  1  group_elapsed=11.2m ETA~1.92h
+      500/5000  last=1.4536s  recent_mean=1.5005s  calls=  2 leaves=  1  group_elapsed=12.4m ETA~1.88h
+      550/5000  last=1.4539s  recent_mean=1.5064s  calls=  2 leaves=  1  group_elapsed=13.7m ETA~1.86h
+      600/5000  last=1.4539s  recent_mean=1.5006s  calls=  2 leaves=  1  group_elapsed=14.9m ETA~1.83h
+      650/5000  last=1.4543s  recent_mean=1.5035s  calls=  2 leaves=  1  group_elapsed=16.2m ETA~1.82h
+      700/5000  last=1.4538s  recent_mean=1.5153s  calls=  2 leaves=  1  group_elapsed=17.4m ETA~1.81h
+      750/5000  last=1.4535s  recent_mean=1.5036s  calls=  2 leaves=  1  group_elapsed=18.7m ETA~1.78h
+      800/5000  last=1.4539s  recent_mean=1.4924s  calls=  2 leaves=  1  group_elapsed=19.9m ETA~1.74h
+      850/5000  last=1.4535s  recent_mean=1.4865s  calls=  2 leaves=  1  group_elapsed=21.1m ETA~1.71h
+      900/5000  last=1.4535s  recent_mean=1.4865s  calls=  2 leaves=  1  group_elapsed=22.4m ETA~1.69h
+      950/5000  last=1.4540s  recent_mean=1.4865s  calls=  2 leaves=  1  group_elapsed=23.6m ETA~1.67h
+     1000/5000  last=1.4542s  recent_mean=1.4861s  calls=  2 leaves=  1  group_elapsed=24.9m ETA~1.65h
+     1050/5000  last=1.4542s  recent_mean=1.4860s  calls=  2 leaves=  1  group_elapsed=26.1m ETA~1.63h
+     1100/5000  last=1.4536s  recent_mean=1.4802s  calls=  2 leaves=  1  group_elapsed=27.3m ETA~1.60h
+     1150/5000  last=1.4536s  recent_mean=1.4831s  calls=  2 leaves=  1  group_elapsed=28.6m ETA~1.59h
+     1200/5000  last=1.4540s  recent_mean=1.4860s  calls=  2 leaves=  1  group_elapsed=29.8m ETA~1.57h
+     1250/5000  last=1.4544s  recent_mean=1.4859s  calls=  2 leaves=  1  group_elapsed=31.1m ETA~1.55h
+     1300/5000  last=1.4530s  recent_mean=1.4801s  calls=  2 leaves=  1  group_elapsed=32.3m ETA~1.52h
+     1350/5000  last=1.4535s  recent_mean=1.4772s  calls=  2 leaves=  1  group_elapsed=33.5m ETA~1.50h
+     1400/5000  last=1.4538s  recent_mean=1.4684s  calls=  2 leaves=  1  group_elapsed=34.7m ETA~1.47h
+     1450/5000  last=1.4534s  recent_mean=1.4772s  calls=  2 leaves=  1  group_elapsed=36.0m ETA~1.46h
+     1500/5000  last=1.4534s  recent_mean=1.4743s  calls=  2 leaves=  1  group_elapsed=37.2m ETA~1.43h
+     1550/5000  last=1.4537s  recent_mean=1.4801s  calls=  2 leaves=  1  group_elapsed=38.4m ETA~1.42h
+     1600/5000  last=1.4539s  recent_mean=1.4801s  calls=  2 leaves=  1  group_elapsed=39.7m ETA~1.40h
+     1650/5000  last=1.4541s  recent_mean=1.4747s  calls=  2 leaves=  1  group_elapsed=40.9m ETA~1.37h
+     1700/5000  last=2.0381s  recent_mean=1.4835s  calls=  3 leaves=  1  group_elapsed=42.1m ETA~1.36h
+     1750/5000  last=1.4544s  recent_mean=1.4805s  calls=  2 leaves=  1  group_elapsed=43.4m ETA~1.34h
+     1800/5000  last=1.4537s  recent_mean=1.4893s  calls=  2 leaves=  1  group_elapsed=44.6m ETA~1.32h
+     1850/5000  last=1.4538s  recent_mean=1.4800s  calls=  2 leaves=  1  group_elapsed=45.8m ETA~1.29h
+     1900/5000  last=1.4536s  recent_mean=1.4975s  calls=  2 leaves=  1  group_elapsed=47.1m ETA~1.29h
+     1950/5000  last=1.4537s  recent_mean=1.4946s  calls=  2 leaves=  1  group_elapsed=48.4m ETA~1.27h
+     2000/5000  last=1.4539s  recent_mean=1.4859s  calls=  2 leaves=  1  group_elapsed=49.6m ETA~1.24h
+     2050/5000  last=1.4535s  recent_mean=1.5005s  calls=  2 leaves=  1  group_elapsed=50.8m ETA~1.23h
+     2100/5000  last=1.4533s  recent_mean=1.5005s  calls=  2 leaves=  1  group_elapsed=52.1m ETA~1.21h
+     2150/5000  last=1.4525s  recent_mean=1.5093s  calls=  2 leaves=  1  group_elapsed=53.4m ETA~1.19h
+     2200/5000  last=1.4524s  recent_mean=1.5062s  calls=  2 leaves=  1  group_elapsed=54.6m ETA~1.17h
+     2250/5000  last=1.4532s  recent_mean=1.4914s  calls=  2 leaves=  1  group_elapsed=55.8m ETA~1.14h
+     2300/5000  last=1.4531s  recent_mean=1.4737s  calls=  2 leaves=  1  group_elapsed=57.0m ETA~1.11h
+     2350/5000  last=1.4528s  recent_mean=1.4677s  calls=  2 leaves=  1  group_elapsed=58.3m ETA~1.08h
+     2400/5000  last=1.4525s  recent_mean=1.4735s  calls=  2 leaves=  1  group_elapsed=59.5m ETA~1.06h
+     2450/5000  last=1.4532s  recent_mean=1.4793s  calls=  2 leaves=  1  group_elapsed=1.01h ETA~1.05h
+     2500/5000  last=1.4531s  recent_mean=1.4823s  calls=  2 leaves=  1  group_elapsed=1.03h ETA~1.03h
+     2550/5000  last=1.4528s  recent_mean=1.4799s  calls=  2 leaves=  1  group_elapsed=1.05h ETA~1.01h
+     2600/5000  last=2.0378s  recent_mean=1.4829s  calls=  3 leaves=  1  group_elapsed=1.07h ETA~59.3m
+     2650/5000  last=1.4533s  recent_mean=1.4829s  calls=  2 leaves=  1  group_elapsed=1.09h ETA~58.1m
+     2700/5000  last=1.4538s  recent_mean=1.4800s  calls=  2 leaves=  1  group_elapsed=1.12h ETA~56.7m
+     2750/5000  last=1.4528s  recent_mean=1.4796s  calls=  2 leaves=  1  group_elapsed=1.14h ETA~55.5m
+     2800/5000  last=2.0375s  recent_mean=1.4825s  calls=  3 leaves=  1  group_elapsed=1.16h ETA~54.4m
+     2850/5000  last=1.4524s  recent_mean=1.4854s  calls=  2 leaves=  1  group_elapsed=1.18h ETA~53.2m
+     2900/5000  last=1.4532s  recent_mean=1.4796s  calls=  2 leaves=  1  group_elapsed=1.20h ETA~51.8m
+     2950/5000  last=1.4537s  recent_mean=1.5000s  calls=  2 leaves=  1  group_elapsed=1.22h ETA~51.2m
+     3000/5000  last=1.4531s  recent_mean=1.5058s  calls=  2 leaves=  1  group_elapsed=1.24h ETA~50.2m
+     3050/5000  last=1.4530s  recent_mean=1.5087s  calls=  2 leaves=  1  group_elapsed=1.26h ETA~49.0m
+     3100/5000  last=1.4539s  recent_mean=1.5146s  calls=  2 leaves=  1  group_elapsed=1.28h ETA~48.0m
+     3150/5000  last=1.4529s  recent_mean=1.5029s  calls=  2 leaves=  1  group_elapsed=1.30h ETA~46.3m
+     3200/5000  last=1.4541s  recent_mean=1.4912s  calls=  2 leaves=  1  group_elapsed=1.32h ETA~44.7m
+     3250/5000  last=1.4531s  recent_mean=1.4971s  calls=  2 leaves=  1  group_elapsed=1.34h ETA~43.7m
+     3300/5000  last=1.4534s  recent_mean=1.4912s  calls=  2 leaves=  1  group_elapsed=1.36h ETA~42.3m
+     3350/5000  last=1.4533s  recent_mean=1.4970s  calls=  2 leaves=  1  group_elapsed=1.39h ETA~41.2m
+     3400/5000  last=1.4525s  recent_mean=1.4945s  calls=  2 leaves=  1  group_elapsed=1.41h ETA~39.9m
+     3450/5000  last=1.4536s  recent_mean=1.4858s  calls=  2 leaves=  1  group_elapsed=1.43h ETA~38.4m
+     3500/5000  last=2.0379s  recent_mean=1.5063s  calls=  3 leaves=  1  group_elapsed=1.45h ETA~37.7m
+     3550/5000  last=1.4535s  recent_mean=1.4976s  calls=  2 leaves=  1  group_elapsed=1.47h ETA~36.2m
+     3600/5000  last=1.4530s  recent_mean=1.5059s  calls=  2 leaves=  1  group_elapsed=1.49h ETA~35.1m
+     3650/5000  last=1.4535s  recent_mean=1.5029s  calls=  2 leaves=  1  group_elapsed=1.51h ETA~33.8m
+     3700/5000  last=1.4529s  recent_mean=1.4795s  calls=  2 leaves=  1  group_elapsed=1.53h ETA~32.1m
+     3750/5000  last=1.4534s  recent_mean=1.4825s  calls=  2 leaves=  1  group_elapsed=1.55h ETA~30.9m
+     3800/5000  last=1.4529s  recent_mean=1.4912s  calls=  2 leaves=  1  group_elapsed=1.57h ETA~29.8m
+     3850/5000  last=1.4536s  recent_mean=1.5116s  calls=  2 leaves=  1  group_elapsed=1.59h ETA~29.0m
+     3900/5000  last=1.4531s  recent_mean=1.5233s  calls=  2 leaves=  1  group_elapsed=1.62h ETA~27.9m
+     3950/5000  last=1.4536s  recent_mean=1.5204s  calls=  2 leaves=  1  group_elapsed=1.64h ETA~26.6m
+     4000/5000  last=1.4536s  recent_mean=1.5059s  calls=  2 leaves=  1  group_elapsed=1.66h ETA~25.1m
+     4050/5000  last=1.4538s  recent_mean=1.5118s  calls=  2 leaves=  1  group_elapsed=1.68h ETA~23.9m
+     4100/5000  last=1.4536s  recent_mean=1.5207s  calls=  2 leaves=  1  group_elapsed=1.70h ETA~22.8m
+     4150/5000  last=1.4536s  recent_mean=1.5149s  calls=  2 leaves=  1  group_elapsed=1.72h ETA~21.5m
+     4200/5000  last=1.4540s  recent_mean=1.5295s  calls=  2 leaves=  1  group_elapsed=1.74h ETA~20.4m
+     4250/5000  last=1.4536s  recent_mean=1.5007s  calls=  2 leaves=  1  group_elapsed=1.76h ETA~18.8m
+     4300/5000  last=1.4536s  recent_mean=1.4890s  calls=  2 leaves=  1  group_elapsed=1.78h ETA~17.4m
+     4350/5000  last=1.4541s  recent_mean=1.5006s  calls=  2 leaves=  1  group_elapsed=1.80h ETA~16.3m
+     4400/5000  last=1.4534s  recent_mean=1.4947s  calls=  2 leaves=  1  group_elapsed=1.82h ETA~14.9m
+     4450/5000  last=1.4536s  recent_mean=1.4942s  calls=  2 leaves=  1  group_elapsed=1.84h ETA~13.7m
+     4500/5000  last=1.4532s  recent_mean=1.4913s  calls=  2 leaves=  1  group_elapsed=1.87h ETA~12.4m
+     4550/5000  last=1.4527s  recent_mean=1.4825s  calls=  2 leaves=  1  group_elapsed=1.89h ETA~11.1m
+     4600/5000  last=2.0394s  recent_mean=1.4825s  calls=  3 leaves=  2  group_elapsed=1.91h ETA~9.9m
+     4650/5000  last=1.4535s  recent_mean=1.4855s  calls=  2 leaves=  1  group_elapsed=1.93h ETA~8.7m
+     4700/5000  last=1.4543s  recent_mean=1.4856s  calls=  2 leaves=  1  group_elapsed=1.95h ETA~7.4m
+     4750/5000  last=1.4540s  recent_mean=1.4886s  calls=  2 leaves=  1  group_elapsed=1.97h ETA~6.2m
+     4800/5000  last=2.0384s  recent_mean=1.4828s  calls=  3 leaves=  2  group_elapsed=1.99h ETA~4.9m
+     4850/5000  last=1.4542s  recent_mean=1.4830s  calls=  2 leaves=  1  group_elapsed=2.01h ETA~3.7m
+     4900/5000  last=1.4541s  recent_mean=1.4830s  calls=  2 leaves=  1  group_elapsed=2.03h ETA~2.5m
+     4950/5000  last=1.4537s  recent_mean=1.4859s  calls=  2 leaves=  1  group_elapsed=2.05h ETA~1.2m
+     5000/5000  last=1.4532s  recent_mean=1.4976s  calls=  2 leaves=  1  group_elapsed=2.07h ETA~0.0s
+
+========================================================================================
+LAYOUT 6/6: stageB-b9-reverse
+block_size = 9 order = [11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+topologies = [(11, 10, 9, 8, 7, 6, 5, 4, 3), (2, 1, 0)]
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_11-10-9-8-7-6-5-4-3-2-1-0.pkl
+  preparing decoder for p=0.05
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+  warm-up = 3.031s (not recorded)
+  natural_p0p05: complete 0/0; skip
+  stress_w2-3-4-5_p0p05: resume at 0/5000
+       50/5000  last=2.6566s  recent_mean=2.7316s  calls=  2 leaves=  1  group_elapsed=2.3m ETA~3.76h
+      100/5000  last=2.6565s  recent_mean=2.7094s  calls=  2 leaves=  1  group_elapsed=4.5m ETA~3.69h
+      150/5000  last=2.6580s  recent_mean=2.7020s  calls=  2 leaves=  1  group_elapsed=6.8m ETA~3.64h
+      200/5000  last=2.6574s  recent_mean=2.6983s  calls=  2 leaves=  1  group_elapsed=9.0m ETA~3.60h
+      250/5000  last=2.6584s  recent_mean=2.7025s  calls=  2 leaves=  1  group_elapsed=11.3m ETA~3.57h
+      300/5000  last=2.6581s  recent_mean=2.7329s  calls=  2 leaves=  1  group_elapsed=13.6m ETA~3.57h
+      350/5000  last=2.6572s  recent_mean=2.7330s  calls=  2 leaves=  1  group_elapsed=15.9m ETA~3.53h
+      400/5000  last=2.6580s  recent_mean=2.7785s  calls=  2 leaves=  1  group_elapsed=18.3m ETA~3.55h
+      450/5000  last=2.6575s  recent_mean=2.7709s  calls=  2 leaves=  1  group_elapsed=20.5m ETA~3.50h
+      500/5000  last=2.6573s  recent_mean=2.7406s  calls=  2 leaves=  1  group_elapsed=22.8m ETA~3.43h
+      550/5000  last=2.6574s  recent_mean=2.7633s  calls=  2 leaves=  1  group_elapsed=25.1m ETA~3.42h
+      600/5000  last=2.6569s  recent_mean=2.7330s  calls=  2 leaves=  1  group_elapsed=27.4m ETA~3.34h
+      650/5000  last=2.6571s  recent_mean=2.7405s  calls=  2 leaves=  1  group_elapsed=29.7m ETA~3.31h
+      700/5000  last=2.6575s  recent_mean=2.7556s  calls=  2 leaves=  1  group_elapsed=32.0m ETA~3.29h
+      750/5000  last=2.6571s  recent_mean=2.7330s  calls=  2 leaves=  1  group_elapsed=34.2m ETA~3.23h
+      800/5000  last=2.6562s  recent_mean=2.7333s  calls=  2 leaves=  1  group_elapsed=36.5m ETA~3.19h
+      850/5000  last=2.6564s  recent_mean=2.7332s  calls=  2 leaves=  1  group_elapsed=38.8m ETA~3.15h
+      900/5000  last=2.6571s  recent_mean=2.7482s  calls=  2 leaves=  1  group_elapsed=41.1m ETA~3.13h
+      950/5000  last=2.6565s  recent_mean=2.7480s  calls=  2 leaves=  1  group_elapsed=43.4m ETA~3.09h
+     1000/5000  last=2.6573s  recent_mean=2.7324s  calls=  2 leaves=  1  group_elapsed=45.6m ETA~3.04h
+     1050/5000  last=2.6570s  recent_mean=2.7551s  calls=  2 leaves=  1  group_elapsed=48.0m ETA~3.02h
+     1100/5000  last=2.6572s  recent_mean=2.7323s  calls=  2 leaves=  1  group_elapsed=50.2m ETA~2.96h
+     1150/5000  last=2.6561s  recent_mean=2.7398s  calls=  2 leaves=  1  group_elapsed=52.5m ETA~2.93h
+     1200/5000  last=2.6558s  recent_mean=2.7625s  calls=  2 leaves=  1  group_elapsed=54.8m ETA~2.92h
+     1250/5000  last=2.6569s  recent_mean=2.7322s  calls=  2 leaves=  1  group_elapsed=57.1m ETA~2.85h
+     1300/5000  last=2.6571s  recent_mean=2.7247s  calls=  2 leaves=  1  group_elapsed=59.3m ETA~2.80h
+     1350/5000  last=2.6567s  recent_mean=2.7172s  calls=  2 leaves=  1  group_elapsed=1.03h ETA~2.75h
+     1400/5000  last=2.6568s  recent_mean=2.6945s  calls=  2 leaves=  1  group_elapsed=1.06h ETA~2.69h
+     1450/5000  last=2.6560s  recent_mean=2.7021s  calls=  2 leaves=  1  group_elapsed=1.10h ETA~2.66h
+     1500/5000  last=2.6584s  recent_mean=2.6945s  calls=  2 leaves=  1  group_elapsed=1.14h ETA~2.62h
+     1550/5000  last=2.6574s  recent_mean=2.7021s  calls=  2 leaves=  1  group_elapsed=1.18h ETA~2.59h
+     1600/5000  last=2.6577s  recent_mean=2.7020s  calls=  2 leaves=  1  group_elapsed=1.21h ETA~2.55h
+     1650/5000  last=2.6575s  recent_mean=2.7021s  calls=  2 leaves=  1  group_elapsed=1.25h ETA~2.51h
+     1700/5000  last=4.1694s  recent_mean=2.7481s  calls=  3 leaves=  1  group_elapsed=1.29h ETA~2.52h
+     1750/5000  last=2.6567s  recent_mean=2.7557s  calls=  2 leaves=  1  group_elapsed=1.33h ETA~2.49h
+     1800/5000  last=2.6573s  recent_mean=2.7784s  calls=  2 leaves=  1  group_elapsed=1.37h ETA~2.47h
+     1850/5000  last=2.6563s  recent_mean=2.7557s  calls=  2 leaves=  1  group_elapsed=1.40h ETA~2.41h
+     1900/5000  last=2.6561s  recent_mean=2.7703s  calls=  2 leaves=  1  group_elapsed=1.44h ETA~2.39h
+     1950/5000  last=2.6572s  recent_mean=2.7551s  calls=  2 leaves=  1  group_elapsed=1.48h ETA~2.33h
+     2000/5000  last=2.6559s  recent_mean=2.7325s  calls=  2 leaves=  1  group_elapsed=1.52h ETA~2.28h
+     2050/5000  last=2.6576s  recent_mean=2.7552s  calls=  2 leaves=  1  group_elapsed=1.56h ETA~2.26h
+     2100/5000  last=2.6566s  recent_mean=2.7325s  calls=  2 leaves=  1  group_elapsed=1.60h ETA~2.20h
+     2150/5000  last=2.6568s  recent_mean=2.7476s  calls=  2 leaves=  1  group_elapsed=1.63h ETA~2.18h
+     2200/5000  last=2.6562s  recent_mean=2.7400s  calls=  2 leaves=  1  group_elapsed=1.67h ETA~2.13h
+     2250/5000  last=2.6566s  recent_mean=2.7171s  calls=  2 leaves=  1  group_elapsed=1.71h ETA~2.08h
+     2300/5000  last=2.6556s  recent_mean=2.6943s  calls=  2 leaves=  1  group_elapsed=1.75h ETA~2.02h
+     2350/5000  last=2.6556s  recent_mean=2.6866s  calls=  2 leaves=  1  group_elapsed=1.78h ETA~1.98h
+     2400/5000  last=2.6560s  recent_mean=2.7015s  calls=  2 leaves=  1  group_elapsed=1.82h ETA~1.95h
+     2450/5000  last=2.6561s  recent_mean=2.7165s  calls=  2 leaves=  1  group_elapsed=1.86h ETA~1.92h
+     2500/5000  last=2.6559s  recent_mean=2.7315s  calls=  2 leaves=  1  group_elapsed=1.90h ETA~1.90h
+     2550/5000  last=2.6560s  recent_mean=2.7320s  calls=  2 leaves=  1  group_elapsed=1.94h ETA~1.86h
+     2600/5000  last=4.1685s  recent_mean=2.7396s  calls=  3 leaves=  1  group_elapsed=1.97h ETA~1.83h
+     2650/5000  last=2.6549s  recent_mean=2.7396s  calls=  2 leaves=  1  group_elapsed=2.01h ETA~1.79h
+     2700/5000  last=2.6558s  recent_mean=2.7245s  calls=  2 leaves=  1  group_elapsed=2.05h ETA~1.74h
+     2750/5000  last=2.6563s  recent_mean=2.7239s  calls=  2 leaves=  1  group_elapsed=2.09h ETA~1.70h
+     2800/5000  last=2.6562s  recent_mean=2.7164s  calls=  2 leaves=  1  group_elapsed=2.13h ETA~1.66h
+     2850/5000  last=2.6563s  recent_mean=2.7089s  calls=  2 leaves=  1  group_elapsed=2.16h ETA~1.62h
+     2900/5000  last=2.6561s  recent_mean=2.7242s  calls=  2 leaves=  1  group_elapsed=2.20h ETA~1.59h
+     2950/5000  last=2.6567s  recent_mean=2.7697s  calls=  2 leaves=  1  group_elapsed=2.24h ETA~1.58h
+     3000/5000  last=2.6564s  recent_mean=2.7924s  calls=  2 leaves=  1  group_elapsed=2.28h ETA~1.55h
+     3050/5000  last=2.6560s  recent_mean=2.8151s  calls=  2 leaves=  1  group_elapsed=2.32h ETA~1.52h
+     3100/5000  last=2.6558s  recent_mean=2.8074s  calls=  2 leaves=  1  group_elapsed=2.36h ETA~1.48h
+     3150/5000  last=2.6554s  recent_mean=2.7921s  calls=  2 leaves=  1  group_elapsed=2.40h ETA~1.43h
+     3200/5000  last=2.6551s  recent_mean=2.7768s  calls=  2 leaves=  1  group_elapsed=2.43h ETA~1.39h
+     3250/5000  last=2.6555s  recent_mean=2.7919s  calls=  2 leaves=  1  group_elapsed=2.47h ETA~1.36h
+     3300/5000  last=2.6563s  recent_mean=2.7919s  calls=  2 leaves=  1  group_elapsed=2.51h ETA~1.32h
+     3350/5000  last=2.6563s  recent_mean=2.7773s  calls=  2 leaves=  1  group_elapsed=2.55h ETA~1.27h
+     3400/5000  last=2.6566s  recent_mean=2.7623s  calls=  2 leaves=  1  group_elapsed=2.59h ETA~1.23h
+     3450/5000  last=2.6565s  recent_mean=2.7398s  calls=  2 leaves=  1  group_elapsed=2.63h ETA~1.18h
+     3500/5000  last=4.1682s  recent_mean=2.7700s  calls=  3 leaves=  1  group_elapsed=2.67h ETA~1.15h
+     3550/5000  last=2.6562s  recent_mean=2.7394s  calls=  2 leaves=  1  group_elapsed=2.70h ETA~1.10h
+     3600/5000  last=2.6554s  recent_mean=2.7545s  calls=  2 leaves=  1  group_elapsed=2.74h ETA~1.07h
+     3650/5000  last=2.6563s  recent_mean=2.7469s  calls=  2 leaves=  1  group_elapsed=2.78h ETA~1.03h
+     3700/5000  last=2.6552s  recent_mean=2.7090s  calls=  2 leaves=  1  group_elapsed=2.82h ETA~58.7m
+     3750/5000  last=2.6556s  recent_mean=2.7240s  calls=  2 leaves=  1  group_elapsed=2.85h ETA~56.8m
+     3800/5000  last=2.6563s  recent_mean=2.7316s  calls=  2 leaves=  1  group_elapsed=2.89h ETA~54.6m
+     3850/5000  last=2.6559s  recent_mean=2.7544s  calls=  2 leaves=  1  group_elapsed=2.93h ETA~52.8m
+     3900/5000  last=2.6565s  recent_mean=2.7545s  calls=  2 leaves=  1  group_elapsed=2.97h ETA~50.5m
+     3950/5000  last=2.6568s  recent_mean=2.7623s  calls=  2 leaves=  1  group_elapsed=3.01h ETA~48.3m
+     4000/5000  last=2.6569s  recent_mean=2.7549s  calls=  2 leaves=  1  group_elapsed=3.05h ETA~45.9m
+     4050/5000  last=2.6559s  recent_mean=2.7852s  calls=  2 leaves=  1  group_elapsed=3.09h ETA~44.1m
+     4100/5000  last=2.6566s  recent_mean=2.8003s  calls=  2 leaves=  1  group_elapsed=3.13h ETA~42.0m
+     4150/5000  last=2.6567s  recent_mean=2.7851s  calls=  2 leaves=  1  group_elapsed=3.16h ETA~39.5m
+     4200/5000  last=2.6553s  recent_mean=2.8076s  calls=  2 leaves=  1  group_elapsed=3.20h ETA~37.4m
+     4250/5000  last=2.6556s  recent_mean=2.7474s  calls=  2 leaves=  1  group_elapsed=3.24h ETA~34.3m
+     4300/5000  last=2.6560s  recent_mean=2.7398s  calls=  2 leaves=  1  group_elapsed=3.28h ETA~32.0m
+     4350/5000  last=2.6558s  recent_mean=2.7624s  calls=  2 leaves=  1  group_elapsed=3.32h ETA~29.9m
+     4400/5000  last=2.6551s  recent_mean=2.7473s  calls=  2 leaves=  1  group_elapsed=3.35h ETA~27.5m
+     4450/5000  last=2.6577s  recent_mean=2.7468s  calls=  2 leaves=  1  group_elapsed=3.39h ETA~25.2m
+     4500/5000  last=2.6556s  recent_mean=2.7467s  calls=  2 leaves=  1  group_elapsed=3.43h ETA~22.9m
+     4550/5000  last=2.6557s  recent_mean=2.7389s  calls=  2 leaves=  1  group_elapsed=3.47h ETA~20.5m
+     4600/5000  last=4.1663s  recent_mean=2.7464s  calls=  3 leaves=  2  group_elapsed=3.51h ETA~18.3m
+     4650/5000  last=2.6553s  recent_mean=2.7463s  calls=  2 leaves=  1  group_elapsed=3.54h ETA~16.0m
+     4700/5000  last=2.6551s  recent_mean=2.7387s  calls=  2 leaves=  1  group_elapsed=3.58h ETA~13.7m
+     4750/5000  last=2.6555s  recent_mean=2.7539s  calls=  2 leaves=  1  group_elapsed=3.62h ETA~11.5m
+     4800/5000  last=4.1682s  recent_mean=2.7464s  calls=  3 leaves=  2  group_elapsed=3.66h ETA~9.2m
+     4850/5000  last=2.6557s  recent_mean=2.7540s  calls=  2 leaves=  1  group_elapsed=3.70h ETA~6.9m
+     4900/5000  last=2.6559s  recent_mean=2.7541s  calls=  2 leaves=  1  group_elapsed=3.74h ETA~4.6m
+     4950/5000  last=2.6554s  recent_mean=2.7389s  calls=  2 leaves=  1  group_elapsed=3.77h ETA~2.3m
+     5000/5000  last=2.6556s  recent_mean=2.7314s  calls=  2 leaves=  1  group_elapsed=3.81h ETA~0.0s
+
+ALL REQUESTED LAYOUTS/DATASETS COMPLETE
+results = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.05/results.sqlite
+summary = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.05/summary.csv
+consistency = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.05/consistency_vs_b12.csv
+FINISHED STRESS p=0.05
+Tue Sep 22 23:09:11 +08 2026

@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Three-Qubit Repetition-Code QEC on Quantinuum Nexus — 2026-10-01 Report</title>
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']]
+  },
+  svg: {fontCache: 'global'}
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+  :root {
+    --text: #1f2937;
+    --muted: #6b7280;
+    --border: #d1d5db;
+    --soft: #f8fafc;
+    --accent: #1d4ed8;
+    --accent2: #0f766e;
+    --warn: #92400e;
+    --good: #166534;
+    --ink: #0f172a;
+    --purple: #6d28d9;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 48px 28px 84px;
+    line-height: 1.72;
+    color: var(--text);
+    background: white;
+  }
+
+  h1, h2, h3 { line-height: 1.25; }
+  h1 { font-size: 2.25rem; margin-bottom: 0.35rem; }
+  h2 {
+    font-size: 1.58rem;
+    margin-top: 2.5rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 { font-size: 1.16rem; margin-top: 1.6rem; }
+
+  p { margin: 0.78rem 0; }
+  ul { margin-top: 0.5rem; }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: 1.7rem;
+  }
+
+  .note, .takeaway, .warning, .decision {
+    padding: 14px 18px;
+    margin: 1.15rem 0;
+    border-radius: 8px;
+  }
+  .note { background: var(--soft); border-left: 4px solid var(--accent); }
+  .takeaway { background: #f0fdfa; border-left: 4px solid var(--accent2); }
+  .warning { background: #fff7ed; border-left: 4px solid #ea580c; }
+  .decision { background: #f0fdf4; border-left: 4px solid #16a34a; }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 12px;
+    margin: 1rem 0 1.5rem;
+  }
+  .metric {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    background: white;
+  }
+  .metric .label {
+    font-size: 0.86rem;
+    color: var(--muted);
+    margin-bottom: 0.25rem;
+  }
+  .metric .value {
+    font-size: 1.32rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.6rem;
+    font-size: 0.96rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: var(--soft); }
+
+  code {
+    background: #f3f4f6;
+    padding: 0.1rem 0.25rem;
+    border-radius: 4px;
+    color: var(--ink);
+  }
+  pre {
+    margin: 1rem 0 1.4rem;
+    padding: 16px 18px;
+    border-radius: 10px;
+    border: 1px solid #111827;
+    background: #111827;
+    color: #f8fafc;
+    overflow-x: auto;
+    font-size: 0.92rem;
+    line-height: 1.58;
+  }
+  pre code { background: transparent; color: inherit; padding: 0; }
+
+  figure {
+    margin: 1.4rem 0 1.8rem;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: white;
+    overflow-x: auto;
+  }
+  figcaption {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .small { font-size: 0.92rem; color: var(--muted); }
+  .summary {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-top: 2rem;
+  }
+
+  .summary-key {
+    margin: 0.25rem 0 1rem;
+    padding: 13px 16px;
+    border-radius: 8px;
+    border: 1px solid #bfdbfe;
+    background: #eff6ff;
+    color: var(--ink);
+    font-weight: 600;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+  }
+
+  .summary mjx-container {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  .mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 0.92rem;
+  }
+  .good { color: var(--good); font-weight: 600; }
+  .muted { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<h1>Three-Qubit Repetition-Code Quantum Error Correction on Quantinuum Nexus</h1>
+<div class="subtitle">
+Technical report: ideal validation, H2 native-noise benchmarking, controlled bit-flip scaling, multi-round active correction, and a real H2-1 feedback demonstration.
+</div>
+
+<div class="decision">
+<b>Bottom line.</b> The four finalized experiments establish a coherent QEC workflow for the three-qubit repetition code. The ideal emulator verifies the syndrome and feedback logic exactly; the H2 noise model shows that the same loop remains functional but that active QEC has nonzero circuit overhead; the controlled-\(X\) benchmark reproduces the expected \(P_L=3p^2-2p^3\) scaling and demonstrates the advantage of repeated correction as errors accumulate; and the real H2-1 run executes the complete mid-circuit-measurement + classical-feed-forward loop successfully in 20/20 shots. The present decoder is a simple in-circuit lookup rule and the code protects only against \(X\)-type bit flips, so this report should be read as a validated QEC control-flow and benchmarking baseline rather than a fault-tolerance threshold study.
+</div>
+
+<div class="metrics">
+  <div class="metric"><div class="label">Ideal emulator recovery</div><div class="value">100 / 100</div></div>
+  <div class="metric"><div class="label">Noisy emulator recovery</div><div class="value">993 / 1000</div></div>
+  <div class="metric"><div class="label">Multi-round \(R=10\)</div><div class="value">24.41% → 6.68%</div></div>
+  <div class="metric"><div class="label">Real H2-1 hardware</div><div class="value">20 / 20</div></div>
+</div>
+
+<h2>0. Report scope and experimental progression</h2>
+
+<p>
+The four notebooks are best understood as one sequence rather than four isolated examples. The progression is:
+</p>
+
+<table>
+<thead>
+<tr><th>Stage</th><th>Notebook</th><th>Main question</th><th>Noise setting</th></tr>
+</thead>
+<tbody>
+<tr><td>Functional validation</td><td><code>qec_qrc311_walkthrough.ipynb</code></td><td>Does the syndrome → decoder → correction loop behave as intended?</td><td>Ideal first, then H2-Emulator native noise</td></tr>
+<tr><td>Native-noise benchmark</td><td><code>benchmark_h2_native_noise.ipynb</code></td><td>What is the overhead of active QEC in a short H2 noise-model experiment with no injected error?</td><td>H2-Emulator, <code>noisy_simulation=True</code></td></tr>
+<tr><td>Controlled-error benchmark</td><td><code>benchmark_controlled_bit_flip_qec.ipynb</code></td><td>Does the implementation reproduce repetition-code theory, and when does repeated active correction help?</td><td>H2 native noise off; controlled independent \(X\) flips</td></tr>
+<tr><td>Hardware demonstration</td><td><code>qec_qrc311_h2_real_hardware.ipynb</code></td><td>Can the same feedback structure run end-to-end on real H2 hardware?</td><td>H2-1 hardware</td></tr>
+</tbody>
+</table>
+
+<div class="takeaway">
+<b>Experimental logic.</b> The workflow moves from correctness to performance and then to hardware: first validate the circuit, then isolate native-QEC overhead, then benchmark against a controlled theoretical noise model, and finally verify that the same real-time feedback structure executes on the QPU.
+</div>
+
+<h2>1. Three-qubit repetition-code QEC scheme</h2>
+
+<h3>1.1 Code space and error model</h3>
+
+<p>The experiments use the logical zero state</p>
+
+\[
+|0_L\rangle=|000\rangle.
+\]
+
+<p>
+The code is designed to diagnose and correct a single \(X\)-type bit flip. It is therefore a useful minimal QEC control-flow example, but it is not a full distance-3 quantum memory against arbitrary single-qubit Pauli errors.
+</p>
+
+<h3>1.2 Syndrome extraction</h3>
+
+<p>Two parity checks identify which data qubit flipped:</p>
+
+\[
+s_0=d_0\oplus d_1,\qquad s_1=d_1\oplus d_2.
+\]
+
+<table>
+<thead><tr><th>Error</th><th>Syndrome \((s_0,s_1)\)</th><th>Register value \(s_0+2s_1\)</th><th>Correction</th></tr></thead>
+<tbody>
+<tr><td>none</td><td>(0,0)</td><td>0</td><td>none</td></tr>
+<tr><td>\(X_0\)</td><td>(1,0)</td><td>1</td><td>\(X_0\)</td></tr>
+<tr><td>\(X_1\)</td><td>(1,1)</td><td>3</td><td>\(X_1\)</td></tr>
+<tr><td>\(X_2\)</td><td>(0,1)</td><td>2</td><td>\(X_2\)</td></tr>
+</tbody>
+</table>
+
+<p>
+One ancilla qubit is reused to measure the two parities. After each mid-circuit measurement the ancilla is reset, allowing the next check to use the same physical ancilla resource.
+</p>
+
+<h3>1.2.1 Gate-level extraction of the syndrome</h3>
+
+<p>
+The syndrome bits are not obtained by measuring the data qubits directly. Instead, the parity of two data qubits is coherently copied onto an ancilla initialized in \(|0\rangle_a\), and only the ancilla is measured. For the first check,
+</p>
+
+\[
+s_0=d_0\oplus d_1,
+\]
+
+<p>the circuit fragment is</p>
+
+<pre><code>CX(data[0], ancilla[0])
+CX(data[1], ancilla[0])
+Measure(ancilla[0], syndrome[0])
+Reset(ancilla[0])</code></pre>
+
+<p>
+Starting with \(a=0\), the first CNOT maps the ancilla value to
+</p>
+
+\[
+a=0\oplus d_0=d_0,
+\]
+
+<p>and the second CNOT gives</p>
+
+\[
+a=d_0\oplus d_1.
+\]
+
+<p>
+Therefore measuring the ancilla returns exactly the parity bit
+</p>
+
+\[
+\boxed{s_0=d_0\oplus d_1}.
+\]
+
+<p>
+The ancilla is then reset to \(|0\rangle_a\) and reused for the second check:
+</p>
+
+<pre><code>CX(data[1], ancilla[0])
+CX(data[2], ancilla[0])
+Measure(ancilla[0], syndrome[1])
+Reset(ancilla[0])</code></pre>
+
+<p>which similarly yields</p>
+
+\[
+\boxed{s_1=d_1\oplus d_2}.
+\]
+
+<table>
+<thead>
+<tr><th>Data pattern</th><th>\(s_0=d_0\oplus d_1\)</th><th>\(s_1=d_1\oplus d_2\)</th><th>Syndrome</th></tr>
+</thead>
+<tbody>
+<tr><td>\(000\)</td><td>0</td><td>0</td><td>\((0,0)\)</td></tr>
+<tr><td>\(100\) — \(X_0\)</td><td>1</td><td>0</td><td>\((1,0)\)</td></tr>
+<tr><td>\(010\) — \(X_1\)</td><td>1</td><td>1</td><td>\((1,1)\)</td></tr>
+<tr><td>\(001\) — \(X_2\)</td><td>0</td><td>1</td><td>\((0,1)\)</td></tr>
+</tbody>
+</table>
+
+<div class="note">
+<b>Example: middle-qubit error.</b>
+Starting from \(|000\rangle\), an injected \(X_1\) error produces \(|010\rangle\). The first ancilla measurement gives \(0\oplus1=1\), and the second gives \(1\oplus0=1\), so the measured syndrome is \((1,1)\). The classical decoder therefore identifies the middle qubit and applies \(X_1\), returning the state to \(|000\rangle\).
+</div>
+
+<p>
+In stabilizer language these parity measurements correspond to the checks \(Z_0Z_1\) and \(Z_1Z_2\). A parity bit 0 corresponds to stabilizer eigenvalue \(+1\), while parity bit 1 corresponds to eigenvalue \(-1\). The key point is that the circuit extracts error information from the ancilla without directly measuring the encoded logical data.
+</p>
+
+<h3>1.3 Decoder implementation</h3>
+
+<p>The decoder is deliberately simple. It is encoded directly as classical conditions inside the circuit:</p>
+
+<pre><code>X(data[0], condition=reg_eq(syndrome, 1))
+X(data[1], condition=reg_eq(syndrome, 3))
+X(data[2], condition=reg_eq(syndrome, 2))</code></pre>
+
+<p>
+This is a lookup decoder, not a user-defined Wasm decoder. The purpose of the current experiments is to validate QEC feedback and benchmarking methodology before moving to more complex decoders.
+</p>
+
+<figure>
+
+<svg viewBox="0 0 980 430" width="100%" role="img" aria-label="Three-qubit repetition-code QEC feedback flow">
+  <rect x="0" y="0" width="980" height="430" fill="white"/>
+  <text x="490" y="34" text-anchor="middle" font-size="22" font-weight="600" fill="#0f172a">Three-qubit repetition-code QEC feedback loop</text>
+  <rect x="40" y="105" width="150" height="70" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="115" y="132" text-anchor="middle" font-size="15" fill="#0f172a">Logical state</text>
+  <text x="115" y="157" text-anchor="middle" font-size="15" font-weight="600" fill="#1d4ed8">|0_L⟩ = |000⟩</text>
+  <line x1="190" y1="140" x2="245" y2="140" stroke="#64748b" stroke-width="2"/>
+  <polygon points="245,140 235,134 235,146" fill="#64748b"/>
+  <rect x="245" y="105" width="145" height="70" rx="10" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="317.5" y="132" text-anchor="middle" font-size="15" fill="#0f172a">Bit-flip error</text>
+  <text x="317.5" y="157" text-anchor="middle" font-size="15" font-weight="600" fill="#92400e">Xᵢ</text>
+  <line x1="390" y1="140" x2="445" y2="140" stroke="#64748b" stroke-width="2"/>
+  <polygon points="445,140 435,134 435,146" fill="#64748b"/>
+  <rect x="445" y="86" width="180" height="108" rx="10" fill="#f8fafc" stroke="#94a3b8"/>
+  <text x="535" y="112" text-anchor="middle" font-size="15" fill="#0f172a">Syndrome extraction</text>
+  <text x="535" y="140" text-anchor="middle" font-size="14" fill="#374151">s₀ = d₀ ⊕ d₁</text>
+  <text x="535" y="165" text-anchor="middle" font-size="14" fill="#374151">s₁ = d₁ ⊕ d₂</text>
+  <text x="535" y="185" text-anchor="middle" font-size="12" fill="#6b7280">one reusable ancilla</text>
+  <line x1="625" y1="140" x2="680" y2="140" stroke="#64748b" stroke-width="2"/>
+  <polygon points="680,140 670,134 670,146" fill="#64748b"/>
+  <rect x="680" y="95" width="145" height="90" rx="10" fill="#f5f3ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="752.5" y="121" text-anchor="middle" font-size="15" fill="#0f172a">Lookup decoder</text>
+  <text x="752.5" y="146" text-anchor="middle" font-size="13" fill="#374151">10 → X₀</text>
+  <text x="752.5" y="166" text-anchor="middle" font-size="13" fill="#374151">11 → X₁, 01 → X₂</text>
+  <line x1="825" y1="140" x2="880" y2="140" stroke="#64748b" stroke-width="2"/>
+  <polygon points="880,140 870,134 870,146" fill="#64748b"/>
+  <rect x="880" y="105" width="80" height="70" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  <text x="920" y="132" text-anchor="middle" font-size="14" fill="#14532d">Correct</text>
+  <text x="920" y="157" text-anchor="middle" font-size="14" font-weight="600" fill="#166534">Xᵢ</text>
+  <line x1="920" y1="175" x2="920" y2="235" stroke="#16a34a" stroke-width="2"/>
+  <line x1="920" y1="235" x2="115" y2="235" stroke="#16a34a" stroke-width="2"/>
+  <line x1="115" y1="235" x2="115" y2="185" stroke="#16a34a" stroke-width="2"/>
+  <polygon points="115,185 109,195 121,195" fill="#16a34a"/>
+  <text x="520" y="260" text-anchor="middle" font-size="13" fill="#166534">For repeated QEC: error → syndrome → decode → correction → next round</text>
+  <rect x="235" y="305" width="510" height="72" rx="10" fill="#f0fdfa" stroke="#0f766e"/>
+  <text x="490" y="333" text-anchor="middle" font-size="15" font-weight="600" fill="#115e59">Important scope</text>
+  <text x="490" y="357" text-anchor="middle" font-size="13" fill="#374151">This [[3,1,1]] repetition code protects against X-type bit flips only;</text>
+  <text x="490" y="376" text-anchor="middle" font-size="13" fill="#374151">the decoder is an in-circuit classical lookup, not a Wasm decoder.</text>
+</svg>
+
+<figcaption><b>Figure 1.</b> Minimal QEC loop used throughout the report. A bit-flip error is converted into a two-bit syndrome, decoded through an in-circuit classical lookup, and corrected conditionally. In the multi-round benchmark the same loop is repeated after every controlled error round.</figcaption>
+</figure>
+
+<h2>2. Functional validation: ideal, noisy, and no-QEC baseline</h2>
+
+<h3>2.1 Ideal emulator: verify the control logic first</h3>
+
+<p>The walkthrough deliberately injects an error on the middle data qubit:</p>
+
+\[
+|000\rangle\xrightarrow{X_1}|010\rangle.
+\]
+
+<p>
+The expected syndrome is \((1,1)\), which corresponds to register value 3 and therefore triggers \(X_1\). With the H2 emulator noise model disabled, 100 shots produced:
+</p>
+
+<table>
+<thead><tr><th>Quantity</th><th>Observed result</th><th>Expected</th></tr></thead>
+<tbody>
+<tr><td>Syndrome</td><td>100 / 100 were \((1,1)\)</td><td>\((1,1)\)</td></tr>
+<tr><td>Final data state</td><td>100 / 100 were \((0,0,0)\)</td><td>\(|000\rangle\)</td></tr>
+<tr><td>Exact recovery rate</td><td>1.000</td><td>1.000</td></tr>
+</tbody>
+</table>
+
+<div class="takeaway">
+<b>Result.</b> The ideal run establishes that the parity measurements, syndrome bit ordering, integer encoding, conditional branches, and final correction are mutually consistent.
+</div>
+
+<h3>2.2 H2-Emulator native noise: same circuit, non-ideal operations</h3>
+
+<p>
+The same circuit was then run with <code>noisy_simulation=True</code> for 1000 shots. The deliberately injected \(X_1\) error remained the target error, but the syndrome-extraction and correction operations were now subject to the H2 emulator noise model.
+</p>
+
+<table>
+<thead><tr><th>Measurement</th><th>Counts</th><th>Rate</th></tr></thead>
+<tbody>
+<tr><td>Expected syndrome \((1,1)\)</td><td>994 / 1000</td><td>0.994</td></tr>
+<tr><td>Exact final state \(000\)</td><td>993 / 1000</td><td>0.993</td></tr>
+<tr><td>Exact recovery failure</td><td>7 / 1000</td><td>0.007</td></tr>
+</tbody>
+</table>
+
+<p>
+The final-state failures were distributed among a small number of other physical bit strings, showing that the feedback loop remains highly reliable but is no longer perfect once the operations themselves are noisy.
+</p>
+
+<h3>2.3 No-QEC baseline and its interpretation</h3>
+
+<p>
+The retained baseline applies the same deterministic \(X_1\) error but removes syndrome extraction, decoding, and correction. Out of 1000 shots, 998 ended in \(010\), one ended in \(000\), and one in \(011\). The baseline exact-\(000\) success rate was therefore 0.001, compared with 0.993 for the active-QEC circuit.
+</p>
+
+<div class="warning">
+<b>Important caveat.</b> This is a functionality baseline, not a natural logical-error benchmark. The baseline is almost guaranteed to fail because the \(X_1\) error is deliberately inserted. The comparison demonstrates that the QEC loop can detect and repair a known bit flip; it should not be interpreted as a claim that QEC reduced an intrinsic 99.9% hardware error rate to 0.7%.
+</div>
+
+<h2>3. H2 native-noise benchmark: redundancy versus active-QEC overhead</h2>
+
+<p>
+The native-noise benchmark removes the deliberately injected error. All three circuits start in logical zero and are exposed only to the H2-Emulator noise model. Each strategy is run for 10,000 shots:
+</p>
+
+<table>
+<thead><tr><th>Strategy</th><th>Observed error rate</th><th>Raw observation</th></tr></thead>
+<tbody>
+<tr><td>Bare physical qubit</td><td>0.0005</td><td>5 errors in 10,000 shots</td></tr>
+<tr><td>Encoded + final majority</td><td>0.0000 observed</td><td>18 single-bit physical errors, but no majority-vote logical failures</td></tr>
+<tr><td>Encoded + active QEC</td><td>0.0014</td><td>14 logical failures in 10,000 shots</td></tr>
+</tbody>
+</table>
+
+<figure>
+
+<svg viewBox="0 0 940 360" width="100%" role="img" aria-label="H2 native-noise benchmark">
+  <rect x="0" y="0" width="940" height="360" fill="white"/>
+  <text x="470" y="34" text-anchor="middle" font-size="21" font-weight="600" fill="#0f172a">H2-Emulator native-noise benchmark</text>
+  <line x1="105" y1="290" x2="875" y2="290" stroke="#94a3b8"/>
+  <line x1="105" y1="70" x2="105" y2="290" stroke="#94a3b8"/>
+  <line x1="105" y1="235" x2="875" y2="235" stroke="#e5e7eb"/>
+  <line x1="105" y1="180" x2="875" y2="180" stroke="#e5e7eb"/>
+  <line x1="105" y1="125" x2="875" y2="125" stroke="#e5e7eb"/>
+  <line x1="105" y1="70" x2="875" y2="70" stroke="#e5e7eb"/>
+  <text x="92" y="294" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+  <text x="92" y="239" text-anchor="end" font-size="12" fill="#6b7280">0.0004</text>
+  <text x="92" y="184" text-anchor="end" font-size="12" fill="#6b7280">0.0008</text>
+  <text x="92" y="129" text-anchor="end" font-size="12" fill="#6b7280">0.0012</text>
+  <text x="92" y="74" text-anchor="end" font-size="12" fill="#6b7280">0.0016</text>
+  <rect x="185" y="221.25" width="150" height="68.75" fill="#2563eb"/>
+  <rect x="395" y="289.5" width="150" height="0.5" fill="#0f766e"/>
+  <rect x="605" y="97.5" width="150" height="192.5" fill="#7c3aed"/>
+  <text x="260" y="211" text-anchor="middle" font-size="13" fill="#374151">0.0005</text>
+  <text x="470" y="277" text-anchor="middle" font-size="13" fill="#374151">0 observed</text>
+  <text x="680" y="87" text-anchor="middle" font-size="13" fill="#374151">0.0014</text>
+  <text x="260" y="319" text-anchor="middle" font-size="13" fill="#374151">Physical</text>
+  <text x="470" y="319" text-anchor="middle" font-size="13" fill="#374151">Encoded + majority</text>
+  <text x="680" y="319" text-anchor="middle" font-size="13" fill="#374151">Active QEC</text>
+  <text transform="translate(22 180) rotate(-90)" text-anchor="middle" font-size="13" fill="#6b7280">Observed error probability</text>
+</svg>
+
+<figcaption><b>Figure 2.</b> Observed logical/physical error rates in the short H2 native-noise benchmark. “0 observed” for the encoded-majority case means no logical failures occurred in 10,000 shots; it does not imply a zero underlying error probability.</figcaption>
+</figure>
+
+<p>
+The encoded-majority strategy benefits from redundancy without paying the full active-QEC circuit cost. By contrast, the active-QEC circuit introduces four data–ancilla CNOTs, two mid-circuit measurements, resets, and conditional corrections. In this short and already-low-error regime, that extra control overhead is large enough that active QEC does not outperform the simpler encoded strategy.
+</p>
+
+<div class="takeaway">
+<b>Interpretation.</b> Active QEC is not free. A correction cycle is useful only when the errors it removes outweigh the errors introduced by syndrome extraction and feedback. This motivates a repeated-noise benchmark in which error accumulation has time to become important.
+</div>
+
+<h2>4. Controlled bit-flip benchmark</h2>
+
+<h3>4.1 Controlled \(X\)-error channel</h3>
+
+<p>
+To isolate repetition-code behavior from the details of the H2 native noise model, the controlled benchmark disables native emulator noise and deliberately applies independent \(X\) flips with probability \(p\) to the data qubits.
+</p>
+
+<p>A reusable “coin” qubit is rotated and measured so that the probability of outcome 1 is \(p\):</p>
+
+\[
+R_y(\theta)|0\rangle
+=
+\cos\frac{\theta}{2}|0\rangle
++
+\sin\frac{\theta}{2}|1\rangle,
+\qquad
+\sin^2\frac{\theta}{2}=p.
+\]
+
+<p>Thus</p>
+
+\[
+\theta=2\arcsin\sqrt{p}.
+\]
+
+<p>
+If the coin measurement is 1, a conditional \(X\) is applied to the selected data qubit. The coin is then reset and reused. This produces the channel
+</p>
+
+\[
+\rho\mapsto(1-p)\rho+pX\rho X
+\]
+
+<p>without adding the H2 native noise model on top.</p>
+
+<h3>4.2 Single-round theory</h3>
+
+<p>For a bare physical qubit,</p>
+
+\[
+P_{\mathrm{phys}}=p.
+\]
+
+<p>For the three-qubit repetition code, a logical failure requires two or three data-qubit flips:</p>
+
+\[
+P_L
+=
+3p^2(1-p)+p^3
+=
+3p^2-2p^3.
+\]
+
+<p>
+The leading-order scaling changes from \(O(p)\) to \(O(p^2)\), which is the central theoretical signature that the repetition code suppresses single bit flips.
+</p>
+
+<h3>4.3 \(p\)-sweep results</h3>
+
+<table>
+<thead><tr><th>\(p\)</th><th>Physical</th><th>Encoded + majority</th><th>Active QEC</th><th>Theory \(3p^2-2p^3\)</th></tr></thead>
+<tbody>
+<tr><td>0.02</td><td>0.0221</td><td>0.0008</td><td>0.0016</td><td>0.001184</td></tr>
+<tr><td>0.05</td><td>0.0516</td><td>0.0071</td><td>0.0071</td><td>0.007250</td></tr>
+<tr><td>0.10</td><td>0.0955</td><td>0.0283</td><td>0.0263</td><td>0.028000</td></tr>
+<tr><td>0.15</td><td>0.1448</td><td>0.0566</td><td>0.0590</td><td>0.060750</td></tr>
+<tr><td>0.20</td><td>0.2038</td><td>0.1036</td><td>0.1050</td><td>0.104000</td></tr>
+</tbody>
+</table>
+
+<figure>
+<svg viewBox="0 0 940 430" width="100%" role="img" aria-label="Controlled bit-flip sweep">
+<rect x="0" y="0" width="940" height="430" fill="white"/>
+<text x="470.0" y="30" text-anchor="middle" font-size="21" font-weight="600" fill="#0f172a">Controlled bit-flip sweep</text>
+<line x1="78" y1="360.00" x2="910" y2="360.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="68" y="364.00" text-anchor="end" font-size="12" fill="#6b7280">0.000</text>
+<line x1="78" y1="300.00" x2="910" y2="300.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="68" y="304.00" text-anchor="end" font-size="12" fill="#6b7280">0.045</text>
+<line x1="78" y1="240.00" x2="910" y2="240.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="68" y="244.00" text-anchor="end" font-size="12" fill="#6b7280">0.090</text>
+<line x1="78" y1="180.00" x2="910" y2="180.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="68" y="184.00" text-anchor="end" font-size="12" fill="#6b7280">0.135</text>
+<line x1="78" y1="120.00" x2="910" y2="120.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="68" y="124.00" text-anchor="end" font-size="12" fill="#6b7280">0.180</text>
+<line x1="78" y1="60.00" x2="910" y2="60.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="68" y="64.00" text-anchor="end" font-size="12" fill="#6b7280">0.225</text>
+<line x1="78.00" y1="60" x2="78.00" y2="360" stroke="#f3f4f6" stroke-width="1"/>
+<text x="78.00" y="384" text-anchor="middle" font-size="12" fill="#6b7280">0.02</text>
+<line x1="216.67" y1="60" x2="216.67" y2="360" stroke="#f3f4f6" stroke-width="1"/>
+<text x="216.67" y="384" text-anchor="middle" font-size="12" fill="#6b7280">0.05</text>
+<line x1="447.78" y1="60" x2="447.78" y2="360" stroke="#f3f4f6" stroke-width="1"/>
+<text x="447.78" y="384" text-anchor="middle" font-size="12" fill="#6b7280">0.1</text>
+<line x1="678.89" y1="60" x2="678.89" y2="360" stroke="#f3f4f6" stroke-width="1"/>
+<text x="678.89" y="384" text-anchor="middle" font-size="12" fill="#6b7280">0.15</text>
+<line x1="910.00" y1="60" x2="910.00" y2="360" stroke="#f3f4f6" stroke-width="1"/>
+<text x="910.00" y="384" text-anchor="middle" font-size="12" fill="#6b7280">0.2</text>
+<line x1="78" y1="360" x2="910" y2="360" stroke="#94a3b8"/>
+<line x1="78" y1="60" x2="78" y2="360" stroke="#94a3b8"/>
+<polyline points="78.00,330.53 216.67,291.20 447.78,232.67 678.89,166.93 910.00,88.27" fill="none" stroke="#2563eb" stroke-width="2.6"/>
+<circle cx="78.00" cy="330.53" r="4" fill="white" stroke="#2563eb" stroke-width="2"/>
+<circle cx="216.67" cy="291.20" r="4" fill="white" stroke="#2563eb" stroke-width="2"/>
+<circle cx="447.78" cy="232.67" r="4" fill="white" stroke="#2563eb" stroke-width="2"/>
+<circle cx="678.89" cy="166.93" r="4" fill="white" stroke="#2563eb" stroke-width="2"/>
+<circle cx="910.00" cy="88.27" r="4" fill="white" stroke="#2563eb" stroke-width="2"/>
+<line x1="88" y1="72" x2="116" y2="72" stroke="#2563eb" stroke-width="2.6"/>
+<text x="124" y="76" font-size="12.5" fill="#374151">Physical</text>
+<polyline points="78.00,358.93 216.67,350.53 447.78,322.27 678.89,284.53 910.00,221.87" fill="none" stroke="#0f766e" stroke-width="2.6"/>
+<circle cx="78.00" cy="358.93" r="4" fill="white" stroke="#0f766e" stroke-width="2"/>
+<circle cx="216.67" cy="350.53" r="4" fill="white" stroke="#0f766e" stroke-width="2"/>
+<circle cx="447.78" cy="322.27" r="4" fill="white" stroke="#0f766e" stroke-width="2"/>
+<circle cx="678.89" cy="284.53" r="4" fill="white" stroke="#0f766e" stroke-width="2"/>
+<circle cx="910.00" cy="221.87" r="4" fill="white" stroke="#0f766e" stroke-width="2"/>
+<line x1="88" y1="95" x2="116" y2="95" stroke="#0f766e" stroke-width="2.6"/>
+<text x="124" y="99" font-size="12.5" fill="#374151">Encoded + majority</text>
+<polyline points="78.00,357.87 216.67,350.53 447.78,324.93 678.89,281.33 910.00,220.00" fill="none" stroke="#7c3aed" stroke-width="2.6"/>
+<circle cx="78.00" cy="357.87" r="4" fill="white" stroke="#7c3aed" stroke-width="2"/>
+<circle cx="216.67" cy="350.53" r="4" fill="white" stroke="#7c3aed" stroke-width="2"/>
+<circle cx="447.78" cy="324.93" r="4" fill="white" stroke="#7c3aed" stroke-width="2"/>
+<circle cx="678.89" cy="281.33" r="4" fill="white" stroke="#7c3aed" stroke-width="2"/>
+<circle cx="910.00" cy="220.00" r="4" fill="white" stroke="#7c3aed" stroke-width="2"/>
+<line x1="88" y1="118" x2="116" y2="118" stroke="#7c3aed" stroke-width="2.6"/>
+<text x="124" y="122" font-size="12.5" fill="#374151">Active QEC</text>
+<polyline points="78.00,358.42 216.67,350.33 447.78,322.67 678.89,279.00 910.00,221.33" fill="none" stroke="#ea580c" stroke-width="2.6" stroke-dasharray="7 6"/>
+<circle cx="78.00" cy="358.42" r="4" fill="white" stroke="#ea580c" stroke-width="2"/>
+<circle cx="216.67" cy="350.33" r="4" fill="white" stroke="#ea580c" stroke-width="2"/>
+<circle cx="447.78" cy="322.67" r="4" fill="white" stroke="#ea580c" stroke-width="2"/>
+<circle cx="678.89" cy="279.00" r="4" fill="white" stroke="#ea580c" stroke-width="2"/>
+<circle cx="910.00" cy="221.33" r="4" fill="white" stroke="#ea580c" stroke-width="2"/>
+<line x1="88" y1="141" x2="116" y2="141" stroke="#ea580c" stroke-width="2.6" stroke-dasharray="7 6"/>
+<text x="124" y="145" font-size="12.5" fill="#374151">Theory logical</text>
+<text x="494.0" y="410" text-anchor="middle" font-size="13" fill="#6b7280">Physical bit-flip probability p</text>
+<text transform="translate(20 210.0) rotate(-90)" text-anchor="middle" font-size="13" fill="#6b7280">Error probability</text>
+</svg>
+<figcaption><b>Figure 3.</b> Controlled one-round bit-flip sweep. The physical-qubit data follow \(P_{\mathrm{phys}}\approx p\), while both encoded strategies track the repetition-code prediction \(P_L=3p^2-2p^3\) within finite-shot fluctuations.</figcaption>
+</figure>
+
+<div class="takeaway">
+<b>Result.</b> The controlled-noise benchmark reproduces the expected coding law: a single-round bit-flip probability that is linear in \(p\) at the physical level becomes quadratic to leading order after repetition encoding and majority/active decoding.
+</div>
+
+<h2>5. Multi-round error accumulation and the value of repeated correction</h2>
+
+<h3>5.1 Why the no-active-QEC error is not \(Rp\)</h3>
+
+<p>
+When one physical bit is exposed to \(R\) independent \(X\)-flip opportunities, only the parity of the number of flips matters because \(X^2=I\). The probability of ending with an odd number of flips is
+</p>
+
+\[
+r_R
+=
+\sum_{k\ {\rm odd}}
+\binom{R}{k}p^k(1-p)^{R-k}
+=
+\frac{1-(1-2p)^R}{2}.
+\]
+
+<p>If no active correction is applied between rounds, the final three-qubit majority-vote failure is</p>
+
+\[
+P_L^{\mathrm{no\,active}}
+=
+3r_R^2-2r_R^3.
+\]
+
+<h3>5.2 Active correction after every round</h3>
+
+<p>For one idealized QEC round, the logical flip probability is</p>
+
+\[
+q=3p^2-2p^3.
+\]
+
+<p>If the code is corrected after each error round, the multi-round logical parity evolves with</p>
+
+\[
+P_L^{\mathrm{active}}
+=
+\frac{1-(1-2q)^R}{2}.
+\]
+
+<p>The two schedules being compared are therefore:</p>
+
+\[
+\text{No active QEC:}\quad
+E\rightarrow E\rightarrow E\rightarrow\cdots\rightarrow \text{final majority},
+\]
+
+\[
+\text{Active QEC:}\quad
+E\rightarrow QEC\rightarrow E\rightarrow QEC\rightarrow\cdots.
+\]
+
+<h3>5.3 Multi-round results at \(p=0.05\)</h3>
+
+<table>
+<thead><tr><th>Rounds \(R\)</th><th>No active QEC</th><th>No-active theory</th><th>Active QEC</th><th>Active theory</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>0.0073</td><td>0.007250</td><td>0.0073</td><td>0.007250</td></tr>
+<tr><td>2</td><td>0.0268</td><td>0.025360</td><td>0.0151</td><td>0.014395</td></tr>
+<tr><td>3</td><td>0.0511</td><td>0.050105</td><td>0.0222</td><td>0.021436</td></tr>
+<tr><td>5</td><td>0.1055</td><td>0.108605</td><td>0.0373</td><td>0.035214</td></tr>
+<tr><td>10</td><td>0.2441</td><td>0.249089</td><td>0.0668</td><td>0.067948</td></tr>
+</tbody>
+</table>
+
+<figure>
+<svg viewBox="0 0 940 430" width="100%" role="img" aria-label="Multi-round accumulation at p = 0.05">
+<rect x="0" y="0" width="940" height="430" fill="white"/>
+<text x="470.0" y="30" text-anchor="middle" font-size="21" font-weight="600" fill="#0f172a">Multi-round accumulation at p = 0.05</text>
+<line x1="78" y1="360.00" x2="910" y2="360.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="68" y="364.00" text-anchor="end" font-size="12" fill="#6b7280">0.000</text>
+<line x1="78" y1="300.00" x2="910" y2="300.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="68" y="304.00" text-anchor="end" font-size="12" fill="#6b7280">0.055</text>
+<line x1="78" y1="240.00" x2="910" y2="240.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="68" y="244.00" text-anchor="end" font-size="12" fill="#6b7280">0.110</text>
+<line x1="78" y1="180.00" x2="910" y2="180.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="68" y="184.00" text-anchor="end" font-size="12" fill="#6b7280">0.165</text>
+<line x1="78" y1="120.00" x2="910" y2="120.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="68" y="124.00" text-anchor="end" font-size="12" fill="#6b7280">0.220</text>
+<line x1="78" y1="60.00" x2="910" y2="60.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="68" y="64.00" text-anchor="end" font-size="12" fill="#6b7280">0.275</text>
+<line x1="78.00" y1="60" x2="78.00" y2="360" stroke="#f3f4f6" stroke-width="1"/>
+<text x="78.00" y="384" text-anchor="middle" font-size="12" fill="#6b7280">1</text>
+<line x1="170.44" y1="60" x2="170.44" y2="360" stroke="#f3f4f6" stroke-width="1"/>
+<text x="170.44" y="384" text-anchor="middle" font-size="12" fill="#6b7280">2</text>
+<line x1="262.89" y1="60" x2="262.89" y2="360" stroke="#f3f4f6" stroke-width="1"/>
+<text x="262.89" y="384" text-anchor="middle" font-size="12" fill="#6b7280">3</text>
+<line x1="447.78" y1="60" x2="447.78" y2="360" stroke="#f3f4f6" stroke-width="1"/>
+<text x="447.78" y="384" text-anchor="middle" font-size="12" fill="#6b7280">5</text>
+<line x1="910.00" y1="60" x2="910.00" y2="360" stroke="#f3f4f6" stroke-width="1"/>
+<text x="910.00" y="384" text-anchor="middle" font-size="12" fill="#6b7280">10</text>
+<line x1="78" y1="360" x2="910" y2="360" stroke="#94a3b8"/>
+<line x1="78" y1="60" x2="78" y2="360" stroke="#94a3b8"/>
+<polyline points="78.00,352.04 170.44,330.76 262.89,304.25 447.78,244.91 910.00,93.71" fill="none" stroke="#2563eb" stroke-width="2.6"/>
+<circle cx="78.00" cy="352.04" r="4" fill="white" stroke="#2563eb" stroke-width="2"/>
+<circle cx="170.44" cy="330.76" r="4" fill="white" stroke="#2563eb" stroke-width="2"/>
+<circle cx="262.89" cy="304.25" r="4" fill="white" stroke="#2563eb" stroke-width="2"/>
+<circle cx="447.78" cy="244.91" r="4" fill="white" stroke="#2563eb" stroke-width="2"/>
+<circle cx="910.00" cy="93.71" r="4" fill="white" stroke="#2563eb" stroke-width="2"/>
+<line x1="88" y1="72" x2="116" y2="72" stroke="#2563eb" stroke-width="2.6"/>
+<text x="124" y="76" font-size="12.5" fill="#374151">No active QEC</text>
+<polyline points="78.00,352.09 170.44,332.33 262.89,305.34 447.78,241.52 910.00,88.27" fill="none" stroke="#60a5fa" stroke-width="2.6" stroke-dasharray="7 6"/>
+<circle cx="78.00" cy="352.09" r="4" fill="white" stroke="#60a5fa" stroke-width="2"/>
+<circle cx="170.44" cy="332.33" r="4" fill="white" stroke="#60a5fa" stroke-width="2"/>
+<circle cx="262.89" cy="305.34" r="4" fill="white" stroke="#60a5fa" stroke-width="2"/>
+<circle cx="447.78" cy="241.52" r="4" fill="white" stroke="#60a5fa" stroke-width="2"/>
+<circle cx="910.00" cy="88.27" r="4" fill="white" stroke="#60a5fa" stroke-width="2"/>
+<line x1="88" y1="95" x2="116" y2="95" stroke="#60a5fa" stroke-width="2.6" stroke-dasharray="7 6"/>
+<text x="124" y="99" font-size="12.5" fill="#374151">No-active theory</text>
+<polyline points="78.00,352.04 170.44,343.53 262.89,335.78 447.78,319.31 910.00,287.13" fill="none" stroke="#0f766e" stroke-width="2.6"/>
+<circle cx="78.00" cy="352.04" r="4" fill="white" stroke="#0f766e" stroke-width="2"/>
+<circle cx="170.44" cy="343.53" r="4" fill="white" stroke="#0f766e" stroke-width="2"/>
+<circle cx="262.89" cy="335.78" r="4" fill="white" stroke="#0f766e" stroke-width="2"/>
+<circle cx="447.78" cy="319.31" r="4" fill="white" stroke="#0f766e" stroke-width="2"/>
+<circle cx="910.00" cy="287.13" r="4" fill="white" stroke="#0f766e" stroke-width="2"/>
+<line x1="88" y1="118" x2="116" y2="118" stroke="#0f766e" stroke-width="2.6"/>
+<text x="124" y="122" font-size="12.5" fill="#374151">Active QEC</text>
+<polyline points="78.00,352.09 170.44,344.30 262.89,336.62 447.78,321.58 910.00,285.87" fill="none" stroke="#34d399" stroke-width="2.6" stroke-dasharray="7 6"/>
+<circle cx="78.00" cy="352.09" r="4" fill="white" stroke="#34d399" stroke-width="2"/>
+<circle cx="170.44" cy="344.30" r="4" fill="white" stroke="#34d399" stroke-width="2"/>
+<circle cx="262.89" cy="336.62" r="4" fill="white" stroke="#34d399" stroke-width="2"/>
+<circle cx="447.78" cy="321.58" r="4" fill="white" stroke="#34d399" stroke-width="2"/>
+<circle cx="910.00" cy="285.87" r="4" fill="white" stroke="#34d399" stroke-width="2"/>
+<line x1="88" y1="141" x2="116" y2="141" stroke="#34d399" stroke-width="2.6" stroke-dasharray="7 6"/>
+<text x="124" y="145" font-size="12.5" fill="#374151">Active theory</text>
+<text x="494.0" y="410" text-anchor="middle" font-size="13" fill="#6b7280">Number of error rounds R</text>
+<text transform="translate(20 210.0) rotate(-90)" text-anchor="middle" font-size="13" fill="#6b7280">Logical error probability</text>
+</svg>
+<figcaption><b>Figure 4.</b> Repeated controlled errors at \(p=0.05\). The observed data closely follow the analytic parity formulas. The gap between the two schedules grows with \(R\), demonstrating that active QEC becomes valuable when errors have time to accumulate.</figcaption>
+</figure>
+
+<div class="metrics">
+  <div class="metric"><div class="label">R = 1</div><div class="value">0.73% vs 0.73%</div></div>
+  <div class="metric"><div class="label">R = 5</div><div class="value">10.55% vs 3.73%</div></div>
+  <div class="metric"><div class="label">R = 10</div><div class="value">24.41% vs 6.68%</div></div>
+  <div class="metric"><div class="label">R = 10 reduction</div><div class="value">≈ 3.65×</div></div>
+</div>
+
+<p>
+At one round, final majority decoding already corrects a single physical error, so active correction adds little. As the number of rounds grows, the no-active strategy allows errors to accumulate before the final decode. At \(R=10\), the observed logical error is 24.41% without intermediate correction but only 6.68% with QEC after every round.
+</p>
+
+<div class="takeaway">
+<b>Core physical lesson.</b> The value of active QEC is temporal: it repeatedly removes correctable errors before later errors can combine with them to cross the code's correction capability. The multi-round experiment makes this advantage visible much more clearly than a single-round comparison.
+</div>
+
+<h2>6. Real H2-1 hardware demonstration</h2>
+
+<h3>6.1 Hardware workflow</h3>
+
+<p>
+The real-hardware notebook uses the same deterministic middle-qubit error and the same in-circuit lookup decoder. The circuit contains 4 qubits and 18 gates and is compiled for H2-1, checked on H2-1SC, and then submitted to the real H2-1 backend for 20 shots.
+</p>
+
+\[
+|000\rangle
+\xrightarrow{X_1}
+|010\rangle
+\rightarrow
+\text{measure } Z_0Z_1,\ Z_1Z_2
+\rightarrow
+(1,1)
+\rightarrow
+X_1
+\rightarrow
+|000\rangle.
+\]
+
+<h3>6.2 Hardware result</h3>
+
+<div class="metrics">
+  <div class="metric"><div class="label">Syndrome \((1,1)\)</div><div class="value">20 / 20</div></div>
+  <div class="metric"><div class="label">Final \(000\)</div><div class="value">20 / 20</div></div>
+  <div class="metric"><div class="label">Estimated HQC</div><div class="value">5.42</div></div>
+  <div class="metric"><div class="label">Actual HQC</div><div class="value">5.42</div></div>
+</div>
+
+<table>
+<thead><tr><th>Metric</th><th>Observed value</th></tr></thead>
+<tbody>
+<tr><td>Syndrome counts</td><td><code>Counter({(1, 1): 20})</code></td></tr>
+<tr><td>Final data counts</td><td><code>Counter({(0, 0, 0): 20})</code></td></tr>
+<tr><td>Syndrome match rate</td><td>1.000000</td></tr>
+<tr><td>Strict \(|000\rangle\) success rate</td><td>1.000000</td></tr>
+<tr><td>Logical-0 majority-vote success rate</td><td>1.000000</td></tr>
+</tbody>
+</table>
+
+<div class="warning">
+<b>Statistical limitation.</b> “20/20 success” means that no failure was observed in this small hardware sample. It is not a measurement of zero hardware or logical error probability. The significance of this run is functional: real H2 hardware executed the complete mid-circuit syndrome measurement, classical feed-forward, and conditional correction loop end-to-end.
+</div>
+
+<h2>7. Combined interpretation</h2>
+
+<table>
+<thead><tr><th>Question</th><th>What the experiments show</th><th>What they do not yet show</th></tr></thead>
+<tbody>
+<tr><td>Does the QEC circuit work?</td><td>Yes. Ideal syndrome and correction logic are internally consistent and recover the injected \(X_1\) error exactly.</td><td>No claim yet about arbitrary Pauli errors or a general quantum memory.</td></tr>
+<tr><td>Does QEC remain functional under H2 noise?</td><td>Yes. The noisy emulator recovered exact \(000\) in 993/1000 shots for the deterministic \(X_1\) test.</td><td>The deterministic-error baseline is not a native logical-error benchmark.</td></tr>
+<tr><td>Is active QEC always beneficial?</td><td>No. In a short native-noise circuit, extra syndrome-extraction operations can cost more than they save.</td><td>This is not a threshold or break-even curve versus circuit depth.</td></tr>
+<tr><td>Does the implementation reproduce repetition-code theory?</td><td>Yes. The controlled \(p\)-sweep follows \(P_L=3p^2-2p^3\), and the multi-round results track the analytic parity formulas.</td><td>The controlled channel contains only independent \(X\) errors, not a full hardware error model.</td></tr>
+<tr><td>When does active correction matter?</td><td>As repeated errors accumulate. At \(p=0.05,\ R=10\), observed logical error drops from 24.41% to 6.68% with per-round QEC.</td><td>The current active rounds are ideal apart from the injected \(X\) channel because H2 native noise is disabled in this benchmark.</td></tr>
+<tr><td>Can real H2 execute the loop?</td><td>Yes. H2-1 completed the feedback demonstration with 20/20 correct syndromes and final states.</td><td>20 shots are insufficient for precision logical-error estimation or a hardware threshold claim.</td></tr>
+</tbody>
+</table>
+
+<div class="summary">
+<div class="summary-key">
+The experiments establish a validated QEC workflow and a clean separation between correctness, overhead, controlled-noise scaling, repeated correction, and real-hardware execution.
+</div>
+
+<p>
+The most important conceptual result is that QEC performance cannot be judged from a single recovery example alone. The native-noise benchmark exposes the cost of the correction circuitry, while the controlled multi-round benchmark exposes the benefit of removing errors before they accumulate. These two observations together give the correct qualitative picture: active QEC is a tradeoff between error removal and QEC overhead, and its advantage emerges when the protected evolution is long enough for uncorrected errors to compound.
+</p>
+</div>
+
+<h2>8. Limitations and next milestones</h2>
+
+<table>
+<thead><tr><th>Priority</th><th>Current limitation</th><th>Next experiment</th></tr></thead>
+<tbody>
+<tr><td><b>P1</b></td><td>Only \(X\)-type bit flips are protected.</td><td>Move to a small CSS code that treats both \(X\) and \(Z\) syndromes.</td></tr>
+<tr><td><b>P2</b></td><td>Decoder is a three-entry lookup rule.</td><td>Replace the lookup with a user-defined Wasm decoder and benchmark end-to-end decoder latency.</td></tr>
+<tr><td><b>P3</b></td><td>Native-noise benchmark uses only a short single-QEC-cycle experiment.</td><td>Scan QEC cadence and circuit depth under H2 native noise to locate a break-even region.</td></tr>
+<tr><td><b>P4</b></td><td>Real-hardware statistics are only 20 shots.</td><td>Run larger-shot hardware tests and repeated QEC rounds, subject to HQC budget.</td></tr>
+<tr><td><b>P5</b></td><td>No qLDPC/BB structure yet.</td><td>Use the validated control-flow as a stepping stone toward a small BB/CSS instance and later BB72-scale decoder studies.</td></tr>
+</tbody>
+</table>
+
+<div class="takeaway">
+<b>Recommended next milestone.</b> Keep the current [[3,1,1]] suite as the reference regression benchmark, then add a small CSS/BB code with a nontrivial decoder. The key new measurement should be the complete chain \(s\rightarrow\) decoder \(\rightarrow\) correction, including decoder latency and QEC-cycle overhead, rather than only final logical accuracy.
+</div>
+
+<h2>9. Conclusion</h2>
+
+<p>
+The four finalized notebooks form a compact but logically complete QEC study. The ideal walkthrough verifies the basic syndrome and feedback mechanism. The native H2 noise benchmark shows that active QEC carries real operational overhead and is not automatically advantageous in short circuits. The controlled bit-flip experiments quantitatively recover the expected repetition-code scaling and, more importantly, demonstrate how repeated active correction suppresses accumulated errors over many rounds. Finally, the H2-1 experiment confirms that the same mid-circuit measurement and classical feedback architecture can execute on real trapped-ion hardware.
+</p>
+
+<p>
+Taken together, the results provide a clean baseline for the next research step: replacing the simple lookup decoder with a genuinely algorithmic decoder and extending from a pedagogical bit-flip code to small CSS/qLDPC/BB codes where real-time decoding complexity becomes the central problem.
+</p>
+
+<p class="small">
+Data sources used in this report: <code>qec_qrc311_walkthrough.ipynb</code>, <code>benchmark_h2_native_noise.ipynb</code>, <code>benchmark_controlled_bit_flip_qec.ipynb</code>, and <code>qec_qrc311_h2_real_hardware.ipynb</code>.
+</p>
+
+</body>
+</html>

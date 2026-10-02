@@ -1,0 +1,131 @@
+{
+  "b12_metadata": {
+    "block_size": 12,
+    "bnb_topologies": [
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    ],
+    "canonical_bnb_topologies": [
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    ],
+    "canonical_path_sharing": true,
+    "code": "BB72",
+    "cuquantum_version": "26.3.2",
+    "gpu_name": "NVIDIA A100-SXM4-40GB",
+    "k": 12,
+    "logical_order": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "memory_limit": "50%",
+    "n": 72,
+    "optimization": "v0.4.2/P5.1 canonical path pool",
+    "path_benchmark_repeats": 2,
+    "path_samples": 64,
+    "path_trials": 6
+  },
+  "b12_profile": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/v0.5.1_p5_numerical_cleanup_replay/input_bundle/profiles/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+  "b9_metadata": {
+    "block_size": 9,
+    "bnb_topologies": [
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      [
+        9,
+        10,
+        11
+      ]
+    ],
+    "canonical_bnb_topologies": [
+      [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      [
+        9,
+        10,
+        11
+      ]
+    ],
+    "canonical_path_sharing": true,
+    "code": "BB72",
+    "cuquantum_version": "26.3.2",
+    "full_reference_topology_added_after_scan": true,
+    "gpu_name": "NVIDIA A100-SXM4-40GB",
+    "k": 12,
+    "logical_order": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "memory_limit": "50%",
+    "n": 72,
+    "optimization": "v0.4.2/P5.1 canonical path pool",
+    "path_benchmark_repeats": 2,
+    "path_samples": 64,
+    "path_trials": 6
+  },
+  "b9_profile": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/v0.5.1_p5_numerical_cleanup_replay/input_bundle/profiles/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+  "full_path_equal": true,
+  "full_slices_equal": true
+}

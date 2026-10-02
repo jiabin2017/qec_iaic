@@ -1,0 +1,28 @@
+{
+  "actual_device_counts": "Counter({'cuda': 30000})",
+  "all_shots_csv": "results/sweep_20260910_170650/all_shots.csv",
+  "contractor_counts": "Counter({'cutensornet': 30000})",
+  "duplicate_global_task_ids": "[]",
+  "expected_total_shots": 30000,
+  "expected_workers": 64,
+  "ler_summary_csv": "results/sweep_20260910_170650/ler_summary.csv",
+  "max_raw_relative_negative_mass": 1.1227859818885004e-12,
+  "missing_global_task_ids": "[]",
+  "p_grid": [
+    0.005,
+    0.01,
+    0.02,
+    0.03,
+    0.04,
+    0.05
+  ],
+  "path_cache_entries_loaded_values": "[4095]",
+  "public_failure_count": 20,
+  "raw_clip_count": 20,
+  "raw_fallback_count": 20,
+  "raw_fallback_seconds": 1.3381505879078759,
+  "shots_per_p": 5000,
+  "success": true,
+  "total_shots": 30000,
+  "worker_ids": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63]"
+}

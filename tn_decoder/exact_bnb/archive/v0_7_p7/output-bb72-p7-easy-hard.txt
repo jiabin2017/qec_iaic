@@ -1,0 +1,85 @@
+===== START =====
+Fri Sep 25 09:13:26 +08 2026
+x1000c0s1b0n0
+/home/users/astar/ihpc/youjb/miniconda3/envs/cudaqx-qec/bin/python
+/home/users/astar/ihpc/youjb/miniconda3/envs/cudaqx-qec/bin/python
+2.10.0+cu128
+True
+1
+NVIDIA A100-SXM4-40GB
+===== BB72 v0.7 / P7 environment reuse =====
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_7_p7/profiles/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+p = 0.005
+modes = ['baseline', 'p7_always', 'p7_adaptive']
+repeats = 5 warmup = 1
+P6 parent_batch_size = 1 (disabled)
+P2 constant cache = True
+P3 GPU resident = True
+P7 cache = 8GB max_entry = 2GB max_dependency_bits = 6
+easy: error=[28] wt=1 syndrome_wt=3 true_lambda=000000000000
+hard: error=[0, 27, 30] wt=3 syndrome_wt=3 true_lambda=100110011001
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+==============================================================================
+MODE baseline
+profile topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), (9, 10, 11)]
+P7 engine = {'open_logicals': [9, 10, 11], 'boundary_logicals': [0, 1, 2, 3, 4, 5, 6, 7, 8], 'num_base_operands': 120, 'num_variable_operands': 9, 'num_pair_steps': 128, 'cache_budget_bytes': 8589934592, 'max_entry_bytes': 2147483648, 'max_dependency_bits': 6, 'path_source': 'P5 compiled b9 tail path', 'slices': 0}
+baseline     easy rep=1: wall=0.207601s oracles=2 leaves=1 P=0.999999995533383 lambda=000000000000 p7_pair_exec=0 p7_hits=0 reused_MB=0.0
+baseline     easy rep=2: wall=0.207592s oracles=2 leaves=1 P=0.999999995533383 lambda=000000000000 p7_pair_exec=0 p7_hits=0 reused_MB=0.0
+baseline     easy rep=3: wall=0.207385s oracles=2 leaves=1 P=0.999999995533383 lambda=000000000000 p7_pair_exec=0 p7_hits=0 reused_MB=0.0
+baseline     easy rep=4: wall=0.207382s oracles=2 leaves=1 P=0.999999995533383 lambda=000000000000 p7_pair_exec=0 p7_hits=0 reused_MB=0.0
+baseline     easy rep=5: wall=0.207333s oracles=2 leaves=1 P=0.999999995533383 lambda=000000000000 p7_pair_exec=0 p7_hits=0 reused_MB=0.0
+baseline     hard rep=1: wall=0.391209s oracles=4 leaves=3 P=0.333316487473236 lambda=111011000000 p7_pair_exec=0 p7_hits=0 reused_MB=0.0
+baseline     hard rep=2: wall=0.390830s oracles=4 leaves=3 P=0.333316487473236 lambda=111011000000 p7_pair_exec=0 p7_hits=0 reused_MB=0.0
+baseline     hard rep=3: wall=0.391049s oracles=4 leaves=3 P=0.333316487473236 lambda=111011000000 p7_pair_exec=0 p7_hits=0 reused_MB=0.0
+baseline     hard rep=4: wall=0.390853s oracles=4 leaves=3 P=0.333316487473236 lambda=111011000000 p7_pair_exec=0 p7_hits=0 reused_MB=0.0
+baseline     hard rep=5: wall=0.390901s oracles=4 leaves=3 P=0.333316487473236 lambda=111011000000 p7_pair_exec=0 p7_hits=0 reused_MB=0.0
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+==============================================================================
+MODE p7_always
+profile topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), (9, 10, 11)]
+P7 engine = {'open_logicals': [9, 10, 11], 'boundary_logicals': [0, 1, 2, 3, 4, 5, 6, 7, 8], 'num_base_operands': 120, 'num_variable_operands': 9, 'num_pair_steps': 128, 'cache_budget_bytes': 8589934592, 'max_entry_bytes': 2147483648, 'max_dependency_bits': 6, 'path_source': 'P5 compiled b9 tail path', 'slices': 0}
+p7_always    easy rep=1: wall=1.448167s oracles=2 leaves=1 P=0.999999995533384 lambda=000000000000 p7_pair_exec=128 p7_hits=0 reused_MB=0.0
+p7_always    easy rep=2: wall=1.448129s oracles=2 leaves=1 P=0.999999995533384 lambda=000000000000 p7_pair_exec=128 p7_hits=0 reused_MB=0.0
+p7_always    easy rep=3: wall=1.447967s oracles=2 leaves=1 P=0.999999995533384 lambda=000000000000 p7_pair_exec=128 p7_hits=0 reused_MB=0.0
+p7_always    easy rep=4: wall=1.447961s oracles=2 leaves=1 P=0.999999995533384 lambda=000000000000 p7_pair_exec=128 p7_hits=0 reused_MB=0.0
+p7_always    easy rep=5: wall=1.447918s oracles=2 leaves=1 P=0.999999995533384 lambda=000000000000 p7_pair_exec=128 p7_hits=0 reused_MB=0.0
+p7_always    hard rep=1: wall=4.113136s oracles=4 leaves=3 P=0.333316487473212 lambda=111011000000 p7_pair_exec=384 p7_hits=0 reused_MB=0.0
+p7_always    hard rep=2: wall=4.113009s oracles=4 leaves=3 P=0.333316487473212 lambda=111011000000 p7_pair_exec=384 p7_hits=0 reused_MB=0.0
+p7_always    hard rep=3: wall=4.112851s oracles=4 leaves=3 P=0.333316487473212 lambda=111011000000 p7_pair_exec=384 p7_hits=0 reused_MB=0.0
+p7_always    hard rep=4: wall=4.113720s oracles=4 leaves=3 P=0.333316487473212 lambda=111011000000 p7_pair_exec=384 p7_hits=0 reused_MB=0.0
+p7_always    hard rep=5: wall=4.112951s oracles=4 leaves=3 P=0.333316487473212 lambda=111011000000 p7_pair_exec=384 p7_hits=0 reused_MB=0.0
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+==============================================================================
+MODE p7_adaptive
+profile topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), (9, 10, 11)]
+P7 engine = {'open_logicals': [9, 10, 11], 'boundary_logicals': [0, 1, 2, 3, 4, 5, 6, 7, 8], 'num_base_operands': 120, 'num_variable_operands': 9, 'num_pair_steps': 128, 'cache_budget_bytes': 8589934592, 'max_entry_bytes': 2147483648, 'max_dependency_bits': 6, 'path_source': 'P5 compiled b9 tail path', 'slices': 0}
+p7_adaptive  easy rep=1: wall=0.207920s oracles=2 leaves=1 P=0.999999995533383 lambda=000000000000 p7_pair_exec=0 p7_hits=0 reused_MB=0.0
+p7_adaptive  easy rep=2: wall=0.207464s oracles=2 leaves=1 P=0.999999995533383 lambda=000000000000 p7_pair_exec=0 p7_hits=0 reused_MB=0.0
+p7_adaptive  easy rep=3: wall=0.207500s oracles=2 leaves=1 P=0.999999995533383 lambda=000000000000 p7_pair_exec=0 p7_hits=0 reused_MB=0.0
+p7_adaptive  easy rep=4: wall=0.207299s oracles=2 leaves=1 P=0.999999995533383 lambda=000000000000 p7_pair_exec=0 p7_hits=0 reused_MB=0.0
+p7_adaptive  easy rep=5: wall=0.207617s oracles=2 leaves=1 P=0.999999995533383 lambda=000000000000 p7_pair_exec=0 p7_hits=0 reused_MB=0.0
+p7_adaptive  hard rep=1: wall=2.876832s oracles=4 leaves=3 P=0.333316487473236 lambda=111011000000 p7_pair_exec=256 p7_hits=0 reused_MB=0.0
+p7_adaptive  hard rep=2: wall=2.876852s oracles=4 leaves=3 P=0.333316487473236 lambda=111011000000 p7_pair_exec=256 p7_hits=0 reused_MB=0.0
+p7_adaptive  hard rep=3: wall=2.876222s oracles=4 leaves=3 P=0.333316487473236 lambda=111011000000 p7_pair_exec=256 p7_hits=0 reused_MB=0.0
+p7_adaptive  hard rep=4: wall=2.876640s oracles=4 leaves=3 P=0.333316487473236 lambda=111011000000 p7_pair_exec=256 p7_hits=0 reused_MB=0.0
+p7_adaptive  hard rep=5: wall=2.876561s oracles=4 leaves=3 P=0.333316487473236 lambda=111011000000 p7_pair_exec=256 p7_hits=0 reused_MB=0.0
+
+===== SUMMARY =====
+baseline     easy: median=0.207385s speedup=1.0000x p7_hits=0.0 reused_MB=0.0
+baseline     hard: median=0.390901s speedup=1.0000x p7_hits=0.0 reused_MB=0.0
+p7_always    easy: median=1.447967s speedup=0.1432x p7_hits=0.0 reused_MB=0.0
+p7_always    hard: median=4.113009s speedup=0.0950x p7_hits=0.0 reused_MB=0.0
+p7_adaptive  easy: median=0.207500s speedup=0.9994x p7_hits=0.0 reused_MB=0.0
+p7_adaptive  hard: median=2.876640s speedup=0.1359x p7_hits=0.0 reused_MB=0.0
+consistency checks = [{'mode': 'p7_always', 'case': 'easy', 'lambda_equal': True, 'probability_abs_diff': 7.771561172376096e-16, 'pass': True}, {'mode': 'p7_always', 'case': 'hard', 'lambda_equal': True, 'probability_abs_diff': 2.3814283878209608e-14, 'pass': True}, {'mode': 'p7_adaptive', 'case': 'easy', 'lambda_equal': True, 'probability_abs_diff': 0.0, 'pass': True}, {'mode': 'p7_adaptive', 'case': 'hard', 'lambda_equal': True, 'probability_abs_diff': 0.0, 'pass': True}]
+wrote p7_easy_hard_results/p7_easy_hard_summary.csv
+wrote p7_easy_hard_results/p7_easy_hard_results.json
+===== FINISHED =====
+Fri Sep 25 09:15:30 +08 2026
+exit status = 0

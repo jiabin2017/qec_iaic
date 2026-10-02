@@ -1,0 +1,142 @@
+[
+  {
+    "source_run": "validation_partA_natural",
+    "layout_tag": "stageA-b12-identity",
+    "block_size": 12,
+    "logical_order": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]",
+    "profile_path": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+    "scan_easy_seconds": 2.5622682004468516,
+    "scan_hard_seconds": 2.5626839569886215,
+    "scan_mean_seconds": 2.5624760787177365
+  },
+  {
+    "source_run": "validation_partA_natural",
+    "layout_tag": "stageA-b9-identity",
+    "block_size": 9,
+    "logical_order": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]",
+    "profile_path": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+    "scan_easy_seconds": 0.20820483850548044,
+    "scan_hard_seconds": 0.3928052290575579,
+    "scan_mean_seconds": 0.30050503378151916
+  },
+  {
+    "source_run": "validation_partB_stress_p0.005",
+    "layout_tag": "stageA-b12-identity",
+    "block_size": 12,
+    "logical_order": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]",
+    "profile_path": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+    "scan_easy_seconds": 2.5622682004468516,
+    "scan_hard_seconds": 2.5626839569886215,
+    "scan_mean_seconds": 2.5624760787177365
+  },
+  {
+    "source_run": "validation_partB_stress_p0.005",
+    "layout_tag": "stageA-b9-identity",
+    "block_size": 9,
+    "logical_order": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]",
+    "profile_path": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+    "scan_easy_seconds": 0.20820483850548044,
+    "scan_hard_seconds": 0.3928052290575579,
+    "scan_mean_seconds": 0.30050503378151916
+  },
+  {
+    "source_run": "validation_partB_stress_p0.01",
+    "layout_tag": "stageA-b12-identity",
+    "block_size": 12,
+    "logical_order": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]",
+    "profile_path": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+    "scan_easy_seconds": 2.5622682004468516,
+    "scan_hard_seconds": 2.5626839569886215,
+    "scan_mean_seconds": 2.5624760787177365
+  },
+  {
+    "source_run": "validation_partB_stress_p0.01",
+    "layout_tag": "stageA-b9-identity",
+    "block_size": 9,
+    "logical_order": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]",
+    "profile_path": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+    "scan_easy_seconds": 0.20820483850548044,
+    "scan_hard_seconds": 0.3928052290575579,
+    "scan_mean_seconds": 0.30050503378151916
+  },
+  {
+    "source_run": "validation_partB_stress_p0.02",
+    "layout_tag": "stageA-b12-identity",
+    "block_size": 12,
+    "logical_order": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]",
+    "profile_path": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+    "scan_easy_seconds": 2.5622682004468516,
+    "scan_hard_seconds": 2.5626839569886215,
+    "scan_mean_seconds": 2.5624760787177365
+  },
+  {
+    "source_run": "validation_partB_stress_p0.02",
+    "layout_tag": "stageA-b9-identity",
+    "block_size": 9,
+    "logical_order": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]",
+    "profile_path": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+    "scan_easy_seconds": 0.20820483850548044,
+    "scan_hard_seconds": 0.3928052290575579,
+    "scan_mean_seconds": 0.30050503378151916
+  },
+  {
+    "source_run": "validation_partB_stress_p0.03",
+    "layout_tag": "stageA-b12-identity",
+    "block_size": 12,
+    "logical_order": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]",
+    "profile_path": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+    "scan_easy_seconds": 2.5622682004468516,
+    "scan_hard_seconds": 2.5626839569886215,
+    "scan_mean_seconds": 2.5624760787177365
+  },
+  {
+    "source_run": "validation_partB_stress_p0.03",
+    "layout_tag": "stageA-b9-identity",
+    "block_size": 9,
+    "logical_order": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]",
+    "profile_path": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+    "scan_easy_seconds": 0.20820483850548044,
+    "scan_hard_seconds": 0.3928052290575579,
+    "scan_mean_seconds": 0.30050503378151916
+  },
+  {
+    "source_run": "validation_partB_stress_p0.04",
+    "layout_tag": "stageA-b12-identity",
+    "block_size": 12,
+    "logical_order": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]",
+    "profile_path": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+    "scan_easy_seconds": 2.5622682004468516,
+    "scan_hard_seconds": 2.5626839569886215,
+    "scan_mean_seconds": 2.5624760787177365
+  },
+  {
+    "source_run": "validation_partB_stress_p0.04",
+    "layout_tag": "stageA-b9-identity",
+    "block_size": 9,
+    "logical_order": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]",
+    "profile_path": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+    "scan_easy_seconds": 0.20820483850548044,
+    "scan_hard_seconds": 0.3928052290575579,
+    "scan_mean_seconds": 0.30050503378151916
+  },
+  {
+    "source_run": "validation_partB_stress_p0.05",
+    "layout_tag": "stageA-b12-identity",
+    "block_size": 12,
+    "logical_order": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]",
+    "profile_path": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+    "scan_easy_seconds": 2.5622682004468516,
+    "scan_hard_seconds": 2.5626839569886215,
+    "scan_mean_seconds": 2.5624760787177365
+  },
+  {
+    "source_run": "validation_partB_stress_p0.05",
+    "layout_tag": "stageA-b9-identity",
+    "block_size": 9,
+    "logical_order": "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]",
+    "profile_path": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+    "scan_easy_seconds": 0.20820483850548044,
+    "scan_hard_seconds": 0.3928052290575579,
+    "scan_mean_seconds": 0.30050503378151916
+  }
+]

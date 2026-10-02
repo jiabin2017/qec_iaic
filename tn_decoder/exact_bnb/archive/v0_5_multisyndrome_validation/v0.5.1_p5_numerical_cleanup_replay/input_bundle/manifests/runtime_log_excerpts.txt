@@ -1,0 +1,175 @@
+SOURCE: C:\tsbyttn\projects\qldpc\tn_decoder\exact_bnb\v0_5_multisyndrome_validation\output-partA-natural.txt
+1: /home/users/astar/ihpc/youjb/miniconda3/envs/cudaqx-qec/bin/python
+2: /home/users/astar/ihpc/youjb/miniconda3/envs/cudaqx-qec/bin/python
+3: 2.10.0+cu128
+4: True
+5: 1
+6: NVIDIA A100-SXM4-40GB
+7: Sat Sep 19 10:08:19 +08 2026
+8: BB72 multi-syndrome validation
+9: n = 72 k = 12
+10: layouts = 6 ['stageA-b9-identity', 'stageA-b10-identity', 'stageA-b6-identity', 'stageA-b12-identity', 'stageB-b9-random-1', 'stageB-b9-reverse']
+11: datasets = [('natural_p0p005', 5000), ('natural_p0p01', 5000), ('natural_p0p02', 5000), ('natural_p0p03', 5000), ('natural_p0p04', 5000), ('natural_p0p05', 5000), ('stress_w2-3-4-5_p0p005', 0)]
+12: database = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partA_natural/results.sqlite
+13: resume behavior: existing (layout,dataset,shot_id) rows are skipped
+14: 
+15: ========================================================================================
+16: LAYOUT 1/6: stageA-b9-identity
+17: block_size = 9 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+18: topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (9, 10, 11)]
+19: profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+20:   preparing decoder for p=0.005
+21: (Re-)set contractor: cutensornet on device: cuda with backend: numpy
+22: Using dtype: float64
+128: Using dtype: float64
+233: Using dtype: float64
+338: Using dtype: float64
+443: Using dtype: float64
+548: Using dtype: float64
+659: Using dtype: float64
+765: Using dtype: float64
+870: Using dtype: float64
+975: Using dtype: float64
+1080: Using dtype: float64
+1185: Using dtype: float64
+1296: Using dtype: float64
+1402: Using dtype: float64
+1507: Using dtype: float64
+1612: Using dtype: float64
+1717: Using dtype: float64
+1822: Using dtype: float64
+1927: LAYOUT 4/6: stageA-b12-identity
+1928: block_size = 12 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+1929: topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)]
+1930: profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+1931:   preparing decoder for p=0.005
+1932: (Re-)set contractor: cutensornet on device: cuda with backend: numpy
+1933: Using dtype: float64
+2039: Using dtype: float64
+2144: Using dtype: float64
+2249: Using dtype: float64
+2354: Using dtype: float64
+2459: Using dtype: float64
+2570: Using dtype: float64
+2676: Using dtype: float64
+2781: Using dtype: float64
+2886: Using dtype: float64
+2991: Using dtype: float64
+3096: Using dtype: float64
+3207: Using dtype: float64
+3313: Using dtype: float64
+3418: Using dtype: float64
+3523: Using dtype: float64
+3628: Using dtype: float64
+3733: Using dtype: float64
+3837: ALL REQUESTED LAYOUTS/DATASETS COMPLETE
+3842: exit status = 0
+
+SOURCE: C:\tsbyttn\projects\qldpc\tn_decoder\exact_bnb\v0_5_multisyndrome_validation\output-partB-stress.txt
+1: /home/users/astar/ihpc/youjb/miniconda3/envs/cudaqx-qec/bin/python
+2: /home/users/astar/ihpc/youjb/miniconda3/envs/cudaqx-qec/bin/python
+3: 2.10.0+cu128
+4: True
+5: 1
+6: NVIDIA A100-SXM4-40GB
+7: Mon Sep 21 23:51:37 +08 2026
+8: ========================================
+9: START STRESS p=0.005
+10: Mon Sep 21 23:51:37 +08 2026
+11: BB72 multi-syndrome validation
+12: n = 72 k = 12
+13: layouts = 6 ['stageA-b9-identity', 'stageA-b10-identity', 'stageA-b6-identity', 'stageA-b12-identity', 'stageB-b9-random-1', 'stageB-b9-reverse']
+14: datasets = [('natural_p0p005', 0), ('stress_w2-3-4-5_p0p005', 5000)]
+15: database = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/validation_partB_stress_p0.005/results.sqlite
+16: resume behavior: existing (layout,dataset,shot_id) rows are skipped
+19: LAYOUT 1/6: stageA-b9-identity
+20: block_size = 9 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+21: topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (9, 10, 11)]
+22: profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+23:   p=0.005: all datasets already complete; skip decoder creation
+24: 
+40: LAYOUT 4/6: stageA-b12-identity
+41: block_size = 12 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+42: topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)]
+43: profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+44:   p=0.005: all datasets already complete; skip decoder creation
+45: 
+60: ALL REQUESTED LAYOUTS/DATASETS COMPLETE
+77: LAYOUT 1/6: stageA-b9-identity
+78: block_size = 9 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+79: topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (9, 10, 11)]
+80: profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+81:   p=0.01: all datasets already complete; skip decoder creation
+82: 
+98: LAYOUT 4/6: stageA-b12-identity
+99: block_size = 12 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+100: topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)]
+101: profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+102:   p=0.01: all datasets already complete; skip decoder creation
+103: 
+118: ALL REQUESTED LAYOUTS/DATASETS COMPLETE
+135: LAYOUT 1/6: stageA-b9-identity
+136: block_size = 9 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+137: topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (9, 10, 11)]
+138: profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+139:   p=0.02: all datasets already complete; skip decoder creation
+140: 
+156: LAYOUT 4/6: stageA-b12-identity
+157: block_size = 12 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+158: topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)]
+159: profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+160:   p=0.02: all datasets already complete; skip decoder creation
+161: 
+176: ALL REQUESTED LAYOUTS/DATASETS COMPLETE
+193: LAYOUT 1/6: stageA-b9-identity
+194: block_size = 9 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+195: topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (9, 10, 11)]
+196: profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+197:   p=0.03: all datasets already complete; skip decoder creation
+198: 
+214: LAYOUT 4/6: stageA-b12-identity
+215: block_size = 12 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+216: topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)]
+217: profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+218:   p=0.03: all datasets already complete; skip decoder creation
+219: 
+234: Using dtype: float64
+265: ALL REQUESTED LAYOUTS/DATASETS COMPLETE
+282: LAYOUT 1/6: stageA-b9-identity
+283: block_size = 9 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+284: topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (9, 10, 11)]
+285: profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+286:   preparing decoder for p=0.04
+287: (Re-)set contractor: cutensornet on device: cuda with backend: numpy
+288: Using dtype: float64
+400: Using dtype: float64
+512: Using dtype: float64
+618: LAYOUT 4/6: stageA-b12-identity
+619: block_size = 12 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+620: topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)]
+621: profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+622:   preparing decoder for p=0.04
+623: (Re-)set contractor: cutensornet on device: cuda with backend: numpy
+624: Using dtype: float64
+736: Using dtype: float64
+848: Using dtype: float64
+953: ALL REQUESTED LAYOUTS/DATASETS COMPLETE
+970: LAYOUT 1/6: stageA-b9-identity
+971: block_size = 9 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+972: topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (9, 10, 11)]
+973: profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+974:   preparing decoder for p=0.05
+975: (Re-)set contractor: cutensornet on device: cuda with backend: numpy
+976: Using dtype: float64
+1088: Using dtype: float64
+1200: Using dtype: float64
+1306: LAYOUT 4/6: stageA-b12-identity
+1307: block_size = 12 order = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+1308: topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)]
+1309: profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+1310:   preparing decoder for p=0.05
+1311: (Re-)set contractor: cutensornet on device: cuda with backend: numpy
+1312: Using dtype: float64
+1424: Using dtype: float64
+1536: Using dtype: float64
+1641: ALL REQUESTED LAYOUTS/DATASETS COMPLETE

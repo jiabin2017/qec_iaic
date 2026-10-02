@@ -1,0 +1,94 @@
+{
+  "imports": {
+    "run_bb72_multisyndrome_validation.py": [
+      "__future__",
+      "argparse",
+      "collections",
+      "cupy",
+      "exact_block_bnb",
+      "gc",
+      "json",
+      "multi_logical_tensor_network_decoder",
+      "numpy",
+      "os",
+      "p5_utils",
+      "pathlib",
+      "qldpc",
+      "qldpc.objects",
+      "sqlite3",
+      "sympy.abc",
+      "time",
+      "torch",
+      "validation_utils"
+    ],
+    "validation_utils.py": [
+      "__future__",
+      "csv",
+      "dataclasses",
+      "hashlib",
+      "json",
+      "math",
+      "numpy",
+      "pathlib",
+      "sqlite3",
+      "typing"
+    ],
+    "p5_utils.py": [
+      "__future__",
+      "dataclasses",
+      "numpy",
+      "re",
+      "typing"
+    ],
+    "multi_logical_tensor_network_decoder.py": [
+      "__future__",
+      "collections",
+      "cudaq_qec.plugins.decoders.tensor_network_decoder",
+      "cudaq_qec.plugins.decoders.tensor_network_utils.contractors",
+      "cudaq_qec.plugins.decoders.tensor_network_utils.tensor_network_factory",
+      "cupy",
+      "cuquantum.bindings",
+      "cuquantum.tensornet",
+      "dataclasses",
+      "numpy",
+      "numpy.typing",
+      "pathlib",
+      "pickle",
+      "quimb.tensor",
+      "re",
+      "torch",
+      "typing"
+    ],
+    "exact_block_bnb.py": [
+      "__future__",
+      "dataclasses",
+      "math",
+      "numpy",
+      "time",
+      "typing"
+    ]
+  },
+  "historical_source_hash_recorded": false,
+  "dependency_provenance": {
+    "Torch": {
+      "value": "2.10.0+cu128",
+      "evidence": "validation job log"
+    },
+    "GPU": {
+      "value": "NVIDIA A100-SXM4-40GB",
+      "evidence": "validation job log"
+    },
+    "cuquantum": {
+      "value": "26.3.2",
+      "evidence": "compiled profile/scan metadata; validation installation not independently version-logged"
+    },
+    "cudaqx_commit_target": {
+      "value": "3d75f56c469343d1a7e9ecb133dccb8ad11aeb99",
+      "evidence": "local decoder docstring target, not proof of installed commit"
+    },
+    "qldpc": "version not recorded",
+    "quimb": "version not recorded",
+    "numpy": "runtime version not recorded",
+    "cupy": "version not recorded"
+  }
+}

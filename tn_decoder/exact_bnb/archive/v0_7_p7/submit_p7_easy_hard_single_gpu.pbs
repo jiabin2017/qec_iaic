@@ -1,0 +1,34 @@
+#!/bin/bash
+#PBS -q normal
+#PBS -l select=1:ngpus=1:mpiprocs=1:ompthreads=1
+#PBS -l walltime=24:00:00
+#PBS -P 13004445
+#PBS -j oe
+#PBS -o output-bb72-p7-easy-hard.txt
+#PBS -N bb72-p7
+
+cd "${PBS_O_WORKDIR:-$(pwd)}" || exit 1
+source ~/miniconda3/etc/profile.d/conda.sh
+conda activate cudaqx-qec || exit 1
+
+echo "===== START ====="
+date
+hostname
+which python
+python -c "import sys; print(sys.executable)"
+python -c "import torch; print(torch.__version__); print(torch.cuda.is_available()); print(torch.cuda.device_count()); print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'NO GPU')"
+
+python run_bb72_p7_easy_hard.py \
+  --modes baseline,p7_always,p7_adaptive \
+  --warmup 1 \
+  --repeats 5 \
+  --p7-cache-budget 8GB \
+  --p7-max-entry 2GB \
+  --p7-max-dependency-bits 6 \
+  --output-dir p7_easy_hard_results
+
+status=$?
+echo "===== FINISHED ====="
+date
+echo "exit status = ${status}"
+exit ${status}

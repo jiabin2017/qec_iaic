@@ -1,0 +1,194 @@
+{
+  "version": "v0.6",
+  "optimization": "P6 same-level final-parent micro-batching",
+  "bb72": {
+    "n": 72,
+    "k": 12,
+    "block_size": 9,
+    "logical_order": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ]
+  },
+  "p": 0.005,
+  "profile": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_6_p6/profiles/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+  "settings": {
+    "memory_limit": "50%",
+    "guard_rtol": 1e-12,
+    "constant_cache": true,
+    "gpu_resident_operands": true,
+    "retain_scratch": false,
+    "warmup": 1,
+    "repeats": 5
+  },
+  "cases": {
+    "easy": {
+      "error_indices": [
+        28
+      ],
+      "error_weight": 1,
+      "syndrome_weight": 3,
+      "true_lambda": "000000000000"
+    },
+    "hard": {
+      "error_indices": [
+        0,
+        27,
+        30
+      ],
+      "error_weight": 3,
+      "syndrome_weight": 3,
+      "true_lambda": "100110011001"
+    }
+  },
+  "rows": [
+    {
+      "mode": "sequential",
+      "parent_batch_size": 1,
+      "case": "easy",
+      "wall_median_s": 0.20706481102388352,
+      "wall_min_s": 0.20694290401297621,
+      "wall_max_s": 0.2071824690210633,
+      "oracle_calls_median": 2.0,
+      "batch_calls_median": 0.0,
+      "batched_parent_queries_median": 0.0,
+      "wasted_batched_parents_median": 0.0,
+      "leaves_median": 1.0,
+      "pruned_leaves_median": 4095.0,
+      "best_probability": 0.9999999955333834,
+      "best_lambda": "000000000000",
+      "true_lambda": "000000000000",
+      "call_counter_example": "{\"single:0-1-2-3-4-5-6-7-8\": 1, \"single:9-10-11\": 1}"
+    },
+    {
+      "mode": "sequential",
+      "parent_batch_size": 1,
+      "case": "hard",
+      "wall_median_s": 0.39030936697963625,
+      "wall_min_s": 0.39022813900373876,
+      "wall_max_s": 0.3908208080101758,
+      "oracle_calls_median": 4.0,
+      "batch_calls_median": 0.0,
+      "batched_parent_queries_median": 0.0,
+      "wasted_batched_parents_median": 0.0,
+      "leaves_median": 3.0,
+      "pruned_leaves_median": 4093.0,
+      "best_probability": 0.3333164874732356,
+      "best_lambda": "111011000000",
+      "true_lambda": "100110011001",
+      "call_counter_example": "{\"single:0-1-2-3-4-5-6-7-8\": 1, \"single:9-10-11\": 3}"
+    },
+    {
+      "mode": "batch2",
+      "parent_batch_size": 2,
+      "case": "easy",
+      "wall_median_s": 0.20711857598507777,
+      "wall_min_s": 0.20696981699438766,
+      "wall_max_s": 0.20746808298281394,
+      "oracle_calls_median": 2.0,
+      "batch_calls_median": 0.0,
+      "batched_parent_queries_median": 0.0,
+      "wasted_batched_parents_median": 0.0,
+      "leaves_median": 1.0,
+      "pruned_leaves_median": 4095.0,
+      "best_probability": 0.9999999955333834,
+      "best_lambda": "000000000000",
+      "true_lambda": "000000000000",
+      "call_counter_example": "{\"single:0-1-2-3-4-5-6-7-8\": 1, \"single:9-10-11\": 1}"
+    },
+    {
+      "mode": "batch2",
+      "parent_batch_size": 2,
+      "case": "hard",
+      "wall_median_s": 0.393871924985433,
+      "wall_min_s": 0.3938484899990726,
+      "wall_max_s": 0.3940660009975545,
+      "oracle_calls_median": 3.0,
+      "batch_calls_median": 1.0,
+      "batched_parent_queries_median": 2.0,
+      "wasted_batched_parents_median": 0.0,
+      "leaves_median": 3.0,
+      "pruned_leaves_median": 4093.0,
+      "best_probability": 0.3333164874732356,
+      "best_lambda": "111011000000",
+      "true_lambda": "100110011001",
+      "call_counter_example": "{\"batch2:9-10-11\": 1, \"single:0-1-2-3-4-5-6-7-8\": 1, \"single:9-10-11\": 1}"
+    },
+    {
+      "mode": "batch4",
+      "parent_batch_size": 4,
+      "case": "easy",
+      "wall_median_s": 0.20696469701942988,
+      "wall_min_s": 0.20691889798035845,
+      "wall_max_s": 0.20735704799881205,
+      "oracle_calls_median": 2.0,
+      "batch_calls_median": 0.0,
+      "batched_parent_queries_median": 0.0,
+      "wasted_batched_parents_median": 0.0,
+      "leaves_median": 1.0,
+      "pruned_leaves_median": 4095.0,
+      "best_probability": 0.9999999955333834,
+      "best_lambda": "000000000000",
+      "true_lambda": "000000000000",
+      "call_counter_example": "{\"single:0-1-2-3-4-5-6-7-8\": 1, \"single:9-10-11\": 1}"
+    },
+    {
+      "mode": "batch4",
+      "parent_batch_size": 4,
+      "case": "hard",
+      "wall_median_s": 0.39406968900584616,
+      "wall_min_s": 0.3938064780086279,
+      "wall_max_s": 0.3943557729944587,
+      "oracle_calls_median": 3.0,
+      "batch_calls_median": 1.0,
+      "batched_parent_queries_median": 2.0,
+      "wasted_batched_parents_median": 0.0,
+      "leaves_median": 3.0,
+      "pruned_leaves_median": 4093.0,
+      "best_probability": 0.3333164874732356,
+      "best_lambda": "111011000000",
+      "true_lambda": "100110011001",
+      "call_counter_example": "{\"batch2:9-10-11\": 1, \"single:0-1-2-3-4-5-6-7-8\": 1, \"single:9-10-11\": 1}"
+    }
+  ],
+  "consistency_checks": [
+    {
+      "mode": "batch2",
+      "case": "easy",
+      "probability_abs_diff_vs_sequential": 0.0,
+      "easy_lambda_equal": true,
+      "pass": true
+    },
+    {
+      "mode": "batch2",
+      "case": "hard",
+      "probability_abs_diff_vs_sequential": 0.0,
+      "easy_lambda_equal": null,
+      "pass": true
+    },
+    {
+      "mode": "batch4",
+      "case": "easy",
+      "probability_abs_diff_vs_sequential": 0.0,
+      "easy_lambda_equal": true,
+      "pass": true
+    },
+    {
+      "mode": "batch4",
+      "case": "hard",
+      "probability_abs_diff_vs_sequential": 0.0,
+      "easy_lambda_equal": null,
+      "pass": true
+    }
+  ]
+}

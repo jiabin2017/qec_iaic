@@ -1,0 +1,21 @@
+{
+  "block_size": 6,
+  "logical_order": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "profile_path": "p5_scan/paths_b6_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+  "easy_median_seconds": 1.0694197654956952,
+  "hard_median_seconds": 1.973436546511948,
+  "mean_easy_hard_seconds": 1.5214281560038216
+}

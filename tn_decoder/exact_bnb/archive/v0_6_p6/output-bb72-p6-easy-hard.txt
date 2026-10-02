@@ -1,0 +1,96 @@
+/home/users/astar/ihpc/youjb/miniconda3/envs/cudaqx-qec/bin/python
+/home/users/astar/ihpc/youjb/miniconda3/envs/cudaqx-qec/bin/python
+2.10.0+cu128
+True
+1
+NVIDIA A100-SXM4-40GB
+Thu Sep 24 23:51:25 +08 2026
+===== BB72 v0.6 / P6 =====
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_6_p6/profiles/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+p = 0.005
+batch sizes = [1, 2, 4]
+repeats = 5 warmup = 1
+P2 constant cache = True
+P3 GPU resident = True
+P4 retain scratch = False
+easy: error=[28] wt=1 syndrome_wt=3 true_lambda=000000000000
+hard: error=[0, 27, 30] wt=3 syndrome_wt=3 true_lambda=100110011001
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+========================================================================
+MODE sequential parent_batch_size= 1
+profile topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), (9, 10, 11)]
+sequential easy rep=1: wall=0.207182s physical_oracles=2 batch_calls=0 batched_parents=0 wasted=0 leaves=1 P=0.999999995533383 lambda=000000000000
+sequential easy rep=2: wall=0.206978s physical_oracles=2 batch_calls=0 batched_parents=0 wasted=0 leaves=1 P=0.999999995533383 lambda=000000000000
+sequential easy rep=3: wall=0.207162s physical_oracles=2 batch_calls=0 batched_parents=0 wasted=0 leaves=1 P=0.999999995533383 lambda=000000000000
+sequential easy rep=4: wall=0.207065s physical_oracles=2 batch_calls=0 batched_parents=0 wasted=0 leaves=1 P=0.999999995533383 lambda=000000000000
+sequential easy rep=5: wall=0.206943s physical_oracles=2 batch_calls=0 batched_parents=0 wasted=0 leaves=1 P=0.999999995533383 lambda=000000000000
+sequential hard rep=1: wall=0.390821s physical_oracles=4 batch_calls=0 batched_parents=0 wasted=0 leaves=3 P=0.333316487473236 lambda=111011000000
+sequential hard rep=2: wall=0.390472s physical_oracles=4 batch_calls=0 batched_parents=0 wasted=0 leaves=3 P=0.333316487473236 lambda=111011000000
+sequential hard rep=3: wall=0.390309s physical_oracles=4 batch_calls=0 batched_parents=0 wasted=0 leaves=3 P=0.333316487473236 lambda=111011000000
+sequential hard rep=4: wall=0.390228s physical_oracles=4 batch_calls=0 batched_parents=0 wasted=0 leaves=3 P=0.333316487473236 lambda=111011000000
+sequential hard rep=5: wall=0.390301s physical_oracles=4 batch_calls=0 batched_parents=0 wasted=0 leaves=3 P=0.333316487473236 lambda=111011000000
+fast cache info after mode:
+{'key': ((0, 1, 2, 3, 4, 5, 6, 7, 8), 'cutensornet', 'numpy', 'float64', 0, True, True), 'open_logicals': (0, 1, 2, 3, 4, 5, 6, 7, 8), 'p6_batch_size': 1, 'hits': 11, 'autotuned': False, 'uses_constant_qualifiers': True, 'gpu_resident_operands': True, 'p2_cache_requested': True, 'p2_cache_retained': True, 'scratch_only_release_supported': True, 'p4_retain_scratch_requested': False, 'p4_scratch_retained': False, 'p4_scratch_reuse_hits': 0, 'p4_scratch_evictions': 0, 'constant_operands': 84, 'variable_operands': 39, 'path_source': 'compiled_profile', 'largest_intermediate': 33554432.0, 'opt_cost': 143592875392.0, 'num_slices': 16, 'workspace_scratch_size': 603980032, 'workspace_cache_size': 1060864, 'scratch_workspace_live': False, 'cache_workspace_live': True}
+{'key': ((9, 10, 11), 'cutensornet', 'numpy', 'float64', 0, True, True), 'open_logicals': (9, 10, 11), 'p6_batch_size': 1, 'hits': 23, 'autotuned': False, 'uses_constant_qualifiers': True, 'gpu_resident_operands': True, 'p2_cache_requested': True, 'p2_cache_retained': True, 'scratch_only_release_supported': True, 'p4_retain_scratch_requested': False, 'p4_scratch_retained': False, 'p4_scratch_reuse_hits': 0, 'p4_scratch_evictions': 0, 'constant_operands': 84, 'variable_operands': 45, 'path_source': 'compiled_profile', 'largest_intermediate': 268435456.0, 'opt_cost': 140468968936.0, 'num_slices': 1, 'workspace_scratch_size': 6476005632, 'workspace_cache_size': 1707008, 'scratch_workspace_live': False, 'cache_workspace_live': True}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+========================================================================
+MODE batch2 parent_batch_size= 2
+profile topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), (9, 10, 11)]
+batch2     easy rep=1: wall=0.207468s physical_oracles=2 batch_calls=0 batched_parents=0 wasted=0 leaves=1 P=0.999999995533383 lambda=000000000000
+batch2     easy rep=2: wall=0.206970s physical_oracles=2 batch_calls=0 batched_parents=0 wasted=0 leaves=1 P=0.999999995533383 lambda=000000000000
+batch2     easy rep=3: wall=0.207119s physical_oracles=2 batch_calls=0 batched_parents=0 wasted=0 leaves=1 P=0.999999995533383 lambda=000000000000
+batch2     easy rep=4: wall=0.207129s physical_oracles=2 batch_calls=0 batched_parents=0 wasted=0 leaves=1 P=0.999999995533383 lambda=000000000000
+batch2     easy rep=5: wall=0.206972s physical_oracles=2 batch_calls=0 batched_parents=0 wasted=0 leaves=1 P=0.999999995533383 lambda=000000000000
+batch2     hard rep=1: wall=0.394058s physical_oracles=3 batch_calls=1 batched_parents=2 wasted=0 leaves=3 P=0.333316487473236 lambda=111011000000
+batch2     hard rep=2: wall=0.393866s physical_oracles=3 batch_calls=1 batched_parents=2 wasted=0 leaves=3 P=0.333316487473236 lambda=111011000000
+batch2     hard rep=3: wall=0.393872s physical_oracles=3 batch_calls=1 batched_parents=2 wasted=0 leaves=3 P=0.333316487473236 lambda=111011000000
+batch2     hard rep=4: wall=0.393848s physical_oracles=3 batch_calls=1 batched_parents=2 wasted=0 leaves=3 P=0.333316487473236 lambda=111011000000
+batch2     hard rep=5: wall=0.394066s physical_oracles=3 batch_calls=1 batched_parents=2 wasted=0 leaves=3 P=0.333316487473236 lambda=111011000000
+fast cache info after mode:
+{'key': ((0, 1, 2, 3, 4, 5, 6, 7, 8), 'cutensornet', 'numpy', 'float64', 0, True, True), 'open_logicals': (0, 1, 2, 3, 4, 5, 6, 7, 8), 'p6_batch_size': 1, 'hits': 11, 'autotuned': False, 'uses_constant_qualifiers': True, 'gpu_resident_operands': True, 'p2_cache_requested': True, 'p2_cache_retained': True, 'scratch_only_release_supported': True, 'p4_retain_scratch_requested': False, 'p4_scratch_retained': False, 'p4_scratch_reuse_hits': 0, 'p4_scratch_evictions': 0, 'constant_operands': 84, 'variable_operands': 39, 'path_source': 'compiled_profile', 'largest_intermediate': 33554432.0, 'opt_cost': 143592875392.0, 'num_slices': 16, 'workspace_scratch_size': 603980032, 'workspace_cache_size': 1060864, 'scratch_workspace_live': False, 'cache_workspace_live': True}
+{'key': ((9, 10, 11), 'cutensornet', 'numpy', 'float64', 0, True, True), 'open_logicals': (9, 10, 11), 'p6_batch_size': 1, 'hits': 11, 'autotuned': False, 'uses_constant_qualifiers': True, 'gpu_resident_operands': True, 'p2_cache_requested': True, 'p2_cache_retained': True, 'scratch_only_release_supported': True, 'p4_retain_scratch_requested': False, 'p4_scratch_retained': False, 'p4_scratch_reuse_hits': 0, 'p4_scratch_evictions': 0, 'constant_operands': 84, 'variable_operands': 45, 'path_source': 'compiled_profile', 'largest_intermediate': 268435456.0, 'opt_cost': 140468968936.0, 'num_slices': 1, 'workspace_scratch_size': 6476005632, 'workspace_cache_size': 1707008, 'scratch_workspace_live': False, 'cache_workspace_live': True}
+{'key': ('P6_BATCH', (9, 10, 11), 2, 'cutensornet', 'numpy', 'float64', 0, True, True), 'open_logicals': (9, 10, 11), 'p6_batch_size': 2, 'hits': 5, 'autotuned': False, 'uses_constant_qualifiers': True, 'gpu_resident_operands': True, 'p2_cache_requested': True, 'p2_cache_retained': True, 'scratch_only_release_supported': True, 'p4_retain_scratch_requested': False, 'p4_scratch_retained': False, 'p4_scratch_reuse_hits': 0, 'p4_scratch_evictions': 0, 'constant_operands': 84, 'variable_operands': 45, 'path_source': 'compiled_profile_reused_for_batch', 'largest_intermediate': 536870912.0, 'opt_cost': 280765639920.0, 'num_slices': 1, 'workspace_scratch_size': 12918456576, 'workspace_cache_size': 1707008, 'scratch_workspace_live': False, 'cache_workspace_live': True}
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+
+========================================================================
+MODE batch4 parent_batch_size= 4
+profile topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), (9, 10, 11)]
+batch4     easy rep=1: wall=0.207357s physical_oracles=2 batch_calls=0 batched_parents=0 wasted=0 leaves=1 P=0.999999995533383 lambda=000000000000
+batch4     easy rep=2: wall=0.206965s physical_oracles=2 batch_calls=0 batched_parents=0 wasted=0 leaves=1 P=0.999999995533383 lambda=000000000000
+batch4     easy rep=3: wall=0.206967s physical_oracles=2 batch_calls=0 batched_parents=0 wasted=0 leaves=1 P=0.999999995533383 lambda=000000000000
+batch4     easy rep=4: wall=0.206919s physical_oracles=2 batch_calls=0 batched_parents=0 wasted=0 leaves=1 P=0.999999995533383 lambda=000000000000
+batch4     easy rep=5: wall=0.206964s physical_oracles=2 batch_calls=0 batched_parents=0 wasted=0 leaves=1 P=0.999999995533383 lambda=000000000000
+batch4     hard rep=1: wall=0.394349s physical_oracles=3 batch_calls=1 batched_parents=2 wasted=0 leaves=3 P=0.333316487473236 lambda=111011000000
+batch4     hard rep=2: wall=0.394356s physical_oracles=3 batch_calls=1 batched_parents=2 wasted=0 leaves=3 P=0.333316487473236 lambda=111011000000
+batch4     hard rep=3: wall=0.393980s physical_oracles=3 batch_calls=1 batched_parents=2 wasted=0 leaves=3 P=0.333316487473236 lambda=111011000000
+batch4     hard rep=4: wall=0.393806s physical_oracles=3 batch_calls=1 batched_parents=2 wasted=0 leaves=3 P=0.333316487473236 lambda=111011000000
+batch4     hard rep=5: wall=0.394070s physical_oracles=3 batch_calls=1 batched_parents=2 wasted=0 leaves=3 P=0.333316487473236 lambda=111011000000
+fast cache info after mode:
+{'key': ((0, 1, 2, 3, 4, 5, 6, 7, 8), 'cutensornet', 'numpy', 'float64', 0, True, True), 'open_logicals': (0, 1, 2, 3, 4, 5, 6, 7, 8), 'p6_batch_size': 1, 'hits': 11, 'autotuned': False, 'uses_constant_qualifiers': True, 'gpu_resident_operands': True, 'p2_cache_requested': True, 'p2_cache_retained': True, 'scratch_only_release_supported': True, 'p4_retain_scratch_requested': False, 'p4_scratch_retained': False, 'p4_scratch_reuse_hits': 0, 'p4_scratch_evictions': 0, 'constant_operands': 84, 'variable_operands': 39, 'path_source': 'compiled_profile', 'largest_intermediate': 33554432.0, 'opt_cost': 143592875392.0, 'num_slices': 16, 'workspace_scratch_size': 603980032, 'workspace_cache_size': 1060864, 'scratch_workspace_live': False, 'cache_workspace_live': True}
+{'key': ((9, 10, 11), 'cutensornet', 'numpy', 'float64', 0, True, True), 'open_logicals': (9, 10, 11), 'p6_batch_size': 1, 'hits': 11, 'autotuned': False, 'uses_constant_qualifiers': True, 'gpu_resident_operands': True, 'p2_cache_requested': True, 'p2_cache_retained': True, 'scratch_only_release_supported': True, 'p4_retain_scratch_requested': False, 'p4_scratch_retained': False, 'p4_scratch_reuse_hits': 0, 'p4_scratch_evictions': 0, 'constant_operands': 84, 'variable_operands': 45, 'path_source': 'compiled_profile', 'largest_intermediate': 268435456.0, 'opt_cost': 140468968936.0, 'num_slices': 1, 'workspace_scratch_size': 6476005632, 'workspace_cache_size': 1707008, 'scratch_workspace_live': False, 'cache_workspace_live': True}
+{'key': ('P6_BATCH', (9, 10, 11), 2, 'cutensornet', 'numpy', 'float64', 0, True, True), 'open_logicals': (9, 10, 11), 'p6_batch_size': 2, 'hits': 5, 'autotuned': False, 'uses_constant_qualifiers': True, 'gpu_resident_operands': True, 'p2_cache_requested': True, 'p2_cache_retained': True, 'scratch_only_release_supported': True, 'p4_retain_scratch_requested': False, 'p4_scratch_retained': False, 'p4_scratch_reuse_hits': 0, 'p4_scratch_evictions': 0, 'constant_operands': 84, 'variable_operands': 45, 'path_source': 'compiled_profile_reused_for_batch', 'largest_intermediate': 536870912.0, 'opt_cost': 280765639920.0, 'num_slices': 1, 'workspace_scratch_size': 12918456576, 'workspace_cache_size': 1707008, 'scratch_workspace_live': False, 'cache_workspace_live': True}
+
+===== SUMMARY =====
+sequential easy: median=0.207065s physical_oracles=2.0 batch_calls=0.0 batched_parents=0.0
+sequential hard: median=0.390309s physical_oracles=4.0 batch_calls=0.0 batched_parents=0.0
+batch2     easy: median=0.207119s physical_oracles=2.0 batch_calls=0.0 batched_parents=0.0
+batch2     hard: median=0.393872s physical_oracles=3.0 batch_calls=1.0 batched_parents=2.0
+batch4     easy: median=0.206965s physical_oracles=2.0 batch_calls=0.0 batched_parents=0.0
+batch4     hard: median=0.394070s physical_oracles=3.0 batch_calls=1.0 batched_parents=2.0
+
+Speedups versus sequential:
+batch2     easy: 0.9997x
+batch2     hard: 0.9910x
+batch4     easy: 1.0005x
+batch4     hard: 0.9905x
+
+consistency checks = [{'mode': 'batch2', 'case': 'easy', 'probability_abs_diff_vs_sequential': 0.0, 'easy_lambda_equal': True, 'pass': True}, {'mode': 'batch2', 'case': 'hard', 'probability_abs_diff_vs_sequential': 0.0, 'easy_lambda_equal': None, 'pass': True}, {'mode': 'batch4', 'case': 'easy', 'probability_abs_diff_vs_sequential': 0.0, 'easy_lambda_equal': True, 'pass': True}, {'mode': 'batch4', 'case': 'hard', 'probability_abs_diff_vs_sequential': 0.0, 'easy_lambda_equal': None, 'pass': True}]
+wrote p6_easy_hard_results/p6_easy_hard_summary.csv
+wrote p6_easy_hard_results/p6_easy_hard_results.json
+Thu Sep 24 23:52:16 +08 2026
+exit status = 0

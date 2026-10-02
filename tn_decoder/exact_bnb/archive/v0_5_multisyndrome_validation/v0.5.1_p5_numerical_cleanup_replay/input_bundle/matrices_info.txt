@@ -1,0 +1,23 @@
+Matrix export status: NOT EXPORTED.
+未导出，需要运行现有 code constructor 重建。
+
+No H_Z, L_Z or L_X arrays are stored in the 19 frozen NPZ files, the seven SQLite schemas,
+the scan JSON configs, or the two matched path profiles. Related local TN directories
+were also searched for saved matrix .npy/.npz files; no run-linked matrix artifact was found.
+No matrices were inferred from errors/syndromes and no constructor was reimplemented.
+
+H_Z actual array shape/dtype: unavailable. Manifest dimensions imply expected (36,72).
+L_Z actual array shape/dtype: unavailable. Manifest dimensions imply expected (12,72).
+L_X actual array shape/dtype: unavailable; no saved L_X artifact.
+Current source constructor casts all three arrays to np.uint8. This is a SOURCE definition,
+not a measured dtype of an exported runtime matrix.
+LX @ LZ.T mod 2 == I: NOT independently checked in this extraction (arrays unavailable).
+The existing build_bb72() constructor contains this check and raises on failure.
+
+Existing constructor: source/run_bb72_multisyndrome_validation.py, build_bb72().
+It calls qldpc.codes.BBCode({x:6,y:6}, x**3+y+y**2, y**3+x+x**2), then code.matrix_z,
+code.get_logical_ops(Pauli.Z), code.get_logical_ops(Pauli.X).
+The local extraction runtime lacks qldpc, sympy, quimb and cudaq_qec. No packages were
+installed and no decoder or constructor was executed for this extraction.
+The run did not record the installed qldpc version or a frozen logical basis. A rebuilt
+basis must be checked against the supplied frozen syndromes and true_lambdas before use.

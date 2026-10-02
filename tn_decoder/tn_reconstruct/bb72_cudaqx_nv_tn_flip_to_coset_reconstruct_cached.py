@@ -23,6 +23,7 @@ from common.bb72_tn_common import (
     make_cache_entry,
     mask_to_bitstring,
     optimize_decoder_path,
+    query_flip_probability_with_fallback,
     reconstruct_coset_probs,
     restore_cached_path,
 )
@@ -251,6 +252,11 @@ def main() -> int:
     cache_entries_written = 0
     pending_new_cache_entries = 0
     queried_masks = 0
+    public_failure_count = 0
+    raw_fallback_count = 0
+    raw_clip_count = 0
+    raw_fallback_seconds = 0.0
+    max_raw_relative_negative_mass = 0.0
 
     def maybe_checkpoint_cache(force: bool = False) -> None:
         nonlocal cache_checkpoint_writes
@@ -278,8 +284,19 @@ def main() -> int:
                     "path_cache_hit": False,
                     "path_opt_seconds": 0.0,
                     "decode_seconds": 0.0,
+                    "raw_fallback_seconds": 0.0,
                     "query_total_seconds": 0.0,
                     "queried_decoder": False,
+                    "flip_prob_source": "implicit-zero",
+                    "public_valid": True,
+                    "public_converged": True,
+                    "public_p1": 0.0,
+                    "fallback_reason": "",
+                    "raw_z0": "",
+                    "raw_z1": "",
+                    "raw_p1": "",
+                    "raw_clipped_mass_count": 0,
+                    "raw_relative_negative_mass": 0.0,
                 }
             )
             continue
@@ -323,9 +340,12 @@ def main() -> int:
             else:
                 path_source = "lazy"
 
-        decode_start = time.perf_counter()
         try:
-            result = decoder.decode([float(x) for x in syndrome])
+            query = query_flip_probability_with_fallback(
+                decoder,
+                syndrome,
+                optimize_arg=optimize_arg,
+            )
         except Exception:
             if not cache_hit:
                 raise
@@ -352,10 +372,13 @@ def main() -> int:
                     cache_entries_written += 1
                     pending_new_cache_entries += 1
                     maybe_checkpoint_cache(force=False)
-            decode_start = time.perf_counter()
-            result = decoder.decode([float(x) for x in syndrome])
+            query = query_flip_probability_with_fallback(
+                decoder,
+                syndrome,
+                optimize_arg=optimize_arg,
+            )
 
-        decode_seconds = time.perf_counter() - decode_start
+        decode_seconds = float(query["query_decode_seconds"])
         query_total_seconds = time.perf_counter() - query_start
 
         if (
@@ -370,11 +393,21 @@ def main() -> int:
             pending_new_cache_entries += 1
             maybe_checkpoint_cache(force=False)
 
-        p1 = float(np.asarray(result.result, dtype=np.float64).reshape(-1)[0])
+        p1 = float(query["p1"])
         flip_probabilities[mask_index] = p1
         total_decode_seconds += decode_seconds
+        raw_fallback_seconds += float(query["raw_fallback_seconds"])
         total_query_seconds += query_total_seconds
         queried_masks += 1
+        if not query["public_valid"]:
+            public_failure_count += 1
+        if query["raw_used"]:
+            raw_fallback_count += 1
+        raw_clip_count += int(query["raw_clipped_mass_count"])
+        max_raw_relative_negative_mass = max(
+            max_raw_relative_negative_mass,
+            float(query["raw_relative_negative_mass"]),
+        )
 
         flip_rows.append(
             {
@@ -387,8 +420,19 @@ def main() -> int:
                 "path_cache_hit": cache_hit,
                 "path_opt_seconds": path_seconds,
                 "decode_seconds": decode_seconds,
+                "raw_fallback_seconds": query["raw_fallback_seconds"],
                 "query_total_seconds": query_total_seconds,
                 "queried_decoder": True,
+                "flip_prob_source": query["source"],
+                "public_valid": query["public_valid"],
+                "public_converged": query["public_converged"],
+                "public_p1": query["public_p1"],
+                "fallback_reason": query["fallback_reason"],
+                "raw_z0": "" if query["raw_z0"] is None else query["raw_z0"],
+                "raw_z1": "" if query["raw_z1"] is None else query["raw_z1"],
+                "raw_p1": "" if query["raw_p1"] is None else query["raw_p1"],
+                "raw_clipped_mass_count": query["raw_clipped_mass_count"],
+                "raw_relative_negative_mass": query["raw_relative_negative_mass"],
             }
         )
 
@@ -441,8 +485,19 @@ def main() -> int:
                 "path_cache_hit",
                 "path_opt_seconds",
                 "decode_seconds",
+                "raw_fallback_seconds",
                 "query_total_seconds",
                 "queried_decoder",
+                "flip_prob_source",
+                "public_valid",
+                "public_converged",
+                "public_p1",
+                "fallback_reason",
+                "raw_z0",
+                "raw_z1",
+                "raw_p1",
+                "raw_clipped_mass_count",
+                "raw_relative_negative_mass",
             ],
         )
         writer.writeheader()
@@ -508,8 +563,13 @@ def main() -> int:
         f"cache_invalid_rebuild_count={cache_invalid_rebuild_count}",
         f"lazy_path_capture_count={lazy_path_capture_count}",
         f"implicit_zero_mask_queries=1",
+        f"public_failure_count={public_failure_count}",
+        f"raw_fallback_count={raw_fallback_count}",
+        f"raw_clip_count={raw_clip_count}",
+        f"max_raw_relative_negative_mass={max_raw_relative_negative_mass:.12e}",
         f"total_path_opt_seconds={total_path_opt_seconds:.6f}",
         f"total_decode_seconds={total_decode_seconds:.6f}",
+        f"raw_fallback_seconds={raw_fallback_seconds:.6f}",
         f"total_query_seconds={total_query_seconds:.6f}",
         f"walsh_hadamard_seconds={reconstruct_seconds:.6f}",
         f"total_runtime_seconds={total_runtime_seconds:.6f}",

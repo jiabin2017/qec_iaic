@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BB72 Exact Block Branch-and-Bound TN Decoder — v0.3 Report</title>
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']]
+  },
+  svg: {fontCache: 'global'}
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+  :root {
+    --text: #1f2937;
+    --muted: #6b7280;
+    --border: #d1d5db;
+    --soft: #f8fafc;
+    --accent: #1d4ed8;
+    --accent2: #0f766e;
+    --warn: #92400e;
+    --good: #166534;
+    --ink: #0f172a;
+    --purple: #6d28d9;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 48px 28px 84px;
+    line-height: 1.72;
+    color: var(--text);
+    background: white;
+  }
+
+  h1, h2, h3 { line-height: 1.25; }
+  h1 { font-size: 2.25rem; margin-bottom: 0.35rem; }
+  h2 {
+    font-size: 1.58rem;
+    margin-top: 2.5rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 { font-size: 1.16rem; margin-top: 1.6rem; }
+
+  p { margin: 0.78rem 0; }
+  ul { margin-top: 0.5rem; }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: 1.7rem;
+  }
+
+  .note, .takeaway, .warning, .decision {
+    padding: 14px 18px;
+    margin: 1.15rem 0;
+    border-radius: 8px;
+  }
+  .note { background: var(--soft); border-left: 4px solid var(--accent); }
+  .takeaway { background: #f0fdfa; border-left: 4px solid var(--accent2); }
+  .warning { background: #fff7ed; border-left: 4px solid #ea580c; }
+  .decision { background: #f0fdf4; border-left: 4px solid #16a34a; }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 12px;
+    margin: 1rem 0 1.5rem;
+  }
+  .metric {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    background: white;
+  }
+  .metric .label {
+    font-size: 0.86rem;
+    color: var(--muted);
+    margin-bottom: 0.25rem;
+  }
+  .metric .value {
+    font-size: 1.32rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.6rem;
+    font-size: 0.96rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: var(--soft); }
+
+  code {
+    background: #f3f4f6;
+    padding: 0.1rem 0.25rem;
+    border-radius: 4px;
+    color: var(--ink);
+  }
+  pre {
+    margin: 1rem 0 1.4rem;
+    padding: 16px 18px;
+    border-radius: 10px;
+    border: 1px solid #111827;
+    background: #111827;
+    color: #f8fafc;
+    overflow-x: auto;
+    font-size: 0.92rem;
+    line-height: 1.58;
+  }
+  pre code { background: transparent; color: inherit; padding: 0; }
+
+  figure {
+    margin: 1.4rem 0 1.8rem;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: white;
+    overflow-x: auto;
+  }
+  figcaption {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .small { font-size: 0.92rem; color: var(--muted); }
+  .summary {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-top: 2rem;
+  }
+  .mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 0.92rem;
+  }
+  .good { color: var(--good); font-weight: 600; }
+  .muted { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<h1>BB72 Exact Block Branch-and-Bound Tensor-Network Decoder</h1>
+<div class="subtitle">
+v0.3 engineering report: exact logical-sector search, P0–P4 optimization, and comparison with the earlier NVIDIA top-level parity-query + Walsh–Hadamard reconstruction pipeline.
+</div>
+
+<div class="decision">
+<b>Bottom line.</b> The earlier BB72 tensor-network route reconstructed all \(2^{12}=4096\) logical-sector probabilities by issuing \(4095\) nonzero logical-parity queries and then applying an inverse Walsh–Hadamard transform. The new exact block branch-and-bound decoder instead contracts a multi-logical tensor network that directly returns subtree masses and prunes logical sectors that cannot beat the current incumbent. On the current \(p=0.005\) BB72 tests with block size \(b=3\), the easy syndrome requires 4 oracle contractions and evaluates 1 leaf, while the harder threefold-degenerate syndrome requires 10 oracle contractions and evaluates 3 leaves. Warm v0.3 latency is about 1.88 s and 3.41 s respectively on one A100 40 GB GPU.
+</div>
+
+<h2>0. Motivation for exact branch-and-bound</h2>
+
+<p>
+For BB72, \(k=12\), so the logical posterior contains \(2^{12}=4096\) sectors. The earlier NVIDIA top-level API workflow obtained parity probabilities for all nonzero masks \(a\in\mathbb F_2^{12}\), converted them to parity expectations, and reconstructed the complete logical posterior by an inverse Walsh–Hadamard transform:
+</p>
+
+\[
+p_a(s)=P(a\cdot\lambda=1\mid s),\qquad
+m_a(s)=1-2p_a(s),\qquad m_0=1,
+\]
+
+\[
+P(\lambda\mid s)
+=2^{-12}\sum_{a\in\mathbb F_2^{12}}m_a(s)(-1)^{a\cdot\lambda}.
+\]
+
+<p>
+This is exact, but for decoding it computes much more information than is necessary: the decoder ultimately needs the maximum-likelihood logical sector, not all 4096 probabilities. Even after contraction paths were cached, the previous sweep still executed all 4095 nonzero parity queries for every shot. The average cached full-posterior shot time was 182.25 s, while the Walsh–Hadamard transform itself was only 0.0084 s; the dominant cost was therefore the thousands of tensor-network parity contractions, not the transform.
+</p>
+
+<div class="takeaway">
+<b>Design goal.</b> Replace “enumerate every logical parity and reconstruct the full posterior” with an <b>exact adaptive search</b> that asks only for the subtree masses needed to identify the ML logical sector.
+</div>
+
+<h2>1. Exact block branch-and-bound method</h2>
+
+<h3>1.1 Multi-logical TN oracle</h3>
+<p>
+The new oracle retains several logical indices as open output legs instead of querying one logical parity at a time. For a partial logical assignment \(A\), the tensor network returns the exact subtree mass
+</p>
+
+\[
+W(A)=\sum_{\lambda\supset A} Z_\lambda(s),
+\]
+
+<p>
+where \(Z_\lambda(s)\) is the unnormalized probability mass of logical sector \(\lambda\). Logical bits can be treated in three ways inside one contraction:
+</p>
+
+<table>
+<thead><tr><th>Logical leg state</th><th>TN operation</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td>Fixed to 0</td><td>projector \([1,0]\)</td><td>Condition on that logical bit being 0</td></tr>
+<tr><td>Fixed to 1</td><td>projector \([0,1]\)</td><td>Condition on that logical bit being 1</td></tr>
+<tr><td>Marginalized</td><td>vector \([1,1]\)</td><td>Sum over that logical bit</td></tr>
+<tr><td>Open</td><td>keep as output leg</td><td>Return both values simultaneously</td></tr>
+</tbody>
+</table>
+
+<p>
+With \(b=3\), one contraction returns \(2^3=8\) child masses for the next logical block. The current BB72 ordering is grouped as
+</p>
+
+<pre><code>[0,1,2] -> [3,4,5] -> [6,7,8] -> [9,10,11]</code></pre>
+
+<h3>1.2 Exact pruning rule</h3>
+<p>
+Because all sector masses are nonnegative,
+</p>
+
+\[
+\max_{\lambda\supset A} Z_\lambda(s) \le W(A).
+\]
+
+<p>
+Let \(B\) be the mass of the best complete leaf found so far. Then any branch satisfying
+</p>
+
+\[
+W(A)\le B
+\]
+
+<p>
+can be pruned without losing the ML solution. In float64 contractions, tiny negative residuals can appear from cancellation, so the implementation uses a conservative numerical guard \(\epsilon\) and prunes only when
+</p>
+
+\[
+W_{\rm calc}(A)+\epsilon\le B.
+\]
+
+<p>
+Thus the search is <b>algorithmically exact</b> in exact arithmetic and <b>numerically guarded</b> in the current float64 implementation.
+</p>
+
+<figure>
+<svg viewBox="0 0 980 520" width="100%" role="img" aria-label="Exact block branch-and-bound tree for b equals 3">
+  <rect x="0" y="0" width="980" height="520" fill="white"/>
+  <text x="490" y="34" text-anchor="middle" font-size="22" font-weight="600" fill="#0f172a">Exact block BnB with b = 3</text>
+
+  <rect x="405" y="60" width="170" height="48" rx="9" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+  <text x="490" y="82" text-anchor="middle" font-size="15" fill="#0f172a">root</text>
+  <text x="490" y="101" text-anchor="middle" font-size="12" fill="#6b7280">no logical bits fixed</text>
+
+  <line x1="490" y1="108" x2="490" y2="145" stroke="#64748b" stroke-width="2"/>
+  <rect x="300" y="145" width="380" height="58" rx="9" fill="#f8fafc" stroke="#94a3b8"/>
+  <text x="490" y="168" text-anchor="middle" font-size="14" fill="#0f172a">one TN contraction keeps λ0,λ1,λ2 open</text>
+  <text x="490" y="189" text-anchor="middle" font-size="13" fill="#374151">returns W(000), W(001), …, W(111)</text>
+
+  <line x1="490" y1="203" x2="490" y2="232" stroke="#64748b" stroke-width="2"/>
+  <text x="490" y="226" text-anchor="middle" font-size="12" fill="#6b7280">sort children by subtree mass</text>
+
+  <rect x="90" y="250" width="130" height="56" rx="8" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="155" y="274" text-anchor="middle" font-size="14" fill="#14532d">000</text>
+  <text x="155" y="294" text-anchor="middle" font-size="12" fill="#166534">EXPLORE</text>
+
+  <rect x="255" y="250" width="130" height="56" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="320" y="274" text-anchor="middle" font-size="14" fill="#334155">001</text>
+  <text x="320" y="294" text-anchor="middle" font-size="12" fill="#64748b">PRUNE</text>
+
+  <rect x="420" y="250" width="130" height="56" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="485" y="274" text-anchor="middle" font-size="14" fill="#334155">010</text>
+  <text x="485" y="294" text-anchor="middle" font-size="12" fill="#64748b">PRUNE</text>
+
+  <rect x="585" y="250" width="130" height="56" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="650" y="274" text-anchor="middle" font-size="14" fill="#334155">…</text>
+  <text x="650" y="294" text-anchor="middle" font-size="12" fill="#64748b">PRUNE</text>
+
+  <rect x="750" y="250" width="130" height="56" rx="8" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="815" y="274" text-anchor="middle" font-size="14" fill="#334155">111</text>
+  <text x="815" y="294" text-anchor="middle" font-size="12" fill="#64748b">PRUNE</text>
+
+  <line x1="155" y1="306" x2="155" y2="352" stroke="#16a34a" stroke-width="2"/>
+  <rect x="70" y="352" width="170" height="55" rx="8" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="155" y="375" text-anchor="middle" font-size="14" fill="#14532d">000 | 000</text>
+  <text x="155" y="395" text-anchor="middle" font-size="12" fill="#166534">next b=3 block</text>
+
+  <line x1="155" y1="407" x2="155" y2="448" stroke="#16a34a" stroke-width="2"/>
+  <rect x="52" y="448" width="206" height="48" rx="8" fill="#f0fdf4" stroke="#15803d" stroke-width="2"/>
+  <text x="155" y="470" text-anchor="middle" font-size="14" font-weight="600" fill="#14532d">continue until leaf</text>
+  <text x="155" y="489" text-anchor="middle" font-size="12" fill="#166534">update incumbent B</text>
+
+  <text x="500" y="362" text-anchor="middle" font-size="14" fill="#374151">Prune rule</text>
+  <text x="500" y="388" text-anchor="middle" font-size="17" font-weight="600" fill="#0f172a">W(A) + ε ≤ B  ⇒  prune entire subtree</text>
+  <text x="500" y="418" text-anchor="middle" font-size="13" fill="#6b7280">A single bound can eliminate many complete logical sectors.</text>
+</svg>
+<figcaption><b>Figure 1.</b> One \(b=3\) contraction returns eight exact subtree masses. The decoder explores high-mass children first, obtains a strong incumbent early, and prunes any subtree whose total mass cannot beat that incumbent.</figcaption>
+</figure>
+
+<h3>1.3 Current BB72 validation cases</h3>
+<table>
+<thead>
+<tr><th>Case</th><th>Oracle calls</th><th>Leaves evaluated</th><th>Complete sectors pruned</th><th>Warm wall time</th><th>Validation</th></tr>
+</thead>
+<tbody>
+<tr><td>Easy, weight-1 error at position 28</td><td>4</td><td>1</td><td>4095</td><td>1.878 s</td><td>Same ML sector as full 4096 reference</td></tr>
+<tr><td>Harder same-syndrome / different-logical weight-3 collision</td><td>10</td><td>3</td><td>4093</td><td>3.414 s</td><td>Same ML sector as full 4096 reference; three dominant sectors are ML-equivalent to numerical precision</td></tr>
+</tbody>
+</table>
+
+<div class="note">
+The hard test contains a symmetry-protected threefold degeneracy under homogeneous iid noise. The decoder therefore needs to retain multiple competitive branches; evaluating three leaves is expected behavior rather than a search failure.
+</div>
+
+<h2>2. P0–P4 engineering improvements</h2>
+
+<p>
+The exact BnB algorithm worked before these optimizations, but the first implementation was dominated by repeated path finding, topology preparation, and runtime housekeeping. P0–P4 progressively isolated those costs.
+</p>
+
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Problem addressed</th>
+<th>Implementation</th>
+<th>Observed BB72 effect</th>
+<th>Current conclusion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>P0</b><br>offline contraction-path compilation</td>
+<td>cuTensorNet path optimization was repeatedly paid online and could dominate runtime.</td>
+<td>Tune each fixed logical topology offline; save path + slicing profile and load it at runtime.</td>
+<td>All BnB topologies report <code>path_source='compiled_profile'</code>. Combined with P1, easy cold latency fell from roughly 81.7 s in v0 to 11.16 s in v0.1; the last b=3 block reached one slice in the compiled profile.</td>
+<td class="good">Major win.</td>
+</tr>
+<tr>
+<td><b>P1</b><br>persistent prepared Networks across syndromes</td>
+<td>Rebuilding TN topology for every oracle call or syndrome wasted setup time.</td>
+<td>Keep one prepared cuTensorNet <code>Network</code> per open-logical block and reuse it across calls and syndrome changes.</td>
+<td>v0.1 easy RUN1 ≈ 11.16 s, easy warm RUN2 ≈ 1.876 s. Hard new-syndrome run ≈ 3.40 s after topology preparation.</td>
+<td class="good">Major win.</td>
+</tr>
+<tr>
+<td><b>P2</b><br>constant-intermediate cache</td>
+<td>Code structure, logical tensors, and noise model are unchanged across calls.</td>
+<td>Mark 84 operands constant; retain cuTensorNet CACHE workspace while syndrome and boundary tensors remain variable.</td>
+<td>Total live cache across the four b=3 topologies ≈ 145.6 MB. v0.2 latency remained essentially unchanged: easy ≈ 1.883 s, hard ≈ 3.421 s.</td>
+<td>Functionally correct, but not a BB72 bottleneck.</td>
+</tr>
+<tr>
+<td><b>P3</b><br>GPU-resident operands</td>
+<td>Repeated host-to-device operand upload could become overhead.</td>
+<td>Upload base operands once and update syndrome/projector values in place on GPU.</td>
+<td>Only 199,488 bytes of base operands are resident; <code>base_uploads=1</code>. No measurable latency gain versus v0.1.</td>
+<td>Useful architecture, negligible at this scale.</td>
+</tr>
+<tr>
+<td><b>P4</b><br>scratch-workspace retention</td>
+<td>Each oracle call previously released and reallocated large scratch workspaces.</td>
+<td>Retain scratch per prepared Network with memory-aware budget and eviction support.</td>
+<td>22.68 GB scratch retained, 24 scratch reuse hits, 0 evictions. v0.3 warm easy ≈ 1.878 s and hard ≈ 3.414 s — essentially identical to v0.2.</td>
+<td>Allocation/free is not the current bottleneck.</td>
+</tr>
+</tbody>
+</table>
+
+<div class="takeaway">
+<b>Bottleneck diagnosis.</b> P0 and P1 produced the large speedup. P2–P4 all work as intended, but they do not materially reduce BB72 latency. The remaining cost is now dominated by the tensor contractions themselves, so the next gains must come from reducing contraction work rather than further runtime housekeeping.
+</div>
+
+<h2>3. Focus on v0.3: comparison with the previous NVIDIA top-level API + WHT pipeline</h2>
+
+<h3>3.1 What changed algorithmically</h3>
+
+<figure>
+<svg viewBox="0 0 980 430" width="100%" role="img" aria-label="Old full posterior pipeline versus new exact BnB pipeline">
+  <rect x="0" y="0" width="980" height="430" fill="white"/>
+  <text x="490" y="32" text-anchor="middle" font-size="22" font-weight="600" fill="#0f172a">Old full-posterior route vs exact BnB route</text>
+
+  <text x="245" y="70" text-anchor="middle" font-size="16" font-weight="600" fill="#1d4ed8">Previous NVIDIA top-level API route</text>
+  <rect x="70" y="95" width="350" height="58" rx="9" fill="#eff6ff" stroke="#2563eb"/>
+  <text x="245" y="120" text-anchor="middle" font-size="14" fill="#0f172a">4095 nonzero logical parity masks</text>
+  <text x="245" y="141" text-anchor="middle" font-size="12" fill="#475569">one top-level TN parity query per mask</text>
+  <line x1="245" y1="153" x2="245" y2="185" stroke="#64748b" stroke-width="2"/>
+  <rect x="95" y="185" width="300" height="54" rx="9" fill="#f8fafc" stroke="#94a3b8"/>
+  <text x="245" y="209" text-anchor="middle" font-size="14" fill="#0f172a">4095 parity expectations mₐ</text>
+  <text x="245" y="229" text-anchor="middle" font-size="12" fill="#64748b">plus m₀ = 1</text>
+  <line x1="245" y1="239" x2="245" y2="270" stroke="#64748b" stroke-width="2"/>
+  <rect x="105" y="270" width="280" height="54" rx="9" fill="#f5f3ff" stroke="#7c3aed"/>
+  <text x="245" y="294" text-anchor="middle" font-size="14" fill="#0f172a">inverse Walsh–Hadamard</text>
+  <text x="245" y="314" text-anchor="middle" font-size="12" fill="#64748b">reconstruct all 4096 sector probabilities</text>
+  <line x1="245" y1="324" x2="245" y2="353" stroke="#64748b" stroke-width="2"/>
+  <rect x="135" y="353" width="220" height="48" rx="9" fill="#f0fdf4" stroke="#16a34a"/>
+  <text x="245" y="382" text-anchor="middle" font-size="14" font-weight="600" fill="#14532d">argmax over 4096 sectors</text>
+
+  <text x="735" y="70" text-anchor="middle" font-size="16" font-weight="600" fill="#0f766e">v0.3 exact block BnB route</text>
+  <rect x="560" y="95" width="350" height="58" rx="9" fill="#f0fdfa" stroke="#0f766e"/>
+  <text x="735" y="120" text-anchor="middle" font-size="14" fill="#0f172a">partial logical prefix A</text>
+  <text x="735" y="141" text-anchor="middle" font-size="12" fill="#475569">fixed + open + marginalized logical legs</text>
+  <line x1="735" y1="153" x2="735" y2="185" stroke="#64748b" stroke-width="2"/>
+  <rect x="585" y="185" width="300" height="54" rx="9" fill="#ecfdf5" stroke="#16a34a"/>
+  <text x="735" y="209" text-anchor="middle" font-size="14" fill="#0f172a">one b=3 TN contraction</text>
+  <text x="735" y="229" text-anchor="middle" font-size="12" fill="#64748b">returns 8 exact child subtree masses</text>
+  <line x1="735" y1="239" x2="735" y2="270" stroke="#64748b" stroke-width="2"/>
+  <rect x="595" y="270" width="280" height="54" rx="9" fill="#fff7ed" stroke="#ea580c"/>
+  <text x="735" y="294" text-anchor="middle" font-size="14" fill="#0f172a">branch-and-bound pruning</text>
+  <text x="735" y="314" text-anchor="middle" font-size="12" fill="#64748b">discard whole subtrees using W(A) ≤ B</text>
+  <line x1="735" y1="324" x2="735" y2="353" stroke="#64748b" stroke-width="2"/>
+  <rect x="625" y="353" width="220" height="48" rx="9" fill="#f0fdf4" stroke="#16a34a"/>
+  <text x="735" y="382" text-anchor="middle" font-size="14" font-weight="600" fill="#14532d">exact ML sector only</text>
+</svg>
+<figcaption><b>Figure 2.</b> The old route reconstructs the entire posterior before taking an argmax. v0.3 asks a different question: what is the minimum set of exact subtree-mass contractions needed to certify the ML sector?</figcaption>
+</figure>
+
+<table>
+<thead>
+<tr><th>Feature</th><th>Previous top-level API + WHT</th><th>v0.3 exact block BnB</th></tr>
+</thead>
+<tbody>
+<tr><td>High-level logical queries</td><td>4095 nonzero parity queries per shot</td><td>4 oracle calls for easy test; 10 for hard test</td></tr>
+<tr><td>Information returned by one TN call</td><td>One logical parity probability / expectation</td><td>Eight exact subtree masses for \(b=3\)</td></tr>
+<tr><td>Logical result constructed</td><td>Full 4096-sector posterior</td><td>Exact ML sector; full posterior is not reconstructed</td></tr>
+<tr><td>Transform after TN</td><td>Inverse WHT required</td><td>No WHT required for BnB search</td></tr>
+<tr><td>Search strategy</td><td>Exhaustive over all parity masks</td><td>Adaptive; explore only branches whose exact upper bound can beat incumbent</td></tr>
+<tr><td>Path reuse</td><td>4095 cached single-logical paths</td><td>A small set of compiled multi-logical topologies</td></tr>
+</tbody>
+</table>
+
+<h3>3.2 Runtime and query-count data</h3>
+
+<div class="metrics">
+  <div class="metric"><div class="label">Previous cached full-posterior avg shot</div><div class="value">182.25 s</div></div>
+  <div class="metric"><div class="label">v0.3 warm easy BnB</div><div class="value">1.878 s</div></div>
+  <div class="metric"><div class="label">v0.3 warm hard BnB</div><div class="value">3.414 s</div></div>
+  <div class="metric"><div class="label">v0.3 retained scratch</div><div class="value">22.68 GB</div></div>
+</div>
+
+<table>
+<thead>
+<tr><th>Measurement</th><th>Recorded value</th><th>Interpretation</th></tr>
+</thead>
+<tbody>
+<tr><td>Earlier uncached direct full reconstruction</td><td>22578.85 s = 6.27 h</td><td>22382.31 s was path optimization; this motivated path caching.</td></tr>
+<tr><td>Previous cached single full reconstruction</td><td>191.80 s</td><td>4095 cached parity queries, no repeated path optimization.</td></tr>
+<tr><td>Previous cached LER sweep average</td><td>182.245 s per shot</td><td>Still 4095 nonzero parity queries per shot.</td></tr>
+<tr><td>Previous average TN decode component</td><td>121.206 s</td><td>Dominant cost after caching.</td></tr>
+<tr><td>Previous WHT component</td><td>0.00838 s</td><td>Negligible; the problem was the thousands of TN queries.</td></tr>
+<tr><td>v0.3 easy BnB warm</td><td>1.878 s; 4 oracle calls; 1 leaf</td><td>4095 complete sectors pruned after only one leaf is evaluated.</td></tr>
+<tr><td>v0.3 hard BnB warm</td><td>3.414 s; 10 oracle calls; 3 leaves</td><td>4093 complete sectors pruned while retaining three competing ML-equivalent branches.</td></tr>
+<tr><td>v0.3 full-4096 custom multi-logical reference</td><td>3.029 s easy; 2.399 s hard</td><td>Even the custom full-output reference avoids 4095 separate top-level parity calls.</td></tr>
+</tbody>
+</table>
+
+<p>
+Counting only high-level TN/oracle invocations, the move from 4095 parity queries to 4 or 10 multi-logical contractions is a reduction by factors of about \(1024\times\) and \(410\times\), respectively. These are <b>query-count reductions, not FLOP speedups</b>: a block-mass contraction is heavier than one old single-parity query. The measured wall times nevertheless move from minute-scale cached full-posterior reconstruction to second-scale exact ML search on the current BB72 tests.
+</p>
+
+<figure>
+<svg viewBox="0 0 940 360" width="100%" role="img" aria-label="Runtime comparison between previous cached full posterior and v0.3 BnB">
+  <rect x="0" y="0" width="940" height="360" fill="white"/>
+  <text x="470" y="36" text-anchor="middle" font-size="22" font-weight="600" fill="#0f172a">Observed latency scale: previous cached posterior vs v0.3</text>
+
+  <text x="255" y="92" text-anchor="end" font-size="14" fill="#374151">Previous cached full-posterior avg shot</text>
+  <rect x="280" y="72" width="530" height="30" fill="#2563eb"/>
+  <text x="822" y="93" font-size="13" fill="#374151">182.25 s</text>
+
+  <text x="255" y="162" text-anchor="end" font-size="14" fill="#374151">v0.3 exact BnB — hard</text>
+  <rect x="280" y="142" width="9.9" height="30" fill="#0f766e"/>
+  <line x1="289.9" y1="142" x2="289.9" y2="172" stroke="#0f766e" stroke-width="2"/>
+  <text x="307" y="163" font-size="13" fill="#374151">3.414 s</text>
+
+  <text x="255" y="232" text-anchor="end" font-size="14" fill="#374151">v0.3 exact BnB — easy</text>
+  <rect x="280" y="212" width="5.5" height="30" fill="#16a34a"/>
+  <line x1="285.5" y1="212" x2="285.5" y2="242" stroke="#16a34a" stroke-width="2"/>
+  <text x="303" y="233" font-size="13" fill="#374151">1.878 s</text>
+
+  <line x1="280" y1="290" x2="810" y2="290" stroke="#9ca3af"/>
+  <text x="280" y="314" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+  <text x="810" y="314" text-anchor="middle" font-size="12" fill="#6b7280">182.25 s</text>
+  <text x="545" y="342" text-anchor="middle" font-size="13" fill="#6b7280">Linear scale; v0.3 bars are intentionally tiny.</text>
+</svg>
+<figcaption><b>Figure 3.</b> Indicative latency comparison using recorded runs. The old sweep and v0.3 are not identical benchmark setups, so these bars should be read as an engineering scale comparison rather than a strict apples-to-apples speedup claim.</figcaption>
+</figure>
+
+<div class="warning">
+<b>Comparison caveat.</b> The previous report used a cached top-level parity-query pipeline in a \(Z\)-error sweep with a <code>weight6-x</code> logical basis, while the current v0.3 validation uses the new multi-logical oracle on two \(p=0.005\) BB72 test syndromes. The old 182.25 s/shot and new 1.88–3.41 s numbers therefore demonstrate the scale of the engineering improvement, but they are not yet a channel-matched production benchmark. A strict latency claim should be repeated on the same syndrome set, error channel, logical basis, and GPU configuration.
+</div>
+
+<h3>3.3 What v0.3 established</h3>
+<ul>
+<li><b>Exact search works.</b> The BnB result matches the custom full-4096 reference on both validation cases.</li>
+<li><b>Full posterior reconstruction is not required for ML decoding.</b> The easy case identifies the ML sector after evaluating only one complete leaf; the hard case evaluates only three leaves.</li>
+<li><b>Path/topology reuse was the main systems win.</b> P0/P1 removed repeated path optimization and network preparation.</li>
+<li><b>P2–P4 are not the current bottleneck.</b> Constant caching, GPU-resident operands, and retained scratch all work, but do not materially change latency on BB72.</li>
+<li><b>The remaining cost is real contraction work.</b> Further gains require fewer or cheaper contractions, not more allocator/cache tuning.</li>
+</ul>
+
+<h2>4. Summary and next problems</h2>
+
+<div class="summary">
+\[
+\boxed{
+\text{v0.3 converts BB72 TN decoding from exhaustive full-posterior reconstruction into an exact adaptive logical-sector search.}
+}
+\]
+<p>
+The key conceptual change is from “compute every logical probability and then choose the largest” to “compute exact subtree masses, maintain a certified upper bound, and contract only the branches that can still win.” On the present BB72 examples this reduces 4095 single-parity queries to 4–10 multi-logical oracle calls while preserving exact ML decoding.
+</p>
+</div>
+
+<h3>Next problems to solve</h3>
+<table>
+<thead><tr><th>Priority</th><th>Problem</th><th>Reason</th><th>Planned direction</th></tr></thead>
+<tbody>
+<tr><td><b>P5</b></td><td>Block size and logical grouping/order</td><td>Current \(b=3\) and order \(0,1,\ldots,11\) are not optimized. Different logical topologies can differ in contraction cost by orders of magnitude.</td><td>Scan \(b\in\{1,2,3,4,6\}\), then optimize logical grouping using support weight/overlap and measured GPU contraction time.</td></tr>
+<tr><td><b>P6</b></td><td>Batch same-level surviving parents</td><td>The hard case performs multiple contractions at the same tree depth.</td><td>Batch or parallelize independent same-level TN calls.</td></tr>
+<tr><td><b>P7</b></td><td>Parent–child environment reuse</td><td>Current child contractions repeat substantial work already done by the parent.</td><td>Build reusable contraction environments analogous to MPS left/right environments so only the changed logical boundary is recomputed.</td></tr>
+<tr><td>Validation</td><td>Broader syndrome benchmark</td><td>Two hand-selected cases are enough for correctness debugging but not performance statistics.</td><td>Benchmark tens to hundreds of random syndromes and report latency distribution, oracle-call distribution, and pruning ratio.</td></tr>
+<tr><td>Numerics</td><td>Certified handling of near ties</td><td>Float64 parity/Fourier contractions can produce tiny negative masses from cancellation.</td><td>Keep conservative guards now; later consider certified recomputation, nonnegative formulations, or higher precision for near-degenerate branches.</td></tr>
+<tr><td>Scale</td><td>Larger \(k\) qLDPC codes</td><td>BB72 still permits a 4096-sector full reference; the real value of BnB appears when \(2^k\) becomes infeasible.</td><td>Move to larger logical dimension after the BB72 search/contraction design is stabilized.</td></tr>
+</tbody>
+</table>
+
+<div class="takeaway">
+<b>Recommended next milestone.</b> Freeze v0.3 as the systems-optimization baseline and move to P5. The decisive question is now whether a better block size and logical grouping can reduce the number and cost of the <i>actual contractions</i>; P2–P4 have already shown that runtime bookkeeping is no longer the limiting factor.
+</div>
+
+<p class="small">
+Data sources used in this report: the 2026-09-10 cached-path TN LER sweep report and the v0.1–v0.3 BB72 exact-BnB validation runs. Timing comparisons are reported with the benchmark caveat stated above.
+</p>
+
+</body>
+</html>

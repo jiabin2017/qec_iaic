@@ -1,0 +1,846 @@
+{
+  "selected_npz": {
+    "case_id": {
+      "shape": [
+        490
+      ],
+      "dtype": "<U35"
+    },
+    "dataset_name": {
+      "shape": [
+        490
+      ],
+      "dtype": "<U22"
+    },
+    "dataset_type": {
+      "shape": [
+        490
+      ],
+      "dtype": "<U7"
+    },
+    "source_run": {
+      "shape": [
+        490
+      ],
+      "dtype": "<U30"
+    },
+    "shot_id": {
+      "shape": [
+        490
+      ],
+      "dtype": "int64"
+    },
+    "decoder_p": {
+      "shape": [
+        490
+      ],
+      "dtype": "float64"
+    },
+    "errors": {
+      "shape": [
+        490,
+        72
+      ],
+      "dtype": "uint8"
+    },
+    "syndromes": {
+      "shape": [
+        490,
+        36
+      ],
+      "dtype": "uint8"
+    },
+    "true_lambdas": {
+      "shape": [
+        490,
+        12
+      ],
+      "dtype": "uint8"
+    },
+    "true_lambda": {
+      "shape": [
+        490
+      ],
+      "dtype": "<U12"
+    },
+    "physical_error_weight": {
+      "shape": [
+        490
+      ],
+      "dtype": "uint16"
+    },
+    "syndrome_weight": {
+      "shape": [
+        490
+      ],
+      "dtype": "uint16"
+    },
+    "error_indices": {
+      "shape": [
+        2019
+      ],
+      "dtype": "int16"
+    },
+    "error_offsets": {
+      "shape": [
+        491
+      ],
+      "dtype": "int32"
+    },
+    "syndrome_indices": {
+      "shape": [
+        3773
+      ],
+      "dtype": "int16"
+    },
+    "syndrome_offsets": {
+      "shape": [
+        491
+      ],
+      "dtype": "int32"
+    }
+  },
+  "original_npz_inventory": [
+    {
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\natural_p0p005.npz",
+      "dataset_name": "natural_p0p005",
+      "arrays": {
+        "errors": {
+          "shape": [
+            5000,
+            72
+          ],
+          "dtype": "uint8"
+        },
+        "syndromes": {
+          "shape": [
+            5000,
+            36
+          ],
+          "dtype": "uint8"
+        },
+        "true_lambdas": {
+          "shape": [
+            5000,
+            12
+          ],
+          "dtype": "uint8"
+        },
+        "error_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        },
+        "syndrome_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        }
+      }
+    },
+    {
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\natural_p0p01.npz",
+      "dataset_name": "natural_p0p01",
+      "arrays": {
+        "errors": {
+          "shape": [
+            5000,
+            72
+          ],
+          "dtype": "uint8"
+        },
+        "syndromes": {
+          "shape": [
+            5000,
+            36
+          ],
+          "dtype": "uint8"
+        },
+        "true_lambdas": {
+          "shape": [
+            5000,
+            12
+          ],
+          "dtype": "uint8"
+        },
+        "error_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        },
+        "syndrome_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        }
+      }
+    },
+    {
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\natural_p0p02.npz",
+      "dataset_name": "natural_p0p02",
+      "arrays": {
+        "errors": {
+          "shape": [
+            5000,
+            72
+          ],
+          "dtype": "uint8"
+        },
+        "syndromes": {
+          "shape": [
+            5000,
+            36
+          ],
+          "dtype": "uint8"
+        },
+        "true_lambdas": {
+          "shape": [
+            5000,
+            12
+          ],
+          "dtype": "uint8"
+        },
+        "error_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        },
+        "syndrome_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        }
+      }
+    },
+    {
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\natural_p0p03.npz",
+      "dataset_name": "natural_p0p03",
+      "arrays": {
+        "errors": {
+          "shape": [
+            5000,
+            72
+          ],
+          "dtype": "uint8"
+        },
+        "syndromes": {
+          "shape": [
+            5000,
+            36
+          ],
+          "dtype": "uint8"
+        },
+        "true_lambdas": {
+          "shape": [
+            5000,
+            12
+          ],
+          "dtype": "uint8"
+        },
+        "error_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        },
+        "syndrome_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        }
+      }
+    },
+    {
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\natural_p0p04.npz",
+      "dataset_name": "natural_p0p04",
+      "arrays": {
+        "errors": {
+          "shape": [
+            5000,
+            72
+          ],
+          "dtype": "uint8"
+        },
+        "syndromes": {
+          "shape": [
+            5000,
+            36
+          ],
+          "dtype": "uint8"
+        },
+        "true_lambdas": {
+          "shape": [
+            5000,
+            12
+          ],
+          "dtype": "uint8"
+        },
+        "error_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        },
+        "syndrome_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        }
+      }
+    },
+    {
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\natural_p0p05.npz",
+      "dataset_name": "natural_p0p05",
+      "arrays": {
+        "errors": {
+          "shape": [
+            5000,
+            72
+          ],
+          "dtype": "uint8"
+        },
+        "syndromes": {
+          "shape": [
+            5000,
+            36
+          ],
+          "dtype": "uint8"
+        },
+        "true_lambdas": {
+          "shape": [
+            5000,
+            12
+          ],
+          "dtype": "uint8"
+        },
+        "error_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        },
+        "syndrome_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        }
+      }
+    },
+    {
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\stress_w2-3-4-5_p0p005.npz",
+      "dataset_name": "stress_w2-3-4-5_p0p005",
+      "arrays": {
+        "errors": {
+          "shape": [
+            0,
+            72
+          ],
+          "dtype": "uint8"
+        },
+        "syndromes": {
+          "shape": [
+            0,
+            36
+          ],
+          "dtype": "uint8"
+        },
+        "true_lambdas": {
+          "shape": [
+            0,
+            12
+          ],
+          "dtype": "uint8"
+        },
+        "error_weights": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint16"
+        },
+        "syndrome_weights": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint16"
+        }
+      }
+    },
+    {
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.005\\datasets\\natural_p0p005.npz",
+      "dataset_name": "natural_p0p005",
+      "arrays": {
+        "errors": {
+          "shape": [
+            0,
+            72
+          ],
+          "dtype": "uint8"
+        },
+        "syndromes": {
+          "shape": [
+            0,
+            36
+          ],
+          "dtype": "uint8"
+        },
+        "true_lambdas": {
+          "shape": [
+            0,
+            12
+          ],
+          "dtype": "uint8"
+        },
+        "error_weights": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint16"
+        },
+        "syndrome_weights": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint16"
+        }
+      }
+    },
+    {
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.005\\datasets\\stress_w2-3-4-5_p0p005.npz",
+      "dataset_name": "stress_w2-3-4-5_p0p005",
+      "arrays": {
+        "errors": {
+          "shape": [
+            5000,
+            72
+          ],
+          "dtype": "uint8"
+        },
+        "syndromes": {
+          "shape": [
+            5000,
+            36
+          ],
+          "dtype": "uint8"
+        },
+        "true_lambdas": {
+          "shape": [
+            5000,
+            12
+          ],
+          "dtype": "uint8"
+        },
+        "error_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        },
+        "syndrome_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        }
+      }
+    },
+    {
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.01\\datasets\\natural_p0p01.npz",
+      "dataset_name": "natural_p0p01",
+      "arrays": {
+        "errors": {
+          "shape": [
+            0,
+            72
+          ],
+          "dtype": "uint8"
+        },
+        "syndromes": {
+          "shape": [
+            0,
+            36
+          ],
+          "dtype": "uint8"
+        },
+        "true_lambdas": {
+          "shape": [
+            0,
+            12
+          ],
+          "dtype": "uint8"
+        },
+        "error_weights": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint16"
+        },
+        "syndrome_weights": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint16"
+        }
+      }
+    },
+    {
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.01\\datasets\\stress_w2-3-4-5_p0p01.npz",
+      "dataset_name": "stress_w2-3-4-5_p0p01",
+      "arrays": {
+        "errors": {
+          "shape": [
+            5000,
+            72
+          ],
+          "dtype": "uint8"
+        },
+        "syndromes": {
+          "shape": [
+            5000,
+            36
+          ],
+          "dtype": "uint8"
+        },
+        "true_lambdas": {
+          "shape": [
+            5000,
+            12
+          ],
+          "dtype": "uint8"
+        },
+        "error_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        },
+        "syndrome_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        }
+      }
+    },
+    {
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.02\\datasets\\natural_p0p02.npz",
+      "dataset_name": "natural_p0p02",
+      "arrays": {
+        "errors": {
+          "shape": [
+            0,
+            72
+          ],
+          "dtype": "uint8"
+        },
+        "syndromes": {
+          "shape": [
+            0,
+            36
+          ],
+          "dtype": "uint8"
+        },
+        "true_lambdas": {
+          "shape": [
+            0,
+            12
+          ],
+          "dtype": "uint8"
+        },
+        "error_weights": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint16"
+        },
+        "syndrome_weights": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint16"
+        }
+      }
+    },
+    {
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.02\\datasets\\stress_w2-3-4-5_p0p02.npz",
+      "dataset_name": "stress_w2-3-4-5_p0p02",
+      "arrays": {
+        "errors": {
+          "shape": [
+            5000,
+            72
+          ],
+          "dtype": "uint8"
+        },
+        "syndromes": {
+          "shape": [
+            5000,
+            36
+          ],
+          "dtype": "uint8"
+        },
+        "true_lambdas": {
+          "shape": [
+            5000,
+            12
+          ],
+          "dtype": "uint8"
+        },
+        "error_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        },
+        "syndrome_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        }
+      }
+    },
+    {
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.03\\datasets\\natural_p0p03.npz",
+      "dataset_name": "natural_p0p03",
+      "arrays": {
+        "errors": {
+          "shape": [
+            0,
+            72
+          ],
+          "dtype": "uint8"
+        },
+        "syndromes": {
+          "shape": [
+            0,
+            36
+          ],
+          "dtype": "uint8"
+        },
+        "true_lambdas": {
+          "shape": [
+            0,
+            12
+          ],
+          "dtype": "uint8"
+        },
+        "error_weights": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint16"
+        },
+        "syndrome_weights": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint16"
+        }
+      }
+    },
+    {
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.03\\datasets\\stress_w2-3-4-5_p0p03.npz",
+      "dataset_name": "stress_w2-3-4-5_p0p03",
+      "arrays": {
+        "errors": {
+          "shape": [
+            5000,
+            72
+          ],
+          "dtype": "uint8"
+        },
+        "syndromes": {
+          "shape": [
+            5000,
+            36
+          ],
+          "dtype": "uint8"
+        },
+        "true_lambdas": {
+          "shape": [
+            5000,
+            12
+          ],
+          "dtype": "uint8"
+        },
+        "error_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        },
+        "syndrome_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        }
+      }
+    },
+    {
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.04\\datasets\\natural_p0p04.npz",
+      "dataset_name": "natural_p0p04",
+      "arrays": {
+        "errors": {
+          "shape": [
+            0,
+            72
+          ],
+          "dtype": "uint8"
+        },
+        "syndromes": {
+          "shape": [
+            0,
+            36
+          ],
+          "dtype": "uint8"
+        },
+        "true_lambdas": {
+          "shape": [
+            0,
+            12
+          ],
+          "dtype": "uint8"
+        },
+        "error_weights": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint16"
+        },
+        "syndrome_weights": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint16"
+        }
+      }
+    },
+    {
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.04\\datasets\\stress_w2-3-4-5_p0p04.npz",
+      "dataset_name": "stress_w2-3-4-5_p0p04",
+      "arrays": {
+        "errors": {
+          "shape": [
+            5000,
+            72
+          ],
+          "dtype": "uint8"
+        },
+        "syndromes": {
+          "shape": [
+            5000,
+            36
+          ],
+          "dtype": "uint8"
+        },
+        "true_lambdas": {
+          "shape": [
+            5000,
+            12
+          ],
+          "dtype": "uint8"
+        },
+        "error_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        },
+        "syndrome_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        }
+      }
+    },
+    {
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.05\\datasets\\natural_p0p05.npz",
+      "dataset_name": "natural_p0p05",
+      "arrays": {
+        "errors": {
+          "shape": [
+            0,
+            72
+          ],
+          "dtype": "uint8"
+        },
+        "syndromes": {
+          "shape": [
+            0,
+            36
+          ],
+          "dtype": "uint8"
+        },
+        "true_lambdas": {
+          "shape": [
+            0,
+            12
+          ],
+          "dtype": "uint8"
+        },
+        "error_weights": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint16"
+        },
+        "syndrome_weights": {
+          "shape": [
+            0
+          ],
+          "dtype": "uint16"
+        }
+      }
+    },
+    {
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.05\\datasets\\stress_w2-3-4-5_p0p05.npz",
+      "dataset_name": "stress_w2-3-4-5_p0p05",
+      "arrays": {
+        "errors": {
+          "shape": [
+            5000,
+            72
+          ],
+          "dtype": "uint8"
+        },
+        "syndromes": {
+          "shape": [
+            5000,
+            36
+          ],
+          "dtype": "uint8"
+        },
+        "true_lambdas": {
+          "shape": [
+            5000,
+            12
+          ],
+          "dtype": "uint8"
+        },
+        "error_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        },
+        "syndrome_weights": {
+          "shape": [
+            5000
+          ],
+          "dtype": "uint16"
+        }
+      }
+    }
+  ]
+}

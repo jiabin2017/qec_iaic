@@ -1,0 +1,40 @@
+{
+  "channel": "X-error decoding using H_Z and logical-Z observables",
+  "code": "BB72 [[72,12,6]]",
+  "constant_cache": true,
+  "datasets": {
+    "base_seed": 20260919,
+    "format_version": 1,
+    "k": 12,
+    "n": 72,
+    "natural_shots_per_p": 0,
+    "num_checks": 36,
+    "p_values": [
+      0.03
+    ],
+    "stress_p": 0.03,
+    "stress_shots": 5000,
+    "stress_weights": [
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "format_version": 1,
+  "gpu_resident_operands": true,
+  "guard_rtol": 1e-12,
+  "layout_selection": "validation6",
+  "layout_tags": [
+    "stageA-b9-identity",
+    "stageA-b10-identity",
+    "stageA-b6-identity",
+    "stageA-b12-identity",
+    "stageB-b9-random-1",
+    "stageB-b9-reverse"
+  ],
+  "memory_limit": "50%",
+  "retain_scratch": false,
+  "scan_dir": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_5_multisyndrome_validation/p5_1_scan",
+  "single_gpu": true
+}

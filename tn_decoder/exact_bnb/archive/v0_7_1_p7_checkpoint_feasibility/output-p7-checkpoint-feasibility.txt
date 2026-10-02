@@ -1,0 +1,41 @@
+===== START =====
+Fri Sep 25 11:24:46 +08 2026
+x1000c0s7b0n0
+/home/users/astar/ihpc/youjb/miniconda3/envs/cudaqx-qec/bin/python
+2.10.0+cu128
+True
+NVIDIA A100-SXM4-40GB
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+===== P7 CHECKPOINT FEASIBILITY =====
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_7_1_p7_checkpoint_feasibility/profiles/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+b9 root: open logicals 0..8; tail 9..11 currently marginalized by [1,1]^T
+path steps = 122
+num slices = 16
+first tail-[1,1] touch = step 0 logical bits [9]
+
+LATEST SAFE CHECKPOINT (all three tail bits still recoverable)
+  completed step count = 0
+  completed FLOP fraction = 0.000%
+  live tensors = 123
+  checkpoint memory per slice = 34.922 KiB
+  checkpoint memory if all slices retained = 558.750 KiB
+  after fixing one 9-bit prefix, residual live memory per slice = 34.812 KiB
+  branch-sliced residual if all slices retained = 557.000 KiB
+  largest branch-sliced tensor per slice = 4.000 KiB
+
+MINIMUM-MEMORY SAFE CHECKPOINT
+  completed step count = 0
+  completed FLOP fraction = 0.000%
+  all-slices memory = 558.750 KiB
+
+LOGICAL SUPPORT
+  tail row weights = [14, 10, 10]
+  physical bits touched by tail logicals = 22
+  overlap with prefix-logical support = 19
+
+wrote p7_checkpoint_feasibility/p7_checkpoint_feasibility.json
+wrote p7_checkpoint_feasibility/p7_safe_checkpoints.csv
+===== FINISHED =====
+Fri Sep 25 11:25:30 +08 2026
+exit status = 0

@@ -1,0 +1,156 @@
+{
+  "topology": {
+    "open_prefix": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "marginalized_tail": [
+      9,
+      10,
+      11
+    ],
+    "num_base_operands": 120,
+    "num_total_operands": 123,
+    "path_steps": 122,
+    "profile_num_slices": 16,
+    "profile_sliced_symbols": [
+      "o",
+      "m",
+      "a",
+      "c"
+    ],
+    "slice_symbols_found_in_equation": [
+      "o",
+      "m",
+      "a",
+      "c"
+    ],
+    "slice_symbols_missing_from_equation": [],
+    "profile_opt_cost": 143592875392.0,
+    "profile_largest_intermediate": 33554432.0
+  },
+  "logical_symbols": {
+    "prefix_char_by_logical": {
+      "0": "b",
+      "1": "d",
+      "2": "f",
+      "3": "h",
+      "4": "j",
+      "5": "l",
+      "6": "n",
+      "7": "p",
+      "8": "r"
+    },
+    "tail_boundary_char_by_logical": {
+      "9": "t",
+      "10": "v",
+      "11": "x"
+    },
+    "tail_boundary_operand_position": {
+      "9": 120,
+      "10": 121,
+      "11": 122
+    }
+  },
+  "first_tail_projector_touch": {
+    "step_zero_based": 0,
+    "logical_bits": [
+      9
+    ],
+    "operand_ids": [
+      120
+    ]
+  },
+  "latest_safe_checkpoint": {
+    "step_before_next_contraction": 0,
+    "live_tensors": 123,
+    "tail_projectors_untouched": 3,
+    "tail_projector_ids_untouched": [
+      120,
+      121,
+      122
+    ],
+    "completed_flops_per_slice": 0,
+    "completed_flop_fraction": 0.0,
+    "per_slice_live_bytes": 35760,
+    "per_slice_max_tensor_bytes": 4096,
+    "retain_all_slices_live_bytes": 572160,
+    "per_slice_branch_sliced_live_bytes": 35648,
+    "per_slice_branch_sliced_max_tensor_bytes": 4096,
+    "retain_all_slices_branch_sliced_bytes": 570368,
+    "unsliced_live_bytes": 199536,
+    "unsliced_branch_sliced_live_bytes": 199392
+  },
+  "minimum_memory_safe_checkpoint": {
+    "step_before_next_contraction": 0,
+    "live_tensors": 123,
+    "tail_projectors_untouched": 3,
+    "tail_projector_ids_untouched": [
+      120,
+      121,
+      122
+    ],
+    "completed_flops_per_slice": 0,
+    "completed_flop_fraction": 0.0,
+    "per_slice_live_bytes": 35760,
+    "per_slice_max_tensor_bytes": 4096,
+    "retain_all_slices_live_bytes": 572160,
+    "per_slice_branch_sliced_live_bytes": 35648,
+    "per_slice_branch_sliced_max_tensor_bytes": 4096,
+    "retain_all_slices_branch_sliced_bytes": 570368,
+    "unsliced_live_bytes": 199536,
+    "unsliced_branch_sliced_live_bytes": 199392
+  },
+  "total_flops_per_slice_estimate": 8974554232,
+  "total_flops_all_slices_estimate": 143592867712,
+  "logical_support": {
+    "prefix_row_weights": [
+      14,
+      18,
+      18,
+      10,
+      20,
+      18,
+      20,
+      12,
+      16
+    ],
+    "tail_row_weights": [
+      14,
+      10,
+      10
+    ],
+    "prefix_union_physical_bits": 39,
+    "tail_union_physical_bits": 22,
+    "prefix_tail_union_overlap_physical_bits": 19
+  },
+  "all_safe_checkpoints": [
+    {
+      "step_before_next_contraction": 0,
+      "live_tensors": 123,
+      "tail_projectors_untouched": 3,
+      "tail_projector_ids_untouched": [
+        120,
+        121,
+        122
+      ],
+      "completed_flops_per_slice": 0,
+      "completed_flop_fraction": 0.0,
+      "per_slice_live_bytes": 35760,
+      "per_slice_max_tensor_bytes": 4096,
+      "retain_all_slices_live_bytes": 572160,
+      "per_slice_branch_sliced_live_bytes": 35648,
+      "per_slice_branch_sliced_max_tensor_bytes": 4096,
+      "retain_all_slices_branch_sliced_bytes": 570368,
+      "unsliced_live_bytes": 199536,
+      "unsliced_branch_sliced_live_bytes": 199392
+    }
+  ]
+}

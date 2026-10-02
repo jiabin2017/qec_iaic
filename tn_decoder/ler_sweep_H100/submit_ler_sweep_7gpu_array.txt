@@ -1,0 +1,38 @@
+#!/bin/bash
+
+#PBS -q normal
+#PBS -J 0-11
+#PBS -l select=1:ncpus=98:ngpus=7:mpiprocs=7:ompthreads=1:mem=1645gb:container_engine=enroot
+#PBS -l walltime=24:00:00
+#PBS -P 43014235
+#PBS -j oe
+#PBS -o output-bb72-tn-ler-sweep-H100-7gpu-array.txt
+#PBS -N bb72-tn-ler-H100-7gpu
+
+#PBS -l container_image=/home/users/astar/ihpc/youjb/containers/cudaqx-qec-0.7.0-tn-cu13.sqsh
+#PBS -l container_name=cudaqx_ler
+
+set -euo pipefail
+cd "${PBS_O_WORKDIR:?Submit from the ler_sweep_H100 directory}"
+
+export OMP_NUM_THREADS=1
+export PYTHONNOUSERSITE=1
+export GPUS_PER_NODE=7
+export NUM_WORKERS=7
+export NUM_BATCHES="${NUM_BATCHES:-12}"
+export P_GRID="${P_GRID:-0.005,0.01,0.02,0.03,0.04,0.05}"
+export SHOTS_PER_P="${SHOTS_PER_P:-5000}"
+export BASE_SEED="${BASE_SEED:-20260902}"
+export ERROR_TYPE="${ERROR_TYPE:-Z}"
+export DEVICE="${DEVICE:-cuda}"
+
+# Keep the array under one stable sweep directory. Override SWEEP_DIR to resume.
+JOB_STEM="$(printf '%s' "${PBS_JOBID}" | sed 's/\..*$//; s/\[.*$//; s/[^A-Za-z0-9_]/_/g')"
+export SWEEP_DIR="${SWEEP_DIR:-results/sweep_h100_7gpu_${JOB_STEM}}"
+
+export LER_CONTAINER_NAME="${LER_CONTAINER_NAME:-cudaqx_ler}"
+export LER_ENV_FILE="${LER_ENV_FILE:-/home/users/astar/ihpc/youjb/cudaqx_env.sh}"
+export PYTHON_BIN="${PWD}/run_container_python.sh"
+
+chmod u+x run_container_python.sh run_ler_sweep.sh run_ler_sweep_worker.sh run_ler_sweep_7gpu_batch.sh
+exec bash run_ler_sweep_7gpu_batch.sh

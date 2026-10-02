@@ -1,0 +1,2 @@
+step_before_next_contraction,live_tensors,tail_projectors_untouched,tail_projector_ids_untouched,completed_flops_per_slice,completed_flop_fraction,per_slice_live_bytes,per_slice_max_tensor_bytes,retain_all_slices_live_bytes,per_slice_branch_sliced_live_bytes,per_slice_branch_sliced_max_tensor_bytes,retain_all_slices_branch_sliced_bytes,unsliced_live_bytes,unsliced_branch_sliced_live_bytes
+0,123,3,"[120, 121, 122]",0,0.0,35760,4096,572160,35648,4096,570368,199536,199392

@@ -1,0 +1,467 @@
+{
+  "original_inputs": {
+    "p5_1_scan/p5_1_scan_results.json": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\p5_1_scan\\p5_1_scan_results.json",
+      "sha256": "41fb15e0872d8e271b6acd084993586350b85fdaea1e4ba6c920400ee0b06358",
+      "bytes": 59419,
+      "role": "scan results/config"
+    },
+    "p5_1_scan/p5_1_best_config.json": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\p5_1_scan\\p5_1_best_config.json",
+      "sha256": "9dcbd4af5d59add89c61e7222cdd00b8a0d8026e44d641d9cbcf739252dd6e46",
+      "bytes": 523,
+      "role": "best config"
+    },
+    "validation_partA_natural/run_manifest.json": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\run_manifest.json",
+      "sha256": "2a2e9a1ab3cc6a2c2f1226571ca3978dfeddc3a983239b6a00af0879a8cfa1bc",
+      "bytes": 967,
+      "role": "run manifest"
+    },
+    "validation_partA_natural/datasets/dataset_manifest.json": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\dataset_manifest.json",
+      "sha256": "60363f204b1efea48fdbbb5b937d6bae8cc7f1dcb82faacd762ca743e1a67aee",
+      "bytes": 301,
+      "role": "dataset manifest"
+    },
+    "validation_partA_natural/results.sqlite": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\results.sqlite",
+      "sha256": "00ade05248b0c1ae7560677132db8825bc502f81184da97931783015a61b7436",
+      "bytes": 46395392,
+      "role": "read-only result database; NOT included in bundle"
+    },
+    "validation_partA_natural/datasets/natural_p0p005.npz": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\natural_p0p005.npz",
+      "sha256": "1e96551bc3df97b13cf28ee9dbd5527b942425cf15df80ab56559bf31eaf7b4f",
+      "bytes": 16646,
+      "role": "frozen input dataset; only selected rows included"
+    },
+    "validation_partA_natural/datasets/natural_p0p01.npz": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\natural_p0p01.npz",
+      "sha256": "79c98efa2483ab5bea992633cb19d335e65cd91d671fcca940068c82b58b4b85",
+      "bytes": 26728,
+      "role": "frozen input dataset; only selected rows included"
+    },
+    "validation_partA_natural/datasets/natural_p0p02.npz": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\natural_p0p02.npz",
+      "sha256": "d2d3a883da3432ccc680768e7207add16f32121e93d4aca9982809ce42c9f22f",
+      "bytes": 41122,
+      "role": "frozen input dataset; only selected rows included"
+    },
+    "validation_partA_natural/datasets/natural_p0p03.npz": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\natural_p0p03.npz",
+      "sha256": "858440c490ff455e05dfbb23a10fab161acb3cd9ff70b26ef531f8eaeecb7fb7",
+      "bytes": 50863,
+      "role": "frozen input dataset; only selected rows included"
+    },
+    "validation_partA_natural/datasets/natural_p0p04.npz": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\natural_p0p04.npz",
+      "sha256": "fc69435533b2f8cc1b10948297e6f23205ca0438b3d20d3bf62ca311c8301a26",
+      "bytes": 58624,
+      "role": "frozen input dataset; only selected rows included"
+    },
+    "validation_partA_natural/datasets/natural_p0p05.npz": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\natural_p0p05.npz",
+      "sha256": "7a29e00bc0c67dc18d25cc6ae3354535f5bdc5f19ae412df4d267f668b82594c",
+      "bytes": 64478,
+      "role": "frozen input dataset; only selected rows included"
+    },
+    "validation_partA_natural/datasets/stress_w2-3-4-5_p0p005.npz": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\stress_w2-3-4-5_p0p005.npz",
+      "sha256": "863539c780f9096089f3501abdc6cbae44894ae441673302c309dcbc901b6218",
+      "bytes": 1003,
+      "role": "frozen input dataset; only selected rows included"
+    },
+    "validation_partB_stress_p0.005/run_manifest.json": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.005\\run_manifest.json",
+      "sha256": "83a1ca795bedf203ab45126ada46f19a3e3115d4c401da1fb5ef60a5100a5cf5",
+      "bytes": 907,
+      "role": "run manifest"
+    },
+    "validation_partB_stress_p0.005/datasets/dataset_manifest.json": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.005\\datasets\\dataset_manifest.json",
+      "sha256": "882fe8ed53946d9d60e1a04cd98fc086fc27c9263070e2ec766cb560bd565e69",
+      "bytes": 251,
+      "role": "dataset manifest"
+    },
+    "validation_partB_stress_p0.005/results.sqlite": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.005\\results.sqlite",
+      "sha256": "13ea349a8339772058417f094f862c50cb17eb975f5c14aca5b357f602503b02",
+      "bytes": 8396800,
+      "role": "read-only result database; NOT included in bundle"
+    },
+    "validation_partB_stress_p0.005/datasets/natural_p0p005.npz": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.005\\datasets\\natural_p0p005.npz",
+      "sha256": "863539c780f9096089f3501abdc6cbae44894ae441673302c309dcbc901b6218",
+      "bytes": 1003,
+      "role": "frozen input dataset; only selected rows included"
+    },
+    "validation_partB_stress_p0.005/datasets/stress_w2-3-4-5_p0p005.npz": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.005\\datasets\\stress_w2-3-4-5_p0p005.npz",
+      "sha256": "2b9f88b071967956ade39973668e5f38fb3dea3f413b58298d5fee8091237a53",
+      "bytes": 59603,
+      "role": "frozen input dataset; only selected rows included"
+    },
+    "validation_partB_stress_p0.01/run_manifest.json": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.01\\run_manifest.json",
+      "sha256": "9b0b28b54f5ad023f4af46a11b2e8b0ae692a3cefcff8034effa8ed34d022f82",
+      "bytes": 905,
+      "role": "run manifest"
+    },
+    "validation_partB_stress_p0.01/datasets/dataset_manifest.json": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.01\\datasets\\dataset_manifest.json",
+      "sha256": "6d1efb1dd8e7e7136bdf5c5107cac591bfd2a23d05db7c666c413edbdcfb9c99",
+      "bytes": 249,
+      "role": "dataset manifest"
+    },
+    "validation_partB_stress_p0.01/results.sqlite": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.01\\results.sqlite",
+      "sha256": "4892524035252a13130d1dbe085af7d156a365b1286f8647066d6664f209ae98",
+      "bytes": 8269824,
+      "role": "read-only result database; NOT included in bundle"
+    },
+    "validation_partB_stress_p0.01/datasets/natural_p0p01.npz": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.01\\datasets\\natural_p0p01.npz",
+      "sha256": "863539c780f9096089f3501abdc6cbae44894ae441673302c309dcbc901b6218",
+      "bytes": 1003,
+      "role": "frozen input dataset; only selected rows included"
+    },
+    "validation_partB_stress_p0.01/datasets/stress_w2-3-4-5_p0p01.npz": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.01\\datasets\\stress_w2-3-4-5_p0p01.npz",
+      "sha256": "2b9f88b071967956ade39973668e5f38fb3dea3f413b58298d5fee8091237a53",
+      "bytes": 59603,
+      "role": "frozen input dataset; only selected rows included"
+    },
+    "validation_partB_stress_p0.02/run_manifest.json": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.02\\run_manifest.json",
+      "sha256": "c76e60d17575ccbcd82dd477cbe1eca180fc5c6b3d2921f2727db9e3f785d2ce",
+      "bytes": 905,
+      "role": "run manifest"
+    },
+    "validation_partB_stress_p0.02/datasets/dataset_manifest.json": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.02\\datasets\\dataset_manifest.json",
+      "sha256": "a96e7d00f299e1a97302ffc7326649073d15238f78528d39929e1f4f626c1abf",
+      "bytes": 249,
+      "role": "dataset manifest"
+    },
+    "validation_partB_stress_p0.02/results.sqlite": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.02\\results.sqlite",
+      "sha256": "a516fe6b446b1336f018dfe489ac621042abb27644fe7895892027c20f50f4a9",
+      "bytes": 8216576,
+      "role": "read-only result database; NOT included in bundle"
+    },
+    "validation_partB_stress_p0.02/datasets/natural_p0p02.npz": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.02\\datasets\\natural_p0p02.npz",
+      "sha256": "863539c780f9096089f3501abdc6cbae44894ae441673302c309dcbc901b6218",
+      "bytes": 1003,
+      "role": "frozen input dataset; only selected rows included"
+    },
+    "validation_partB_stress_p0.02/datasets/stress_w2-3-4-5_p0p02.npz": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.02\\datasets\\stress_w2-3-4-5_p0p02.npz",
+      "sha256": "2b9f88b071967956ade39973668e5f38fb3dea3f413b58298d5fee8091237a53",
+      "bytes": 59603,
+      "role": "frozen input dataset; only selected rows included"
+    },
+    "validation_partB_stress_p0.03/run_manifest.json": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.03\\run_manifest.json",
+      "sha256": "ac692098a67ba9e059e67b0071fe187096534d76d381afb3acd131fa1077e1ca",
+      "bytes": 905,
+      "role": "run manifest"
+    },
+    "validation_partB_stress_p0.03/datasets/dataset_manifest.json": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.03\\datasets\\dataset_manifest.json",
+      "sha256": "a54c249130f89603c532977952a9695a751df700368ee67a0b99d9738a4546bb",
+      "bytes": 249,
+      "role": "dataset manifest"
+    },
+    "validation_partB_stress_p0.03/results.sqlite": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.03\\results.sqlite",
+      "sha256": "c00c178433235cffb717ec1d71ca680629300b93b132c50a1bb5b51d21e0476c",
+      "bytes": 8212480,
+      "role": "read-only result database; NOT included in bundle"
+    },
+    "validation_partB_stress_p0.03/datasets/natural_p0p03.npz": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.03\\datasets\\natural_p0p03.npz",
+      "sha256": "863539c780f9096089f3501abdc6cbae44894ae441673302c309dcbc901b6218",
+      "bytes": 1003,
+      "role": "frozen input dataset; only selected rows included"
+    },
+    "validation_partB_stress_p0.03/datasets/stress_w2-3-4-5_p0p03.npz": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.03\\datasets\\stress_w2-3-4-5_p0p03.npz",
+      "sha256": "2b9f88b071967956ade39973668e5f38fb3dea3f413b58298d5fee8091237a53",
+      "bytes": 59603,
+      "role": "frozen input dataset; only selected rows included"
+    },
+    "validation_partB_stress_p0.04/run_manifest.json": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.04\\run_manifest.json",
+      "sha256": "aabd73c4b6224423cd4ad720a5a2bd524ea6acd045834d7c7c3c9d6f5c93ab06",
+      "bytes": 905,
+      "role": "run manifest"
+    },
+    "validation_partB_stress_p0.04/datasets/dataset_manifest.json": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.04\\datasets\\dataset_manifest.json",
+      "sha256": "7fc94549e2182d5a1e20894ec486da4a02214ea2eca9bdaf8d09c05efe05c6ae",
+      "bytes": 249,
+      "role": "dataset manifest"
+    },
+    "validation_partB_stress_p0.04/results.sqlite": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.04\\results.sqlite",
+      "sha256": "d453c647e0e62d5daf5e6a04138462018598f3e1c5ac915051e84977418f4cd6",
+      "bytes": 8212480,
+      "role": "read-only result database; NOT included in bundle"
+    },
+    "validation_partB_stress_p0.04/datasets/natural_p0p04.npz": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.04\\datasets\\natural_p0p04.npz",
+      "sha256": "863539c780f9096089f3501abdc6cbae44894ae441673302c309dcbc901b6218",
+      "bytes": 1003,
+      "role": "frozen input dataset; only selected rows included"
+    },
+    "validation_partB_stress_p0.04/datasets/stress_w2-3-4-5_p0p04.npz": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.04\\datasets\\stress_w2-3-4-5_p0p04.npz",
+      "sha256": "2b9f88b071967956ade39973668e5f38fb3dea3f413b58298d5fee8091237a53",
+      "bytes": 59603,
+      "role": "frozen input dataset; only selected rows included"
+    },
+    "validation_partB_stress_p0.05/run_manifest.json": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.05\\run_manifest.json",
+      "sha256": "2749a17c5808c5ea22fc5f34a7975783e9d7b6c6a21d0f88c9f1e19909b998d9",
+      "bytes": 905,
+      "role": "run manifest"
+    },
+    "validation_partB_stress_p0.05/datasets/dataset_manifest.json": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.05\\datasets\\dataset_manifest.json",
+      "sha256": "568569913b0c45d5440beb24a5705f866409b0a46f8af002ca3e1cd66546485a",
+      "bytes": 249,
+      "role": "dataset manifest"
+    },
+    "validation_partB_stress_p0.05/results.sqlite": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.05\\results.sqlite",
+      "sha256": "2e01f7ea2aac1b91b4581e8ab8045496a51df8dcb49047981317feaf0e570b9f",
+      "bytes": 8212480,
+      "role": "read-only result database; NOT included in bundle"
+    },
+    "validation_partB_stress_p0.05/datasets/natural_p0p05.npz": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.05\\datasets\\natural_p0p05.npz",
+      "sha256": "863539c780f9096089f3501abdc6cbae44894ae441673302c309dcbc901b6218",
+      "bytes": 1003,
+      "role": "frozen input dataset; only selected rows included"
+    },
+    "validation_partB_stress_p0.05/datasets/stress_w2-3-4-5_p0p05.npz": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.05\\datasets\\stress_w2-3-4-5_p0p05.npz",
+      "sha256": "2b9f88b071967956ade39973668e5f38fb3dea3f413b58298d5fee8091237a53",
+      "bytes": 59603,
+      "role": "frozen input dataset; only selected rows included"
+    },
+    "run_bb72_multisyndrome_validation.py": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\run_bb72_multisyndrome_validation.py",
+      "sha256": "950ae08a87bf8159541f1f7dfda094e793221e7f2ec529443c6a2be0eb04aa2c",
+      "bytes": 19058,
+      "role": "project source copied unchanged"
+    },
+    "validation_utils.py": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_utils.py",
+      "sha256": "0a6b8c94ea1225d492ce844c96cbac870deff7c104809fae9a2431bfecc2fa76",
+      "bytes": 13662,
+      "role": "project source copied unchanged"
+    },
+    "p5_utils.py": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\p5_utils.py",
+      "sha256": "475137f4899e446b31e87e1fd4321181a53c892560a62c3b30dc091f64adb169",
+      "bytes": 7311,
+      "role": "project source copied unchanged"
+    },
+    "multi_logical_tensor_network_decoder.py": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\multi_logical_tensor_network_decoder.py",
+      "sha256": "e6295dd6b78c460103ff7fb3512b355ed77189bd14904d77dcceacf131e850bf",
+      "bytes": 76670,
+      "role": "project source copied unchanged"
+    },
+    "exact_block_bnb.py": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\exact_block_bnb.py",
+      "sha256": "f859b335b067303475fd5ac66f07cfe1df9bc5586d0265e4d053156495b59dfa",
+      "bytes": 11082,
+      "role": "project source copied unchanged"
+    },
+    "p5_1_scan/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\p5_1_scan\\canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+      "sha256": "043244c67eb3899b41a46ff6522af7046c225f059423db82dce35298cc96a81c",
+      "bytes": 2506,
+      "role": "compiled runtime profile copied unchanged"
+    },
+    "p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\p5_1_scan\\canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+      "sha256": "9061a6a3db33a3d0f90db686c3a9411394fb0e2ce111048cdfc0fa4145793b54",
+      "bytes": 5764,
+      "role": "compiled runtime profile copied unchanged"
+    },
+    "analysis_20260923/BB72_v0_5_分析报告.html": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\analysis_20260923\\BB72_v0_5_分析报告.html",
+      "sha256": "ebfeead4e964636b2b71e0694dd6ed7727b6b65428b4fa805135e1efc724b943",
+      "bytes": 507762,
+      "role": "existing report checked, NOT copied"
+    },
+    "p5_1_scan/p5_1_scan_checkpoint.json": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\p5_1_scan\\p5_1_scan_checkpoint.json",
+      "sha256": "736de9c20801883996ef4963c2a0c3c33f17f30083356a6d4a902f4eae046fee",
+      "bytes": 42793,
+      "role": "scan config/results copied unchanged"
+    },
+    "submit_multisyndrome_single_gpu_part_a.pbs": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\submit_multisyndrome_single_gpu_part_a.pbs",
+      "sha256": "0ead7de184da19b3ddddc65133c3bee0326222e03cef704834af5ff77981bb69",
+      "bytes": 1074,
+      "role": "submission context copied unchanged"
+    },
+    "submit_multisyndrome_single_gpu_part_b.pbs": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\submit_multisyndrome_single_gpu_part_b.pbs",
+      "sha256": "ab6b9533d38bb4e11fe85a17277355b36d42194a84f8bf3a34fe4e96b1df7213",
+      "bytes": 1375,
+      "role": "submission context copied unchanged"
+    },
+    "output-partA-natural.txt": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\output-partA-natural.txt",
+      "sha256": "6f11ec134602538f1a04142d4b7583dc28eee1c665f44501ebdeb3e1671c300b",
+      "bytes": 379951,
+      "role": "runtime log, selected evidence lines copied"
+    },
+    "output-partB-stress.txt": {
+      "absolute_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\output-partB-stress.txt",
+      "sha256": "ee0488573bebf43fdf9f3902f65554a3e8f7c4090f048a08a84351fb92a1af2a",
+      "bytes": 150798,
+      "role": "runtime log, selected evidence lines copied"
+    }
+  },
+  "byte_identical_copies": [
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\run_bb72_multisyndrome_validation.py",
+      "bundle_path": "source/run_bb72_multisyndrome_validation.py",
+      "sha256": "950ae08a87bf8159541f1f7dfda094e793221e7f2ec529443c6a2be0eb04aa2c"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_utils.py",
+      "bundle_path": "source/validation_utils.py",
+      "sha256": "0a6b8c94ea1225d492ce844c96cbac870deff7c104809fae9a2431bfecc2fa76"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\p5_utils.py",
+      "bundle_path": "source/p5_utils.py",
+      "sha256": "475137f4899e446b31e87e1fd4321181a53c892560a62c3b30dc091f64adb169"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\multi_logical_tensor_network_decoder.py",
+      "bundle_path": "source/multi_logical_tensor_network_decoder.py",
+      "sha256": "e6295dd6b78c460103ff7fb3512b355ed77189bd14904d77dcceacf131e850bf"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\exact_block_bnb.py",
+      "bundle_path": "source/exact_block_bnb.py",
+      "sha256": "f859b335b067303475fd5ac66f07cfe1df9bc5586d0265e4d053156495b59dfa"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\p5_1_scan\\canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+      "bundle_path": "profiles/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+      "sha256": "043244c67eb3899b41a46ff6522af7046c225f059423db82dce35298cc96a81c"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\p5_1_scan\\canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+      "bundle_path": "profiles/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+      "sha256": "9061a6a3db33a3d0f90db686c3a9411394fb0e2ce111048cdfc0fa4145793b54"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\run_manifest.json",
+      "bundle_path": "manifests/validation_partA_natural/run_manifest.json",
+      "sha256": "2a2e9a1ab3cc6a2c2f1226571ca3978dfeddc3a983239b6a00af0879a8cfa1bc"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partA_natural\\datasets\\dataset_manifest.json",
+      "bundle_path": "manifests/validation_partA_natural/dataset_manifest.json",
+      "sha256": "60363f204b1efea48fdbbb5b937d6bae8cc7f1dcb82faacd762ca743e1a67aee"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.005\\run_manifest.json",
+      "bundle_path": "manifests/validation_partB_stress_p0.005/run_manifest.json",
+      "sha256": "83a1ca795bedf203ab45126ada46f19a3e3115d4c401da1fb5ef60a5100a5cf5"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.005\\datasets\\dataset_manifest.json",
+      "bundle_path": "manifests/validation_partB_stress_p0.005/dataset_manifest.json",
+      "sha256": "882fe8ed53946d9d60e1a04cd98fc086fc27c9263070e2ec766cb560bd565e69"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.01\\run_manifest.json",
+      "bundle_path": "manifests/validation_partB_stress_p0.01/run_manifest.json",
+      "sha256": "9b0b28b54f5ad023f4af46a11b2e8b0ae692a3cefcff8034effa8ed34d022f82"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.01\\datasets\\dataset_manifest.json",
+      "bundle_path": "manifests/validation_partB_stress_p0.01/dataset_manifest.json",
+      "sha256": "6d1efb1dd8e7e7136bdf5c5107cac591bfd2a23d05db7c666c413edbdcfb9c99"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.02\\run_manifest.json",
+      "bundle_path": "manifests/validation_partB_stress_p0.02/run_manifest.json",
+      "sha256": "c76e60d17575ccbcd82dd477cbe1eca180fc5c6b3d2921f2727db9e3f785d2ce"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.02\\datasets\\dataset_manifest.json",
+      "bundle_path": "manifests/validation_partB_stress_p0.02/dataset_manifest.json",
+      "sha256": "a96e7d00f299e1a97302ffc7326649073d15238f78528d39929e1f4f626c1abf"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.03\\run_manifest.json",
+      "bundle_path": "manifests/validation_partB_stress_p0.03/run_manifest.json",
+      "sha256": "ac692098a67ba9e059e67b0071fe187096534d76d381afb3acd131fa1077e1ca"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.03\\datasets\\dataset_manifest.json",
+      "bundle_path": "manifests/validation_partB_stress_p0.03/dataset_manifest.json",
+      "sha256": "a54c249130f89603c532977952a9695a751df700368ee67a0b99d9738a4546bb"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.04\\run_manifest.json",
+      "bundle_path": "manifests/validation_partB_stress_p0.04/run_manifest.json",
+      "sha256": "aabd73c4b6224423cd4ad720a5a2bd524ea6acd045834d7c7c3c9d6f5c93ab06"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.04\\datasets\\dataset_manifest.json",
+      "bundle_path": "manifests/validation_partB_stress_p0.04/dataset_manifest.json",
+      "sha256": "7fc94549e2182d5a1e20894ec486da4a02214ea2eca9bdaf8d09c05efe05c6ae"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.05\\run_manifest.json",
+      "bundle_path": "manifests/validation_partB_stress_p0.05/run_manifest.json",
+      "sha256": "2749a17c5808c5ea22fc5f34a7975783e9d7b6c6a21d0f88c9f1e19909b998d9"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\validation_partB_stress_p0.05\\datasets\\dataset_manifest.json",
+      "bundle_path": "manifests/validation_partB_stress_p0.05/dataset_manifest.json",
+      "sha256": "568569913b0c45d5440beb24a5705f866409b0a46f8af002ca3e1cd66546485a"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\p5_1_scan\\p5_1_best_config.json",
+      "bundle_path": "manifests/p5_1_scan/p5_1_best_config.json",
+      "sha256": "9dcbd4af5d59add89c61e7222cdd00b8a0d8026e44d641d9cbcf739252dd6e46"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\p5_1_scan\\p5_1_scan_checkpoint.json",
+      "bundle_path": "manifests/p5_1_scan/p5_1_scan_checkpoint.json",
+      "sha256": "736de9c20801883996ef4963c2a0c3c33f17f30083356a6d4a902f4eae046fee"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\p5_1_scan\\p5_1_scan_results.json",
+      "bundle_path": "manifests/p5_1_scan/p5_1_scan_results.json",
+      "sha256": "41fb15e0872d8e271b6acd084993586350b85fdaea1e4ba6c920400ee0b06358"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\submit_multisyndrome_single_gpu_part_a.pbs",
+      "bundle_path": "manifests/submission/submit_multisyndrome_single_gpu_part_a.pbs",
+      "sha256": "0ead7de184da19b3ddddc65133c3bee0326222e03cef704834af5ff77981bb69"
+    },
+    {
+      "source": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\submit_multisyndrome_single_gpu_part_b.pbs",
+      "bundle_path": "manifests/submission/submit_multisyndrome_single_gpu_part_b.pbs",
+      "sha256": "ab6b9533d38bb4e11fe85a17277355b36d42194a84f8bf3a34fe4e96b1df7213"
+    }
+  ],
+  "all_original_sha256_unchanged": true
+}

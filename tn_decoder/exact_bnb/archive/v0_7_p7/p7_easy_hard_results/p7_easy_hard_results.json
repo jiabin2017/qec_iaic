@@ -1,0 +1,203 @@
+{
+  "version": "v0.7",
+  "optimization": "P7 contraction-tree shared-environment reuse",
+  "baseline": "v0.6 with parent_batch_size=1",
+  "bb72": {
+    "n": 72,
+    "k": 12,
+    "block_size": 9,
+    "logical_order": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ]
+  },
+  "p": 0.005,
+  "profile": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0_7_p7/profiles/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+  "settings": {
+    "memory_limit": "50%",
+    "guard_rtol": 1e-12,
+    "constant_cache": true,
+    "gpu_resident_operands": true,
+    "warmup": 1,
+    "repeats": 5,
+    "p7_cache_budget": "8GB",
+    "p7_max_entry": "2GB",
+    "p7_max_dependency_bits": 6
+  },
+  "cases": {
+    "easy": {
+      "error_indices": [
+        28
+      ],
+      "error_weight": 1,
+      "syndrome_weight": 3,
+      "true_lambda": "000000000000"
+    },
+    "hard": {
+      "error_indices": [
+        0,
+        27,
+        30
+      ],
+      "error_weight": 3,
+      "syndrome_weight": 3,
+      "true_lambda": "100110011001"
+    }
+  },
+  "rows": [
+    {
+      "mode": "baseline",
+      "case": "easy",
+      "wall_median_s": 0.20738538797013462,
+      "wall_min_s": 0.2073325050296262,
+      "wall_max_s": 0.20760052604600787,
+      "oracle_calls_median": 2.0,
+      "leaves_median": 1.0,
+      "best_probability": 0.9999999955333834,
+      "best_lambda": "000000000000",
+      "true_lambda": "000000000000",
+      "p7_pair_contractions_median": 0.0,
+      "p7_cache_hits_median": 0.0,
+      "p7_cache_misses_median": 0.0,
+      "p7_bytes_reused_median": 0.0,
+      "p7_cache_peak_bytes_median": 0.0,
+      "call_counter_example": "{\"cutn:0-1-2-3-4-5-6-7-8\": 1, \"cutn:9-10-11\": 1}",
+      "p7_stats_example": "{}"
+    },
+    {
+      "mode": "baseline",
+      "case": "hard",
+      "wall_median_s": 0.39090064400807023,
+      "wall_min_s": 0.39082994603086263,
+      "wall_max_s": 0.39120920305140316,
+      "oracle_calls_median": 4.0,
+      "leaves_median": 3.0,
+      "best_probability": 0.3333164874732356,
+      "best_lambda": "111011000000",
+      "true_lambda": "100110011001",
+      "p7_pair_contractions_median": 0.0,
+      "p7_cache_hits_median": 0.0,
+      "p7_cache_misses_median": 0.0,
+      "p7_bytes_reused_median": 0.0,
+      "p7_cache_peak_bytes_median": 0.0,
+      "call_counter_example": "{\"cutn:0-1-2-3-4-5-6-7-8\": 1, \"cutn:9-10-11\": 3}",
+      "p7_stats_example": "{}"
+    },
+    {
+      "mode": "p7_always",
+      "case": "easy",
+      "wall_median_s": 1.4479671040317044,
+      "wall_min_s": 1.4479183800285682,
+      "wall_max_s": 1.4481667119544,
+      "oracle_calls_median": 2.0,
+      "leaves_median": 1.0,
+      "best_probability": 0.9999999955333841,
+      "best_lambda": "000000000000",
+      "true_lambda": "000000000000",
+      "p7_pair_contractions_median": 128.0,
+      "p7_cache_hits_median": 0.0,
+      "p7_cache_misses_median": 121.0,
+      "p7_bytes_reused_median": 0.0,
+      "p7_cache_peak_bytes_median": 8482665408.0,
+      "call_counter_example": "{\"cutn:0-1-2-3-4-5-6-7-8\": 1, \"p7_tail\": 1}",
+      "p7_stats_example": "{\"bytes_reused\": 0, \"cache_bytes\": 8482665408, \"cache_evictions\": 93, \"cache_hits\": 0, \"cache_insertions\": 121, \"cache_misses\": 121, \"cache_peak_bytes\": 8482665408, \"max_dependency_bits_seen\": 9, \"pair_contractions_executed\": 128, \"queries\": 1}"
+    },
+    {
+      "mode": "p7_always",
+      "case": "hard",
+      "wall_median_s": 4.1130088969366625,
+      "wall_min_s": 4.112850539968349,
+      "wall_max_s": 4.11371969000902,
+      "oracle_calls_median": 4.0,
+      "leaves_median": 3.0,
+      "best_probability": 0.3333164874732118,
+      "best_lambda": "111011000000",
+      "true_lambda": "100110011001",
+      "p7_pair_contractions_median": 384.0,
+      "p7_cache_hits_median": 0.0,
+      "p7_cache_misses_median": 363.0,
+      "p7_bytes_reused_median": 0.0,
+      "p7_cache_peak_bytes_median": 8587503760.0,
+      "call_counter_example": "{\"cutn:0-1-2-3-4-5-6-7-8\": 1, \"p7_tail\": 3}",
+      "p7_stats_example": "{\"bytes_reused\": 0, \"cache_bytes\": 8482665408, \"cache_evictions\": 335, \"cache_hits\": 0, \"cache_insertions\": 363, \"cache_misses\": 363, \"cache_peak_bytes\": 8587503760, \"max_dependency_bits_seen\": 9, \"pair_contractions_executed\": 384, \"queries\": 3}"
+    },
+    {
+      "mode": "p7_adaptive",
+      "case": "easy",
+      "wall_median_s": 0.20750041399151087,
+      "wall_min_s": 0.20729898300487548,
+      "wall_max_s": 0.2079199799336493,
+      "oracle_calls_median": 2.0,
+      "leaves_median": 1.0,
+      "best_probability": 0.9999999955333834,
+      "best_lambda": "000000000000",
+      "true_lambda": "000000000000",
+      "p7_pair_contractions_median": 0.0,
+      "p7_cache_hits_median": 0.0,
+      "p7_cache_misses_median": 0.0,
+      "p7_bytes_reused_median": 0.0,
+      "p7_cache_peak_bytes_median": 0.0,
+      "call_counter_example": "{\"cutn:0-1-2-3-4-5-6-7-8\": 1, \"cutn:9-10-11\": 1}",
+      "p7_stats_example": "{}"
+    },
+    {
+      "mode": "p7_adaptive",
+      "case": "hard",
+      "wall_median_s": 2.876639733905904,
+      "wall_min_s": 2.8762221119832247,
+      "wall_max_s": 2.8768515350529924,
+      "oracle_calls_median": 4.0,
+      "leaves_median": 3.0,
+      "best_probability": 0.3333164874732356,
+      "best_lambda": "111011000000",
+      "true_lambda": "100110011001",
+      "p7_pair_contractions_median": 256.0,
+      "p7_cache_hits_median": 0.0,
+      "p7_cache_misses_median": 242.0,
+      "p7_bytes_reused_median": 0.0,
+      "p7_cache_peak_bytes_median": 8587503760.0,
+      "call_counter_example": "{\"cutn:0-1-2-3-4-5-6-7-8\": 1, \"cutn:9-10-11\": 1, \"p7_tail\": 2}",
+      "p7_stats_example": "{\"bytes_reused\": 0, \"cache_bytes\": 8482665408, \"cache_evictions\": 214, \"cache_hits\": 0, \"cache_insertions\": 242, \"cache_misses\": 242, \"cache_peak_bytes\": 8587503760, \"max_dependency_bits_seen\": 9, \"pair_contractions_executed\": 256, \"queries\": 2}"
+    }
+  ],
+  "consistency_checks": [
+    {
+      "mode": "p7_always",
+      "case": "easy",
+      "lambda_equal": true,
+      "probability_abs_diff": 7.771561172376096e-16,
+      "pass": true
+    },
+    {
+      "mode": "p7_always",
+      "case": "hard",
+      "lambda_equal": true,
+      "probability_abs_diff": 2.3814283878209608e-14,
+      "pass": true
+    },
+    {
+      "mode": "p7_adaptive",
+      "case": "easy",
+      "lambda_equal": true,
+      "probability_abs_diff": 0.0,
+      "pass": true
+    },
+    {
+      "mode": "p7_adaptive",
+      "case": "hard",
+      "lambda_equal": true,
+      "probability_abs_diff": 0.0,
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+===== ENVIRONMENT =====
+Fri Sep 25 23:09:31 +08 2026
+x1000c0s2b0n0
+/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0.5_final_production
+/home/users/astar/ihpc/youjb/miniconda3/envs/cudaqx-qec/bin/python
+/home/users/astar/ihpc/youjb/miniconda3/envs/cudaqx-qec/bin/python
+2.10.0+cu128
+True
+1
+NVIDIA A100-SXM4-40GB
+===== START BB72 v0.5 FINAL PRODUCTION =====
+Fri Sep 25 23:09:59 +08 2026
+===== BB72 v0.5 FINAL PRODUCTION =====
+P0-P5 validated production baseline
+layout = [0..8] | [9..11], block_size = 9
+profile = /home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0.5_final_production/profiles/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl
+p = 0.005
+P2 constant cache = True
+P3 GPU resident operands = True
+P4 scratch retention = False
+warmup = 1 repeats = 5
+(Re-)set contractor: cutensornet on device: cuda with backend: numpy
+Using dtype: float64
+profile topologies = [(0, 1, 2, 3, 4, 5, 6, 7, 8), (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), (9, 10, 11)]
+easy rep=1: wall=0.207552s oracles=2 leaves=1 P=0.999999995533383 lambda=000000000000
+easy rep=2: wall=0.207559s oracles=2 leaves=1 P=0.999999995533383 lambda=000000000000
+easy rep=3: wall=0.207365s oracles=2 leaves=1 P=0.999999995533383 lambda=000000000000
+easy rep=4: wall=0.207267s oracles=2 leaves=1 P=0.999999995533383 lambda=000000000000
+easy rep=5: wall=0.207336s oracles=2 leaves=1 P=0.999999995533383 lambda=000000000000
+hard rep=1: wall=0.391146s oracles=4 leaves=3 P=0.333316487473236 lambda=111011000000
+hard rep=2: wall=0.390852s oracles=4 leaves=3 P=0.333316487473236 lambda=111011000000
+hard rep=3: wall=0.390866s oracles=4 leaves=3 P=0.333316487473236 lambda=111011000000
+hard rep=4: wall=0.390837s oracles=4 leaves=3 P=0.333316487473236 lambda=111011000000
+hard rep=5: wall=0.390812s oracles=4 leaves=3 P=0.333316487473236 lambda=111011000000
+
+===== SUMMARY =====
+easy: median=0.207365s oracles=2.0 leaves=1.0 P=0.999999995533383 lambda=000000000000
+hard: median=0.390852s oracles=4.0 leaves=3.0 P=0.333316487473236 lambda=111011000000
+reference checks = [{'lambda': '000000000000', 'lambda_ok': True, 'probability': 0.9999999955333834, 'reference_probability': 0.9999999955333834, 'probability_abs_diff': 0.0, 'pass': True, 'case': 'easy'}, {'lambda': '111011000000', 'lambda_ok': True, 'probability': 0.3333164874732356, 'reference_probability': 0.3333164874732356, 'probability_abs_diff': 0.0, 'pass': True, 'case': 'hard'}]
+wrote production_smoke_results/production_easy_hard_summary.csv
+wrote production_smoke_results/production_easy_hard_results.json
+===== FINISHED =====
+Fri Sep 25 23:11:05 +08 2026
+exit status = 0

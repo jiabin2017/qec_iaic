@@ -1,0 +1,48 @@
+#!/bin/bash
+#PBS -q normal
+#PBS -l select=1:ngpus=1:mpiprocs=1:ompthreads=1
+#PBS -l walltime=120:00:00
+#PBS -P 13004445
+#PBS -j oe
+#PBS -o output-p5-numerical-cleanup-replay.txt
+#PBS -N bb72-p5-replay
+
+BASE_DIR="${PBS_O_WORKDIR:-$(pwd)}"
+REPLAY_DIR="${BASE_DIR}/v0.5.1_p5_numerical_cleanup_replay"
+OUTPUT_DIR="${BASE_DIR}/p5_numerical_cleanup_replay"
+
+cd "${REPLAY_DIR}" || exit 1
+
+source ~/miniconda3/etc/profile.d/conda.sh
+conda activate cudaqx-qec || exit 1
+
+echo "===== ENVIRONMENT ====="
+date
+hostname
+pwd
+which python
+python -c "import sys; print(sys.executable)"
+python -c "import torch; print(torch.__version__); print(torch.cuda.is_available()); print(torch.cuda.device_count()); print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'NO GPU')"
+
+echo "===== PATH CHECK ====="
+ls -lh "${REPLAY_DIR}/input_bundle/profiles/" || exit 1
+test -f "${REPLAY_DIR}/input_bundle/profiles/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl" || exit 1
+test -f "${REPLAY_DIR}/input_bundle/profiles/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl" || exit 1
+
+echo "===== START BB72 P5 NUMERICAL CLEANUP REPLAY ====="
+date
+
+# Safe for repeated submission: replay.sqlite is the checkpoint.
+# Every completed case is committed immediately and skipped on the next invocation.
+python replay_p5_numerical_cleanup.py \
+  --input-bundle "${REPLAY_DIR}/input_bundle" \
+  --output-dir "${OUTPUT_DIR}" \
+  --selection all \
+  --save-arrays all
+
+status=$?
+
+echo "===== FINISHED ====="
+date
+echo "exit status = ${status}"
+exit ${status}

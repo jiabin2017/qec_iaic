@@ -1,0 +1,30 @@
+#!/bin/bash
+#PBS -q normal
+#PBS -l select=1:ngpus=1:mpiprocs=1:ompthreads=1
+#PBS -l walltime=08:00:00
+#PBS -P 13004445
+#PBS -j oe
+#PBS -o output-bb72-p5-1-canonical-scan.txt
+#PBS -N bb72-p5-1-scan
+
+cd "${PBS_O_WORKDIR:-$(pwd)}" || exit 1
+source ~/miniconda3/etc/profile.d/conda.sh
+conda activate cudaqx-qec || exit 1
+
+which python
+python -c "import sys; print(sys.executable)"
+python -c "import torch; print(torch.__version__); print(torch.cuda.is_available()); print(torch.cuda.device_count()); print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'NO GPU')"
+
+date
+python scan_bb72_p5_1_canonical.py \
+  --block-sizes 5,6,7,8,9,10,11,12 \
+  --import-profile-dir p5_scan \
+  --path-trials 6 \
+  --path-samples 64 \
+  --path-benchmark-repeats 2 \
+  --decoder-repeats 2 \
+  --output-dir p5_1_scan
+status=$?
+date
+echo "exit status = ${status}"
+exit ${status}

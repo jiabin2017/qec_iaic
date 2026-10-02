@@ -1,0 +1,18 @@
+{
+  "H_Z_shape": [
+    36,
+    72
+  ],
+  "LX_LZ_symplectic_identity": true,
+  "L_X_shape": [
+    12,
+    72
+  ],
+  "L_Z_shape": [
+    12,
+    72
+  ],
+  "all_extracted_cases_checked": 490,
+  "all_syndromes_match": true,
+  "all_true_lambdas_match": true
+}

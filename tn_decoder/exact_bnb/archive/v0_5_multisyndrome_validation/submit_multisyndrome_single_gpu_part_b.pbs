@@ -1,0 +1,48 @@
+#!/bin/bash
+#PBS -q normal
+#PBS -l select=1:ngpus=1:mpiprocs=1:ompthreads=1
+#PBS -l walltime=120:00:00
+#PBS -P 43004235
+#PBS -j oe
+#PBS -o output-partB-stress.txt
+#PBS -N bb72-p5-stress
+
+cd "${PBS_O_WORKDIR:-$(pwd)}" || exit 1
+source ~/miniconda3/etc/profile.d/conda.sh
+conda activate cudaqx-qec || exit 1
+
+which python
+python -c "import sys; print(sys.executable)"
+python -c "import torch; print(torch.__version__); print(torch.cuda.is_available()); print(torch.cuda.device_count()); print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'NO GPU')"
+
+date
+
+# Safe for repeated submission: results.sqlite is the checkpoint. Every completed
+# shot is committed immediately and skipped on the next invocation.
+for P in 0.005 0.01 0.02 0.03 0.04 0.05
+do
+    echo "========================================"
+    echo "START STRESS p=${P}"
+    date
+
+    python run_bb72_multisyndrome_validation.py \
+      --scan-dir p5_1_scan \
+      --output-dir validation_partB_stress_p${P} \
+      --layout-selection validation6 \
+      --p-values ${P} \
+      --natural-shots 0 \
+      --stress-shots 5000 \
+      --stress-weights 2,3,4,5 \
+      --stress-p ${P} \
+      --dataset-seed 20260919
+
+    status=$?
+
+    if [ ${status} -ne 0 ]; then
+        echo "FAILED at stress p=${P}, exit=${status}"
+        exit ${status}
+    fi
+
+    echo "FINISHED STRESS p=${P}"
+    date
+done

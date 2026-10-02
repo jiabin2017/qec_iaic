@@ -1,0 +1,37 @@
+{
+  "assigned_tasks": 468,
+  "checkpoint_csv": "results/sweep_20260910_170650/worker_057_checkpoint.csv",
+  "cuda_visible_devices": "1",
+  "failures": 21,
+  "hostname": "x1000c3s7b0n0",
+  "logical_error_rate_over_assigned_tasks": 0.04487179487179487,
+  "max_raw_relative_negative_mass": 0.0,
+  "new_rows": 468,
+  "num_p_values": 6,
+  "num_workers": 64,
+  "p_grid": [
+    0.005,
+    0.01,
+    0.02,
+    0.03,
+    0.04,
+    0.05
+  ],
+  "path_cache": "/home/users/astar/ihpc/youjb/tn_decoder/tn_reconstruct/path_cache/bb72_cudaqx_nv_tn_path_cache_Z_weight6-x_cutensornet.pkl",
+  "public_failure_count": 0,
+  "raw_clip_count": 0,
+  "raw_fallback_count": 0,
+  "raw_fallback_seconds": 0.0,
+  "resumed_rows": 0,
+  "runtime_seconds": 85707.241274776,
+  "shots_per_p": 5000,
+  "torch": {
+    "torch_available": true,
+    "torch_cuda_available": true,
+    "torch_cuda_device_count": 1,
+    "torch_cuda_device_name_0": "NVIDIA A100-SXM4-40GB",
+    "torch_version": "2.10.0+cu128"
+  },
+  "worker_csv": "results/sweep_20260910_170650/worker_057.csv",
+  "worker_id": 57
+}

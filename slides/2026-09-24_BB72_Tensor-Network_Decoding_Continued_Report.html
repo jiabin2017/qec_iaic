@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BB72 Tensor-Network Decoding Continued — H100 LER, Block-Size Optimization, and Multi-Syndrome Validation</title>
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']]
+  },
+  svg: {fontCache: 'global'}
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+<style>
+  :root {
+    --text: #1f2937;
+    --muted: #6b7280;
+    --border: #d1d5db;
+    --soft: #f8fafc;
+    --accent: #1d4ed8;
+    --accent2: #0f766e;
+    --warn: #92400e;
+    --good: #166534;
+    --ink: #0f172a;
+    --purple: #6d28d9;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 48px 28px 84px;
+    line-height: 1.72;
+    color: var(--text);
+    background: white;
+  }
+
+  h1, h2, h3 { line-height: 1.25; }
+  h1 { font-size: 2.25rem; margin-bottom: 0.35rem; }
+  h2 {
+    font-size: 1.58rem;
+    margin-top: 2.5rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 { font-size: 1.16rem; margin-top: 1.6rem; }
+
+  p { margin: 0.78rem 0; }
+  ul { margin-top: 0.5rem; }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 1.05rem;
+    margin-bottom: 1.7rem;
+  }
+
+  .note, .takeaway, .warning, .decision {
+    padding: 14px 18px;
+    margin: 1.15rem 0;
+    border-radius: 8px;
+  }
+  .note { background: var(--soft); border-left: 4px solid var(--accent); }
+  .takeaway { background: #f0fdfa; border-left: 4px solid var(--accent2); }
+  .warning { background: #fff7ed; border-left: 4px solid #ea580c; }
+  .decision { background: #f0fdf4; border-left: 4px solid #16a34a; }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 12px;
+    margin: 1rem 0 1.5rem;
+  }
+  .metric {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    background: white;
+  }
+  .metric .label {
+    font-size: 0.86rem;
+    color: var(--muted);
+    margin-bottom: 0.25rem;
+  }
+  .metric .value {
+    font-size: 1.32rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.6rem;
+    font-size: 0.96rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: var(--soft); }
+
+  code {
+    background: #f3f4f6;
+    padding: 0.1rem 0.25rem;
+    border-radius: 4px;
+    color: var(--ink);
+  }
+  pre {
+    margin: 1rem 0 1.4rem;
+    padding: 16px 18px;
+    border-radius: 10px;
+    border: 1px solid #111827;
+    background: #111827;
+    color: #f8fafc;
+    overflow-x: auto;
+    font-size: 0.92rem;
+    line-height: 1.58;
+  }
+  pre code { background: transparent; color: inherit; padding: 0; }
+
+  figure {
+    margin: 1.4rem 0 1.8rem;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: white;
+    overflow-x: auto;
+  }
+  figcaption {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .small { font-size: 0.92rem; color: var(--muted); }
+  .summary {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-top: 2rem;
+  }
+  .mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 0.92rem;
+  }
+  .good { color: var(--good); font-weight: 600; }
+  .muted { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<h1>BB72 Tensor-Network Decoding Continued</h1>
+<div class="subtitle">
+H100 LER benchmark, block-size optimization, and multi-syndrome validation. Report dated 24 September 2026.
+</div>
+
+<div class="decision">
+<b>Bottom line.</b> The complete 30,000-shot H100 logical-error-rate sweep reproduces the A100 logical results while reducing average full-posterior shot time from about 182.4 s to 143.8 s. Hardware acceleration alone does not remove the cost of 4095 scalar tensor-network queries per shot. On the exact branch-and-bound route, block-size optimization changes the dominant computation: the original (b=3) layout required 1.878 s and 3.414 s on the easy and hard reference syndromes, whereas the selected (b=9) layout requires about 0.208 s and 0.393 s. A subsequent 360,000-decode validation confirms that (b=9) identity remains the fastest tested layout across a broad syndrome distribution.
+</div>
+
+<h2>0. Scope and experimental pipelines</h2>
+
+<p>
+This report continues the 18 September v0.3 engineering report. It covers two related but distinct BB72 tensor-network pipelines. The first completes the earlier scalar parity-query plus Walsh–Hadamard reconstruction program on H100 GPUs and compares it with the full A100 result. The second continues exact logical-sector branch-and-bound from the fixed (b=3) baseline through block-size optimization and broad multi-syndrome validation.
+</p>
+
+<table>
+<thead><tr><th>Pipeline</th><th>Error channel and basis</th><th>TN information returned</th><th>Final output</th></tr></thead>
+<tbody>
+<tr><td>A100/H100 LER sweep</td><td>(Z)-error decoding with (H_X) and the <code>weight6-x</code> logical basis</td><td>4095 nonzero scalar logical-parity probabilities</td><td>Full 4096-sector posterior after inverse WHT</td></tr>
+<tr><td>Exact block BnB</td><td>(X)-error decoding with (H_Z) and logical-(Z) observables</td><td>Multi-logical subtree-mass tensors</td><td>Exact ML logical sector without reconstructing the full posterior</td></tr>
+</tbody>
+</table>
+
+<div class="warning">
+<b>Comparison boundary.</b> The H100/A100 comparison is a controlled hardware/software comparison within the scalar-WHT pipeline. The scalar-WHT and exact-BnB timings are not a channel-matched benchmark: they use different error channels, logical bases, oracle interfaces, and output requirements. Their comparison establishes the engineering scale and motivation, not a strict hardware-normalized speedup.
+</div>
+
+<h2>1. H100 LER branch and complete A100 comparison</h2>
+
+<h3>1.1 Experiment design and integrity</h3>
+
+<p>
+Both sweeps decode the same BB72 ([[72,12,6]]) problem at six physical error rates, with 5,000 shots at each point. The H100 run uses the same deterministic seeds and therefore the same 30,000 physical errors and true logical sectors as the A100 run. Each shot loads all 4095 cached contraction paths, evaluates every nonzero logical mask, and reconstructs the complete sector posterior using an inverse Walsh–Hadamard transform.
+</p>
+
+<div class="metrics">
+  <div class="metric"><div class="label">Physical error rates</div><div class="value">6</div></div>
+  <div class="metric"><div class="label">Shots per point</div><div class="value">5,000</div></div>
+  <div class="metric"><div class="label">Total shots</div><div class="value">30,000</div></div>
+  <div class="metric"><div class="label">TN parity queries per shot</div><div class="value">4,095</div></div>
+</div>
+
+<p>
+The H100 job-array output covers global task IDs 0–29,999 without missing or duplicate tasks or seeds. All records report <code>actual_device=cuda</code>, <code>contractor=cutensornet</code>, and 4095 loaded path-cache entries.
+</p>
+
+<h3>1.2 Logical-error-rate results</h3>
+
+<table>
+<thead><tr><th>(p)</th><th>A100 failures</th><th>A100 LER</th><th>H100 failures</th><th>H100 LER</th><th>H100 binomial s.e.</th></tr></thead>
+<tbody>
+<tr><td>0.005</td><td>0 / 5,000</td><td>0</td><td>0 / 5,000</td><td>0</td><td>0</td></tr>
+<tr><td>0.01</td><td>4 / 5,000</td><td>0.0008</td><td>4 / 5,000</td><td>0.0008</td><td>0.000400</td></tr>
+<tr><td>0.02</td><td>47 / 5,000</td><td>0.0094</td><td>45 / 5,000</td><td>0.0090</td><td>0.001336</td></tr>
+<tr><td>0.03</td><td>158 / 5,000</td><td>0.0316</td><td>153 / 5,000</td><td>0.0306</td><td>0.002436</td></tr>
+<tr><td>0.04</td><td>376 / 5,000</td><td>0.0752</td><td>378 / 5,000</td><td>0.0756</td><td>0.003739</td></tr>
+<tr><td>0.05</td><td>714 / 5,000</td><td>0.1428</td><td>713 / 5,000</td><td>0.1426</td><td>0.004945</td></tr>
+</tbody>
+</table>
+
+<figure>
+<svg viewBox="0 0 940 470" width="100%" role="img" aria-label="A100 and H100 logical error rate curves">
+  <rect x="0" y="0" width="940" height="470" fill="white"/>
+  <text x="470" y="34" text-anchor="middle" font-size="22" font-weight="600" fill="#0f172a">BB72 full-posterior LER: A100 versus H100</text>
+
+  <line x1="100" y1="390" x2="875" y2="390" stroke="#94a3b8"/>
+  <line x1="100" y1="70" x2="100" y2="390" stroke="#94a3b8"/>
+  <g stroke="#e5e7eb" stroke-width="1">
+    <line x1="100" y1="390" x2="875" y2="390"/>
+    <line x1="100" y1="310" x2="875" y2="310"/>
+    <line x1="100" y1="230" x2="875" y2="230"/>
+    <line x1="100" y1="150" x2="875" y2="150"/>
+    <line x1="100" y1="70" x2="875" y2="70"/>
+  </g>
+  <g font-size="12" fill="#6b7280" text-anchor="end">
+    <text x="88" y="394">0.00</text><text x="88" y="314">0.04</text><text x="88" y="234">0.08</text><text x="88" y="154">0.12</text><text x="88" y="74">0.16</text>
+  </g>
+  <g font-size="12" fill="#6b7280" text-anchor="middle">
+    <text x="100" y="414">0.005</text><text x="255" y="414">0.01</text><text x="410" y="414">0.02</text><text x="565" y="414">0.03</text><text x="720" y="414">0.04</text><text x="875" y="414">0.05</text>
+  </g>
+  <text x="488" y="448" text-anchor="middle" font-size="13" fill="#374151">Physical error rate</text>
+  <text x="26" y="230" text-anchor="middle" font-size="13" fill="#374151" transform="rotate(-90 26 230)">Logical error rate</text>
+
+  <polyline points="100,390 255,388.4 410,371.2 565,326.8 720,239.6 875,104.4" fill="none" stroke="#2563eb" stroke-width="3"/>
+  <polyline points="100,390 255,388.4 410,372.0 565,328.8 720,238.8 875,104.8" fill="none" stroke="#0f766e" stroke-width="3" stroke-dasharray="7 5"/>
+  <g fill="#2563eb">
+    <circle cx="100" cy="390" r="4"/><circle cx="255" cy="388.4" r="4"/><circle cx="410" cy="371.2" r="4"/><circle cx="565" cy="326.8" r="4"/><circle cx="720" cy="239.6" r="4"/><circle cx="875" cy="104.4" r="4"/>
+  </g>
+  <g fill="white" stroke="#0f766e" stroke-width="2.5">
+    <circle cx="100" cy="390" r="4"/><circle cx="255" cy="388.4" r="4"/><circle cx="410" cy="372.0" r="4"/><circle cx="565" cy="328.8" r="4"/><circle cx="720" cy="238.8" r="4"/><circle cx="875" cy="104.8" r="4"/>
+  </g>
+  <line x1="620" y1="55" x2="655" y2="55" stroke="#2563eb" stroke-width="3"/><text x="664" y="59" font-size="13" fill="#374151">A100</text>
+  <line x1="740" y1="55" x2="775" y2="55" stroke="#0f766e" stroke-width="3" stroke-dasharray="7 5"/><text x="784" y="59" font-size="13" fill="#374151">H100</text>
+</svg>
+<figcaption><b>Figure 1.</b> Logical error rate from the complete A100 and H100 full-posterior sweeps. The curves are statistically indistinguishable at 5,000 shots per point. Zero observed failures at (p=0.005) does not imply a strictly zero underlying LER.</figcaption>
+</figure>
+
+<h3>1.3 Runtime comparison</h3>
+
+<table>
+<thead><tr><th>Metric</th><th>A100</th><th>H100</th><th>A100/H100 speedup</th></tr></thead>
+<tbody>
+<tr><td>Average total time per shot</td><td>182.4 s</td><td>143.8 s</td><td>1.27×</td></tr>
+<tr><td>Average TN decode time per shot</td><td>121.3 s</td><td>86.1 s</td><td>1.41×</td></tr>
+<tr><td>Average inverse-WHT time</td><td>0.00835 s</td><td>0.00664 s</td><td>1.26×, but negligible in absolute cost</td></tr>
+</tbody>
+</table>
+
+<figure>
+<svg viewBox="0 0 940 390" width="100%" role="img" aria-label="A100 and H100 runtime comparison">
+  <rect x="0" y="0" width="940" height="390" fill="white"/>
+  <text x="470" y="34" text-anchor="middle" font-size="22" font-weight="600" fill="#0f172a">Average full-posterior shot time</text>
+  <line x1="130" y1="320" x2="860" y2="320" stroke="#94a3b8"/>
+  <line x1="130" y1="70" x2="130" y2="320" stroke="#94a3b8"/>
+  <g stroke="#e5e7eb"><line x1="130" y1="257.5" x2="860" y2="257.5"/><line x1="130" y1="195" x2="860" y2="195"/><line x1="130" y1="132.5" x2="860" y2="132.5"/><line x1="130" y1="70" x2="860" y2="70"/></g>
+  <g font-size="12" fill="#6b7280" text-anchor="end"><text x="118" y="324">0</text><text x="118" y="261.5">50</text><text x="118" y="199">100</text><text x="118" y="136.5">150</text><text x="118" y="74">200 s</text></g>
+  <rect x="245" y="92" width="165" height="228" rx="4" fill="#2563eb"/>
+  <rect x="535" y="140.2" width="165" height="179.8" rx="4" fill="#0f766e"/>
+  <text x="327.5" y="82" text-anchor="middle" font-size="16" font-weight="600" fill="#1e40af">182.4 s</text>
+  <text x="617.5" y="130" text-anchor="middle" font-size="16" font-weight="600" fill="#0f766e">143.8 s</text>
+  <text x="327.5" y="348" text-anchor="middle" font-size="14" fill="#374151">A100</text>
+  <text x="617.5" y="348" text-anchor="middle" font-size="14" fill="#374151">H100</text>
+  <text x="470" y="377" text-anchor="middle" font-size="13" fill="#6b7280">H100 reduces total shot time by about 21%; 4095 TN contractions remain dominant.</text>
+</svg>
+<figcaption><b>Figure 2.</b> H100 provides a clear hardware/runtime improvement, but the full-posterior method remains a minute-scale decoder because it still executes all 4095 scalar logical-parity contractions.</figcaption>
+</figure>
+
+<h3>1.4 Numerical consistency</h3>
+
+<p>
+The two sweeps agree on all 30,000 true sectors and on the logical success/failure outcome for 29,984 shots. Only 22 shots select different MAP sectors; every one is an extreme numerical tie, with the largest recorded top-1/top-2 gap only (1.16	imes10^{-14}). The small differences in aggregate failure counts therefore reflect floating-point contraction order and deterministic tie-breaking rather than a physical change in the decoder.
+</p>
+
+<p>
+At (p=0.005), both platforms encounter the same 20 failures of the CUDA-QX public probability path. All 20 are recovered by the raw-TN fallback. On H100 the largest relative clipped negative mass is (1.12	imes10^{-12}), and all 30,000 final records remain valid.
+</p>
+
+<div class="takeaway">
+<b>LER-branch conclusion.</b> H100 improves the scalar-WHT pipeline, but the inverse WHT is not the bottleneck. The dominant cost is issuing thousands of separate tensor-network queries. This result strengthens the motivation for a multi-logical exact search that avoids full-posterior reconstruction.
+</div>
+
+<h2>2. v0.3 exact-BnB baseline</h2>
+
+<p>
+The v0.3 decoder groups the 12 logical variables into four consecutive blocks of three:
+</p>
+
+<pre><code>block size = 3
+layout     = [0..2] | [3..5] | [6..8] | [9..11]</code></pre>
+
+<p>
+Each oracle contraction returns (2^3=8) child subtree masses. The search visits high-mass children first, establishes an incumbent complete-sector mass, and prunes every subtree whose total probability mass cannot beat that incumbent.
+</p>
+
+<table>
+<thead><tr><th>v0.3 case</th><th>Oracle calls</th><th>Leaves evaluated</th><th>Complete sectors pruned</th><th>Warm wall time</th></tr></thead>
+<tbody>
+<tr><td>Easy, physical (X) error at qubit 28</td><td>4</td><td>1</td><td>4095</td><td>1.878 s</td></tr>
+<tr><td>Hard, threefold-degenerate syndrome</td><td>10</td><td>3</td><td>4093</td><td>3.414 s</td></tr>
+</tbody>
+</table>
+
+<p>
+The next performance question is no longer whether exact pruning works. It is how many logical variables should be opened in one oracle call. A small block has a small output tensor but creates more search levels and repeated contractions. A large block reduces search depth but exposes a larger output tensor and may create a more expensive contraction topology.
+</p>
+
+<h2>3. P5 phase I: initial block-size scan</h2>
+
+<h3>3.1 Scan over (b=1,2,3,4,6)</h3>
+
+<p>
+The first P5 stage keeps identity logical order and varies only block size. This isolates the basic search-geometry trade-off.
+</p>
+
+<table>
+<thead><tr><th>Block size</th><th>Nominal layout</th><th>Easy time</th><th>Hard time</th><th>Easy/hard mean</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>12 one-bit levels</td><td>10.86 s</td><td>30.90 s</td><td>20.88 s</td></tr>
+<tr><td>2</td><td>6 two-bit levels</td><td>5.50 s</td><td>15.37 s</td><td>10.43 s</td></tr>
+<tr><td>3</td><td>4 three-bit levels</td><td>3.82 s</td><td>6.63 s</td><td>5.23 s</td></tr>
+<tr><td>4</td><td>3 four-bit levels</td><td>2.60 s</td><td>3.39 s</td><td>2.99 s</td></tr>
+<tr><td><b>6</b></td><td><b>6+6</b></td><td><b>1.07 s</b></td><td><b>1.97 s</b></td><td><b>1.52 s</b></td></tr>
+</tbody>
+</table>
+
+<div class="note">
+<b>Timing convention.</b> The table contains configurations measured inside the same first-stage P5 scan. Its (b=3) row should not replace the separately recorded v0.3 baseline of 1.878/3.414 s because the two measurements used independently tuned profiles and benchmark contexts. The cross-version conclusion uses the recorded winner from each stage, not a claim that every row is a controlled ablation.
+</div>
+
+<h3>3.2 First-stage result</h3>
+
+<p>
+The first scan shows a clear reduction in time as block size grows from one to six. The first P5 winner is (b=6), with a two-level (6+6) search. Its easy/hard timing of 1.069/1.973 s improves on the recorded v0.3 baseline of 1.878/3.414 s, but the monotonic trend through (b=6) does not imply that still larger blocks will always be faster.
+</p>
+
+<h2>4. P5 extended block-size scan</h2>
+
+<h3>4.1 Extending the scan through (b=12)</h3>
+
+<table>
+<thead><tr><th>Block size</th><th>Identity-order layout</th><th>Easy time</th><th>Hard time</th><th>Easy/hard mean</th></tr></thead>
+<tbody>
+<tr><td>5</td><td>5+5+2</td><td>2.43 s</td><td>4.70 s</td><td>3.57 s</td></tr>
+<tr><td>6</td><td>6+6</td><td>0.75 s</td><td>1.03 s</td><td>0.89 s</td></tr>
+<tr><td>7</td><td>7+5</td><td>3.94 s</td><td>11.46 s</td><td>7.70 s</td></tr>
+<tr><td>8</td><td>8+4</td><td>5.38 s</td><td>5.79 s</td><td>5.59 s</td></tr>
+<tr><td><b>9</b></td><td><b>9+3</b></td><td><b>0.208 s</b></td><td><b>0.393 s</b></td><td><b>0.301 s</b></td></tr>
+<tr><td>10</td><td>10+2</td><td>0.24 s</td><td>0.44 s</td><td>0.34 s</td></tr>
+<tr><td>11</td><td>11+1</td><td>3.96 s</td><td>5.48 s</td><td>4.72 s</td></tr>
+<tr><td>12</td><td>12, full output</td><td>2.56 s</td><td>2.56 s</td><td>2.56 s</td></tr>
+</tbody>
+</table>
+
+<figure>
+<svg viewBox="0 0 980 520" width="100%" role="img" aria-label="Two-stage block-size scan">
+  <rect x="0" y="0" width="980" height="520" fill="white"/>
+  <text x="490" y="34" text-anchor="middle" font-size="22" font-weight="600" fill="#0f172a">P5 block-size scan: measured easy/hard mean latency</text>
+
+  <text x="250" y="70" text-anchor="middle" font-size="16" font-weight="600" fill="#1d4ed8">Phase I</text>
+  <line x1="70" y1="420" x2="455" y2="420" stroke="#94a3b8"/>
+  <line x1="70" y1="95" x2="70" y2="420" stroke="#94a3b8"/>
+  <g stroke="#e5e7eb"><line x1="70" y1="342.6" x2="455" y2="342.6"/><line x1="70" y1="265.2" x2="455" y2="265.2"/><line x1="70" y1="187.9" x2="455" y2="187.9"/><line x1="70" y1="110.5" x2="455" y2="110.5"/></g>
+  <g font-size="11" fill="#6b7280" text-anchor="end"><text x="62" y="424">0</text><text x="62" y="346.6">5</text><text x="62" y="269.2">10</text><text x="62" y="191.9">15</text><text x="62" y="114.5">20 s</text></g>
+  <polyline points="100,96.8 180,258.5 260,339.1 340,373.7 420,396.5" fill="none" stroke="#2563eb" stroke-width="3"/>
+  <g fill="#2563eb"><circle cx="100" cy="96.8" r="5"/><circle cx="180" cy="258.5" r="5"/><circle cx="260" cy="339.1" r="5"/><circle cx="340" cy="373.7" r="5"/><circle cx="420" cy="396.5" r="5"/></g>
+  <g font-size="11" fill="#374151" text-anchor="middle"><text x="100" y="440">b=1</text><text x="180" y="440">b=2</text><text x="260" y="440">b=3</text><text x="340" y="440">b=4</text><text x="420" y="440">b=6</text></g>
+  <text x="250" y="474" text-anchor="middle" font-size="12" fill="#6b7280">First winner: b=6, mean 1.52 s</text>
+
+  <text x="730" y="70" text-anchor="middle" font-size="16" font-weight="600" fill="#0f766e">Extended scan</text>
+  <line x1="520" y1="420" x2="940" y2="420" stroke="#94a3b8"/>
+  <line x1="520" y1="95" x2="520" y2="420" stroke="#94a3b8"/>
+  <g stroke="#e5e7eb"><line x1="520" y1="338.8" x2="940" y2="338.8"/><line x1="520" y1="257.5" x2="940" y2="257.5"/><line x1="520" y1="176.3" x2="940" y2="176.3"/><line x1="520" y1="95" x2="940" y2="95"/></g>
+  <g font-size="11" fill="#6b7280" text-anchor="end"><text x="512" y="424">0</text><text x="512" y="342.8">2</text><text x="512" y="261.5">4</text><text x="512" y="180.3">6</text><text x="512" y="99">8 s</text></g>
+  <polyline points="550,275.0 602,383.8 654,107.2 706,192.9 758,407.8 810,406.2 862,228.2 914,315.9" fill="none" stroke="#0f766e" stroke-width="3"/>
+  <g fill="#0f766e"><circle cx="550" cy="275.0" r="5"/><circle cx="602" cy="383.8" r="5"/><circle cx="654" cy="107.2" r="5"/><circle cx="706" cy="192.9" r="5"/><circle cx="758" cy="407.8" r="6" fill="#16a34a"/><circle cx="810" cy="406.2" r="5"/><circle cx="862" cy="228.2" r="5"/><circle cx="914" cy="315.9" r="5"/></g>
+  <g font-size="11" fill="#374151" text-anchor="middle"><text x="550" y="440">b=5</text><text x="602" y="440">b=6</text><text x="654" y="440">b=7</text><text x="706" y="440">b=8</text><text x="758" y="440">b=9</text><text x="810" y="440">b=10</text><text x="862" y="440">b=11</text><text x="914" y="440">b=12</text></g>
+  <text x="730" y="474" text-anchor="middle" font-size="12" fill="#6b7280">Final winner: b=9, mean 0.301 s</text>
+</svg>
+<figcaption><b>Figure 3.</b> The two scan phases use separately tuned profile sets and therefore should not be joined as one controlled curve. Within each phase, the data show the search-depth benefit of larger blocks and the strongly non-monotonic topology cost beyond (b=6).</figcaption>
+</figure>
+
+<h3>4.2 Why the extended curve is non-monotonic</h3>
+
+<p>
+Block size alone does not determine contraction cost. Tensor connectivity, largest intermediates, slicing, path quality, and overlap among physical supports all change when a different logical set is exposed. Consequently (b=7), (b=8), and (b=11) are much slower than neighboring configurations even though they use fewer BnB levels than smaller blocks.
+</p>
+
+<p>
+The (b=12) control illustrates the opposite extreme: one call creates the complete 4096-sector tensor and therefore gives up adaptive pruning. It is faster than repeatedly contracting one logical bit at a time, but slower than the best partial-output layouts. The (b=9) layout exposes 512 prefixes in the root contraction and leaves only three logical bits for each surviving tail query, achieving the best measured balance.
+</p>
+
+<h3>4.3 Selected configuration</h3>
+
+<pre><code>block layout  = [0..8] | [9..11]
+block size    = 9
+logical order = identity
+
+easy median   = 0.208 s
+hard median   = 0.393 s</code></pre>
+
+<div class="metrics">
+  <div class="metric"><div class="label">Easy speedup vs v0.3</div><div class="value">≈9.0×</div></div>
+  <div class="metric"><div class="label">Hard speedup vs v0.3</div><div class="value">≈8.7×</div></div>
+  <div class="metric"><div class="label">Root output size</div><div class="value">512 prefixes</div></div>
+  <div class="metric"><div class="label">Tail output size</div><div class="value">8 sectors</div></div>
+</div>
+
+<h2>5. v0.5: 360,000-decode multi-syndrome validation</h2>
+
+<h3>5.1 Why broader validation was required</h3>
+
+<p>
+The easy and hard syndromes are effective correctness and regression tests, but they cannot characterize a decoder's runtime distribution. v0.5 therefore freezes paired physical errors and syndromes, then evaluates the same samples under several block layouts. The experiment measures whether the (b=9) winner survives a broad natural-noise distribution and fixed-weight stress cases rather than only the original two examples.
+</p>
+
+<h3>5.2 Dataset and compared layouts</h3>
+
+<table>
+<thead><tr><th>Component</th><th>Design</th></tr></thead>
+<tbody>
+<tr><td>Natural samples</td><td>5,000 shots at each (p=0.005,0.01,0.02,0.03,0.04,0.05): 30,000 physical samples</td></tr>
+<tr><td>Stress samples</td><td>5,000 fixed-weight errors, evaluated under six decoder priors: 30,000 sample/prior combinations</td></tr>
+<tr><td>Layouts</td><td>(b=9) identity, (b=10) identity, (b=6) identity, (b=12) full-output control, (b=9) random-1, (b=9) reverse</td></tr>
+<tr><td>Total decoding records</td><td>60,000 sample/prior combinations × 6 layouts = 360,000 decodes</td></tr>
+</tbody>
+</table>
+
+<p>
+The layout set also tests logical grouping. The three (b=9) variants have the same nominal 9+3 block sizes but place different logical operators in the root and tail blocks. This isolates the effect of logical partitioning without requiring an exhaustive search over all (12!) permutations.
+</p>
+
+<h3>5.3 Overall performance</h3>
+
+<table>
+<thead><tr><th>Layout</th><th>Natural mean</th><th>Natural P99</th><th>Stress mean</th><th>Stress P99</th><th>Natural speedup vs b12</th></tr></thead>
+<tbody>
+<tr><td><b>b9 identity</b></td><td><b>0.2109 s</b></td><td><b>0.2994 s</b></td><td><b>0.2135 s</b></td><td><b>0.2997 s</b></td><td><b>12.12×</b></td></tr>
+<tr><td>b10 identity</td><td>0.2426 s</td><td>0.3386 s</td><td>0.2456 s</td><td>0.3394 s</td><td>10.53×</td></tr>
+<tr><td>b6 identity</td><td>0.7620 s</td><td>1.0228 s</td><td>0.7673 s</td><td>1.0241 s</td><td>3.35×</td></tr>
+<tr><td>b9 random-1</td><td>1.4711 s</td><td>2.0347 s</td><td>1.4908 s</td><td>2.0385 s</td><td>1.74×</td></tr>
+<tr><td>b12 full</td><td>2.5557 s</td><td>2.5603 s</td><td>2.5520 s</td><td>2.5587 s</td><td>1.00×</td></tr>
+<tr><td>b9 reverse</td><td>2.7495 s</td><td>4.3055 s</td><td>2.7398 s</td><td>4.1689 s</td><td>0.93×</td></tr>
+</tbody>
+</table>
+
+<figure>
+<svg viewBox="0 0 980 500" width="100%" role="img" aria-label="Multi-syndrome layout latency comparison">
+  <rect x="0" y="0" width="980" height="500" fill="white"/>
+  <text x="490" y="34" text-anchor="middle" font-size="22" font-weight="600" fill="#0f172a">v0.5 mean online decoding time by layout</text>
+  <line x1="110" y1="420" x2="920" y2="420" stroke="#94a3b8"/>
+  <line x1="110" y1="70" x2="110" y2="420" stroke="#94a3b8"/>
+  <g stroke="#e5e7eb"><line x1="110" y1="303.3" x2="920" y2="303.3"/><line x1="110" y1="186.7" x2="920" y2="186.7"/><line x1="110" y1="70" x2="920" y2="70"/></g>
+  <g font-size="12" fill="#6b7280" text-anchor="end"><text x="98" y="424">0</text><text x="98" y="307.3">1 s</text><text x="98" y="190.7">2 s</text><text x="98" y="74">3 s</text></g>
+
+  <g>
+    <rect x="145" y="395.4" width="42" height="24.6" fill="#2563eb"/><rect x="189" y="395.1" width="42" height="24.9" fill="#0f766e"/>
+    <rect x="270" y="391.7" width="42" height="28.3" fill="#2563eb"/><rect x="314" y="391.3" width="42" height="28.7" fill="#0f766e"/>
+    <rect x="395" y="331.1" width="42" height="88.9" fill="#2563eb"/><rect x="439" y="330.5" width="42" height="89.5" fill="#0f766e"/>
+    <rect x="520" y="248.4" width="42" height="171.6" fill="#2563eb"/><rect x="564" y="246.1" width="42" height="173.9" fill="#0f766e"/>
+    <rect x="645" y="121.8" width="42" height="298.2" fill="#2563eb"/><rect x="689" y="122.3" width="42" height="297.7" fill="#0f766e"/>
+    <rect x="770" y="99.2" width="42" height="320.8" fill="#2563eb"/><rect x="814" y="100.4" width="42" height="319.6" fill="#0f766e"/>
+  </g>
+  <g font-size="11" fill="#374151" text-anchor="middle">
+    <text x="188" y="442">b9 identity</text><text x="313" y="442">b10 identity</text><text x="438" y="442">b6 identity</text><text x="563" y="442">b9 random-1</text><text x="688" y="442">b12 full</text><text x="813" y="442">b9 reverse</text>
+  </g>
+  <rect x="625" y="48" width="14" height="14" fill="#2563eb"/><text x="646" y="60" font-size="12" fill="#374151">Natural</text>
+  <rect x="710" y="48" width="14" height="14" fill="#0f766e"/><text x="731" y="60" font-size="12" fill="#374151">Stress</text>
+  <text x="490" y="482" text-anchor="middle" font-size="13" fill="#6b7280">Same block size does not imply the same contraction cost: b9 partition choice matters.</text>
+</svg>
+<figcaption><b>Figure 4.</b> Mean online decoding time over the natural and stress workloads. (b=9) identity is fastest in every tested data condition; random and reverse 9+3 partitions demonstrate that logical grouping materially changes contraction complexity.</figcaption>
+</figure>
+
+<p>
+The (b=9) identity layout is 13.1% faster than (b=10) on both the natural and stress aggregates. It also outperforms the other (b=9) partitions by large factors: random-1 and reverse are respectively 6.98× and 13.04× slower on natural samples. Oracle-call count alone cannot predict performance; the contraction topology associated with a partition is equally important.
+</p>
+
+<h3>5.4 Oracle calls, pruning, and tail latency</h3>
+
+<table>
+<thead><tr><th>Metric for b9 identity</th><th>Natural workload</th><th>Stress workload</th></tr></thead>
+<tbody>
+<tr><td>Mean oracle calls</td><td>2.0359</td><td>2.0667</td></tr>
+<tr><td>Exactly two calls</td><td>29,222 / 30,000 (97.41%)</td><td>28,340 / 30,000 (94.47%)</td></tr>
+<tr><td>Mean surviving root prefixes</td><td>1.0359</td><td>1.0667</td></tr>
+<tr><td>Maximum oracle calls</td><td>13</td><td>7</td></tr>
+<tr><td>Mean evaluated leaves</td><td>1.0217</td><td>1.0443</td></tr>
+<tr><td>Oracle share of online time</td><td>98.95%</td><td>99.04%</td></tr>
+</tbody>
+</table>
+
+<p>
+One (b=9) root call produces 512 prefix masses. A typical shot then explores only the highest-mass prefix and executes one three-bit tail call returning eight complete sectors. An exhaustive 9+3 traversal would require (1+512=513) block-oracle calls; the observed natural mean of 2.0359 calls eliminates approximately 99.60% of those calls. This is a call-count comparison within the same block oracle, not a direct FLOP or wall-time ratio.
+</p>
+
+<p>
+As natural (p) increases from 0.005 to 0.05, mean (b=9) latency rises only from 0.2075 s to 0.2176 s, about 4.9%. P99 rises from 0.2076 s to 0.3913 s, showing that higher physical error rates mainly create a small tail of difficult syndromes rather than slowing every decode.
+</p>
+
+<h3>5.5 Logical performance and numerical boundary</h3>
+
+<table>
+<thead><tr><th>(p)</th><th>b9 failures</th><th>b9 LER</th><th>b12 failures</th><th>b12 LER</th></tr></thead>
+<tbody>
+<tr><td>0.005</td><td>0</td><td>0.00%</td><td>0</td><td>0.00%</td></tr>
+<tr><td>0.01</td><td>6</td><td>0.12%</td><td>6</td><td>0.12%</td></tr>
+<tr><td>0.02</td><td>34</td><td>0.68%</td><td>32</td><td>0.64%</td></tr>
+<tr><td>0.03</td><td>157</td><td>3.14%</td><td>145</td><td>2.90%</td></tr>
+<tr><td>0.04</td><td>397</td><td>7.94%</td><td>395</td><td>7.90%</td></tr>
+<tr><td>0.05</td><td>763</td><td>15.26%</td><td>766</td><td>15.32%</td></tr>
+</tbody>
+</table>
+
+<p>
+Against the (b=12) full-output control, (b=9) selects a different sector in 103 of 30,000 natural cases and 271 of 30,000 stress cases. The natural mismatches are concentrated in near-ties: among the sector-different natural shots, the maximum difference between the two reported best probabilities is (3.744	imes10^{-13}). The stress comparison contains 125 cases whose best-probability difference exceeds (10^{-10}), with a maximum of approximately (3.30	imes10^{-8}).
+</p>
+
+<div class="warning">
+<b>Numerical interpretation.</b> The (b=12) control is itself a float64 cuTensorNet contraction, not an independent high-precision certificate. Sector mismatch counts therefore cannot be interpreted directly as BnB algorithmic errors, and small LER differences between layouts do not establish different physical decoding quality. The present result validates the performance advantage while preserving an explicit numerical qualification for near-degenerate cases.
+</div>
+
+<h2>6. Conclusions</h2>
+
+<div class="summary">
+\[
+\boxed{
+\text{The BB72 exact-TN baseline moves from fixed }b=3\text{ to a validated }b=9\text{ identity layout.}
+}
+\]
+<p>
+The complete H100 sweep confirms that faster hardware reduces the cost of full-posterior reconstruction but does not change its fundamental 4095-query burden. P5 instead changes the computation itself. The initial block scan identifies the benefit of reducing search depth, the extended scan locates the 9+3 optimum, and the 360,000-decode campaign confirms that this choice remains fastest across natural and stress syndrome distributions.
+</p>
+</div>
+
+<ul>
+<li><b>H100 full-posterior result:</b> the LER curve agrees with A100, while average shot time falls from about 182.4 s to 143.8 s.</li>
+<li><b>Initial P5 result:</b> scanning (b=1,2,3,4,6) selects (b=6), reducing the recorded easy/hard timing to 1.069/1.973 s.</li>
+<li><b>Extended P5 result:</b> the (b=9) identity layout reaches 0.208/0.393 s on the reference syndromes, approximately 9.0×/8.7× faster than v0.3.</li>
+<li><b>Broad validation:</b> (b=9) identity is fastest in every tested data condition and averages 0.2109 s on natural syndromes, 12.12× faster than the (b=12) full-output control.</li>
+<li><b>Current BB72 baseline:</b> retain the validated P0–P5 implementation with logical layout <code>[0..8] | [9..11]</code>, identity order, GPU-resident operands, and compiled contraction profiles.</li>
+</ul>
+
+<div class="takeaway">
+<b>Engineering conclusion.</b> The main gain after v0.3 does not come from another allocator or cache optimization. It comes from selecting the right logical output geometry: expose enough logical variables to collapse search depth, but retain a small tail so branch-and-bound can avoid the cost of a complete 4096-sector contraction.
+</div>
+
+<p class="small">
+Report date: 24 September 2026. Data sources: the complete A100 and H100 cached-path LER sweeps; the v0.3 exact-BnB reference results; the P5 and extended block-size scans; and the v0.5 multi-syndrome validation databases and audited summaries. Timings are reported under the comparison boundaries stated in Section 0.
+</p>
+
+</body>
+</html>

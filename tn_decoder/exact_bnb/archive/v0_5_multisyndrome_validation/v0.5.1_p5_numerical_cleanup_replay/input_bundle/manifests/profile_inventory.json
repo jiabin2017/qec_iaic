@@ -1,0 +1,283 @@
+{
+  "profiles": {
+    "b12": {
+      "layout_tag": "stageA-b12-identity",
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\p5_1_scan\\canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+      "bundle_path": "profiles/canonical_paths_b12_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+      "sha256": "043244c67eb3899b41a46ff6522af7046c225f059423db82dce35298cc96a81c",
+      "metadata": {
+        "code": "BB72",
+        "n": 72,
+        "k": 12,
+        "optimization": "v0.4.2/P5.1 canonical path pool",
+        "block_size": 12,
+        "logical_order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "bnb_topologies": [
+          [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ]
+        ],
+        "canonical_bnb_topologies": [
+          [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ]
+        ],
+        "memory_limit": "50%",
+        "path_trials": 6,
+        "path_samples": 64,
+        "path_benchmark_repeats": 2,
+        "canonical_path_sharing": true,
+        "gpu_name": "NVIDIA A100-SXM4-40GB",
+        "cuquantum_version": "26.3.2"
+      },
+      "format_version": 2,
+      "entries": [
+        {
+          "open_logicals": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "path_steps": 119,
+          "slice_items": 6,
+          "entry_fields": [
+            "path",
+            "slices",
+            "opt_cost",
+            "largest_intermediate",
+            "num_slices",
+            "seed",
+            "samples",
+            "path_search_seconds",
+            "benchmark_times",
+            "benchmark_median_seconds",
+            "num_candidates",
+            "candidate_summary",
+            "_candidate_kind",
+            "_canonical_open_logicals",
+            "_pool_num_competing_plans",
+            "_pool_candidate_summary"
+          ]
+        }
+      ]
+    },
+    "b9": {
+      "layout_tag": "stageA-b9-identity",
+      "source_path": "C:\\tsbyttn\\projects\\qldpc\\tn_decoder\\exact_bnb\\v0_5_multisyndrome_validation\\p5_1_scan\\canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+      "bundle_path": "profiles/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+      "sha256": "9061a6a3db33a3d0f90db686c3a9411394fb0e2ce111048cdfc0fa4145793b54",
+      "metadata": {
+        "code": "BB72",
+        "n": 72,
+        "k": 12,
+        "optimization": "v0.4.2/P5.1 canonical path pool",
+        "block_size": 9,
+        "logical_order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "bnb_topologies": [
+          [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          [
+            9,
+            10,
+            11
+          ]
+        ],
+        "canonical_bnb_topologies": [
+          [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          [
+            9,
+            10,
+            11
+          ]
+        ],
+        "memory_limit": "50%",
+        "path_trials": 6,
+        "path_samples": 64,
+        "path_benchmark_repeats": 2,
+        "canonical_path_sharing": true,
+        "gpu_name": "NVIDIA A100-SXM4-40GB",
+        "cuquantum_version": "26.3.2",
+        "full_reference_topology_added_after_scan": true
+      },
+      "format_version": 2,
+      "entries": [
+        {
+          "open_logicals": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "path_steps": 122,
+          "slice_items": 4,
+          "entry_fields": [
+            "path",
+            "slices",
+            "opt_cost",
+            "largest_intermediate",
+            "num_slices",
+            "seed",
+            "samples",
+            "path_search_seconds",
+            "benchmark_times",
+            "benchmark_median_seconds",
+            "num_candidates",
+            "candidate_summary",
+            "_candidate_kind",
+            "_canonical_open_logicals",
+            "_pool_num_competing_plans",
+            "_pool_candidate_summary"
+          ]
+        },
+        {
+          "open_logicals": [
+            9,
+            10,
+            11
+          ],
+          "path_steps": 128,
+          "slice_items": 0,
+          "entry_fields": [
+            "path",
+            "slices",
+            "opt_cost",
+            "largest_intermediate",
+            "num_slices",
+            "seed",
+            "samples",
+            "path_search_seconds",
+            "benchmark_times",
+            "benchmark_median_seconds",
+            "num_candidates",
+            "candidate_summary",
+            "_import_source_profile",
+            "_import_source_open_logicals",
+            "_import_recorded_benchmark_seconds",
+            "_candidate_kind",
+            "_canonical_open_logicals",
+            "_pool_num_competing_plans",
+            "_pool_candidate_summary"
+          ]
+        },
+        {
+          "open_logicals": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "path_steps": 119,
+          "slice_items": 6,
+          "entry_fields": [
+            "path",
+            "slices",
+            "opt_cost",
+            "largest_intermediate",
+            "num_slices",
+            "seed",
+            "samples",
+            "path_search_seconds",
+            "benchmark_times",
+            "benchmark_median_seconds",
+            "num_candidates",
+            "candidate_summary",
+            "_candidate_kind",
+            "_canonical_open_logicals",
+            "_pool_num_competing_plans",
+            "_pool_candidate_summary"
+          ]
+        }
+      ]
+    }
+  },
+  "b9_extra_full_topology_path_and_slicing_match_b12": true
+}

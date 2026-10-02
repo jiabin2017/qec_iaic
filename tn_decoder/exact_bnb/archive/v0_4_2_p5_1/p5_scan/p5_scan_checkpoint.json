@@ -1,0 +1,1161 @@
+{
+  "settings": {
+    "p": 0.005,
+    "memory_limit": "50%",
+    "block_sizes": "1,2,3,4,6",
+    "order_strategies": "identity,reverse,weight-asc,weight-desc,overlap-max,overlap-min",
+    "random_orders": 2,
+    "seed": 12000,
+    "path_trials": 6,
+    "path_samples": 64,
+    "path_benchmark_repeats": 2,
+    "decoder_repeats": 2,
+    "guard_rtol": 1e-12,
+    "output_dir": "p5_scan",
+    "reuse_existing_profiles": true,
+    "retain_scratch": false,
+    "scratch_retain_budget": "70%",
+    "constant_cache": true,
+    "gpu_resident_operands": true
+  },
+  "completed_results": [
+    {
+      "block_size": 1,
+      "logical_order": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "topologies": [
+        [
+          0
+        ],
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3
+        ],
+        [
+          4
+        ],
+        [
+          5
+        ],
+        [
+          6
+        ],
+        [
+          7
+        ],
+        [
+          8
+        ],
+        [
+          9
+        ],
+        [
+          10
+        ],
+        [
+          11
+        ]
+      ],
+      "cold_easy_seconds": 12.740097195026465,
+      "easy_times": [
+        10.86239900905639,
+        10.862357608042657
+      ],
+      "hard_times": [
+        30.90032637200784,
+        30.894885097979568
+      ],
+      "easy_median_seconds": 10.862378308549523,
+      "hard_median_seconds": 30.897605734993704,
+      "mean_easy_hard_seconds": 20.879992021771614,
+      "easy_oracle_calls": 12,
+      "hard_oracle_calls": 33,
+      "easy_leaves": 1,
+      "hard_leaves": 2,
+      "easy_best_probability": 0.999999995533381,
+      "hard_best_probability": 0.33331648747292614,
+      "easy_best_lambda": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "hard_best_lambda": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "workspace": {
+        "planned_scratch_bytes": 122726389504,
+        "live_scratch_bytes": 0,
+        "live_cache_bytes": 34671360,
+        "scratch_reuse_hits": 0,
+        "scratch_evictions": 0,
+        "last_budget_bytes": null
+      },
+      "tag": "stageA-b1-identity",
+      "profile_path": "p5_scan/paths_b1_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+      "profile_compile_seconds": 1309.020646416
+    },
+    {
+      "block_size": 2,
+      "logical_order": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "topologies": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ]
+      ],
+      "cold_easy_seconds": 6.241593820042908,
+      "easy_times": [
+        5.500473923049867,
+        5.50347770890221
+      ],
+      "hard_times": [
+        15.370365378912538,
+        15.36550209694542
+      ],
+      "easy_median_seconds": 5.501975815976039,
+      "hard_median_seconds": 15.367933737928979,
+      "mean_easy_hard_seconds": 10.434954776952509,
+      "easy_oracle_calls": 6,
+      "hard_oracle_calls": 16,
+      "easy_leaves": 1,
+      "hard_leaves": 3,
+      "easy_best_probability": 0.9999999955333851,
+      "hard_best_probability": 0.33331648747844267,
+      "easy_best_lambda": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "hard_best_lambda": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "workspace": {
+        "planned_scratch_bytes": 41542879744,
+        "live_scratch_bytes": 0,
+        "live_cache_bytes": 19229440,
+        "scratch_reuse_hits": 0,
+        "scratch_evictions": 0,
+        "last_budget_bytes": null
+      },
+      "tag": "stageA-b2-identity",
+      "profile_path": "p5_scan/paths_b2_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+      "profile_compile_seconds": 598.7902873479761
+    },
+    {
+      "block_size": 3,
+      "logical_order": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "topologies": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          3,
+          4,
+          5
+        ],
+        [
+          6,
+          7,
+          8
+        ],
+        [
+          9,
+          10,
+          11
+        ]
+      ],
+      "cold_easy_seconds": 3.819919051020406,
+      "easy_times": [
+        3.962043959996663,
+        3.675436009070836
+      ],
+      "hard_times": [
+        6.633596351952292,
+        6.634935290087014
+      ],
+      "easy_median_seconds": 3.8187399845337495,
+      "hard_median_seconds": 6.634265821019653,
+      "mean_easy_hard_seconds": 5.226502902776701,
+      "easy_oracle_calls": 4,
+      "hard_oracle_calls": 10,
+      "easy_leaves": 1,
+      "hard_leaves": 3,
+      "easy_best_probability": 0.9999999955333845,
+      "hard_best_probability": 0.333316487473443,
+      "easy_best_lambda": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "hard_best_lambda": [
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "workspace": {
+        "planned_scratch_bytes": 28101855488,
+        "live_scratch_bytes": 0,
+        "live_cache_bytes": 30204160,
+        "scratch_reuse_hits": 0,
+        "scratch_evictions": 0,
+        "last_budget_bytes": null
+      },
+      "tag": "stageA-b3-identity",
+      "profile_path": "p5_scan/paths_b3_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+      "profile_compile_seconds": 698.0060717520537
+    },
+    {
+      "block_size": 4,
+      "logical_order": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "topologies": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ],
+        [
+          8,
+          9,
+          10,
+          11
+        ]
+      ],
+      "cold_easy_seconds": 2.727290541981347,
+      "easy_times": [
+        2.602221570094116,
+        2.6008597490144894
+      ],
+      "hard_times": [
+        3.3874317000154406,
+        3.38663473399356
+      ],
+      "easy_median_seconds": 2.6015406595543027,
+      "hard_median_seconds": 3.3870332170045003,
+      "mean_easy_hard_seconds": 2.9942869382794015,
+      "easy_oracle_calls": 3,
+      "hard_oracle_calls": 7,
+      "easy_leaves": 1,
+      "hard_leaves": 3,
+      "easy_best_probability": 0.999999995533383,
+      "hard_best_probability": 0.3333164874731718,
+      "easy_best_lambda": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "hard_best_lambda": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "workspace": {
+        "planned_scratch_bytes": 9867101440,
+        "live_scratch_bytes": 0,
+        "live_cache_bytes": 6323712,
+        "scratch_reuse_hits": 0,
+        "scratch_evictions": 0,
+        "last_budget_bytes": null
+      },
+      "tag": "stageA-b4-identity",
+      "profile_path": "p5_scan/paths_b4_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+      "profile_compile_seconds": 483.79945465293713
+    },
+    {
+      "block_size": 6,
+      "logical_order": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "topologies": [
+        [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        [
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      ],
+      "cold_easy_seconds": 1.1491701341001317,
+      "easy_times": [
+        1.0693489880068228,
+        1.0694905429845676
+      ],
+      "hard_times": [
+        1.9736477410187945,
+        1.9732253520051017
+      ],
+      "easy_median_seconds": 1.0694197654956952,
+      "hard_median_seconds": 1.973436546511948,
+      "mean_easy_hard_seconds": 1.5214281560038216,
+      "easy_oracle_calls": 2,
+      "hard_oracle_calls": 4,
+      "easy_leaves": 1,
+      "hard_leaves": 3,
+      "easy_best_probability": 0.9999999955333833,
+      "hard_best_probability": 0.33331648747367865,
+      "easy_best_lambda": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "hard_best_lambda": [
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "workspace": {
+        "planned_scratch_bytes": 6266290944,
+        "live_scratch_bytes": 0,
+        "live_cache_bytes": 14094592,
+        "scratch_reuse_hits": 0,
+        "scratch_evictions": 0,
+        "last_budget_bytes": null
+      },
+      "tag": "stageA-b6-identity",
+      "profile_path": "p5_scan/paths_b6_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+      "profile_compile_seconds": 239.2832639759872
+    },
+    {
+      "block_size": 6,
+      "logical_order": [
+        11,
+        10,
+        9,
+        8,
+        7,
+        6,
+        5,
+        4,
+        3,
+        2,
+        1,
+        0
+      ],
+      "topologies": [
+        [
+          11,
+          10,
+          9,
+          8,
+          7,
+          6
+        ],
+        [
+          5,
+          4,
+          3,
+          2,
+          1,
+          0
+        ]
+      ],
+      "cold_easy_seconds": 0.951329952920787,
+      "easy_times": [
+        0.8778201329987496,
+        0.8774004789302126
+      ],
+      "hard_times": [
+        2.360979385091923,
+        2.3615186309907585
+      ],
+      "easy_median_seconds": 0.8776103059644811,
+      "hard_median_seconds": 2.361249008041341,
+      "mean_easy_hard_seconds": 1.619429657002911,
+      "easy_oracle_calls": 2,
+      "hard_oracle_calls": 4,
+      "easy_leaves": 1,
+      "hard_leaves": 3,
+      "easy_best_probability": 0.999999995533383,
+      "hard_best_probability": 0.33331648747314213,
+      "easy_best_lambda": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "hard_best_lambda": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "workspace": {
+        "planned_scratch_bytes": 9428796416,
+        "live_scratch_bytes": 0,
+        "live_cache_bytes": 3771648,
+        "scratch_reuse_hits": 0,
+        "scratch_evictions": 0,
+        "last_budget_bytes": null
+      },
+      "tag": "stageB-b6-reverse",
+      "profile_path": "p5_scan/paths_b6_11-10-9-8-7-6-5-4-3-2-1-0.pkl",
+      "profile_compile_seconds": 235.70418862998486
+    },
+    {
+      "block_size": 6,
+      "logical_order": [
+        3,
+        10,
+        11,
+        7,
+        0,
+        9,
+        8,
+        1,
+        2,
+        5,
+        4,
+        6
+      ],
+      "topologies": [
+        [
+          3,
+          10,
+          11,
+          7,
+          0,
+          9
+        ],
+        [
+          8,
+          1,
+          2,
+          5,
+          4,
+          6
+        ]
+      ],
+      "cold_easy_seconds": 2.2792738130083308,
+      "easy_times": [
+        2.2142124969977885,
+        2.2097175050294027
+      ],
+      "hard_times": [
+        5.740486997994594,
+        5.739660767023452
+      ],
+      "easy_median_seconds": 2.2119650010135956,
+      "hard_median_seconds": 5.740073882509023,
+      "mean_easy_hard_seconds": 3.9760194417613093,
+      "easy_oracle_calls": 2,
+      "hard_oracle_calls": 4,
+      "easy_leaves": 1,
+      "hard_leaves": 3,
+      "easy_best_probability": 0.999999995533385,
+      "hard_best_probability": 0.3333164874732636,
+      "easy_best_lambda": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "hard_best_lambda": [
+        1,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "workspace": {
+        "planned_scratch_bytes": 12280922624,
+        "live_scratch_bytes": 0,
+        "live_cache_bytes": 13111040,
+        "scratch_reuse_hits": 0,
+        "scratch_evictions": 0,
+        "last_budget_bytes": null
+      },
+      "tag": "stageB-b6-weight-asc",
+      "profile_path": "p5_scan/paths_b6_3-10-11-7-0-9-8-1-2-5-4-6.pkl",
+      "profile_compile_seconds": 211.38323099096306
+    },
+    {
+      "block_size": 6,
+      "logical_order": [
+        4,
+        6,
+        1,
+        2,
+        5,
+        8,
+        0,
+        9,
+        7,
+        3,
+        10,
+        11
+      ],
+      "topologies": [
+        [
+          4,
+          6,
+          1,
+          2,
+          5,
+          8
+        ],
+        [
+          0,
+          9,
+          7,
+          3,
+          10,
+          11
+        ]
+      ],
+      "cold_easy_seconds": 2.087035108008422,
+      "easy_times": [
+        2.3868990150513127,
+        1.9968151760986075
+      ],
+      "hard_times": [
+        2.267795915948227,
+        2.267687375075184
+      ],
+      "easy_median_seconds": 2.19185709557496,
+      "hard_median_seconds": 2.2677416455117054,
+      "mean_easy_hard_seconds": 2.2297993705433328,
+      "easy_oracle_calls": 2,
+      "hard_oracle_calls": 4,
+      "easy_leaves": 1,
+      "hard_leaves": 3,
+      "easy_best_probability": 0.9999999955333834,
+      "hard_best_probability": 0.33331648747368486,
+      "easy_best_lambda": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "hard_best_lambda": [
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1
+      ],
+      "workspace": {
+        "planned_scratch_bytes": 13388218880,
+        "live_scratch_bytes": 0,
+        "live_cache_bytes": 10269696,
+        "scratch_reuse_hits": 0,
+        "scratch_evictions": 0,
+        "last_budget_bytes": null
+      },
+      "tag": "stageB-b6-weight-desc",
+      "profile_path": "p5_scan/paths_b6_4-6-1-2-5-8-0-9-7-3-10-11.pkl",
+      "profile_compile_seconds": 221.0521490010433
+    },
+    {
+      "block_size": 6,
+      "logical_order": [
+        4,
+        1,
+        6,
+        5,
+        2,
+        8,
+        0,
+        10,
+        9,
+        7,
+        11,
+        3
+      ],
+      "topologies": [
+        [
+          4,
+          1,
+          6,
+          5,
+          2,
+          8
+        ],
+        [
+          0,
+          10,
+          9,
+          7,
+          11,
+          3
+        ]
+      ],
+      "cold_easy_seconds": 1.895812593982555,
+      "easy_times": [
+        1.8203660410363227,
+        1.820112299057655
+      ],
+      "hard_times": [
+        2.69487685803324,
+        2.693674545036629
+      ],
+      "easy_median_seconds": 1.8202391700469889,
+      "hard_median_seconds": 2.6942757015349343,
+      "mean_easy_hard_seconds": 2.2572574357909616,
+      "easy_oracle_calls": 2,
+      "hard_oracle_calls": 4,
+      "easy_leaves": 1,
+      "hard_leaves": 3,
+      "easy_best_probability": 0.999999995533383,
+      "hard_best_probability": 0.3333164874719602,
+      "easy_best_lambda": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "hard_best_lambda": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "workspace": {
+        "planned_scratch_bytes": 14663287296,
+        "live_scratch_bytes": 0,
+        "live_cache_bytes": 143193856,
+        "scratch_reuse_hits": 0,
+        "scratch_evictions": 0,
+        "last_budget_bytes": null
+      },
+      "tag": "stageB-b6-overlap-max",
+      "profile_path": "p5_scan/paths_b6_4-1-6-5-2-8-0-10-9-7-11-3.pkl",
+      "profile_compile_seconds": 211.0829796830658
+    },
+    {
+      "block_size": 6,
+      "logical_order": [
+        4,
+        3,
+        10,
+        11,
+        8,
+        7,
+        6,
+        0,
+        9,
+        2,
+        1,
+        5
+      ],
+      "topologies": [
+        [
+          4,
+          3,
+          10,
+          11,
+          8,
+          7
+        ],
+        [
+          6,
+          0,
+          9,
+          2,
+          1,
+          5
+        ]
+      ],
+      "cold_easy_seconds": 1.8807851490564644,
+      "easy_times": [
+        1.7826243489980698,
+        1.7778272459981963
+      ],
+      "hard_times": [
+        3.4183295000111684,
+        3.4178905080771074
+      ],
+      "easy_median_seconds": 1.780225797498133,
+      "hard_median_seconds": 3.418110004044138,
+      "mean_easy_hard_seconds": 2.5991679007711355,
+      "easy_oracle_calls": 2,
+      "hard_oracle_calls": 4,
+      "easy_leaves": 1,
+      "hard_leaves": 3,
+      "easy_best_probability": 0.9999999955333828,
+      "hard_best_probability": 0.3333164874731473,
+      "easy_best_lambda": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "hard_best_lambda": [
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        1
+      ],
+      "workspace": {
+        "planned_scratch_bytes": 12524192256,
+        "live_scratch_bytes": 0,
+        "live_cache_bytes": 12772864,
+        "scratch_reuse_hits": 0,
+        "scratch_evictions": 0,
+        "last_budget_bytes": null
+      },
+      "tag": "stageB-b6-overlap-min",
+      "profile_path": "p5_scan/paths_b6_4-3-10-11-8-7-6-0-9-2-1-5.pkl",
+      "profile_compile_seconds": 292.3566276700003
+    },
+    {
+      "block_size": 6,
+      "logical_order": [
+        7,
+        0,
+        5,
+        9,
+        4,
+        11,
+        3,
+        8,
+        6,
+        2,
+        1,
+        10
+      ],
+      "topologies": [
+        [
+          7,
+          0,
+          5,
+          9,
+          4,
+          11
+        ],
+        [
+          3,
+          8,
+          6,
+          2,
+          1,
+          10
+        ]
+      ],
+      "cold_easy_seconds": 6.589321910054423,
+      "easy_times": [
+        5.82395108602941,
+        5.821547603933141
+      ],
+      "hard_times": [
+        16.498962440993637,
+        16.488793801981956
+      ],
+      "easy_median_seconds": 5.8227493449812755,
+      "hard_median_seconds": 16.493878121487796,
+      "mean_easy_hard_seconds": 11.158313733234536,
+      "easy_oracle_calls": 2,
+      "hard_oracle_calls": 4,
+      "easy_leaves": 1,
+      "hard_leaves": 3,
+      "easy_best_probability": 0.9999999955333856,
+      "hard_best_probability": 0.33331648747314424,
+      "easy_best_lambda": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "hard_best_lambda": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "workspace": {
+        "planned_scratch_bytes": 27254588928,
+        "live_scratch_bytes": 0,
+        "live_cache_bytes": 4964864,
+        "scratch_reuse_hits": 0,
+        "scratch_evictions": 0,
+        "last_budget_bytes": null
+      },
+      "tag": "stageB-b6-random-0",
+      "profile_path": "p5_scan/paths_b6_7-0-5-9-4-11-3-8-6-2-1-10.pkl",
+      "profile_compile_seconds": 386.0947643959662
+    },
+    {
+      "block_size": 6,
+      "logical_order": [
+        0,
+        5,
+        11,
+        3,
+        2,
+        6,
+        1,
+        9,
+        7,
+        10,
+        4,
+        8
+      ],
+      "topologies": [
+        [
+          0,
+          5,
+          11,
+          3,
+          2,
+          6
+        ],
+        [
+          1,
+          9,
+          7,
+          10,
+          4,
+          8
+        ]
+      ],
+      "cold_easy_seconds": 1.5946171769173816,
+      "easy_times": [
+        1.5028843210311607,
+        1.5027597890002653
+      ],
+      "hard_times": [
+        1.7883681789971888,
+        1.7870765529805794
+      ],
+      "easy_median_seconds": 1.502822055015713,
+      "hard_median_seconds": 1.7877223659888841,
+      "mean_easy_hard_seconds": 1.6452722105022985,
+      "easy_oracle_calls": 2,
+      "hard_oracle_calls": 4,
+      "easy_leaves": 1,
+      "hard_leaves": 3,
+      "easy_best_probability": 0.999999995533383,
+      "hard_best_probability": 0.3333164874731108,
+      "easy_best_lambda": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "hard_best_lambda": [
+        0,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "workspace": {
+        "planned_scratch_bytes": 17817403904,
+        "live_scratch_bytes": 0,
+        "live_cache_bytes": 8820480,
+        "scratch_reuse_hits": 0,
+        "scratch_evictions": 0,
+        "last_budget_bytes": null
+      },
+      "tag": "stageB-b6-random-1",
+      "profile_path": "p5_scan/paths_b6_0-5-11-3-2-6-1-9-7-10-4-8.pkl",
+      "profile_compile_seconds": 199.4214570290642
+    }
+  ]
+}

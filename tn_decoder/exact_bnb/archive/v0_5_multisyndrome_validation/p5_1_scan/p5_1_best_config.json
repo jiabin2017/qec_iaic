@@ -1,0 +1,39 @@
+{
+  "block_size": 9,
+  "logical_order": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "canonical_block_signature": [
+    [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    [
+      9,
+      10,
+      11
+    ]
+  ],
+  "profile_path": "p5_1_scan/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl",
+  "easy_median_seconds": 0.20820483850548044,
+  "hard_median_seconds": 0.3928052290575579,
+  "mean_easy_hard_seconds": 0.30050503378151916
+}
