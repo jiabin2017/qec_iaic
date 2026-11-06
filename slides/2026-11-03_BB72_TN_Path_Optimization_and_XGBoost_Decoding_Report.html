@@ -1,0 +1,2725 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Paginated BB72 scientific report: TN contraction-path optimization and XGBoost accuracy, natural LER, latency, and deployment.">
+<title>BB72 Tensor-Network Decoding Continued</title><style>
+:root{--ink:#17243a;--muted:#66758b;--blue:#1d4ed8;--teal:#0f766e;--line:#dfe6ef;--scale:1}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{font-family:'Segoe UI',sans-serif;background:#e8edf4;color:var(--ink);font-size:26px;line-height:1.42}
+button,select{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #26a2a1;outline-offset:4px}
+.viewport{position:fixed;inset:0 0 78px;overflow:hidden}
+.stage{position:absolute;width:1600px;height:900px;left:50%;top:50%;transform:translate(-50%,-50%) scale(var(--scale));transform-origin:center;box-shadow:0 18px 70px #1e335322}
+.slide{position:absolute;inset:0;width:1600px;height:900px;padding:56px 76px 76px;background:#fff;display:none;flex-direction:column;overflow:hidden}
+.slide.active{display:flex;animation:appear .18s ease-out}
+.slide:before{content:'';position:absolute;top:0;left:0;width:100%;height:7px;background:linear-gradient(90deg,var(--blue) 0 62%,var(--teal) 62%)}
+.section{margin:0 0 10px;color:var(--teal);font-size:17px;font-weight:650;letter-spacing:1.6px;text-transform:uppercase}
+h1,h2,h3,p{margin:0}h1{font-size:68px;line-height:1.13;letter-spacing:-2px;font-weight:650;max-width:1200px}
+h2{font-size:43px;line-height:1.16;letter-spacing:-1px;font-weight:650;max-width:1445px}
+h3{font-size:29px;line-height:1.25;margin:0 0 15px;font-weight:650}
+.subtitle{color:var(--muted);font-size:23px;margin-top:13px;line-height:1.35}
+.content{flex:1;min-height:0;padding-top:26px;display:flex;flex-direction:column;gap:20px}
+.content>p{max-width:1300px}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
+.wide-chart{grid-template-columns:minmax(0,1.95fr) minmax(0,1fr);gap:46px;align-items:center;flex:1;min-height:0}
+.side{display:flex;flex-direction:column;gap:23px}.side .points{font-size:24px}
+.points{margin:0;padding-left:25px;display:flex;flex-direction:column;gap:18px}.points li{padding-left:3px}
+.chart-key{list-style:none}.chart-key li{position:relative}.chart-marker{position:absolute;left:-25px;top:.4em;width:15px;height:15px}
+.quiet{font-size:20px;color:var(--muted)}.takeaway{margin-top:auto;padding:17px 23px;background:#eef8f5;border-left:5px solid var(--teal);font-size:26px;line-height:1.35;font-weight:550}
+.chart{margin:0;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1}
+.chart svg{max-width:100%;width:100%;height:100%;max-height:470px;display:block;overflow:visible}
+.chart figcaption{font-size:17px;color:var(--muted)}.chart figcaption:empty{display:none}
+.wide-chart .chart svg{max-height:445px}
+.stat{display:flex;flex-direction:column;gap:7px}.stat strong{font-size:54px;letter-spacing:-1px;color:var(--blue);font-weight:650;line-height:1.08}
+.stat strong sup{font-size:.55em}.stat span{font-size:24px;font-weight:600}.stat small{font-size:18px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:23px;line-height:1.4}
+th{text-align:left;font-weight:650;color:var(--muted);font-size:18px;text-transform:uppercase;letter-spacing:.6px;padding:15px 16px;border-bottom:2px solid var(--line)}
+td{padding:19px 16px;border-bottom:1px solid var(--line);vertical-align:top}tbody tr:last-child td{border-bottom:0}
+.side table{font-size:25px}.side td{padding:13px 5px}.side th{padding:10px 5px}
+.summary-table td{padding:21px 17px;font-size:25px}.summary-table td:nth-child(1){width:23%;font-weight:600}
+.summary-table td:nth-child(2){width:34%;color:var(--blue)}
+.compact td{overflow-wrap:anywhere;font-size:23px}.compact td:nth-child(1){width:25%}.compact td:nth-child(2){width:43%}
+.source-table td{padding:14px 12px;font-size:21px}.source-table th{padding:12px}.source-table td:first-child{color:var(--teal);font-weight:600;width:7%}
+a{color:var(--blue);text-decoration:none;border-bottom:1px solid #b9c9ea}a:hover{border-color:var(--blue)}
+.source-bottom{font-size:21px;color:var(--muted);display:grid;gap:13px;margin-top:15px}
+code{font-family:Consolas,monospace;font-size:.86em;background:#f1f5f9;padding:2px 5px}
+.footer{position:absolute;left:76px;right:76px;bottom:22px;display:flex;justify-content:space-between;align-items:flex-end;gap:25px;border-top:1px solid var(--line);padding-top:10px;color:var(--muted);font-size:13px;line-height:1.3}
+.footer .source{max-width:1265px}.footer .page{white-space:nowrap;font-variant-numeric:tabular-nums;font-size:16px;color:var(--ink)}
+.cover{background:radial-gradient(ellipse at 95% 5%,#dbeafe8c,transparent 45%),#fff;padding-top:83px}
+.cover .section{margin-bottom:38px}.cover h2{font-size:65px;max-width:1250px;line-height:1.13;letter-spacing:-1.8px}
+.cover .subtitle{font-size:34px;color:var(--blue);margin-top:22px;max-width:1260px}
+.cover .content{padding-top:27px}.cover-rule{width:84px;height:5px;background:var(--teal);margin:5px 0 10px}
+.cover-summary{font-size:29px;max-width:1100px;line-height:1.4}
+.cover-stats{display:grid;grid-template-columns:1fr 1.16fr 1fr;gap:55px;margin-top:27px}
+.cover-stats .stat{border-top:1px solid #cbd8e8;padding-top:22px}.cover-stats .stat strong{font-size:61px}
+.cover-stats .stat span{font-size:23px}.cover-bottom{display:flex;justify-content:space-between;font-size:21px;color:var(--muted);margin-top:auto;padding-bottom:20px}
+.pipeline{display:grid;grid-template-columns:1fr 100px 1.1fr 100px 1fr;align-items:stretch;gap:10px;margin:3px 0 10px}
+.pipeline>div:not(.connector){background:#f5f8fc;border-top:4px solid var(--blue);padding:24px 23px}
+.pipeline b{font-size:26px}.pipeline p{margin-top:12px;font-size:23px;line-height:1.6}
+.connector{display:flex;align-items:center;justify-content:center;position:relative;font-size:12px;letter-spacing:1px;color:var(--muted)}
+.connector:after{content:'';position:absolute;left:8px;right:8px;top:58%;height:2px;background:#aabbd3}
+.connector:before{content:'';position:absolute;right:8px;top:calc(58% - 4px);border:5px solid transparent;border-left-color:#aabbd3;transform:translateX(8px)}
+.formula{font-family:Cambria,'Times New Roman',serif;font-size:31px;text-align:center;line-height:1.8;padding:5px 0;color:var(--blue)}
+.inline-stats{display:flex;justify-content:space-around;gap:20px;font-size:21px}.inline-stats b{font-size:28px;color:var(--blue);padding-right:9px}
+.lut .pipeline{margin-bottom:20px}.lut b{color:var(--blue)}.lut p{font-size:22px}.lut .connector{font-size:11px}
+.three-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:45px;margin-top:9px}.three-stats .stat strong{font-size:48px}
+.closing-grid{display:grid;grid-template-columns:95px 1fr;gap:31px 22px;margin:5px 0 10px}
+.closing-number{font-size:53px;color:#9fb7dc;line-height:1}.closing-grid p{font-size:26px;color:var(--muted);max-width:1200px}
+.controls{position:fixed;bottom:0;left:0;right:0;height:78px;display:flex;align-items:center;justify-content:center;gap:10px;background:#f7f9fccc;border-top:1px solid #ccd7e4;backdrop-filter:blur(8px);z-index:10}
+.controls button{border:1px solid #cad4e3;background:white;color:var(--ink);border-radius:6px;padding:8px 15px;font-size:14px;height:38px}
+.controls button:hover{background:#eaf0fb}.controls button:disabled{opacity:.35;cursor:default}
+.counter{font-size:14px;color:var(--muted);min-width:77px;text-align:center;font-variant-numeric:tabular-nums}
+.progress{position:absolute;top:0;left:0;height:3px;background:var(--blue);width:0;transition:width .18s}
+.help{font-size:12px;color:var(--muted);padding-left:15px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.overlay[hidden],.notes[hidden]{display:none}.overlay{position:fixed;inset:0;background:#122139b8;z-index:30;padding:40px;overflow:auto;display:flex;justify-content:center;align-items:flex-start}
+.index-panel{background:#f8fafc;width:min(1100px,100%);padding:28px;border-radius:10px;color:var(--ink)}
+.index-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.index-head h3{font-size:24px;margin:0}.index-head button{font-size:20px;background:transparent;border:0}
+.index-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.index-grid button{background:white;border:1px solid #d3dce9;border-radius:5px;text-align:left;padding:14px;font-size:16px;line-height:1.4;min-height:100px;color:var(--ink)}
+.index-grid button[aria-current=true]{border:2px solid var(--blue);background:#edf3ff}.index-grid span{display:block;color:var(--teal);font-size:12px;margin-bottom:6px}
+.notes{position:fixed;bottom:88px;left:50%;transform:translateX(-50%);width:min(900px,95vw);max-height:40vh;overflow:auto;background:#14223a;color:#eef3fb;padding:23px 27px;border-radius:9px;z-index:20;font-size:17px;line-height:1.6;box-shadow:0 10px 40px #0003}
+.notes strong{display:block;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#9bcac5;margin-bottom:7px}
+@keyframes appear{from{opacity:.5}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.slide.active{animation:none}.progress{transition:none}}
+@media(max-width:650px){.controls{gap:6px}.controls button{font-size:12px;padding:8px 10px}.help{display:none}.index-grid{grid-template-columns:1fr}.overlay{padding:18px}.controls .optional{display:none}}
+@media print{
+ @page{size:1600px 900px;margin:0}
+ html,body{width:1600px;height:auto;overflow:visible;background:white;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+ .viewport{position:static;overflow:visible;inset:auto}.stage{position:static;transform:none;width:1600px;height:auto;box-shadow:none}
+ .slide,.slide.active{display:flex!important;position:relative;inset:auto;break-after:page;page-break-after:always;animation:none;width:1600px;height:900px}
+ .slide:last-child{break-after:auto;page-break-after:auto}.controls,.overlay,.notes,.sr-only{display:none!important}
+ a{color:inherit;text-decoration:none;border:0}
+}
+</style></head><body>
+<main class="viewport" aria-label="BB72 slide presentation"><div class="stage"><section id="slide-1" class="slide cover" data-title="Tensor-network decoding continued" data-section="BB72 decoding" data-notes="This continues the 24 September report. The main question is whether a cheaper learned decoder can reproduce useful TN decisions. The three headline figures come from different experiments and are not a controlled TN-versus-CPU speedup." aria-label="Slide 1: Tensor-network decoding continued">
+<header><p class="section">BB72 decoding</p><h2>Tensor-network decoding continued</h2><p class="subtitle">Contraction-path optimization and XGBoost decoding</p></header>
+<div class="content"><div class="cover-rule"></div><p class="cover-summary">A faster tensor-network teacher, followed by a CPU decoder that learns its logical-sector decisions.</p><div class="cover-stats"><div class="stat"><strong>147 ms</strong><span>TN easy-case latency</span><small>optimized 9+3 contraction profile</small></div><div class="stat"><strong>52.47%</strong><span>Unseen stress MAP agreement</span><small>best selected XGBoost model</small></div><div class="stat"><strong>18.54 ms</strong><span>CPU single-shot P99</span><small>same model, optimized execution</small></div></div><div class="cover-bottom"><span>BB72 [[72,12,6]]</span><span>3 November 2026</span></div></div><footer class="footer"><span class="source">Sources S1-S5. TN and CPU timing scopes differ.</span><span class="page">01 / 16</span></footer></section><section id="slide-2" class="slide " data-title="The same 9+3 search runs faster with a better path" data-section="Contraction paths" data-notes="The bars compare recorded medians from separate benchmark runs, not a contemporaneous paired measurement. Do not infer a new hard-case time from the easy-case gain. The offline path cache stores contraction order and slicing, not syndrome-specific MAP answers." aria-label="Slide 2: The same 9+3 search runs faster with a better path">
+<header><p class="section">Contraction paths</p><h2>The same 9+3 search runs faster with a better path</h2><p class="subtitle">Logical partition and BnB search logic remain unchanged.</p></header>
+<div class="content"><div class="two-col wide-chart"><figure class="chart"><svg role="img" aria-label="Experiment result chart" xmlns:xlink="http://www.w3.org/1999/xlink" width="679.749063pt" height="291.66675pt" viewBox="0 0 679.749063 291.66675" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-03T16:52:59.765422</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="c212cf44672_figure_1">
+  <g id="c212cf44672_patch_1">
+   <path d="M 0 291.66675 
+L 679.749063 291.66675 
+L 679.749063 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="c212cf44672_axes_1">
+   <g id="c212cf44672_patch_2">
+    <path d="M 155.782188 242.208 
+L 657.982188 242.208 
+L 657.982188 9.36 
+L 155.782188 9.36 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="c212cf44672_matplotlib.axis_1">
+    <g id="c212cf44672_xtick_1">
+     <g id="c212cf44672_line2d_1">
+      <path d="M 155.782188 242.208 
+L 155.782188 9.36 
+" clip-path="url(#c212cf44672_pc4c58e027d)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c212cf44672_line2d_2"/>
+     <g id="c212cf44672_text_1">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="155.782188" y="261.085969" transform="rotate(-0 155.782188 261.085969)">0</text>
+     </g>
+    </g>
+    <g id="c212cf44672_xtick_2">
+     <g id="c212cf44672_line2d_3">
+      <path d="M 256.222188 242.208 
+L 256.222188 9.36 
+" clip-path="url(#c212cf44672_pc4c58e027d)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c212cf44672_line2d_4"/>
+     <g id="c212cf44672_text_2">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="256.222188" y="261.085969" transform="rotate(-0 256.222188 261.085969)">50</text>
+     </g>
+    </g>
+    <g id="c212cf44672_xtick_3">
+     <g id="c212cf44672_line2d_5">
+      <path d="M 356.662188 242.208 
+L 356.662188 9.36 
+" clip-path="url(#c212cf44672_pc4c58e027d)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c212cf44672_line2d_6"/>
+     <g id="c212cf44672_text_3">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="356.662188" y="261.085969" transform="rotate(-0 356.662188 261.085969)">100</text>
+     </g>
+    </g>
+    <g id="c212cf44672_xtick_4">
+     <g id="c212cf44672_line2d_7">
+      <path d="M 457.102188 242.208 
+L 457.102188 9.36 
+" clip-path="url(#c212cf44672_pc4c58e027d)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c212cf44672_line2d_8"/>
+     <g id="c212cf44672_text_4">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="457.102188" y="261.085969" transform="rotate(-0 457.102188 261.085969)">150</text>
+     </g>
+    </g>
+    <g id="c212cf44672_xtick_5">
+     <g id="c212cf44672_line2d_9">
+      <path d="M 557.542187 242.208 
+L 557.542187 9.36 
+" clip-path="url(#c212cf44672_pc4c58e027d)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c212cf44672_line2d_10"/>
+     <g id="c212cf44672_text_5">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="557.542187" y="261.085969" transform="rotate(-0 557.542187 261.085969)">200</text>
+     </g>
+    </g>
+    <g id="c212cf44672_xtick_6">
+     <g id="c212cf44672_line2d_11">
+      <path d="M 657.982188 242.208 
+L 657.982188 9.36 
+" clip-path="url(#c212cf44672_pc4c58e027d)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c212cf44672_line2d_12"/>
+     <g id="c212cf44672_text_6">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="657.982188" y="261.085969" transform="rotate(-0 657.982188 261.085969)">250</text>
+     </g>
+    </g>
+    <g id="c212cf44672_text_7">
+     <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="406.882187" y="279.187219" transform="rotate(-0 406.882187 279.187219)">Warm online easy-case time (ms)</text>
+    </g>
+   </g>
+   <g id="c212cf44672_matplotlib.axis_2">
+    <g id="c212cf44672_ytick_1">
+     <g id="c212cf44672_line2d_13"/>
+     <g id="c212cf44672_text_8">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="146.782188" y="57.222984" transform="rotate(-0 146.782188 57.222984)">Earlier 9+3 profile</text>
+     </g>
+    </g>
+    <g id="c212cf44672_ytick_2">
+     <g id="c212cf44672_line2d_14"/>
+     <g id="c212cf44672_text_9">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="146.782188" y="204.222984" transform="rotate(-0 146.782188 204.222984)">Deep-search best_93</text>
+     </g>
+    </g>
+   </g>
+   <g id="c212cf44672_patch_3">
+    <path d="M 155.782188 84.624 
+L 574.024067 84.624 
+L 574.024067 19.944 
+L 155.782188 19.944 
+z
+" clip-path="url(#c212cf44672_pc4c58e027d)" style="fill: #9aacc6"/>
+   </g>
+   <g id="c212cf44672_patch_4">
+    <path d="M 155.782188 231.624 
+L 451.818441 231.624 
+L 451.818441 166.944 
+L 155.782188 166.944 
+z
+" clip-path="url(#c212cf44672_pc4c58e027d)" style="fill: #1d4ed8"/>
+   </g>
+   <g id="c212cf44672_text_10">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17243a" x="582.059267" y="56.974938" transform="rotate(-0 582.059267 56.974938)">208.2 ms</text>
+   </g>
+   <g id="c212cf44672_text_11">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17243a" x="459.853641" y="203.974938" transform="rotate(-0 459.853641 203.974938)">147.4 ms</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="c212cf44672_pc4c58e027d">
+   <rect x="155.782188" y="9.36" width="502.2" height="232.848"/>
+  </clipPath>
+ </defs>
+</svg>
+<figcaption></figcaption></figure><div class="side"><div class="stat"><strong>29.2%</strong><span>Lower recorded easy-case time</span><small></small></div><ul class="points"><li>Root contraction: 9 open logical bits, 512 prefix masses.</li><li>Tail contraction: 3 open logical bits, 8 sector masses.</li><li>Historical old-path easy/hard baseline: about 0.208 / 0.393 s.</li></ul></div></div><div class="takeaway">Path quality remains important after the logical block layout is fixed.</div></div><footer class="footer"><span class="source">S1: September P5.1 result. S2: deep-search status.json. Easy case: X error at qubit 28, p=0.005, A100.</span><span class="page">02 / 16</span></footer></section><section id="slide-3" class="slide " data-title="Offline path search and online decoding have different costs" data-section="Contraction paths" data-notes="The five-day budget is an offline experiment cost, not a per-shot cost. The structure comparison is the outcome of an adaptive search campaign, not an equal-budget ablation. best_93 retains the identity logical order and 50% memory setting." aria-label="Slide 3: Offline path search and online decoding have different costs">
+<header><p class="section">Contraction paths</p><h2>Offline path search and online decoding have different costs</h2><p class="subtitle">The search budget buys a reusable contraction profile.</p></header>
+<div class="content"><div class="two-col wide-chart"><figure class="chart"><svg role="img" aria-label="Experiment result chart" xmlns:xlink="http://www.w3.org/1999/xlink" width="573.365781pt" height="297.21075pt" viewBox="0 0 573.365781 297.21075" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-03T16:52:59.810096</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="c5ce773be0b_figure_1">
+  <g id="c5ce773be0b_patch_1">
+   <path d="M 0 297.21075 
+L 573.365781 297.21075 
+L 573.365781 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="c5ce773be0b_axes_1">
+   <g id="c5ce773be0b_patch_2">
+    <path d="M 84.125781 247.752 
+L 564.005781 247.752 
+L 564.005781 9.36 
+L 84.125781 9.36 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="c5ce773be0b_matplotlib.axis_1">
+    <g id="c5ce773be0b_xtick_1">
+     <g id="c5ce773be0b_line2d_1">
+      <path d="M 84.125781 247.752 
+L 84.125781 9.36 
+" clip-path="url(#c5ce773be0b_p2f556a4668)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c5ce773be0b_line2d_2"/>
+     <g id="c5ce773be0b_text_1">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="84.125781" y="266.629969" transform="rotate(-0 84.125781 266.629969)">0.00</text>
+     </g>
+    </g>
+    <g id="c5ce773be0b_xtick_2">
+     <g id="c5ce773be0b_line2d_3">
+      <path d="M 145.648858 247.752 
+L 145.648858 9.36 
+" clip-path="url(#c5ce773be0b_p2f556a4668)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c5ce773be0b_line2d_4"/>
+     <g id="c5ce773be0b_text_2">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="145.648858" y="266.629969" transform="rotate(-0 145.648858 266.629969)">0.25</text>
+     </g>
+    </g>
+    <g id="c5ce773be0b_xtick_3">
+     <g id="c5ce773be0b_line2d_5">
+      <path d="M 207.171935 247.752 
+L 207.171935 9.36 
+" clip-path="url(#c5ce773be0b_p2f556a4668)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c5ce773be0b_line2d_6"/>
+     <g id="c5ce773be0b_text_3">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="207.171935" y="266.629969" transform="rotate(-0 207.171935 266.629969)">0.50</text>
+     </g>
+    </g>
+    <g id="c5ce773be0b_xtick_4">
+     <g id="c5ce773be0b_line2d_7">
+      <path d="M 268.695012 247.752 
+L 268.695012 9.36 
+" clip-path="url(#c5ce773be0b_p2f556a4668)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c5ce773be0b_line2d_8"/>
+     <g id="c5ce773be0b_text_4">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="268.695012" y="266.629969" transform="rotate(-0 268.695012 266.629969)">0.75</text>
+     </g>
+    </g>
+    <g id="c5ce773be0b_xtick_5">
+     <g id="c5ce773be0b_line2d_9">
+      <path d="M 330.218089 247.752 
+L 330.218089 9.36 
+" clip-path="url(#c5ce773be0b_p2f556a4668)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c5ce773be0b_line2d_10"/>
+     <g id="c5ce773be0b_text_5">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="330.218089" y="266.629969" transform="rotate(-0 330.218089 266.629969)">1.00</text>
+     </g>
+    </g>
+    <g id="c5ce773be0b_xtick_6">
+     <g id="c5ce773be0b_line2d_11">
+      <path d="M 391.741166 247.752 
+L 391.741166 9.36 
+" clip-path="url(#c5ce773be0b_p2f556a4668)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c5ce773be0b_line2d_12"/>
+     <g id="c5ce773be0b_text_6">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="391.741166" y="266.629969" transform="rotate(-0 391.741166 266.629969)">1.25</text>
+     </g>
+    </g>
+    <g id="c5ce773be0b_xtick_7">
+     <g id="c5ce773be0b_line2d_13">
+      <path d="M 453.264243 247.752 
+L 453.264243 9.36 
+" clip-path="url(#c5ce773be0b_p2f556a4668)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c5ce773be0b_line2d_14"/>
+     <g id="c5ce773be0b_text_7">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="453.264243" y="266.629969" transform="rotate(-0 453.264243 266.629969)">1.50</text>
+     </g>
+    </g>
+    <g id="c5ce773be0b_xtick_8">
+     <g id="c5ce773be0b_line2d_15">
+      <path d="M 514.78732 247.752 
+L 514.78732 9.36 
+" clip-path="url(#c5ce773be0b_p2f556a4668)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c5ce773be0b_line2d_16"/>
+     <g id="c5ce773be0b_text_8">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="514.78732" y="266.629969" transform="rotate(-0 514.78732 266.629969)">1.75</text>
+     </g>
+    </g>
+    <g id="c5ce773be0b_text_9">
+     <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="324.065781" y="284.731219" transform="rotate(-0 324.065781 284.731219)">Recorded final easy-case median (s)</text>
+    </g>
+   </g>
+   <g id="c5ce773be0b_matplotlib.axis_2">
+    <g id="c5ce773be0b_ytick_1">
+     <g id="c5ce773be0b_line2d_17"/>
+     <g id="c5ce773be0b_text_10">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="75.125781" y="46.806984" transform="rotate(-0 75.125781 46.806984)">3+3+3+3</text>
+     </g>
+    </g>
+    <g id="c5ce773be0b_ytick_2">
+     <g id="c5ce773be0b_line2d_18"/>
+     <g id="c5ce773be0b_text_11">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="75.125781" y="133.494984" transform="rotate(-0 75.125781 133.494984)">6+6</text>
+     </g>
+    </g>
+    <g id="c5ce773be0b_ytick_3">
+     <g id="c5ce773be0b_line2d_19"/>
+     <g id="c5ce773be0b_text_12">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="75.125781" y="220.182984" transform="rotate(-0 75.125781 220.182984)">9+3</text>
+     </g>
+    </g>
+   </g>
+   <g id="c5ce773be0b_patch_3">
+    <path d="M 84.125781 63.54 
+L 485.372552 63.54 
+L 485.372552 20.196 
+L 84.125781 20.196 
+z
+" clip-path="url(#c5ce773be0b_p2f556a4668)" style="fill: #b7c3d4"/>
+   </g>
+   <g id="c5ce773be0b_patch_4">
+    <path d="M 84.125781 150.228 
+L 165.609599 150.228 
+L 165.609599 106.884 
+L 84.125781 106.884 
+z
+" clip-path="url(#c5ce773be0b_p2f556a4668)" style="fill: #8ba3c5"/>
+   </g>
+   <g id="c5ce773be0b_patch_5">
+    <path d="M 84.125781 236.916 
+L 120.392331 236.916 
+L 120.392331 193.572 
+L 84.125781 193.572 
+z
+" clip-path="url(#c5ce773be0b_p2f556a4668)" style="fill: #0f766e"/>
+   </g>
+   <g id="c5ce773be0b_text_13">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17243a" x="491.524859" y="46.558937" transform="rotate(-0 491.524859 46.558937)">1.630 s</text>
+   </g>
+   <g id="c5ce773be0b_text_14">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17243a" x="171.761907" y="133.246937" transform="rotate(-0 171.761907 133.246937)">0.331 s</text>
+   </g>
+   <g id="c5ce773be0b_text_15">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17243a" x="126.544639" y="219.934937" transform="rotate(-0 126.544639 219.934937)">0.147 s</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="c5ce773be0b_p2f556a4668">
+   <rect x="84.125781" y="9.36" width="479.88" height="238.392"/>
+  </clipPath>
+ </defs>
+</svg>
+<figcaption></figcaption></figure><div class="side"><div class="stat"><strong>8,261</strong><span>Completed 9+3 structure rounds</span><small>last best update: round 2,007</small></div><ul class="points"><li>The submitted job used a 119.5-hour soft wall limit.</li><li>3+3+3+3 and 6+6 stopped after 100 probe rounds each.</li><li>Paths can be reused across compatible syndromes and noise priors.</li></ul></div></div><div class="takeaway">A deeper search improves the current best profile; it does not prove a globally optimal path.</div></div><footer class="footer"><span class="source">S2: archived search status, log and submission script. Structures received unequal search budgets.</span><span class="page">03 / 16</span></footer></section><section id="slide-4" class="slide " data-title="A TN teacher labels decisions for a cheaper CPU decoder" data-section="Learned decoding" data-notes="The learner predicts a logical sector rather than a unique physical recovery vector. Independent bit classifiers yield a valid 12-bit sector label, but do not compute a joint 4096-sector posterior. This study concerns code-capacity X noise, not circuit-level noisy syndrome extraction." aria-label="Slide 4: A TN teacher labels decisions for a cheaper CPU decoder">
+<header><p class="section">Learned decoding</p><h2>A TN teacher labels decisions for a cheaper CPU decoder</h2><p class="subtitle">The target is the most likely logical sector, conditioned on the syndrome.</p></header>
+<div class="content"><div class="pipeline"><div><b>Offline teacher</b><p>Legal physical X errors<br>36-bit syndrome<br>TN BnB MAP labels</p></div><div class="connector">TRAINING</div><div><b>Learned model</b><p>12 binary XGBoost classifiers<br>one classifier per logical bit</p></div><div class="connector">INFERENCE</div><div><b>Online decision</b><p>New syndrome<br>12-bit predicted sector<br>CPU execution</p></div></div><div class="formula">s = H<sub>Z</sub>e mod 2 &nbsp;&nbsp;&nbsp; &lambda;<sub>true</sub> = L<sub>Z</sub>e mod 2<br>&lambda;<sub>MAP</sub>(s,p) = arg max<sub>&lambda;</sub> P(&lambda; | s,p)</div><div class="two-col"><p>BB72 <b>[[72,12,6]]</b>, independent X errors, perfect syndrome, fixed <b>p = 0.005</b>.</p><p>Training uses the teacher's MAP sector. The generating error's true sector remains the reference for physical LER.</p></div><div class="takeaway">Once trained, XGBoost predicts a sector without running TN contractions or BnB for that shot.</div></div><footer class="footer"><span class="source">S3: fixed-p dataset manifest. S4: XGBoost training code and run identity.</span><span class="page">04 / 16</span></footer></section><section id="slide-5" class="slide " data-title="Training expands while the unseen-syndrome holdouts stay fixed" data-section="Dataset" data-notes="The nominal 240k milestone counts high-weight training inputs before quality exclusions. Including low-weight samples gives 240883 approved training rows. Validation and test each target 6000 before exclusions. The dataset is stress-stratified, not sampled at natural error frequencies. The snapshot is intentionally marked PARTIAL because review labels are omitted, even with zero pending labels." aria-label="Slide 5: Training expands while the unseen-syndrome holdouts stay fixed">
+<header><p class="section">Dataset</p><h2>Training expands while the unseen-syndrome holdouts stay fixed</h2><p class="subtitle">Teacher labeling and split construction precede model selection.</p></header>
+<div class="content"><div class="two-col wide-chart"><figure class="chart"><svg role="img" aria-label="Experiment result chart" xmlns:xlink="http://www.w3.org/1999/xlink" width="562.090937pt" height="302.75475pt" viewBox="0 0 562.090937 302.75475" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-03T16:52:59.860759</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="c0448a7f30d_figure_1">
+  <g id="c0448a7f30d_patch_1">
+   <path d="M 0 302.75475 
+L 562.090937 302.75475 
+L 562.090937 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="c0448a7f30d_axes_1">
+   <g id="c0448a7f30d_patch_2">
+    <path d="M 61.690938 253.296 
+L 552.730937 253.296 
+L 552.730937 9.36 
+L 61.690938 9.36 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="c0448a7f30d_matplotlib.axis_1">
+    <g id="c0448a7f30d_xtick_1">
+     <g id="c0448a7f30d_line2d_1"/>
+     <g id="c0448a7f30d_text_1">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="110.991157" y="272.173969" transform="rotate(-0 110.991157 272.173969)">20k</text>
+     </g>
+    </g>
+    <g id="c0448a7f30d_xtick_2">
+     <g id="c0448a7f30d_line2d_2"/>
+     <g id="c0448a7f30d_text_2">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="209.101047" y="272.173969" transform="rotate(-0 209.101047 272.173969)">40k</text>
+     </g>
+    </g>
+    <g id="c0448a7f30d_xtick_3">
+     <g id="c0448a7f30d_line2d_3"/>
+     <g id="c0448a7f30d_text_3">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="307.210937" y="272.173969" transform="rotate(-0 307.210937 272.173969)">80k</text>
+     </g>
+    </g>
+    <g id="c0448a7f30d_xtick_4">
+     <g id="c0448a7f30d_line2d_4"/>
+     <g id="c0448a7f30d_text_4">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="405.320828" y="272.173969" transform="rotate(-0 405.320828 272.173969)">160k</text>
+     </g>
+    </g>
+    <g id="c0448a7f30d_xtick_5">
+     <g id="c0448a7f30d_line2d_5"/>
+     <g id="c0448a7f30d_text_5">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="503.430718" y="272.173969" transform="rotate(-0 503.430718 272.173969)">240k</text>
+     </g>
+    </g>
+    <g id="c0448a7f30d_text_6">
+     <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="307.210938" y="290.275219" transform="rotate(-0 307.210938 290.275219)">Nominal high-weight training milestone</text>
+    </g>
+   </g>
+   <g id="c0448a7f30d_matplotlib.axis_2">
+    <g id="c0448a7f30d_ytick_1">
+     <g id="c0448a7f30d_line2d_6">
+      <path d="M 61.690938 253.296 
+L 552.730937 253.296 
+" clip-path="url(#c0448a7f30d_p0e6e4e6e25)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c0448a7f30d_line2d_7"/>
+     <g id="c0448a7f30d_text_7">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="258.234984" transform="rotate(-0 52.690938 258.234984)">0</text>
+     </g>
+    </g>
+    <g id="c0448a7f30d_ytick_2">
+     <g id="c0448a7f30d_line2d_8">
+      <path d="M 61.690938 208.944 
+L 552.730937 208.944 
+" clip-path="url(#c0448a7f30d_p0e6e4e6e25)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c0448a7f30d_line2d_9"/>
+     <g id="c0448a7f30d_text_8">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="213.882984" transform="rotate(-0 52.690938 213.882984)">50</text>
+     </g>
+    </g>
+    <g id="c0448a7f30d_ytick_3">
+     <g id="c0448a7f30d_line2d_10">
+      <path d="M 61.690938 164.592 
+L 552.730937 164.592 
+" clip-path="url(#c0448a7f30d_p0e6e4e6e25)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c0448a7f30d_line2d_11"/>
+     <g id="c0448a7f30d_text_9">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="169.530984" transform="rotate(-0 52.690938 169.530984)">100</text>
+     </g>
+    </g>
+    <g id="c0448a7f30d_ytick_4">
+     <g id="c0448a7f30d_line2d_12">
+      <path d="M 61.690938 120.24 
+L 552.730937 120.24 
+" clip-path="url(#c0448a7f30d_p0e6e4e6e25)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c0448a7f30d_line2d_13"/>
+     <g id="c0448a7f30d_text_10">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="125.178984" transform="rotate(-0 52.690938 125.178984)">150</text>
+     </g>
+    </g>
+    <g id="c0448a7f30d_ytick_5">
+     <g id="c0448a7f30d_line2d_14">
+      <path d="M 61.690938 75.888 
+L 552.730937 75.888 
+" clip-path="url(#c0448a7f30d_p0e6e4e6e25)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c0448a7f30d_line2d_15"/>
+     <g id="c0448a7f30d_text_11">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="80.826984" transform="rotate(-0 52.690938 80.826984)">200</text>
+     </g>
+    </g>
+    <g id="c0448a7f30d_ytick_6">
+     <g id="c0448a7f30d_line2d_16">
+      <path d="M 61.690938 31.536 
+L 552.730937 31.536 
+" clip-path="url(#c0448a7f30d_p0e6e4e6e25)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c0448a7f30d_line2d_17"/>
+     <g id="c0448a7f30d_text_12">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="36.474984" transform="rotate(-0 52.690938 36.474984)">250</text>
+     </g>
+    </g>
+    <g id="c0448a7f30d_text_13">
+     <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="20.757656" y="131.328" transform="rotate(-90 20.757656 131.328)">Approved training syndromes (thousands)</text>
+    </g>
+   </g>
+   <g id="c0448a7f30d_patch_3">
+    <path d="M 84.010938 253.296 
+L 137.971377 253.296 
+L 137.971377 233.351793 
+L 84.010938 233.351793 
+z
+" clip-path="url(#c0448a7f30d_p0e6e4e6e25)" style="fill: #aec2ec"/>
+   </g>
+   <g id="c0448a7f30d_patch_4">
+    <path d="M 182.120828 253.296 
+L 236.081267 253.296 
+L 236.081267 215.748484 
+L 182.120828 215.748484 
+z
+" clip-path="url(#c0448a7f30d_p0e6e4e6e25)" style="fill: #aec2ec"/>
+   </g>
+   <g id="c0448a7f30d_patch_5">
+    <path d="M 280.230718 253.296 
+L 334.191157 253.296 
+L 334.191157 180.548076 
+L 280.230718 180.548076 
+z
+" clip-path="url(#c0448a7f30d_p0e6e4e6e25)" style="fill: #aec2ec"/>
+   </g>
+   <g id="c0448a7f30d_patch_6">
+    <path d="M 378.340608 253.296 
+L 432.301047 253.296 
+L 432.301047 110.096698 
+L 378.340608 110.096698 
+z
+" clip-path="url(#c0448a7f30d_p0e6e4e6e25)" style="fill: #aec2ec"/>
+   </g>
+   <g id="c0448a7f30d_patch_7">
+    <path d="M 476.450498 253.296 
+L 530.410937 253.296 
+L 530.410937 39.623144 
+L 476.450498 39.623144 
+z
+" clip-path="url(#c0448a7f30d_p0e6e4e6e25)" style="fill: #1d4ed8"/>
+   </g>
+   <g id="c0448a7f30d_text_14">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="110.991157" y="228.916593" transform="rotate(-0 110.991157 228.916593)">22,484</text>
+   </g>
+   <g id="c0448a7f30d_text_15">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="209.101047" y="211.313284" transform="rotate(-0 209.101047 211.313284)">42,329</text>
+   </g>
+   <g id="c0448a7f30d_text_16">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="307.210937" y="176.112876" transform="rotate(-0 307.210937 176.112876)">82,012</text>
+   </g>
+   <g id="c0448a7f30d_text_17">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="405.320828" y="105.661498" transform="rotate(-0 405.320828 105.661498)">161,435</text>
+   </g>
+   <g id="c0448a7f30d_text_18">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="503.430718" y="35.187944" transform="rotate(-0 503.430718 35.187944)">240,883</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="c0448a7f30d_p0e6e4e6e25">
+   <rect x="61.690938" y="9.36" width="491.04" height="243.936"/>
+  </clipPath>
+ </defs>
+</svg>
+<figcaption></figcaption></figure><div class="side"><table class=""><thead><tr><th>Largest snapshot</th><th>Approved rows</th></tr></thead><tbody><tr><td>Training</td><td>240,883</td></tr><tr><td>Validation</td><td>5,953</td></tr><tr><td>Unseen test</td><td>5,954</td></tr></tbody></table><ul class="points"><li>Enumerate weights 0-2: 2,629 training syndromes.</li><li>High-weight pool: generating weights 3:4:5 in a 1:2:2 ratio.</li><li>1,839 review labels excluded from the largest snapshot.</li></ul></div></div><div class="takeaway">Nested training pools isolate sample-size effects without changing the test syndrome set.</div></div><footer class="footer"><span class="source">S3: snapshots and sampling_summary.json. Weight means generating error weight, not proven minimum weight.</span><span class="page">05 / 16</span></footer></section><section id="slide-6" class="slide " data-title="More unique syndromes improve held-out MAP agreement" data-section="Learning quality" data-notes="Both curves in the left chart report accuracy on the same 5954 unseen test syndromes, not training or validation accuracy. The left chart&#x27;s green per-size-tuning curve is identical to the right chart&#x27;s blue unseen-test curve. Frozen hyperparameters reuse the settings selected at 20k for every dataset size, whereas per-size tuning selects settings separately at each size; both retrain the models from scratch. Each stage fits a new ensemble. This is not online or incremental tree training. Early stopping uses validation logloss per bit, and Optuna selects joint 12-bit validation agreement. The same validation set is reused, so its optimized score is not an unbiased test estimate. The later selected model is Trial 29 from the accuracy-latency study." aria-label="Slide 6: More unique syndromes improve held-out MAP agreement">
+<header><p class="section">Learning quality</p><h2>More unique syndromes improve held-out MAP agreement</h2><p class="subtitle">Left: both protocols on the same unseen test set (5,954 syndromes). Right: per-size tuning across data splits.</p></header>
+<div class="content"><figure class="chart"><svg role="img" aria-label="Experiment result chart" xmlns:xlink="http://www.w3.org/1999/xlink" width="949.527557pt" height="324.455938pt" viewBox="0 0 949.527557 324.455938" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-03T16:53:00.047773</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="ce447f9a7f9_figure_1">
+  <g id="ce447f9a7f9_patch_1">
+   <path d="M 0 324.455938 
+L 949.527557 324.455938 
+L 949.527557 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="ce447f9a7f9_axes_1">
+   <g id="ce447f9a7f9_patch_2">
+    <path d="M 61.690938 274.997187 
+L 444.083552 274.997187 
+L 444.083552 37.037188 
+L 61.690938 37.037188 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="ce447f9a7f9_matplotlib.axis_1">
+    <g id="ce447f9a7f9_xtick_1">
+     <g id="ce447f9a7f9_line2d_1"/>
+     <g id="ce447f9a7f9_text_1">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="122.870136" y="293.875156" transform="rotate(-0 122.870136 293.875156)">50</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_xtick_2">
+     <g id="ce447f9a7f9_line2d_2"/>
+     <g id="ce447f9a7f9_text_2">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="202.456043" y="293.875156" transform="rotate(-0 202.456043 293.875156)">100</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_xtick_3">
+     <g id="ce447f9a7f9_line2d_3"/>
+     <g id="ce447f9a7f9_text_3">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="282.04195" y="293.875156" transform="rotate(-0 282.04195 293.875156)">150</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_xtick_4">
+     <g id="ce447f9a7f9_line2d_4"/>
+     <g id="ce447f9a7f9_text_4">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="361.627857" y="293.875156" transform="rotate(-0 361.627857 293.875156)">200</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_xtick_5">
+     <g id="ce447f9a7f9_line2d_5"/>
+     <g id="ce447f9a7f9_text_5">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="441.213763" y="293.875156" transform="rotate(-0 441.213763 293.875156)">250</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_text_6">
+     <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="252.887245" y="311.976406" transform="rotate(-0 252.887245 311.976406)">Approved training syndromes (thousands)</text>
+    </g>
+   </g>
+   <g id="ce447f9a7f9_matplotlib.axis_2">
+    <g id="ce447f9a7f9_ytick_1">
+     <g id="ce447f9a7f9_line2d_6">
+      <path d="M 61.690938 274.997187 
+L 444.083552 274.997187 
+" clip-path="url(#ce447f9a7f9_pf30130c05f)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="ce447f9a7f9_line2d_7"/>
+     <g id="ce447f9a7f9_text_7">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="279.936172" transform="rotate(-0 52.690938 279.936172)">0</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_ytick_2">
+     <g id="ce447f9a7f9_line2d_8">
+      <path d="M 61.690938 229.671473 
+L 444.083552 229.671473 
+" clip-path="url(#ce447f9a7f9_pf30130c05f)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="ce447f9a7f9_line2d_9"/>
+     <g id="ce447f9a7f9_text_8">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="234.610458" transform="rotate(-0 52.690938 234.610458)">20</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_ytick_3">
+     <g id="ce447f9a7f9_line2d_10">
+      <path d="M 61.690938 184.345759 
+L 444.083552 184.345759 
+" clip-path="url(#ce447f9a7f9_pf30130c05f)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="ce447f9a7f9_line2d_11"/>
+     <g id="ce447f9a7f9_text_9">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="189.284743" transform="rotate(-0 52.690938 189.284743)">40</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_ytick_4">
+     <g id="ce447f9a7f9_line2d_12">
+      <path d="M 61.690938 139.020045 
+L 444.083552 139.020045 
+" clip-path="url(#ce447f9a7f9_pf30130c05f)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="ce447f9a7f9_line2d_13"/>
+     <g id="ce447f9a7f9_text_10">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="143.959029" transform="rotate(-0 52.690938 143.959029)">60</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_ytick_5">
+     <g id="ce447f9a7f9_line2d_14">
+      <path d="M 61.690938 93.69433 
+L 444.083552 93.69433 
+" clip-path="url(#ce447f9a7f9_pf30130c05f)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="ce447f9a7f9_line2d_15"/>
+     <g id="ce447f9a7f9_text_11">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="98.633315" transform="rotate(-0 52.690938 98.633315)">80</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_ytick_6">
+     <g id="ce447f9a7f9_line2d_16">
+      <path d="M 61.690938 48.368616 
+L 444.083552 48.368616 
+" clip-path="url(#ce447f9a7f9_pf30130c05f)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="ce447f9a7f9_line2d_17"/>
+     <g id="ce447f9a7f9_text_12">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="53.3076" transform="rotate(-0 52.690938 53.3076)">100</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_text_13">
+     <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="20.757656" y="156.017188" transform="rotate(-90 20.757656 156.017188)">Exact 12-bit MAP agreement (%)</text>
+    </g>
+   </g>
+   <g id="ce447f9a7f9_line2d_18">
+    <path d="M 79.07242 225.743346 
+L 110.660066 210.479984 
+L 173.824217 194.417294 
+L 300.243247 175.385671 
+L 426.702069 163.395748 
+" clip-path="url(#ce447f9a7f9_pf30130c05f)" style="fill: none; stroke: #1d4ed8; stroke-width: 2.6; stroke-linecap: square"/>
+    <defs>
+     <path id="ce447f9a7f9_mf55236f060" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #1d4ed8"/>
+    </defs>
+    <g clip-path="url(#ce447f9a7f9_pf30130c05f)">
+     <use xlink:href="#ce447f9a7f9_mf55236f060" x="79.07242" y="225.743346" style="fill: #1d4ed8; stroke: #1d4ed8"/>
+     <use xlink:href="#ce447f9a7f9_mf55236f060" x="110.660066" y="210.479984" style="fill: #1d4ed8; stroke: #1d4ed8"/>
+     <use xlink:href="#ce447f9a7f9_mf55236f060" x="173.824217" y="194.417294" style="fill: #1d4ed8; stroke: #1d4ed8"/>
+     <use xlink:href="#ce447f9a7f9_mf55236f060" x="300.243247" y="175.385671" style="fill: #1d4ed8; stroke: #1d4ed8"/>
+     <use xlink:href="#ce447f9a7f9_mf55236f060" x="426.702069" y="163.395748" style="fill: #1d4ed8; stroke: #1d4ed8"/>
+    </g>
+   </g>
+   <g id="ce447f9a7f9_line2d_19">
+    <path d="M 79.07242 225.743346 
+L 110.660066 208.386506 
+L 173.824217 186.652392 
+L 300.243247 173.520572 
+L 426.702069 160.008119 
+" clip-path="url(#ce447f9a7f9_pf30130c05f)" style="fill: none; stroke: #0f766e; stroke-width: 2.6; stroke-linecap: square"/>
+    <defs>
+     <path id="ce447f9a7f9_mcd571a2642" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #0f766e"/>
+    </defs>
+    <g clip-path="url(#ce447f9a7f9_pf30130c05f)">
+     <use xlink:href="#ce447f9a7f9_mcd571a2642" x="79.07242" y="225.743346" style="fill: #0f766e; stroke: #0f766e"/>
+     <use xlink:href="#ce447f9a7f9_mcd571a2642" x="110.660066" y="208.386506" style="fill: #0f766e; stroke: #0f766e"/>
+     <use xlink:href="#ce447f9a7f9_mcd571a2642" x="173.824217" y="186.652392" style="fill: #0f766e; stroke: #0f766e"/>
+     <use xlink:href="#ce447f9a7f9_mcd571a2642" x="300.243247" y="173.520572" style="fill: #0f766e; stroke: #0f766e"/>
+     <use xlink:href="#ce447f9a7f9_mcd571a2642" x="426.702069" y="160.008119" style="fill: #0f766e; stroke: #0f766e"/>
+    </g>
+   </g>
+   <g id="ce447f9a7f9_text_14">
+    <text style="font-weight: 600; font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="252.887245" y="23.037188" transform="rotate(-0 252.887245 23.037188)">Unseen-test accuracy vs. dataset size</text>
+   </g>
+   <g id="ce447f9a7f9_legend_1">
+    <g id="ce447f9a7f9_line2d_20">
+     <path d="M 71.590938 51.445469 
+L 82.590938 51.445469 
+L 93.590938 51.445469 
+" style="fill: none; stroke: #1d4ed8; stroke-width: 2.6; stroke-linecap: square"/>
+     <g>
+      <use xlink:href="#ce447f9a7f9_mf55236f060" x="82.590938" y="51.445469" style="fill: #1d4ed8; stroke: #1d4ed8"/>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_text_15">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17243a" x="102.390938" y="55.295469" transform="rotate(-0 102.390938 55.295469)">Frozen hyperparameters</text>
+    </g>
+    <g id="ce447f9a7f9_line2d_21">
+     <path d="M 71.590938 67.591406 
+L 82.590938 67.591406 
+L 93.590938 67.591406 
+" style="fill: none; stroke: #0f766e; stroke-width: 2.6; stroke-linecap: square"/>
+     <g>
+      <use xlink:href="#ce447f9a7f9_mcd571a2642" x="82.590938" y="67.591406" style="fill: #0f766e; stroke: #0f766e"/>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_text_16">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17243a" x="102.390938" y="71.441406" transform="rotate(-0 102.390938 71.441406)">Per-size tuning</text>
+    </g>
+   </g>
+  </g>
+  <g id="ce447f9a7f9_axes_2">
+   <g id="ce447f9a7f9_patch_3">
+    <path d="M 535.690938 274.997187 
+L 918.083552 274.997187 
+L 918.083552 37.037188 
+L 535.690938 37.037188 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="ce447f9a7f9_matplotlib.axis_3">
+    <g id="ce447f9a7f9_xtick_6">
+     <g id="ce447f9a7f9_line2d_22"/>
+     <g id="ce447f9a7f9_text_17">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="596.870136" y="293.875156" transform="rotate(-0 596.870136 293.875156)">50</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_xtick_7">
+     <g id="ce447f9a7f9_line2d_23"/>
+     <g id="ce447f9a7f9_text_18">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="676.456043" y="293.875156" transform="rotate(-0 676.456043 293.875156)">100</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_xtick_8">
+     <g id="ce447f9a7f9_line2d_24"/>
+     <g id="ce447f9a7f9_text_19">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="756.04195" y="293.875156" transform="rotate(-0 756.04195 293.875156)">150</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_xtick_9">
+     <g id="ce447f9a7f9_line2d_25"/>
+     <g id="ce447f9a7f9_text_20">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="835.627857" y="293.875156" transform="rotate(-0 835.627857 293.875156)">200</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_xtick_10">
+     <g id="ce447f9a7f9_line2d_26"/>
+     <g id="ce447f9a7f9_text_21">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="915.213763" y="293.875156" transform="rotate(-0 915.213763 293.875156)">250</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_text_22">
+     <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="726.887245" y="311.976406" transform="rotate(-0 726.887245 311.976406)">Approved training syndromes (thousands)</text>
+    </g>
+   </g>
+   <g id="ce447f9a7f9_matplotlib.axis_4">
+    <g id="ce447f9a7f9_ytick_7">
+     <g id="ce447f9a7f9_line2d_27">
+      <path d="M 535.690938 274.997187 
+L 918.083552 274.997187 
+" clip-path="url(#ce447f9a7f9_p78392ceab1)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="ce447f9a7f9_line2d_28"/>
+     <g id="ce447f9a7f9_text_23">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="526.690938" y="279.936172" transform="rotate(-0 526.690938 279.936172)">0</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_ytick_8">
+     <g id="ce447f9a7f9_line2d_29">
+      <path d="M 535.690938 229.671473 
+L 918.083552 229.671473 
+" clip-path="url(#ce447f9a7f9_p78392ceab1)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="ce447f9a7f9_line2d_30"/>
+     <g id="ce447f9a7f9_text_24">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="526.690938" y="234.610458" transform="rotate(-0 526.690938 234.610458)">20</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_ytick_9">
+     <g id="ce447f9a7f9_line2d_31">
+      <path d="M 535.690938 184.345759 
+L 918.083552 184.345759 
+" clip-path="url(#ce447f9a7f9_p78392ceab1)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="ce447f9a7f9_line2d_32"/>
+     <g id="ce447f9a7f9_text_25">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="526.690938" y="189.284743" transform="rotate(-0 526.690938 189.284743)">40</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_ytick_10">
+     <g id="ce447f9a7f9_line2d_33">
+      <path d="M 535.690938 139.020045 
+L 918.083552 139.020045 
+" clip-path="url(#ce447f9a7f9_p78392ceab1)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="ce447f9a7f9_line2d_34"/>
+     <g id="ce447f9a7f9_text_26">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="526.690938" y="143.959029" transform="rotate(-0 526.690938 143.959029)">60</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_ytick_11">
+     <g id="ce447f9a7f9_line2d_35">
+      <path d="M 535.690938 93.69433 
+L 918.083552 93.69433 
+" clip-path="url(#ce447f9a7f9_p78392ceab1)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="ce447f9a7f9_line2d_36"/>
+     <g id="ce447f9a7f9_text_27">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="526.690938" y="98.633315" transform="rotate(-0 526.690938 98.633315)">80</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_ytick_12">
+     <g id="ce447f9a7f9_line2d_37">
+      <path d="M 535.690938 48.368616 
+L 918.083552 48.368616 
+" clip-path="url(#ce447f9a7f9_p78392ceab1)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="ce447f9a7f9_line2d_38"/>
+     <g id="ce447f9a7f9_text_28">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="526.690938" y="53.3076" transform="rotate(-0 526.690938 53.3076)">100</text>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_text_29">
+     <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="494.757656" y="156.017188" transform="rotate(-90 494.757656 156.017188)">Exact 12-bit MAP agreement (%)</text>
+    </g>
+   </g>
+   <g id="ce447f9a7f9_line2d_39">
+    <path d="M 553.07242 89.755243 
+L 584.660066 55.633965 
+L 647.824217 48.418357 
+L 774.243247 85.613839 
+L 900.702069 66.668589 
+" clip-path="url(#ce447f9a7f9_p78392ceab1)" style="fill: none; stroke-dasharray: 8.51,3.68; stroke-dashoffset: 0; stroke: #9aacc6; stroke-width: 2.3"/>
+    <defs>
+     <path id="ce447f9a7f9_m5a9b30264d" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #9aacc6"/>
+    </defs>
+    <g clip-path="url(#ce447f9a7f9_p78392ceab1)">
+     <use xlink:href="#ce447f9a7f9_m5a9b30264d" x="553.07242" y="89.755243" style="fill: #9aacc6; stroke: #9aacc6"/>
+     <use xlink:href="#ce447f9a7f9_m5a9b30264d" x="584.660066" y="55.633965" style="fill: #9aacc6; stroke: #9aacc6"/>
+     <use xlink:href="#ce447f9a7f9_m5a9b30264d" x="647.824217" y="48.418357" style="fill: #9aacc6; stroke: #9aacc6"/>
+     <use xlink:href="#ce447f9a7f9_m5a9b30264d" x="774.243247" y="85.613839" style="fill: #9aacc6; stroke: #9aacc6"/>
+     <use xlink:href="#ce447f9a7f9_m5a9b30264d" x="900.702069" y="66.668589" style="fill: #9aacc6; stroke: #9aacc6"/>
+    </g>
+   </g>
+   <g id="ce447f9a7f9_line2d_40">
+    <path d="M 553.07242 227.333997 
+L 584.660066 211.535096 
+L 647.824217 187.398944 
+L 774.243247 172.589854 
+L 900.702069 159.760385 
+" clip-path="url(#ce447f9a7f9_p78392ceab1)" style="fill: none; stroke: #0f766e; stroke-width: 2.3; stroke-linecap: square"/>
+    <g clip-path="url(#ce447f9a7f9_p78392ceab1)">
+     <use xlink:href="#ce447f9a7f9_mcd571a2642" x="553.07242" y="227.333997" style="fill: #0f766e; stroke: #0f766e"/>
+     <use xlink:href="#ce447f9a7f9_mcd571a2642" x="584.660066" y="211.535096" style="fill: #0f766e; stroke: #0f766e"/>
+     <use xlink:href="#ce447f9a7f9_mcd571a2642" x="647.824217" y="187.398944" style="fill: #0f766e; stroke: #0f766e"/>
+     <use xlink:href="#ce447f9a7f9_mcd571a2642" x="774.243247" y="172.589854" style="fill: #0f766e; stroke: #0f766e"/>
+     <use xlink:href="#ce447f9a7f9_mcd571a2642" x="900.702069" y="159.760385" style="fill: #0f766e; stroke: #0f766e"/>
+    </g>
+   </g>
+   <g id="ce447f9a7f9_line2d_41">
+    <path d="M 553.07242 225.743346 
+L 584.660066 208.386506 
+L 647.824217 186.652392 
+L 774.243247 173.520572 
+L 900.702069 160.008119 
+" clip-path="url(#ce447f9a7f9_p78392ceab1)" style="fill: none; stroke: #1d4ed8; stroke-width: 2.3; stroke-linecap: square"/>
+    <g clip-path="url(#ce447f9a7f9_p78392ceab1)">
+     <use xlink:href="#ce447f9a7f9_mf55236f060" x="553.07242" y="225.743346" style="fill: #1d4ed8; stroke: #1d4ed8"/>
+     <use xlink:href="#ce447f9a7f9_mf55236f060" x="584.660066" y="208.386506" style="fill: #1d4ed8; stroke: #1d4ed8"/>
+     <use xlink:href="#ce447f9a7f9_mf55236f060" x="647.824217" y="186.652392" style="fill: #1d4ed8; stroke: #1d4ed8"/>
+     <use xlink:href="#ce447f9a7f9_mf55236f060" x="774.243247" y="173.520572" style="fill: #1d4ed8; stroke: #1d4ed8"/>
+     <use xlink:href="#ce447f9a7f9_mf55236f060" x="900.702069" y="160.008119" style="fill: #1d4ed8; stroke: #1d4ed8"/>
+    </g>
+   </g>
+   <g id="ce447f9a7f9_text_30">
+    <text style="font-weight: 600; font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="726.887245" y="23.037188" transform="rotate(-0 726.887245 23.037188)">Generalization remains the limiting factor</text>
+   </g>
+   <g id="ce447f9a7f9_legend_2">
+    <g id="ce447f9a7f9_line2d_42">
+     <path d="M 545.590937 51.445469 
+L 556.590937 51.445469 
+L 567.590937 51.445469 
+" style="fill: none; stroke-dasharray: 8.51,3.68; stroke-dashoffset: 0; stroke: #9aacc6; stroke-width: 2.3"/>
+     <g>
+      <use xlink:href="#ce447f9a7f9_m5a9b30264d" x="556.590937" y="51.445469" style="fill: #9aacc6; stroke: #9aacc6"/>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_text_31">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17243a" x="576.390937" y="55.295469" transform="rotate(-0 576.390937 55.295469)">Train</text>
+    </g>
+    <g id="ce447f9a7f9_line2d_43">
+     <path d="M 545.590937 67.591406 
+L 556.590937 67.591406 
+L 567.590937 67.591406 
+" style="fill: none; stroke: #0f766e; stroke-width: 2.3; stroke-linecap: square"/>
+     <g>
+      <use xlink:href="#ce447f9a7f9_mcd571a2642" x="556.590937" y="67.591406" style="fill: #0f766e; stroke: #0f766e"/>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_text_32">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17243a" x="576.390937" y="71.441406" transform="rotate(-0 576.390937 71.441406)">Validation</text>
+    </g>
+    <g id="ce447f9a7f9_line2d_44">
+     <path d="M 545.590937 83.737344 
+L 556.590937 83.737344 
+L 567.590937 83.737344 
+" style="fill: none; stroke: #1d4ed8; stroke-width: 2.3; stroke-linecap: square"/>
+     <g>
+      <use xlink:href="#ce447f9a7f9_mf55236f060" x="556.590937" y="83.737344" style="fill: #1d4ed8; stroke: #1d4ed8"/>
+     </g>
+    </g>
+    <g id="ce447f9a7f9_text_33">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17243a" x="576.390937" y="87.587344" transform="rotate(-0 576.390937 87.587344)">Unseen test</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="ce447f9a7f9_pf30130c05f">
+   <rect x="61.690938" y="37.037188" width="382.392614" height="237.96"/>
+  </clipPath>
+  <clipPath id="ce447f9a7f9_p78392ceab1">
+   <rect x="535.690938" y="37.037188" width="382.392614" height="237.96"/>
+  </clipPath>
+ </defs>
+</svg>
+<figcaption></figcaption></figure><div class="inline-stats"><span><b>49.24%</b> frozen recipe at 240k</span><span><b>50.74%</b> per-size tuning at 240k</span><span><b>52.47%</b> later selected model</span></div><div class="takeaway">The experiments establish useful learning, with substantial remaining error on unseen pressure cases.</div></div><footer class="footer"><span class="source">S4: 10 completed stage metrics. Fixed tuning: 100 trials at stage 1. Per-size tuning: 40 trials per stage.</span><span class="page">06 / 16</span></footer></section><section id="slide-7" class="slide " data-title="The hard-syndrome gap is concentrated at higher weights" data-section="Learning quality" data-notes="These labels compare the predicted sector with one numerically selected TN MAP sector. Some different sectors can be degenerate or near-degenerate. Counts are stratified by generating error weight, not minimum weight. No complete posterior or equivalence-aware score was supplied for every stress sample." aria-label="Slide 7: The hard-syndrome gap is concentrated at higher weights">
+<header><p class="section">Learning quality</p><h2>The hard-syndrome gap is concentrated at higher weights</h2><p class="subtitle">Stratification reveals what an aggregate accuracy hides.</p></header>
+<div class="content"><div class="two-col wide-chart"><figure class="chart"><svg role="img" aria-label="Experiment result chart" xmlns:xlink="http://www.w3.org/1999/xlink" width="617.890938pt" height="315.426719pt" viewBox="0 0 617.890938 315.426719" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-03T16:53:00.126954</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="c92c5802386_figure_1">
+  <g id="c92c5802386_patch_1">
+   <path d="M 0 315.426719 
+L 617.890938 315.426719 
+L 617.890938 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="c92c5802386_axes_1">
+   <g id="c92c5802386_patch_2">
+    <path d="M 61.690938 269.928 
+L 608.530938 269.928 
+L 608.530938 9.36 
+L 61.690938 9.36 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="c92c5802386_matplotlib.axis_1">
+    <g id="c92c5802386_xtick_1">
+     <g id="c92c5802386_line2d_1"/>
+     <g id="c92c5802386_text_1">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; fill: #66758b" transform="translate(116.521922 288.805969)">Weight 3</text>
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; fill: #66758b" transform="translate(106.364657 303.363125)">1,200 cases</text>
+     </g>
+    </g>
+    <g id="c92c5802386_xtick_2">
+     <g id="c92c5802386_line2d_2"/>
+     <g id="c92c5802386_text_2">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; fill: #66758b" transform="translate(306.265156 288.805969)">Weight 4</text>
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; fill: #66758b" transform="translate(296.107891 303.363125)">2,389 cases</text>
+     </g>
+    </g>
+    <g id="c92c5802386_xtick_3">
+     <g id="c92c5802386_line2d_3"/>
+     <g id="c92c5802386_text_3">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; fill: #66758b" transform="translate(496.00839 288.805969)">Weight 5</text>
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; fill: #66758b" transform="translate(485.851124 303.363125)">2,365 cases</text>
+     </g>
+    </g>
+   </g>
+   <g id="c92c5802386_matplotlib.axis_2">
+    <g id="c92c5802386_ytick_1">
+     <g id="c92c5802386_line2d_4">
+      <path d="M 61.690938 269.928 
+L 608.530938 269.928 
+" clip-path="url(#c92c5802386_p53a38035d3)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c92c5802386_line2d_5"/>
+     <g id="c92c5802386_text_4">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="274.866984" transform="rotate(-0 52.690938 274.866984)">0</text>
+     </g>
+    </g>
+    <g id="c92c5802386_ytick_2">
+     <g id="c92c5802386_line2d_6">
+      <path d="M 61.690938 223.398 
+L 608.530938 223.398 
+" clip-path="url(#c92c5802386_p53a38035d3)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c92c5802386_line2d_7"/>
+     <g id="c92c5802386_text_5">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="228.336984" transform="rotate(-0 52.690938 228.336984)">20</text>
+     </g>
+    </g>
+    <g id="c92c5802386_ytick_3">
+     <g id="c92c5802386_line2d_8">
+      <path d="M 61.690938 176.868 
+L 608.530938 176.868 
+" clip-path="url(#c92c5802386_p53a38035d3)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c92c5802386_line2d_9"/>
+     <g id="c92c5802386_text_6">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="181.806984" transform="rotate(-0 52.690938 181.806984)">40</text>
+     </g>
+    </g>
+    <g id="c92c5802386_ytick_4">
+     <g id="c92c5802386_line2d_10">
+      <path d="M 61.690938 130.338 
+L 608.530938 130.338 
+" clip-path="url(#c92c5802386_p53a38035d3)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c92c5802386_line2d_11"/>
+     <g id="c92c5802386_text_7">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="135.276984" transform="rotate(-0 52.690938 135.276984)">60</text>
+     </g>
+    </g>
+    <g id="c92c5802386_ytick_5">
+     <g id="c92c5802386_line2d_12">
+      <path d="M 61.690938 83.808 
+L 608.530938 83.808 
+" clip-path="url(#c92c5802386_p53a38035d3)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c92c5802386_line2d_13"/>
+     <g id="c92c5802386_text_8">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="88.746984" transform="rotate(-0 52.690938 88.746984)">80</text>
+     </g>
+    </g>
+    <g id="c92c5802386_ytick_6">
+     <g id="c92c5802386_line2d_14">
+      <path d="M 61.690938 37.278 
+L 608.530938 37.278 
+" clip-path="url(#c92c5802386_p53a38035d3)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c92c5802386_line2d_15"/>
+     <g id="c92c5802386_text_9">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="42.216984" transform="rotate(-0 52.690938 42.216984)">100</text>
+     </g>
+    </g>
+    <g id="c92c5802386_text_10">
+     <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="20.757656" y="139.644" transform="rotate(-90 20.757656 139.644)">Exact 12-bit MAP agreement (%)</text>
+    </g>
+   </g>
+   <g id="c92c5802386_patch_3">
+    <path d="M 86.547301 269.928 
+L 145.367704 269.928 
+L 145.367704 49.492125 
+L 86.547301 49.492125 
+z
+" clip-path="url(#c92c5802386_p53a38035d3)" style="fill: #1d4ed8"/>
+   </g>
+   <g id="c92c5802386_patch_4">
+    <path d="M 276.290535 269.928 
+L 335.110938 269.928 
+L 335.110938 128.331893 
+L 276.290535 128.331893 
+z
+" clip-path="url(#c92c5802386_p53a38035d3)" style="fill: #1d4ed8"/>
+   </g>
+   <g id="c92c5802386_patch_5">
+    <path d="M 466.033769 269.928 
+L 524.854171 269.928 
+L 524.854171 227.628 
+L 466.033769 227.628 
+z
+" clip-path="url(#c92c5802386_p53a38035d3)" style="fill: #1d4ed8"/>
+   </g>
+   <g id="c92c5802386_patch_6">
+    <path d="M 145.367704 269.928 
+L 204.188106 269.928 
+L 204.188106 45.033 
+L 145.367704 45.033 
+z
+" clip-path="url(#c92c5802386_p53a38035d3)" style="fill: #0f766e"/>
+   </g>
+   <g id="c92c5802386_patch_7">
+    <path d="M 335.110938 269.928 
+L 393.93134 269.928 
+L 393.93134 121.612408 
+L 335.110938 121.612408 
+z
+" clip-path="url(#c92c5802386_p53a38035d3)" style="fill: #0f766e"/>
+   </g>
+   <g id="c92c5802386_patch_8">
+    <path d="M 524.854171 269.928 
+L 583.674574 269.928 
+L 583.674574 226.545907 
+L 524.854171 226.545907 
+z
+" clip-path="url(#c92c5802386_p53a38035d3)" style="fill: #0f766e"/>
+   </g>
+   <g id="c92c5802386_text_11">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="115.957502" y="44.141175" transform="rotate(-0 115.957502 44.141175)">94.8%</text>
+   </g>
+   <g id="c92c5802386_text_12">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="305.700736" y="122.980943" transform="rotate(-0 305.700736 122.980943)">60.9%</text>
+   </g>
+   <g id="c92c5802386_text_13">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="495.44397" y="222.27705" transform="rotate(-0 495.44397 222.27705)">18.2%</text>
+   </g>
+   <g id="c92c5802386_text_14">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="174.777905" y="39.68205" transform="rotate(-0 174.777905 39.68205)">96.7%</text>
+   </g>
+   <g id="c92c5802386_text_15">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="364.521139" y="116.261458" transform="rotate(-0 364.521139 116.261458)">63.8%</text>
+   </g>
+   <g id="c92c5802386_text_16">
+    <text style="font-size: 14px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="554.264373" y="221.194957" transform="rotate(-0 554.264373 221.194957)">18.6%</text>
+   </g>
+   <g id="c92c5802386_legend_1">
+    <g id="c92c5802386_patch_9">
+     <path d="M 474.870625 30.937969 
+L 500.870625 30.937969 
+L 500.870625 21.837969 
+L 474.870625 21.837969 
+z
+" style="fill: #1d4ed8"/>
+    </g>
+    <g id="c92c5802386_text_17">
+     <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17243a" x="511.270625" y="30.937969" transform="rotate(-0 511.270625 30.937969)">V2 optimized</text>
+    </g>
+    <g id="c92c5802386_patch_10">
+     <path d="M 474.870625 50.019531 
+L 500.870625 50.019531 
+L 500.870625 40.919531 
+L 474.870625 40.919531 
+z
+" style="fill: #0f766e"/>
+    </g>
+    <g id="c92c5802386_text_18">
+     <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17243a" x="511.270625" y="50.019531" transform="rotate(-0 511.270625 50.019531)">Trial 29</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="c92c5802386_p53a38035d3">
+   <rect x="61.690938" y="9.36" width="546.84" height="260.568"/>
+  </clipPath>
+ </defs>
+</svg>
+<figcaption></figcaption></figure><div class="side"><div class="stat"><strong>52.47%</strong><span>Trial 29 total unseen MAP agreement</span><small></small></div><ul class="points"><li>Weight 3: most teacher decisions generalize.</li><li>Weight 4: a substantial decision gap remains.</li><li>Weight 5: agreement remains below 20%.</li></ul></div></div><div class="takeaway">High natural-noise success can coexist with weak MAP generalization on rare, difficult syndromes.</div></div><footer class="footer"><span class="source">S5: final evaluated model metrics and stress_predictions.npz. All models share the same 5,954 test syndromes.</span><span class="page">07 / 16</span></footer></section><section id="slide-8" class="slide " data-title="Natural-noise performance is a separate evaluation" data-section="Physical decoding" data-notes="The two models share the exact same million physical errors. Recomputed failure overlap: both fail 254, V2 only 95, Trial 29 only 30. Marginal Wilson intervals are descriptive, not a paired significance test. Natural draws retain repeated syndromes and are not an unseen-syndrome generalization test." aria-label="Slide 8: Natural-noise performance is a separate evaluation">
+<header><p class="section">Physical decoding</p><h2>Natural-noise performance is a separate evaluation</h2><p class="subtitle">One million shared physical-error shots, p=0.005, new seed 20261101.</p></header>
+<div class="content"><div class="two-col wide-chart"><figure class="chart"><svg role="img" aria-label="Experiment result chart" xmlns:xlink="http://www.w3.org/1999/xlink" width="551.128438pt" height="300.869562pt" viewBox="0 0 551.128438 300.869562" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-03T16:53:00.170305</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="ce6f9045059_figure_1">
+  <g id="ce6f9045059_patch_1">
+   <path d="M 0 300.869562 
+L 551.128438 300.869562 
+L 551.128438 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="ce6f9045059_axes_1">
+   <g id="ce6f9045059_patch_2">
+    <path d="M 45.148438 269.928 
+L 541.768438 269.928 
+L 541.768438 9.36 
+L 45.148438 9.36 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="ce6f9045059_matplotlib.axis_1">
+    <g id="ce6f9045059_xtick_1">
+     <g id="ce6f9045059_line2d_1"/>
+     <g id="ce6f9045059_text_1">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="140.933867" y="288.805969" transform="rotate(-0 140.933867 288.805969)">V2 optimized</text>
+     </g>
+    </g>
+    <g id="ce6f9045059_xtick_2">
+     <g id="ce6f9045059_line2d_2"/>
+     <g id="ce6f9045059_text_2">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="445.983008" y="288.805969" transform="rotate(-0 445.983008 288.805969)">Trial 29</text>
+     </g>
+    </g>
+   </g>
+   <g id="ce6f9045059_matplotlib.axis_2">
+    <g id="ce6f9045059_ytick_1">
+     <g id="ce6f9045059_line2d_3">
+      <path d="M 45.148438 269.928 
+L 541.768438 269.928 
+" clip-path="url(#ce6f9045059_p0b3b8b940d)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="ce6f9045059_line2d_4"/>
+     <g id="ce6f9045059_text_3">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="36.148438" y="274.866984" transform="rotate(-0 36.148438 274.866984)">0</text>
+     </g>
+    </g>
+    <g id="ce6f9045059_ytick_2">
+     <g id="ce6f9045059_line2d_5">
+      <path d="M 45.148438 213.282783 
+L 541.768438 213.282783 
+" clip-path="url(#ce6f9045059_p0b3b8b940d)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="ce6f9045059_line2d_6"/>
+     <g id="ce6f9045059_text_4">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="36.148438" y="218.221767" transform="rotate(-0 36.148438 218.221767)">1</text>
+     </g>
+    </g>
+    <g id="ce6f9045059_ytick_3">
+     <g id="ce6f9045059_line2d_7">
+      <path d="M 45.148438 156.637565 
+L 541.768438 156.637565 
+" clip-path="url(#ce6f9045059_p0b3b8b940d)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="ce6f9045059_line2d_8"/>
+     <g id="ce6f9045059_text_5">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="36.148438" y="161.57655" transform="rotate(-0 36.148438 161.57655)">2</text>
+     </g>
+    </g>
+    <g id="ce6f9045059_ytick_4">
+     <g id="ce6f9045059_line2d_9">
+      <path d="M 45.148438 99.992348 
+L 541.768438 99.992348 
+" clip-path="url(#ce6f9045059_p0b3b8b940d)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="ce6f9045059_line2d_10"/>
+     <g id="ce6f9045059_text_6">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="36.148438" y="104.931332" transform="rotate(-0 36.148438 104.931332)">3</text>
+     </g>
+    </g>
+    <g id="ce6f9045059_ytick_5">
+     <g id="ce6f9045059_line2d_11">
+      <path d="M 45.148438 43.34713 
+L 541.768438 43.34713 
+" clip-path="url(#ce6f9045059_p0b3b8b940d)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="ce6f9045059_line2d_12"/>
+     <g id="ce6f9045059_text_7">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="36.148438" y="48.286115" transform="rotate(-0 36.148438 48.286115)">4</text>
+     </g>
+    </g>
+    <g id="ce6f9045059_text_8">
+     <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="20.757656" y="139.644" transform="rotate(-90 20.757656 139.644)">Logical error rate (multiples of 10^-4)</text>
+    </g>
+   </g>
+   <g id="ce6f9045059_patch_3">
+    <path d="M 67.722074 269.928 
+L 214.145661 269.928 
+L 214.145661 72.236191 
+L 67.722074 72.236191 
+z
+" clip-path="url(#ce6f9045059_p0b3b8b940d)" style="fill: #1d4ed8"/>
+   </g>
+   <g id="ce6f9045059_patch_4">
+    <path d="M 372.771214 269.928 
+L 519.194801 269.928 
+L 519.194801 109.055583 
+L 372.771214 109.055583 
+z
+" clip-path="url(#ce6f9045059_p0b3b8b940d)" style="fill: #0f766e"/>
+   </g>
+   <g id="ce6f9045059_LineCollection_1">
+    <path d="M 140.933867 91.914507 
+L 140.933867 50.3834 
+" clip-path="url(#ce6f9045059_p0b3b8b940d)" style="fill: none; stroke: #17243a; stroke-width: 1.7"/>
+   </g>
+   <g id="ce6f9045059_line2d_13">
+    <defs>
+     <path id="ce6f9045059_ma2bd772940" d="M 8 0 
+L -8 -0 
+" style="stroke: #17243a"/>
+    </defs>
+    <g clip-path="url(#ce6f9045059_p0b3b8b940d)">
+     <use xlink:href="#ce6f9045059_ma2bd772940" x="140.933867" y="91.914507" style="fill: #1f77b4; stroke: #17243a"/>
+    </g>
+   </g>
+   <g id="ce6f9045059_line2d_14">
+    <g clip-path="url(#ce6f9045059_p0b3b8b940d)">
+     <use xlink:href="#ce6f9045059_ma2bd772940" x="140.933867" y="50.3834" style="fill: #1f77b4; stroke: #17243a"/>
+    </g>
+   </g>
+   <g id="ce6f9045059_LineCollection_2">
+    <path d="M 445.983008 126.706945 
+L 445.983008 89.229462 
+" clip-path="url(#ce6f9045059_p0b3b8b940d)" style="fill: none; stroke: #17243a; stroke-width: 1.7"/>
+   </g>
+   <g id="ce6f9045059_line2d_15">
+    <g clip-path="url(#ce6f9045059_p0b3b8b940d)">
+     <use xlink:href="#ce6f9045059_ma2bd772940" x="445.983008" y="126.706945" style="fill: #1f77b4; stroke: #17243a"/>
+    </g>
+   </g>
+   <g id="ce6f9045059_line2d_16">
+    <g clip-path="url(#ce6f9045059_p0b3b8b940d)">
+     <use xlink:href="#ce6f9045059_ma2bd772940" x="445.983008" y="89.229462" style="fill: #1f77b4; stroke: #17243a"/>
+    </g>
+   </g>
+   <g id="ce6f9045059_text_9">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="140.933867" y="43.019522" transform="rotate(-0 140.933867 43.019522)">349 failures</text>
+   </g>
+   <g id="ce6f9045059_text_10">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="445.983008" y="81.865583" transform="rotate(-0 445.983008 81.865583)">284 failures</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="ce6f9045059_p0b3b8b940d">
+   <rect x="45.148438" y="9.36" width="496.62" height="260.568"/>
+  </clipPath>
+ </defs>
+</svg>
+<figcaption></figcaption></figure><div class="side"><div class="stat"><strong>2.84 &times; 10<sup>&minus;4</sup></strong><span>Trial 29 natural block LER</span><small>284 failures in 1,000,000 shots</small></div><ul class="points"><li>Ground truth is the sampled physical error's logical sector.</li><li>Trial 29 has zero observed failures among weight-0/1/2 shots.</li><li>Those low-weight syndromes were explicitly covered during training.</li></ul></div></div><div class="takeaway">The learned decoder is useful under the target prior, while pressure testing exposes the remaining generalization gap.</div></div><footer class="footer"><span class="source">S5: natural evaluation and packed paired failure masks. Error bars: Wilson 95% intervals. No matched TN LER baseline here.</span><span class="page">08 / 16</span></footer></section><section id="slide-9" class="slide " data-title="Model capacity and execution jointly shape the trade-off" data-section="Accuracy and cost" data-notes="This plot uses validation agreement, not held-out test accuracy, for all candidates. Provisional P99 estimates are noisy. The later V4 benchmark fixes the models and controls execution settings on one host. The strongest accuracy candidate was not the fastest in the initial V3 execution configuration." aria-label="Slide 9: Model capacity and execution jointly shape the trade-off">
+<header><p class="section">Accuracy and cost</p><h2>Model capacity and execution jointly shape the trade-off</h2><p class="subtitle">Candidate screening guides selection; larger final timing samples confirm the shortlist.</p></header>
+<div class="content"><div class="two-col wide-chart"><figure class="chart"><svg role="img" aria-label="Experiment result chart" xmlns:xlink="http://www.w3.org/1999/xlink" width="626.359687pt" height="324.93075pt" viewBox="0 0 626.359687 324.93075" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-03T16:53:00.260543</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="cfa81d6ebe0_figure_1">
+  <g id="cfa81d6ebe0_patch_1">
+   <path d="M 0 324.93075 
+L 626.359687 324.93075 
+L 626.359687 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="cfa81d6ebe0_axes_1">
+   <g id="cfa81d6ebe0_patch_2">
+    <path d="M 53.419688 275.472 
+L 616.999687 275.472 
+L 616.999687 9.36 
+L 53.419688 9.36 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="cfa81d6ebe0_matplotlib.axis_1">
+    <g id="cfa81d6ebe0_xtick_1">
+     <g id="cfa81d6ebe0_line2d_1"/>
+     <g id="cfa81d6ebe0_text_1">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="95.610934" y="294.349969" transform="rotate(-0 95.610934 294.349969)">3</text>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_2">
+     <g id="cfa81d6ebe0_line2d_2"/>
+     <g id="cfa81d6ebe0_text_2">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="148.765618" y="294.349969" transform="rotate(-0 148.765618 294.349969)">5</text>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_3">
+     <g id="cfa81d6ebe0_line2d_3"/>
+     <g id="cfa81d6ebe0_text_3">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="220.892029" y="294.349969" transform="rotate(-0 220.892029 294.349969)">10</text>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_4">
+     <g id="cfa81d6ebe0_line2d_4"/>
+     <g id="cfa81d6ebe0_text_4">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="293.018441" y="294.349969" transform="rotate(-0 293.018441 294.349969)">20</text>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_5">
+     <g id="cfa81d6ebe0_line2d_5"/>
+     <g id="cfa81d6ebe0_text_5">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="388.364371" y="294.349969" transform="rotate(-0 388.364371 294.349969)">50</text>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_6">
+     <g id="cfa81d6ebe0_line2d_6"/>
+     <g id="cfa81d6ebe0_text_6">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="460.490783" y="294.349969" transform="rotate(-0 460.490783 294.349969)">100</text>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_7">
+     <g id="cfa81d6ebe0_line2d_7"/>
+     <g id="cfa81d6ebe0_text_7">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="574.808441" y="294.349969" transform="rotate(-0 574.808441 294.349969)">300</text>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_8">
+     <g id="cfa81d6ebe0_line2d_8">
+      <defs>
+       <path id="cfa81d6ebe0_m92f6184eaf" d="M 0 0 
+L 0 2 
+" style="stroke: #66758b; stroke-width: 0.6"/>
+      </defs>
+      <g>
+       <use xlink:href="#cfa81d6ebe0_m92f6184eaf" x="53.419687" y="275.472" style="fill: #66758b; stroke: #66758b; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_9">
+     <g id="cfa81d6ebe0_line2d_9">
+      <g>
+       <use xlink:href="#cfa81d6ebe0_m92f6184eaf" x="125.546099" y="275.472" style="fill: #66758b; stroke: #66758b; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_10">
+     <g id="cfa81d6ebe0_line2d_10">
+      <g>
+       <use xlink:href="#cfa81d6ebe0_m92f6184eaf" x="167.737346" y="275.472" style="fill: #66758b; stroke: #66758b; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_11">
+     <g id="cfa81d6ebe0_line2d_11">
+      <g>
+       <use xlink:href="#cfa81d6ebe0_m92f6184eaf" x="183.777713" y="275.472" style="fill: #66758b; stroke: #66758b; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_12">
+     <g id="cfa81d6ebe0_line2d_12">
+      <g>
+       <use xlink:href="#cfa81d6ebe0_m92f6184eaf" x="197.672511" y="275.472" style="fill: #66758b; stroke: #66758b; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_13">
+     <g id="cfa81d6ebe0_line2d_13">
+      <g>
+       <use xlink:href="#cfa81d6ebe0_m92f6184eaf" x="209.928592" y="275.472" style="fill: #66758b; stroke: #66758b; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_14">
+     <g id="cfa81d6ebe0_line2d_14">
+      <g>
+       <use xlink:href="#cfa81d6ebe0_m92f6184eaf" x="335.209687" y="275.472" style="fill: #66758b; stroke: #66758b; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_15">
+     <g id="cfa81d6ebe0_line2d_15">
+      <g>
+       <use xlink:href="#cfa81d6ebe0_m92f6184eaf" x="365.144853" y="275.472" style="fill: #66758b; stroke: #66758b; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_16">
+     <g id="cfa81d6ebe0_line2d_16">
+      <g>
+       <use xlink:href="#cfa81d6ebe0_m92f6184eaf" x="407.336099" y="275.472" style="fill: #66758b; stroke: #66758b; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_17">
+     <g id="cfa81d6ebe0_line2d_17">
+      <g>
+       <use xlink:href="#cfa81d6ebe0_m92f6184eaf" x="423.376467" y="275.472" style="fill: #66758b; stroke: #66758b; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_18">
+     <g id="cfa81d6ebe0_line2d_18">
+      <g>
+       <use xlink:href="#cfa81d6ebe0_m92f6184eaf" x="437.271265" y="275.472" style="fill: #66758b; stroke: #66758b; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_19">
+     <g id="cfa81d6ebe0_line2d_19">
+      <g>
+       <use xlink:href="#cfa81d6ebe0_m92f6184eaf" x="449.527346" y="275.472" style="fill: #66758b; stroke: #66758b; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_20">
+     <g id="cfa81d6ebe0_line2d_20">
+      <g>
+       <use xlink:href="#cfa81d6ebe0_m92f6184eaf" x="532.617195" y="275.472" style="fill: #66758b; stroke: #66758b; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_xtick_21">
+     <g id="cfa81d6ebe0_line2d_21">
+      <g>
+       <use xlink:href="#cfa81d6ebe0_m92f6184eaf" x="604.743607" y="275.472" style="fill: #66758b; stroke: #66758b; stroke-width: 0.6"/>
+      </g>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_text_8">
+     <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="335.209687" y="312.451219" transform="rotate(-0 335.209687 312.451219)">Screening single-shot P99 (ms, logarithmic scale)</text>
+    </g>
+   </g>
+   <g id="cfa81d6ebe0_matplotlib.axis_2">
+    <g id="cfa81d6ebe0_ytick_1">
+     <g id="cfa81d6ebe0_line2d_22">
+      <path d="M 53.419688 275.472 
+L 616.999687 275.472 
+" clip-path="url(#cfa81d6ebe0_pd9b881d3f8)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="cfa81d6ebe0_line2d_23"/>
+     <g id="cfa81d6ebe0_text_9">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="44.419688" y="280.410984" transform="rotate(-0 44.419688 280.410984)">0</text>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_ytick_2">
+     <g id="cfa81d6ebe0_line2d_24">
+      <path d="M 53.419688 229.590621 
+L 616.999687 229.590621 
+" clip-path="url(#cfa81d6ebe0_pd9b881d3f8)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="cfa81d6ebe0_line2d_25"/>
+     <g id="cfa81d6ebe0_text_10">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="44.419688" y="234.529605" transform="rotate(-0 44.419688 234.529605)">10</text>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_ytick_3">
+     <g id="cfa81d6ebe0_line2d_26">
+      <path d="M 53.419688 183.709241 
+L 616.999687 183.709241 
+" clip-path="url(#cfa81d6ebe0_pd9b881d3f8)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="cfa81d6ebe0_line2d_27"/>
+     <g id="cfa81d6ebe0_text_11">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="44.419688" y="188.648226" transform="rotate(-0 44.419688 188.648226)">20</text>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_ytick_4">
+     <g id="cfa81d6ebe0_line2d_28">
+      <path d="M 53.419688 137.827862 
+L 616.999687 137.827862 
+" clip-path="url(#cfa81d6ebe0_pd9b881d3f8)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="cfa81d6ebe0_line2d_29"/>
+     <g id="cfa81d6ebe0_text_12">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="44.419688" y="142.766846" transform="rotate(-0 44.419688 142.766846)">30</text>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_ytick_5">
+     <g id="cfa81d6ebe0_line2d_30">
+      <path d="M 53.419688 91.946483 
+L 616.999687 91.946483 
+" clip-path="url(#cfa81d6ebe0_pd9b881d3f8)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="cfa81d6ebe0_line2d_31"/>
+     <g id="cfa81d6ebe0_text_13">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="44.419688" y="96.885467" transform="rotate(-0 44.419688 96.885467)">40</text>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_ytick_6">
+     <g id="cfa81d6ebe0_line2d_32">
+      <path d="M 53.419688 46.065103 
+L 616.999687 46.065103 
+" clip-path="url(#cfa81d6ebe0_pd9b881d3f8)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="cfa81d6ebe0_line2d_33"/>
+     <g id="cfa81d6ebe0_text_14">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="44.419688" y="51.004088" transform="rotate(-0 44.419688 51.004088)">50</text>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_text_15">
+     <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="20.757656" y="142.416" transform="rotate(-90 20.757656 142.416)">Validation MAP agreement (%)</text>
+    </g>
+   </g>
+   <g id="cfa81d6ebe0_PathCollection_1">
+    <defs>
+     <path id="cfa81d6ebe0_m65e207aa8f" d="M 0 3 
+C 0.795609 3 1.55874 2.683901 2.12132 2.12132 
+C 2.683901 1.55874 3 0.795609 3 0 
+C 3 -0.795609 2.683901 -1.55874 2.12132 -2.12132 
+C 1.55874 -2.683901 0.795609 -3 0 -3 
+C -0.795609 -3 -1.55874 -2.683901 -2.12132 -2.12132 
+C -2.683901 -1.55874 -3 -0.795609 -3 0 
+C -3 0.795609 -2.683901 1.55874 -2.12132 2.12132 
+C -1.55874 2.683901 -0.795609 3 0 3 
+z
+" style="stroke: #1d4ed8; stroke-opacity: 0.68"/>
+    </defs>
+    <g clip-path="url(#cfa81d6ebe0_pd9b881d3f8)">
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="278.539203" y="46.411931" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="276.345658" y="46.411931" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="559.937589" y="46.411931" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="477.24531" y="46.411931" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="478.539854" y="46.411931" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="483.323342" y="46.411931" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="320.424292" y="46.411931" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="332.90926" y="46.411931" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="475.331292" y="46.411931" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="476.36018" y="46.411931" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="480.063529" y="46.411931" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="476.315619" y="46.411931" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="274.362666" y="42.172932" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="283.884277" y="42.172932" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="507.490448" y="42.172932" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="501.892477" y="42.172932" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="500.084845" y="42.172932" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="501.73473" y="42.172932" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="344.258775" y="42.172932" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="350.105557" y="42.172932" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="498.581707" y="42.172932" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="502.192774" y="42.172932" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="499.746856" y="42.172932" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="506.529178" y="42.172932" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="124.587788" y="104.833038" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="165.290359" y="104.833038" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="305.192731" y="104.833038" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="342.631261" y="104.833038" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="300.924671" y="104.833038" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="310.447046" y="104.833038" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="159.313935" y="104.833038" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="183.18342" y="104.833038" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="305.181092" y="104.833038" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="311.135285" y="104.833038" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="305.206079" y="104.833038" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="312.429183" y="104.833038" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="180.680989" y="79.861483" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="193.356374" y="79.861483" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="372.220514" y="79.861483" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="380.649931" y="79.861483" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="382.877579" y="79.861483" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="377.448034" y="79.861483" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="215.399178" y="79.861483" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="234.187841" y="79.861483" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="372.009528" y="79.861483" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="379.686654" y="79.861483" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="372.740921" y="79.861483" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="377.136015" y="79.861483" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="210.770565" y="66.682051" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="228.39055" y="66.682051" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="411.32488" y="66.682051" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="413.675032" y="66.682051" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="415.785318" y="66.682051" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="414.112725" y="66.682051" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="281.074126" y="66.682051" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="262.019704" y="66.682051" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="409.914281" y="66.682051" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="417.596295" y="66.682051" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="410.564941" y="66.682051" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="412.778549" y="66.682051" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="234.104272" y="53.271401" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="252.389221" y="53.271401" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="449.692615" y="53.271401" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="451.121164" y="53.271401" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="542.357818" y="53.271401" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="510.187403" y="53.271401" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="286.432912" y="53.271401" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="299.506725" y="53.271401" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="449.662693" y="53.271401" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="453.437254" y="53.271401" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="448.054672" y="53.271401" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="448.926622" y="53.271401" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+    </g>
+   </g>
+   <g id="cfa81d6ebe0_PathCollection_2">
+    <defs>
+     <path id="cfa81d6ebe0_m5392851d45" d="M -3 3 
+L 3 3 
+L 3 -3 
+L -3 -3 
+z
+" style="stroke: #a0adbf; stroke-opacity: 0.68"/>
+    </defs>
+    <g clip-path="url(#cfa81d6ebe0_pd9b881d3f8)">
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="468.924555" y="87.645826" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="492.584448" y="85.719008" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="290.409555" y="132.502138" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="359.068422" y="103.291584" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="401.257442" y="94.505296" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="440.667382" y="91.19117" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="160.5186" y="235.779559" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="170.914818" y="234.315177" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="106.290101" y="247.263391" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="130.804989" y="242.330738" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="127.447829" y="240.94343" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="142.518898" y="237.166867" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="236.115222" y="202.946588" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="267.825915" y="199.092953" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="114.718078" y="229.844961" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="131.085641" y="219.131855" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="170.471721" y="214.199202" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="198.908431" y="206.569005" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="411.285583" y="146.066934" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="440.1842" y="142.290371" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="319.705089" y="193.929082" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="282.880557" y="172.271652" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="340.104498" y="160.556602" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="382.048391" y="150.151787" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="436.65136" y="63.753288" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="500.950061" y="54.196273" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="522.055543" y="47.25973" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="533.182084" y="43.791459" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="294.068758" y="110.382273" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="383.567603" y="80.246847" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="306.09736" y="116.00858" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="335.958635" y="105.526693" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="359.191765" y="96.817478" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="378.710329" y="90.343371" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="178.828681" y="179.208196" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="251.175915" y="141.365499" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="346.564649" y="96.663332" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="372.226606" y="85.873154" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="178.50502" y="172.271652" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="264.391829" y="143.908898" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="277.264182" y="125.719741" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="320.996323" y="107.993019" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="416.00813" y="70.381541" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="441.205985" y="63.753288" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="234.860975" y="137.897228" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="304.279913" y="110.382273" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="364.023451" y="94.274078" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="396.038131" y="80.246847" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="240.323095" y="162.175129" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="254.791338" y="153.157622" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="124.644632" y="224.758162" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="153.656337" y="210.576785" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="175.960436" y="195.778826" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="206.350658" y="176.510651" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="282.947998" y="126.875831" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="305.701232" y="116.00858" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="145.783579" y="203.948533" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="180.239809" y="179.208196" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="213.939191" y="161.789765" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m5392851d45" x="253.239854" y="141.365499" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+    </g>
+   </g>
+   <g id="cfa81d6ebe0_PathCollection_3">
+    <defs>
+     <path id="cfa81d6ebe0_m0a61a5e836" d="M 0 -3 
+L -3 3 
+L 3 3 
+z
+" style="stroke: #0f766e; stroke-opacity: 0.68"/>
+    </defs>
+    <g clip-path="url(#cfa81d6ebe0_pd9b881d3f8)">
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="267.164346" y="180.672577" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="230.373276" y="147.454243" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="371.716851" y="92.03897" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="453.030006" y="71.691777" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="191.170182" y="202.484152" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="414.725316" y="99.360877" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="350.346688" y="160.78782" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="480.038051" y="40.169042" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="507.673812" y="78.242956" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="274.097914" y="236.39614" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="540.746692" y="74.697612" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="321.00155" y="129.881667" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="343.55254" y="96.355041" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="352.544844" y="88.878989" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="376.134414" y="55.968946" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="347.064896" y="63.599143" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="128.952144" y="187.454975" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="345.42815" y="120.324652" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="145.805654" y="232.465432" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="409.049207" y="88.801917" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="151.655601" y="208.881186" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="363.674955" y="57.972836" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="336.857452" y="74.312249" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="360.149227" y="74.389321" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="264.95244" y="78.011738" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="251.657374" y="120.478797" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="292.555122" y="108.378383" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="383.110724" y="65.371815" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="462.275701" y="48.184603" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="505.746291" y="35.467607" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="440.894742" y="48.338748" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="437.919217" y="48.95533" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="435.744159" y="62.520125" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="416.670543" y="47.799239" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="363.702436" y="69.919105" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="501.013226" y="41.325132" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="547.800549" y="41.170987" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="484.175613" y="108.917892" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="167.617869" y="157.242476" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="441.100765" y="51.961165" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+    </g>
+   </g>
+   <g id="cfa81d6ebe0_legend_1">
+    <g id="cfa81d6ebe0_PathCollection_4">
+     <g>
+      <use xlink:href="#cfa81d6ebe0_m65e207aa8f" x="449.662187" y="228.104969" style="fill: #1d4ed8; fill-opacity: 0.68; stroke: #1d4ed8; stroke-opacity: 0.68"/>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_text_16">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17243a" x="469.462187" y="230.992469" transform="rotate(-0 469.462187 230.992469)">Execution / round cutoffs</text>
+    </g>
+    <g id="cfa81d6ebe0_PathCollection_5">
+     <g>
+      <use xlink:href="#cfa81d6ebe0_m5392851d45" x="449.662187" y="244.250906" style="fill: #a0adbf; fill-opacity: 0.68; stroke: #a0adbf; stroke-opacity: 0.68"/>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_text_17">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17243a" x="469.462187" y="247.138406" transform="rotate(-0 469.462187 247.138406)">Tree capacity</text>
+    </g>
+    <g id="cfa81d6ebe0_PathCollection_6">
+     <g>
+      <use xlink:href="#cfa81d6ebe0_m0a61a5e836" x="449.662187" y="260.396844" style="fill: #0f766e; fill-opacity: 0.68; stroke: #0f766e; stroke-opacity: 0.68"/>
+     </g>
+    </g>
+    <g id="cfa81d6ebe0_text_18">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17243a" x="469.462187" y="263.284344" transform="rotate(-0 469.462187 263.284344)">Joint parameter search</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="cfa81d6ebe0_pd9b881d3f8">
+   <rect x="53.419688" y="9.36" width="563.58" height="266.112"/>
+  </clipPath>
+ </defs>
+</svg>
+<figcaption></figcaption></figure><div class="side"><ul class="points chart-key"><li><svg class="chart-marker" viewBox="0 0 14 14" aria-hidden="true" fill="#1d4ed8" fill-opacity=".68"><circle cx="7" cy="7" r="5"/></svg>Scan round cutoffs and execution settings on the existing ensemble.</li><li><svg class="chart-marker" viewBox="0 0 14 14" aria-hidden="true" fill="#a0adbf" fill-opacity=".68"><rect x="2" y="2" width="10" height="10"/></svg>Fit 8 tree architectures and extend 2 to a 3,000-round cap.</li><li><svg class="chart-marker" viewBox="0 0 14 14" aria-hidden="true" fill="#0f766e" fill-opacity=".68"><polygon points="7,1 13,12 1,12"/></svg>Run 40 multiobjective trials: maximize validation agreement, minimize P99.</li></ul><p class="quiet">72 execution variants + 60 capacity/cutoff candidates + 40 search trials.</p></div></div><div class="takeaway">A single highest-accuracy configuration does not characterize the usable latency frontier.</div></div><footer class="footer"><span class="source">S5: all_candidates.csv. Screening timing uses small samples and spans benchmark runs; it is not the matched V4 benchmark.</span><span class="page">09 / 16</span></footer></section><section id="slide-10" class="slide " data-title="Classifier parallelism lowers latency without changing decisions" data-section="Execution" data-notes="Headline P99 is the mean of five repeat-specific P99 estimates, each based on 1000 calls. Model and process loading occur before timed inference. Process IPC and Python overhead remain included. Best-per-model results use different APIs; a matched-API comparison is also available in the source bundle. No direct speedup against a separately measured GPU TN baseline is claimed." aria-label="Slide 10: Classifier parallelism lowers latency without changing decisions">
+<header><p class="section">Execution</p><h2>Classifier parallelism lowers latency without changing decisions</h2><p class="subtitle">V4 compares fixed models on the same node and CPU-affinity session.</p></header>
+<div class="content"><div class="two-col wide-chart"><figure class="chart"><svg role="img" aria-label="Experiment result chart" xmlns:xlink="http://www.w3.org/1999/xlink" width="601.150938pt" height="300.869562pt" viewBox="0 0 601.150938 300.869562" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-03T16:53:00.335656</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="cb8fdc6800f_figure_1">
+  <g id="cb8fdc6800f_patch_1">
+   <path d="M 0 300.869562 
+L 601.150938 300.869562 
+L 601.150938 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="cb8fdc6800f_axes_1">
+   <g id="cb8fdc6800f_patch_2">
+    <path d="M 61.690938 269.928 
+L 591.790938 269.928 
+L 591.790938 9.36 
+L 61.690938 9.36 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="cb8fdc6800f_matplotlib.axis_1">
+    <g id="cb8fdc6800f_xtick_1">
+     <g id="cb8fdc6800f_line2d_1"/>
+     <g id="cb8fdc6800f_text_1">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="176.144347" y="288.805969" transform="rotate(-0 176.144347 288.805969)">V2 optimized</text>
+     </g>
+    </g>
+    <g id="cb8fdc6800f_xtick_2">
+     <g id="cb8fdc6800f_line2d_2"/>
+     <g id="cb8fdc6800f_text_2">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="477.337528" y="288.805969" transform="rotate(-0 477.337528 288.805969)">Trial 29</text>
+     </g>
+    </g>
+   </g>
+   <g id="cb8fdc6800f_matplotlib.axis_2">
+    <g id="cb8fdc6800f_ytick_1">
+     <g id="cb8fdc6800f_line2d_3">
+      <path d="M 61.690938 269.928 
+L 591.790938 269.928 
+" clip-path="url(#cb8fdc6800f_p78eba982ae)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="cb8fdc6800f_line2d_4"/>
+     <g id="cb8fdc6800f_text_3">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="274.866984" transform="rotate(-0 52.690938 274.866984)">0</text>
+     </g>
+    </g>
+    <g id="cb8fdc6800f_ytick_2">
+     <g id="cb8fdc6800f_line2d_5">
+      <path d="M 61.690938 238.908 
+L 591.790938 238.908 
+" clip-path="url(#cb8fdc6800f_p78eba982ae)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="cb8fdc6800f_line2d_6"/>
+     <g id="cb8fdc6800f_text_4">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="243.846984" transform="rotate(-0 52.690938 243.846984)">25</text>
+     </g>
+    </g>
+    <g id="cb8fdc6800f_ytick_3">
+     <g id="cb8fdc6800f_line2d_7">
+      <path d="M 61.690938 207.888 
+L 591.790938 207.888 
+" clip-path="url(#cb8fdc6800f_p78eba982ae)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="cb8fdc6800f_line2d_8"/>
+     <g id="cb8fdc6800f_text_5">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="212.826984" transform="rotate(-0 52.690938 212.826984)">50</text>
+     </g>
+    </g>
+    <g id="cb8fdc6800f_ytick_4">
+     <g id="cb8fdc6800f_line2d_9">
+      <path d="M 61.690938 176.868 
+L 591.790938 176.868 
+" clip-path="url(#cb8fdc6800f_p78eba982ae)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="cb8fdc6800f_line2d_10"/>
+     <g id="cb8fdc6800f_text_6">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="181.806984" transform="rotate(-0 52.690938 181.806984)">75</text>
+     </g>
+    </g>
+    <g id="cb8fdc6800f_ytick_5">
+     <g id="cb8fdc6800f_line2d_11">
+      <path d="M 61.690938 145.848 
+L 591.790938 145.848 
+" clip-path="url(#cb8fdc6800f_p78eba982ae)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="cb8fdc6800f_line2d_12"/>
+     <g id="cb8fdc6800f_text_7">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="150.786984" transform="rotate(-0 52.690938 150.786984)">100</text>
+     </g>
+    </g>
+    <g id="cb8fdc6800f_ytick_6">
+     <g id="cb8fdc6800f_line2d_13">
+      <path d="M 61.690938 114.828 
+L 591.790938 114.828 
+" clip-path="url(#cb8fdc6800f_p78eba982ae)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="cb8fdc6800f_line2d_14"/>
+     <g id="cb8fdc6800f_text_8">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="119.766984" transform="rotate(-0 52.690938 119.766984)">125</text>
+     </g>
+    </g>
+    <g id="cb8fdc6800f_ytick_7">
+     <g id="cb8fdc6800f_line2d_15">
+      <path d="M 61.690938 83.808 
+L 591.790938 83.808 
+" clip-path="url(#cb8fdc6800f_p78eba982ae)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="cb8fdc6800f_line2d_16"/>
+     <g id="cb8fdc6800f_text_9">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="88.746984" transform="rotate(-0 52.690938 88.746984)">150</text>
+     </g>
+    </g>
+    <g id="cb8fdc6800f_ytick_8">
+     <g id="cb8fdc6800f_line2d_17">
+      <path d="M 61.690938 52.788 
+L 591.790938 52.788 
+" clip-path="url(#cb8fdc6800f_p78eba982ae)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="cb8fdc6800f_line2d_18"/>
+     <g id="cb8fdc6800f_text_10">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="57.726984" transform="rotate(-0 52.690938 57.726984)">175</text>
+     </g>
+    </g>
+    <g id="cb8fdc6800f_ytick_9">
+     <g id="cb8fdc6800f_line2d_19">
+      <path d="M 61.690938 21.768 
+L 591.790938 21.768 
+" clip-path="url(#cb8fdc6800f_p78eba982ae)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="cb8fdc6800f_line2d_20"/>
+     <g id="cb8fdc6800f_text_11">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="52.690938" y="26.706984" transform="rotate(-0 52.690938 26.706984)">200</text>
+     </g>
+    </g>
+    <g id="cb8fdc6800f_text_12">
+     <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="20.757656" y="139.644" transform="rotate(-90 20.757656 139.644)">Single-shot P99 (ms)</text>
+    </g>
+   </g>
+   <g id="cb8fdc6800f_patch_3">
+    <path d="M 85.786392 269.928 
+L 176.144347 269.928 
+L 176.144347 101.069608 
+L 85.786392 101.069608 
+z
+" clip-path="url(#cb8fdc6800f_p78eba982ae)" style="fill: #9aacc6"/>
+   </g>
+   <g id="cb8fdc6800f_patch_4">
+    <path d="M 386.979574 269.928 
+L 477.337528 269.928 
+L 477.337528 65.807599 
+L 386.979574 65.807599 
+z
+" clip-path="url(#cb8fdc6800f_p78eba982ae)" style="fill: #9aacc6"/>
+   </g>
+   <g id="cb8fdc6800f_patch_5">
+    <path d="M 176.144347 269.928 
+L 266.502301 269.928 
+L 266.502301 252.742839 
+L 176.144347 252.742839 
+z
+" clip-path="url(#cb8fdc6800f_p78eba982ae)" style="fill: #1d4ed8"/>
+   </g>
+   <g id="cb8fdc6800f_patch_6">
+    <path d="M 477.337528 269.928 
+L 567.695483 269.928 
+L 567.695483 246.923317 
+L 477.337528 246.923317 
+z
+" clip-path="url(#cb8fdc6800f_p78eba982ae)" style="fill: #1d4ed8"/>
+   </g>
+   <g id="cb8fdc6800f_text_13">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="130.965369" y="96.106408" transform="rotate(-0 130.965369 96.106408)">136.09</text>
+   </g>
+   <g id="cb8fdc6800f_text_14">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="432.158551" y="60.844399" transform="rotate(-0 432.158551 60.844399)">164.51</text>
+   </g>
+   <g id="cb8fdc6800f_text_15">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="221.323324" y="247.779639" transform="rotate(-0 221.323324 247.779639)">13.85</text>
+   </g>
+   <g id="cb8fdc6800f_text_16">
+    <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="522.516506" y="241.960117" transform="rotate(-0 522.516506 241.960117)">18.54</text>
+   </g>
+   <g id="cb8fdc6800f_legend_1">
+    <g id="cb8fdc6800f_patch_7">
+     <path d="M 71.590938 27.618281 
+L 93.590938 27.618281 
+L 93.590938 19.918281 
+L 71.590938 19.918281 
+z
+" style="fill: #9aacc6"/>
+    </g>
+    <g id="cb8fdc6800f_text_17">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17243a" x="102.390938" y="27.618281" transform="rotate(-0 102.390938 27.618281)">Sequential, 8 threads/model</text>
+    </g>
+    <g id="cb8fdc6800f_patch_8">
+     <path d="M 71.590938 43.764219 
+L 93.590938 43.764219 
+L 93.590938 36.064219 
+L 71.590938 36.064219 
+z
+" style="fill: #1d4ed8"/>
+    </g>
+    <g id="cb8fdc6800f_text_18">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17243a" x="102.390938" y="43.764219" transform="rotate(-0 102.390938 43.764219)">Best measured parallel execution</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="cb8fdc6800f_p78eba982ae">
+   <rect x="61.690938" y="9.36" width="530.1" height="260.568"/>
+  </clipPath>
+ </defs>
+</svg>
+<figcaption></figcaption></figure><div class="side"><div class="stat"><strong>8.87&times;</strong><span>Trial 29 P99 speedup</span><small>164.51 ms to 18.54 ms</small></div><ul class="points"><li>12 persistent processes, one CPU thread per process.</li><li>Each process owns its assigned classifiers.</li><li>API and scheduling changes preserve all validation predictions.</li></ul></div></div><div class="takeaway">This is an implementation speedup of the same learned decoder, with no accuracy gain or retraining.</div></div><footer class="footer"><span class="source">S6: best_configs_v4.json and summary_v4.json. Best API: inplace for V2, sklearn for Trial 29. No LUT.</span><span class="page">10 / 16</span></footer></section><section id="slide-11" class="slide " data-title="Single-shot latency: typical performance and rare slow cases" data-section="Execution" data-notes="Both charts show single-shot latency: V2 on the left and Trial 29 on the right, each comparing stress-validation and natural inputs. Neither chart shows batch throughput. The separate throughput benchmark processes 512 syndromes per call; dividing batch time by 512 gives an amortized time per shot, not the response latency of an individually arriving syndrome. The same selected configuration for each model is shown in both input distributions. P99 and P99.9 are mean repeat quantiles. Timing tails are sensitive to CPU scheduling and node load. V4 does not retrain or remeasure physical LER. It verifies unchanged validation outputs and benchmarks new execution strategies." aria-label="Slide 11: Single-shot latency: typical performance and rare slow cases">
+<header><p class="section">Execution</p><h2>Single-shot latency: typical performance and rare slow cases</h2><p class="subtitle">Both charts measure one syndrome at a time, with models and workers already loaded.</p></header>
+<div class="content"><figure class="chart"><svg role="img" aria-label="Experiment result chart" xmlns:xlink="http://www.w3.org/1999/xlink" width="886.509687pt" height="324.33875pt" viewBox="0 0 886.509687 324.33875" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-03T16:53:00.505533</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.8, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="c03bd6a763d_figure_1">
+  <g id="c03bd6a763d_patch_1">
+   <path d="M 0 324.33875 
+L 886.509687 324.33875 
+L 886.509687 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="c03bd6a763d_axes_1">
+   <g id="c03bd6a763d_patch_2">
+    <path d="M 53.419688 293.397187 
+L 428.304687 293.397187 
+L 428.304687 37.037187 
+L 53.419688 37.037187 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="c03bd6a763d_matplotlib.axis_1">
+    <g id="c03bd6a763d_xtick_1">
+     <g id="c03bd6a763d_line2d_1"/>
+     <g id="c03bd6a763d_text_1">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="135.675599" y="312.275156" transform="rotate(-0 135.675599 312.275156)">P99</text>
+     </g>
+    </g>
+    <g id="c03bd6a763d_xtick_2">
+     <g id="c03bd6a763d_line2d_2"/>
+     <g id="c03bd6a763d_text_2">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="346.048776" y="312.275156" transform="rotate(-0 346.048776 312.275156)">P99.9</text>
+     </g>
+    </g>
+   </g>
+   <g id="c03bd6a763d_matplotlib.axis_2">
+    <g id="c03bd6a763d_ytick_1">
+     <g id="c03bd6a763d_line2d_3">
+      <path d="M 53.419688 293.397187 
+L 428.304687 293.397187 
+" clip-path="url(#c03bd6a763d_pfcf6fb05a1)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c03bd6a763d_line2d_4"/>
+     <g id="c03bd6a763d_text_3">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="44.419688" y="298.336172" transform="rotate(-0 44.419688 298.336172)">0</text>
+     </g>
+    </g>
+    <g id="c03bd6a763d_ytick_2">
+     <g id="c03bd6a763d_line2d_5">
+      <path d="M 53.419688 237.394507 
+L 428.304687 237.394507 
+" clip-path="url(#c03bd6a763d_pfcf6fb05a1)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c03bd6a763d_line2d_6"/>
+     <g id="c03bd6a763d_text_4">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="44.419688" y="242.333492" transform="rotate(-0 44.419688 242.333492)">5</text>
+     </g>
+    </g>
+    <g id="c03bd6a763d_ytick_3">
+     <g id="c03bd6a763d_line2d_7">
+      <path d="M 53.419688 181.391827 
+L 428.304687 181.391827 
+" clip-path="url(#c03bd6a763d_pfcf6fb05a1)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c03bd6a763d_line2d_8"/>
+     <g id="c03bd6a763d_text_5">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="44.419688" y="186.330811" transform="rotate(-0 44.419688 186.330811)">10</text>
+     </g>
+    </g>
+    <g id="c03bd6a763d_ytick_4">
+     <g id="c03bd6a763d_line2d_9">
+      <path d="M 53.419688 125.389147 
+L 428.304687 125.389147 
+" clip-path="url(#c03bd6a763d_pfcf6fb05a1)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c03bd6a763d_line2d_10"/>
+     <g id="c03bd6a763d_text_6">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="44.419688" y="130.328131" transform="rotate(-0 44.419688 130.328131)">15</text>
+     </g>
+    </g>
+    <g id="c03bd6a763d_ytick_5">
+     <g id="c03bd6a763d_line2d_11">
+      <path d="M 53.419688 69.386466 
+L 428.304687 69.386466 
+" clip-path="url(#c03bd6a763d_pfcf6fb05a1)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c03bd6a763d_line2d_12"/>
+     <g id="c03bd6a763d_text_7">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="44.419688" y="74.325451" transform="rotate(-0 44.419688 74.325451)">20</text>
+     </g>
+    </g>
+    <g id="c03bd6a763d_text_8">
+     <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="20.757656" y="165.217187" transform="rotate(-90 20.757656 165.217187)">Single-shot latency (ms)</text>
+    </g>
+   </g>
+   <g id="c03bd6a763d_patch_3">
+    <path d="M 70.459915 293.397187 
+L 133.571868 293.397187 
+L 133.571868 138.269035 
+L 70.459915 138.269035 
+z
+" clip-path="url(#c03bd6a763d_pfcf6fb05a1)" style="fill: #1d4ed8"/>
+   </g>
+   <g id="c03bd6a763d_patch_4">
+    <path d="M 280.833091 293.397187 
+L 343.945044 293.397187 
+L 343.945044 127.09913 
+L 280.833091 127.09913 
+z
+" clip-path="url(#c03bd6a763d_pfcf6fb05a1)" style="fill: #1d4ed8"/>
+   </g>
+   <g id="c03bd6a763d_patch_5">
+    <path d="M 137.779331 293.397187 
+L 200.891284 293.397187 
+L 200.891284 136.904964 
+L 137.779331 136.904964 
+z
+" clip-path="url(#c03bd6a763d_pfcf6fb05a1)" style="fill: #0f766e"/>
+   </g>
+   <g id="c03bd6a763d_patch_6">
+    <path d="M 348.152507 293.397187 
+L 411.26446 293.397187 
+L 411.26446 86.655252 
+L 348.152507 86.655252 
+z
+" clip-path="url(#c03bd6a763d_pfcf6fb05a1)" style="fill: #0f766e"/>
+   </g>
+   <g id="c03bd6a763d_text_9">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="102.015891" y="132.668767" transform="rotate(-0 102.015891 132.668767)">13.9</text>
+   </g>
+   <g id="c03bd6a763d_text_10">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="312.389067" y="121.498862" transform="rotate(-0 312.389067 121.498862)">14.8</text>
+   </g>
+   <g id="c03bd6a763d_text_11">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="169.335308" y="131.304696" transform="rotate(-0 169.335308 131.304696)">14.0</text>
+   </g>
+   <g id="c03bd6a763d_text_12">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="379.708484" y="81.054984" transform="rotate(-0 379.708484 81.054984)">18.5</text>
+   </g>
+   <g id="c03bd6a763d_text_13">
+    <text style="font-weight: 600; font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="240.862187" y="23.037187" transform="rotate(-0 240.862187 23.037187)">V2 optimized</text>
+   </g>
+   <g id="c03bd6a763d_legend_1">
+    <g id="c03bd6a763d_patch_7">
+     <path d="M 63.319688 55.295469 
+L 85.319688 55.295469 
+L 85.319688 47.595469 
+L 63.319688 47.595469 
+z
+" style="fill: #1d4ed8"/>
+    </g>
+    <g id="c03bd6a763d_text_14">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17243a" x="94.119688" y="55.295469" transform="rotate(-0 94.119688 55.295469)">Stress validation</text>
+    </g>
+    <g id="c03bd6a763d_patch_8">
+     <path d="M 63.319688 71.441406 
+L 85.319688 71.441406 
+L 85.319688 63.741406 
+L 63.319688 63.741406 
+z
+" style="fill: #0f766e"/>
+    </g>
+    <g id="c03bd6a763d_text_15">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #17243a" x="94.119688" y="71.441406" transform="rotate(-0 94.119688 71.441406)">Natural inputs</text>
+    </g>
+   </g>
+  </g>
+  <g id="c03bd6a763d_axes_2">
+   <g id="c03bd6a763d_patch_9">
+    <path d="M 502.264687 293.397187 
+L 877.149687 293.397187 
+L 877.149687 37.037187 
+L 502.264687 37.037187 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="c03bd6a763d_matplotlib.axis_3">
+    <g id="c03bd6a763d_xtick_3">
+     <g id="c03bd6a763d_line2d_13"/>
+     <g id="c03bd6a763d_text_16">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="584.520599" y="312.275156" transform="rotate(-0 584.520599 312.275156)">P99</text>
+     </g>
+    </g>
+    <g id="c03bd6a763d_xtick_4">
+     <g id="c03bd6a763d_line2d_14"/>
+     <g id="c03bd6a763d_text_17">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="794.893776" y="312.275156" transform="rotate(-0 794.893776 312.275156)">P99.9</text>
+     </g>
+    </g>
+   </g>
+   <g id="c03bd6a763d_matplotlib.axis_4">
+    <g id="c03bd6a763d_ytick_6">
+     <g id="c03bd6a763d_line2d_15">
+      <path d="M 502.264687 293.397187 
+L 877.149687 293.397187 
+" clip-path="url(#c03bd6a763d_p32508a615e)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c03bd6a763d_line2d_16"/>
+     <g id="c03bd6a763d_text_18">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="493.264687" y="298.336172" transform="rotate(-0 493.264687 298.336172)">0</text>
+     </g>
+    </g>
+    <g id="c03bd6a763d_ytick_7">
+     <g id="c03bd6a763d_line2d_17">
+      <path d="M 502.264687 263.288792 
+L 877.149687 263.288792 
+" clip-path="url(#c03bd6a763d_p32508a615e)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c03bd6a763d_line2d_18"/>
+     <g id="c03bd6a763d_text_19">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="493.264687" y="268.227776" transform="rotate(-0 493.264687 268.227776)">5</text>
+     </g>
+    </g>
+    <g id="c03bd6a763d_ytick_8">
+     <g id="c03bd6a763d_line2d_19">
+      <path d="M 502.264687 233.180396 
+L 877.149687 233.180396 
+" clip-path="url(#c03bd6a763d_p32508a615e)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c03bd6a763d_line2d_20"/>
+     <g id="c03bd6a763d_text_20">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="493.264687" y="238.11938" transform="rotate(-0 493.264687 238.11938)">10</text>
+     </g>
+    </g>
+    <g id="c03bd6a763d_ytick_9">
+     <g id="c03bd6a763d_line2d_21">
+      <path d="M 502.264687 203.072 
+L 877.149687 203.072 
+" clip-path="url(#c03bd6a763d_p32508a615e)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c03bd6a763d_line2d_22"/>
+     <g id="c03bd6a763d_text_21">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="493.264687" y="208.010985" transform="rotate(-0 493.264687 208.010985)">15</text>
+     </g>
+    </g>
+    <g id="c03bd6a763d_ytick_10">
+     <g id="c03bd6a763d_line2d_23">
+      <path d="M 502.264687 172.963604 
+L 877.149687 172.963604 
+" clip-path="url(#c03bd6a763d_p32508a615e)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c03bd6a763d_line2d_24"/>
+     <g id="c03bd6a763d_text_22">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="493.264687" y="177.902589" transform="rotate(-0 493.264687 177.902589)">20</text>
+     </g>
+    </g>
+    <g id="c03bd6a763d_ytick_11">
+     <g id="c03bd6a763d_line2d_25">
+      <path d="M 502.264687 142.855209 
+L 877.149687 142.855209 
+" clip-path="url(#c03bd6a763d_p32508a615e)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c03bd6a763d_line2d_26"/>
+     <g id="c03bd6a763d_text_23">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="493.264687" y="147.794193" transform="rotate(-0 493.264687 147.794193)">25</text>
+     </g>
+    </g>
+    <g id="c03bd6a763d_ytick_12">
+     <g id="c03bd6a763d_line2d_27">
+      <path d="M 502.264687 112.746813 
+L 877.149687 112.746813 
+" clip-path="url(#c03bd6a763d_p32508a615e)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c03bd6a763d_line2d_28"/>
+     <g id="c03bd6a763d_text_24">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="493.264687" y="117.685797" transform="rotate(-0 493.264687 117.685797)">30</text>
+     </g>
+    </g>
+    <g id="c03bd6a763d_ytick_13">
+     <g id="c03bd6a763d_line2d_29">
+      <path d="M 502.264687 82.638417 
+L 877.149687 82.638417 
+" clip-path="url(#c03bd6a763d_p32508a615e)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c03bd6a763d_line2d_30"/>
+     <g id="c03bd6a763d_text_25">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="493.264687" y="87.577402" transform="rotate(-0 493.264687 87.577402)">35</text>
+     </g>
+    </g>
+    <g id="c03bd6a763d_ytick_14">
+     <g id="c03bd6a763d_line2d_31">
+      <path d="M 502.264687 52.530021 
+L 877.149687 52.530021 
+" clip-path="url(#c03bd6a763d_p32508a615e)" style="fill: none; stroke: #dfe6ef; stroke-width: 0.8; stroke-linecap: square"/>
+     </g>
+     <g id="c03bd6a763d_line2d_32"/>
+     <g id="c03bd6a763d_text_26">
+      <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: end; fill: #66758b" x="493.264687" y="57.469006" transform="rotate(-0 493.264687 57.469006)">40</text>
+     </g>
+    </g>
+    <g id="c03bd6a763d_text_27">
+     <text style="font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #66758b" x="469.602656" y="165.217187" transform="rotate(-90 469.602656 165.217187)">Single-shot latency (ms)</text>
+    </g>
+   </g>
+   <g id="c03bd6a763d_patch_10">
+    <path d="M 519.304915 293.397187 
+L 582.416868 293.397187 
+L 582.416868 181.754038 
+L 519.304915 181.754038 
+z
+" clip-path="url(#c03bd6a763d_p32508a615e)" style="fill: #1d4ed8"/>
+   </g>
+   <g id="c03bd6a763d_patch_11">
+    <path d="M 729.678091 293.397187 
+L 792.790044 293.397187 
+L 792.790044 149.75317 
+L 729.678091 149.75317 
+z
+" clip-path="url(#c03bd6a763d_p32508a615e)" style="fill: #1d4ed8"/>
+   </g>
+   <g id="c03bd6a763d_patch_12">
+    <path d="M 586.624331 293.397187 
+L 649.736284 293.397187 
+L 649.736284 180.997532 
+L 586.624331 180.997532 
+z
+" clip-path="url(#c03bd6a763d_p32508a615e)" style="fill: #0f766e"/>
+   </g>
+   <g id="c03bd6a763d_patch_13">
+    <path d="M 796.997507 293.397187 
+L 860.10946 293.397187 
+L 860.10946 86.655252 
+L 796.997507 86.655252 
+z
+" clip-path="url(#c03bd6a763d_p32508a615e)" style="fill: #0f766e"/>
+   </g>
+   <g id="c03bd6a763d_text_28">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="550.860891" y="178.743198" transform="rotate(-0 550.860891 178.743198)">18.5</text>
+   </g>
+   <g id="c03bd6a763d_text_29">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="761.234067" y="146.74233" transform="rotate(-0 761.234067 146.74233)">23.9</text>
+   </g>
+   <g id="c03bd6a763d_text_30">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="618.180308" y="177.986692" transform="rotate(-0 618.180308 177.986692)">18.7</text>
+   </g>
+   <g id="c03bd6a763d_text_31">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="828.553484" y="83.644412" transform="rotate(-0 828.553484 83.644412)">34.3</text>
+   </g>
+   <g id="c03bd6a763d_text_32">
+    <text style="font-weight: 600; font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #17243a" x="689.707187" y="23.037187" transform="rotate(-0 689.707187 23.037187)">Trial 29</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="c03bd6a763d_pfcf6fb05a1">
+   <rect x="53.419688" y="37.037187" width="374.885" height="256.36"/>
+  </clipPath>
+  <clipPath id="c03bd6a763d_p32508a615e">
+   <rect x="502.264687" y="37.037187" width="374.885" height="256.36"/>
+  </clipPath>
+ </defs>
+</svg>
+<figcaption></figcaption></figure><p><b>Single shot:</b> all 12 predictions for one syndrome, including scheduling and IPC.</p><div class="takeaway">Repeated timing and explicit input distributions make the latency claims interpretable.</div></div><footer class="footer"><span class="source">S6: 36 configurations, 5 repeats each, 1,000 single-shot timings per repeat. Natural configurations selected using validation timing.</span><span class="page">11 / 16</span></footer></section><section id="slide-12" class="slide " data-title="A low-weight lookup table accelerates the common cases" data-section="Deployment" data-notes="The hit fraction is empirical for 20000 timing draws, not a universal coverage statement. Rare misses below 1% can be absent from P99 while dominating the mean or more extreme tails. This caching idea is not unique to XGBoost. It stores predicted labels, not physical errors or an exhaustive syndrome table." aria-label="Slide 12: A low-weight lookup table accelerates the common cases">
+<header><p class="section">Deployment</p><h2>A low-weight lookup table accelerates the common cases</h2><p class="subtitle">The table stores the same model&#x27;s predictions for 2,629 enumerated syndromes.</p></header>
+<div class="content"><div class="pipeline lut"><div><b>Incoming syndrome</b><p>Lookup in the low-weight table</p></div><div class="connector">HIT / MISS</div><div><b>Hit</b><p>Return stored model output</p><b>Miss</b><p>Execute the original model</p></div><div class="connector">SAME OUTPUT</div><div><b>12-bit sector</b><p>Verified equivalent on stress and natural samples</p></div></div><div class="three-stats"><div class="stat"><strong>99.465%</strong><span>Lookup hit fraction</span><small>Trial 29, 20,000 natural timing draws</small></div><div class="stat"><strong>0.045 ms</strong><span>Natural-distribution P99</span><small>lookup-assisted inference</small></div><div class="stat"><strong>0.973 ms</strong><span>Mean latency</span><small>rare misses still execute the slower model</small></div></div><div class="takeaway">LUT improves the common-case execution cost. It does not improve XGBoost's learned decision rule.</div></div><footer class="footer"><span class="source">S5: c_trial_029.json, LUT benchmark. Maximum recorded latency: 269.6 ms. This is separate from V4&#x27;s no-LUT timing.</span><span class="page">12 / 16</span></footer></section><section id="slide-13" class="slide " data-title="The studies establish a useful approximate decoding route" data-section="Results" data-notes="These experiments do not establish a paired TN-versus-XGBoost LER comparison on the same million shots, nor a hardware-normalized acceleration factor. Natural success, pressure MAP agreement and latency must not be collapsed into one accuracy or speed number." aria-label="Slide 13: The studies establish a useful approximate decoding route">
+<header><p class="section">Results</p><h2>The studies establish a useful approximate decoding route</h2><p class="subtitle">Accuracy, physical performance and execution cost remain separate measurements.</p></header>
+<div class="content"><table class="summary-table"><thead><tr><th>Question</th><th>Evidence</th><th>What it establishes</th></tr></thead><tbody><tr><td>Can the teacher run faster?</td><td>9+3 easy case: 208.2 to 147.4 ms</td><td>Path optimization lowers recorded online cost.</td></tr><tr><td>Can a model generalize its decisions?</td><td>52.47% exact sector agreement on 5,954 unseen pressure syndromes</td><td>Useful learning, with a substantial hard-case gap.</td></tr><tr><td>Does it decode physical noise?</td><td>284 failures in 1,000,000 fresh shots at p=0.005</td><td>Measured target-prior LER of 2.84 &times; 10<sup>&minus;4</sup>.</td></tr><tr><td>Can execution be cheaper?</td><td>Trial 29: 18.54 ms CPU P99 without LUT</td><td>Same decisions with optimized parallel execution.</td></tr></tbody></table><div class="takeaway">TN supervision transfers a costly logical decision into CPU inference, with measurable approximation error.</div></div><footer class="footer"><span class="source">S2-S6. Each row retains its original hardware, timing and evaluation scope.</span><span class="page">13 / 16</span></footer></section><section id="slide-14" class="slide appendix" data-title="Teacher profiles and label quality must remain traceable" data-section="Appendix A" data-notes="The initial dataset spans p=0.001,0.002,0.003,0.005,0.007,0.01. It is background rather than an extra training source for V2-V4. The fixed-p snapshot has 1839 review labels and no pending or failed labels at the recorded export. Quality-based exclusions can bias the difficult-syndrome distribution." aria-label="Slide 14: Teacher profiles and label quality must remain traceable">
+<header><p class="section">Appendix A</p><h2>Teacher profiles and label quality must remain traceable</h2><p class="subtitle">The two sampling campaigns deliberately have different dataset identities.</p></header>
+<div class="content"><table class="compact"><thead><tr><th>Campaign</th><th>Compiled profile</th><th>Approved output</th></tr></thead><tbody><tr><td>Initial multi-p sampling</td><td>best_93.pkl</td><td>104,080 rows across six target priors</td></tr><tr><td>Fixed-p staged training dataset</td><td>canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl</td><td>252,790 rows at p=0.005</td></tr></tbody></table><ul class="points"><li>Only status=done labels enter the learning dataset. Review and failed records remain excluded.</li><li>A generating true sector can differ from the MAP teacher label under the target prior.</li><li>Float64 TN plus numerical guards is not a rigorous interval certificate for every near-tie.</li><li>A 36-bit syndrome contains redundant checks. H_Z has GF(2) rank 30.</li></ul><div class="takeaway">Do not assign best_93 timing to the fixed-p labeling run: its manifest records the older profile.</div></div><footer class="footer"><span class="source">S3: both sampling manifests and the 15 October audit. S4: the staged dataset hash matches all learning studies.</span><span class="page">14 / 16</span></footer></section><section id="slide-15" class="slide appendix" data-title="Model selection and timing use explicit comparison boundaries" data-section="Appendix B" data-notes="The best V2 execution uses the native inplace API, while Trial 29&#x27;s best uses sklearn. The exact validation predictions are unchanged within each model. An inner early-stopping holdout could reduce reuse of the model-selection validation set in a future study." aria-label="Slide 15: Model selection and timing use explicit comparison boundaries">
+<header><p class="section">Appendix B</p><h2>Model selection and timing use explicit comparison boundaries</h2><p class="subtitle">The source packages preserve predictions, hyperparameters and repeat-level timing.</p></header>
+<div class="content"><div class="two-col"><div><h3>Learning protocol</h3><ul class="points"><li>12 binary classifiers. Joint 12-bit validation agreement selects the ensemble.</li><li>Per-bit early stopping monitors validation logloss.</li><li>V2 fixed recipe: 100 trials. Per-stage search: 40 trials per size.</li><li>V3: 40 multiobjective trials. Test and fresh natural shots reserved for final evaluation.</li></ul></div><div><h3>Execution protocol</h3><ul class="points"><li>CPU-only XGBoost training and inference. GPU TN produces teacher labels.</li><li>V4: 36 configurations, 180 repeats, one host / affinity session.</li><li>Each repeat times 1,000 single shots. Batch size 512 is a separate measurement.</li><li>Model loading, process startup and warmup are excluded. Prediction and IPC overhead are included.</li></ul></div></div><div class="takeaway">Headline V4 P99 is the mean of five repeat P99 estimates, not a batch-amortized time.</div></div><footer class="footer"><span class="source">S4-S6. Reused validation for tuning and early stopping is a model-selection limitation.</span><span class="page">15 / 16</span></footer></section><section id="slide-16" class="slide appendix" data-title="Result provenance" data-section="Appendix C" data-notes="The supplied analysis-only ZIPs exclude large XGBoost models. They support result auditing, but cannot restore classifiers for new predictions. Figures use original metric definitions, and preserve distinctions between historical and paired benchmarking." aria-label="Slide 16: Result provenance">
+<header><p class="section">Appendix C</p><h2>Result provenance</h2><p class="subtitle">All figures in this deck are regenerated from the local experiment outputs.</p></header>
+<div class="content"><table class="source-table"><thead><tr><th>ID</th><th>Evidence</th><th>Contents</th></tr></thead><tbody><tr><td>S1</td><td><a href="2026-09-24_BB72_Tensor-Network_Decoding_Continued_Report.html">Earlier baseline</a></td><td>Historical b9 easy/hard timing and multi-syndrome validation</td></tr><tr><td>S2</td><td><a href="../tn_decoder/exact_bnb/archive/v0.5.2_p0_deep_path_search/p5_2_deep_path_search.zip">Deeper path search</a></td><td>Search status, candidate archive and best profiles</td></tr><tr><td>S3</td><td><a href="../tn_decoder/exact_bnb/bb72_fixed_p_staged/results/bb72_fixed_p_0005/run_manifest.json">Fixed-p dataset</a></td><td>Profile identity, quality policy and nested data exports</td></tr><tr><td>S4</td><td><a href="../tn_decoder/exact_bnb/bb72_xgb_learning_curve_v2/BB72_XGB_V2_analysis_only.zip">Learning curves</a></td><td>Ten final fits, predictions and Optuna studies</td></tr><tr><td>S5</td><td><a href="../tn_decoder/exact_bnb/bb72_xgb_pareto_v3/results_xgb_v3/final/report_summary.json">Accuracy / latency study</a></td><td>Candidate scan, fresh natural LER and LUT results</td></tr><tr><td>S6</td><td><a href="../tn_decoder/exact_bnb/bb72_xgb_parallel_v4/results_parallel_v4/summary_v4.json">Parallel execution</a></td><td>36 configurations and repeat-level timing</td></tr></tbody></table><div class="source-bottom"><p><b>Data identity:</b> fixed-p NPZ SHA-256 starts <code>74b0af4a23897b2f</code>.</p><p><b>Navigation:</b> arrow keys / Space to advance, O for the slide index, F for full screen, N for notes, P to print.</p><p>The deck works offline. Source links require the original project folder.</p></div></div><footer class="footer"><span class="source">Report assembled 3 November 2026. Original experiment files are read-only inputs.</span><span class="page">16 / 16</span></footer></section></div></main>
+<nav class="controls" aria-label="Presentation controls"><div class="progress" aria-hidden="true"></div>
+<button id="previous" aria-label="Previous slide">Previous</button><span class="counter" aria-live="off"></span><button id="next" aria-label="Next slide">Next</button>
+<button id="index-button" aria-controls="index" aria-expanded="false">Slides</button><button id="notes-button" class="optional" aria-controls="notes" aria-expanded="false">Notes</button>
+<button id="fullscreen" class="optional">Full screen</button><button id="print">Print / PDF</button><span class="help">Arrow keys &nbsp; O index &nbsp; N notes &nbsp; F full screen</span></nav>
+<div id="index" class="overlay" hidden role="dialog" aria-modal="true" aria-label="Slide index"><div class="index-panel"><div class="index-head"><h3>Slide index</h3><button id="index-close" aria-label="Close slide index">Close</button></div><div class="index-grid"></div></div></div>
+<aside id="notes" class="notes" hidden><strong>Speaker notes</strong><div id="note-text"></div></aside><div id="status" class="sr-only" role="status" aria-live="polite"></div>
+<script type="application/json" id="result-provenance">{"report_date": "2026-11-03", "fixed_p": 0.005, "v2_model_stage_rows": 10, "v4_completed_runs": 180, "natural_paired_failures": {"both": 254, "base_only": 95, "trial_only": 30}, "natural_failures": {"v2": 349, "trial29": 284}, "teacher_profile_used_by_staged_dataset": "/home/users/astar/ihpc/youjb/tn_decoder/exact_bnb/v0.5_p0/profiles/canonical_paths_b9_0-1-2-3-4-5-6-7-8-9-10-11.pkl", "best_93_easy_seconds": 0.1473697000183165, "v4_host_session": "x1001c0s7b1n1_be704243"}</script><script>
+(() => {
+ 'use strict';
+ const slides = [...document.querySelectorAll('.slide')];
+ const stage = document.querySelector('.stage');
+ const counter = document.querySelector('.counter');
+ const previous = document.querySelector('#previous');
+ const next = document.querySelector('#next');
+ const overlay = document.querySelector('#index');
+ const grid = document.querySelector('.index-grid');
+ const notes = document.querySelector('#notes');
+ const status = document.querySelector('#status');
+ const noteText = document.querySelector('#note-text');
+ let current = 0;
+ const readHash = () => {
+  const match = location.hash.match(/^#slide-(\d+)$/);
+  return match ? Math.max(0, Math.min(slides.length - 1, Number(match[1])-1)) : 0;
+ };
+ const scale = () => {
+  const v = document.querySelector('.viewport');
+  const s = Math.min((v.clientWidth-24)/1600,(v.clientHeight-24)/900);
+  stage.style.setProperty('--scale',Math.max(.05,s));
+ };
+ const show = (number, updateHash = true) => {
+  current = Math.max(0, Math.min(slides.length-1, number));
+  slides.forEach((slide,i) => {
+   slide.classList.toggle('active',i===current);
+   slide.setAttribute('aria-hidden',String(i!==current));
+   slide.inert = i!==current;
+  });
+  counter.textContent = `${current+1} / ${slides.length}`;
+  previous.disabled = current===0; next.disabled=current===slides.length-1;
+  document.querySelector('.progress').style.width = `${(current+1)/slides.length*100}%`;
+  status.textContent = `Slide ${current+1} of ${slides.length}: ${slides[current].dataset.title}`;
+  noteText.textContent = slides[current].dataset.notes;
+  grid.querySelectorAll('button').forEach((button,i)=>button.setAttribute('aria-current',String(i===current)));
+  if(updateHash) history.replaceState(null,'',`#slide-${current+1}`);
+  document.title = `${current+1}/${slides.length} - ${slides[current].dataset.title} - BB72`;
+ };
+ const toggleIndex = (open = overlay.hidden) => {
+  overlay.hidden = !open;
+  document.querySelector('#index-button').setAttribute('aria-expanded',String(open));
+  if(open) grid.children[current].focus(); else document.querySelector('#index-button').focus();
+ };
+ slides.forEach((slide,i)=>{
+  const button=document.createElement('button');
+  const number=document.createElement('span');number.textContent=String(i+1).padStart(2,'0')+' / '+slide.dataset.section;
+  button.append(number,document.createTextNode(slide.dataset.title));
+  button.addEventListener('click',()=>{show(i);toggleIndex(false);});grid.append(button);
+ });
+ previous.addEventListener('click',()=>show(current-1)); next.addEventListener('click',()=>show(current+1));
+ document.querySelector('#index-button').addEventListener('click',()=>toggleIndex());
+ document.querySelector('#index-close').addEventListener('click',()=>toggleIndex(false));
+ overlay.addEventListener('click',e=>{if(e.target===overlay)toggleIndex(false);});
+ const toggleNotes=()=>{notes.hidden=!notes.hidden;document.querySelector('#notes-button').setAttribute('aria-expanded',String(!notes.hidden));};
+ document.querySelector('#notes-button').addEventListener('click',toggleNotes);
+ const fullscreen=()=>{if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen?.().catch(()=>{});};
+ document.querySelector('#fullscreen').addEventListener('click',fullscreen);
+ document.querySelector('#print').addEventListener('click',()=>window.print());
+ document.addEventListener('keydown',e=>{
+  if(e.ctrlKey||e.metaKey||e.altKey||['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName))return;
+  if(e.key==='Escape'){if(!overlay.hidden)toggleIndex(false);notes.hidden=true;return;}
+  if(!overlay.hidden){
+   if(e.key==='Tab'){
+    const focusable=[...overlay.querySelectorAll('button')];const last=focusable.length-1;
+    if(e.shiftKey&&document.activeElement===focusable[0]){e.preventDefault();focusable[last].focus();}
+    else if(!e.shiftKey&&document.activeElement===focusable[last]){e.preventDefault();focusable[0].focus();}
+   }
+   return;
+  }
+  if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){
+   if(e.key===' '&&e.target.tagName==='BUTTON')return;
+   e.preventDefault();show(current+1);
+  }else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();show(current-1);}
+  else if(e.key==='Home'){e.preventDefault();show(0);}
+  else if(e.key==='End'){e.preventDefault();show(slides.length-1);}
+  else if(e.key.toLowerCase()==='o'){toggleIndex();}
+  else if(e.key.toLowerCase()==='n'){toggleNotes();}
+  else if(e.key.toLowerCase()==='f'){fullscreen();}
+  else if(e.key.toLowerCase()==='p'){window.print();}
+ });
+ let start=null;
+ stage.addEventListener('touchstart',e=>{const t=e.changedTouches[0];start=[t.clientX,t.clientY];},{passive:true});
+ stage.addEventListener('touchend',e=>{
+  if(!start)return;const t=e.changedTouches[0],dx=t.clientX-start[0],dy=t.clientY-start[1];
+  if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5)show(current+(dx<0?1:-1));start=null;
+ },{passive:true});
+ window.addEventListener('resize',scale);window.addEventListener('hashchange',()=>show(readHash(),false));
+ window.addEventListener('fullscreenchange',scale);
+ show(readHash());scale();
+ window.BB72Deck={goTo:n=>show(n-1),get current(){return current+1;},count:slides.length};
+})();
+</script>
+<noscript><style>.viewport{position:static}.stage{position:static;transform:none;width:100%;height:auto}.slide{display:flex;position:relative;max-width:100%;height:auto;min-height:900px}.controls{display:none}body,html{overflow:auto}</style><p>Enable JavaScript for paginated presentation controls.</p></noscript>
+</body></html>
